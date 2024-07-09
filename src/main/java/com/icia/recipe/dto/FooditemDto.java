@@ -24,8 +24,8 @@ public class FooditemDto {
     private String f_edate;
     private int f_count;
     // 카테고리 테이블
-    private int c_num;
-    private int c_num2;
+    private String c_num;
+    private String c_num2;
     private String c_name;
     // 이미지 테이블
     private int i_num;

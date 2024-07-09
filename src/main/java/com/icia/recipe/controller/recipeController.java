@@ -10,6 +10,6 @@ public class recipeController {
     @GetMapping("/recipe/main")
     public String recipeMain(){
         log.info("recipeMain 입장");
-        return "recipeMain";
+        return "recipe/recipeMain";
     }
 }
