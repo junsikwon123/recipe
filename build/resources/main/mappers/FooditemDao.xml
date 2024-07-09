@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icia.recipe.dao.FooditemDao">
+<!--    <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto" resultType="com.icia.recipe.dto.FooditemDto">-->
+<!--        <![CDATA[-->
+<!--        select i.i_path as i_path, i.i_name as i_name, f.f_price as f_price, c.c_name as c_name, count(o.f_num) count-->
+<!--        from img as i-->
+<!--            join fooditem as f-->
+<!--        on i.f_num = f.f_num-->
+<!--            join category as c-->
+<!--            on c.c_num = f.c_num-->
+<!--            join orderdetail as o-->
+<!--            on o.f_num = f.f_num-->
+<!--        group by i_path, i_name, f_price, c_name-->
+<!--             ]]>-->
+<!--        order by ${name} ${sort}-->
+<!--    </select>-->
+    <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto" resultType="com.icia.recipe.dto.FooditemDto">
+        <![CDATA[
+
+        SELECT f.f_num, i.i_path, i.i_name, f.f_name, f.f_price, f.f_count
+        FROM fooditem f
+        JOIN img i ON i.f_num = f.f_num
+        JOIN category c ON c.c_num = f.c_num
+        JOIN (
+            SELECT f_num, MIN(i_num) AS min_i_num
+            FROM img
+            GROUP BY f_num
+        ) min_img
+        ON i.f_num = min_img.f_num
+        AND i.i_num = min_img.min_i_num
+        order by ${name} ${sort}
+        ]]>
+    </select>
+</mapper>
