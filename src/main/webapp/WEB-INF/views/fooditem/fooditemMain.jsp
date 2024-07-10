@@ -13,7 +13,7 @@
     <title>로켓프레시</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=3f30c2c47d7d23c7a994db0c862d45a5">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=f1d8140dea40b1c57559575c00adff25">
-    <script src="/common/js/jquery-3.7.1.min.js"></script>
+    <script src="../common/js/jquery-3.7.1.min.js"></script>
 
     <style>
         .srp-sync #searchSortingOrder .sorting-order-options li:after {
@@ -44,7 +44,7 @@
 
 </head>
 <body>
-<jsp:include page="common/header.jsp"></jsp:include>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <div id="container" class="renewal sdp-wide list srp-sync srp-sync-brand">
     <section id="contents" class="contents list">
         <form id="searchOptionForm" action="https://www.coupang.com/np/categories/" method="get" data-linkcode="393760"
@@ -434,17 +434,21 @@
                                 <div class="search-filter-options search-category-component"><h5>카테고리</h5>
                                     <div id="searchCategoryComponent" class="search-filter-option-list">
                                         <ul class="search-option-items">
+                                            ${cList}
                                             <li class="search-option-item">
                                                 <input type="radio" checked="checked">
                                                 <label>
-                                                    <a class="seo-link-url" href="https://www.coupang.com/np/categories/420376">베이커리</a>
+                                                    <a class="seo-link-url"
+                                                       href="https://www.coupang.com/np/categories/420376">베이커리</a>
                                                 </label>
                                                 <a href="#" class="btn-fold">열림</a>
                                                 <ul class="search-option-items-child">
+
                                                     <li class="search-option-item">
                                                         <input type="radio">
                                                         <label>
-                                                            <a class="seo-link-url" href="https://www.coupang.com/np/categories/435286">식빵/모닝빵</a>
+                                                            <a class="seo-link-url"
+                                                               href="https://www.coupang.com/np/categories/435286">식빵/모닝빵</a>
                                                         </label>
                                                         <a href="#" class="btn-fold">열림</a>
 
@@ -452,13 +456,15 @@
                                                             <li class="search-option-item">
                                                                 <input type="radio">
                                                                 <label>
-                                                                    <a class="seo-link-url" href="https://www.coupang.com/np/categories/435289">식빵</a>
+                                                                    <a class="seo-link-url"
+                                                                       href="https://www.coupang.com/np/categories/435289">식빵</a>
                                                                 </label>
                                                             </li>
                                                             <li class="search-option-item">
                                                                 <input type="radio">
                                                                 <label>
-                                                                <a class="seo-link-url" href="https://www.coupang.com/np/categories/435228">모닝빵/베이글</a>
+                                                                    <a class="seo-link-url"
+                                                                       href="https://www.coupang.com/np/categories/435228">모닝빵/베이글</a>
                                                                 </label>
                                                             </li>
                                                         </ul>
@@ -502,43 +508,42 @@
             }).fail((err) => console.log(err))
         });
     });
-    function searchctg(c_num){
-        $.ajax({
-            method:"post",
-            url:"fooditem/searchctg?c_num="+c_num
-        }).done((resp)>{
 
-        }).fail((err)=>console.log(err))
+    function searchctg(c_num) {
+        $.ajax({
+            method: "post",
+            url: "fooditem/searchctg?c_num=" + c_num
+        }).done((resp) > {}).fail((err) => console.log(err))
     }
-    document.addEventListener("DOMContentLoaded", function() {
+
+    document.addEventListener("DOMContentLoaded", function () {
         // 'btn-fold' 클래스를 가진 모든 요소를 가져오기
         const foldButtons = document.querySelectorAll(".btn-fold");
 
         // 각 버튼에 클릭 이벤트 리스너 추가
         foldButtons.forEach(button => {
-            button.addEventListener("click", function(event) {
+            button.addEventListener("click", function (event) {
                 // 링크의 기본 동작을 막기
                 event.preventDefault();
 
                 // 버튼의 부모 요소를 가져오기 위해 closest 사용
-                const listItem = button.closest(".search-option-item");
+                const listItem = this.closest(".search-option-item");
                 // 이 리스트 아이템 내의 자식 ul 요소 찾기
                 const childUl = listItem.querySelector(".search-option-items-child");
-                const parentUl = listItem.closest("ul");
                 // 자식 ul 요소의 클래스 이름을 콘솔에 출력
                 console.log(childUl.className);
 
                 // 자식 ul 요소의 display 속성을 토글 및 클래스 추가/제거
                 if (childUl.style.display === "block") {
                     childUl.style.display = "none";
-                    parentUl.classList.remove('selected','opened');
-                    console.log(parentUl.className);
-                    button.classList.remove('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
+                    listItem.classList.remove('selected', 'opened');
+                    console.log(listItem.className);
+                    this.classList.remove('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
                 } else {
                     childUl.style.display = "block";
-                    parentUl.classList.add('selected','opened');
-                    console.log(parentUl.className);
-                    button.classList.add('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
+                    listItem.classList.add('selected', 'opened');
+                    console.log(listItem.className);
+                    this.classList.add('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
                 }
             });
         });

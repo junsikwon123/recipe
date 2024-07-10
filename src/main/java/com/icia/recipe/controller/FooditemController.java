@@ -14,7 +14,10 @@ public class FooditemController {
     public String foodItemMain(Model model){
         String a ="salePriceAsc";
         String list = fSer.fooditemOrder(a);
+        String cList = fSer.fooditemctg();
         model.addAttribute("list",list);
-        return "fooditemMain";
+        model.addAttribute("cList",cList);
+        return "fooditem/fooditemMain";
     }
+
 }

@@ -155,7 +155,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="common/header.jsp"></jsp:include>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <main >
     <div class="main__div">
         <div class="categoryon">

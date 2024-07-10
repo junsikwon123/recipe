@@ -14,9 +14,15 @@ public class RestFooditemController {
     @Autowired
     FooditemService fSer;
     @GetMapping("/fooditem/order")
-    public String order(@RequestParam("order") String order, Model model){
+    public String order(@RequestParam("order") String order){
         log.info("오더 입장: {}" ,order);
         String list = fSer.fooditemOrder(order);
         return list;
     }
+  /*  @GetMapping("/fooditem/searchctg")
+    public String searchctg(@RequestParam("searchctg") String c_num){
+        log.info("카테고리 서치 입장");
+        String list = fSer.searchctg(c_num);
+        return list;
+    }*/
 }

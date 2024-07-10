@@ -1382,7 +1382,7 @@ white-space
   width: 55px;
   height: 55px;
   font-size: 0;
-  background: url("/front_pc/images/icon_header_search-8e00dd071181e8220a006014f3747915.png?ver=210304") no-repeat center;
+
 }
 
 .hd__header .header .direct__search-remove {
@@ -1391,7 +1391,6 @@ white-space
   top: 18px;
   width: 20px;
   height: 20px;
-  background: #ddd url("/front_mo/images/icon_comm_close-black-4f84954e831829bcaef630be1cae8386.png") no-repeat center;
   background-size: 50%;
   border-radius: 50%;
   font-size: 0;
