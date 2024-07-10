@@ -41,7 +41,7 @@
             /*margin: 0px 5px 0px 0px;*/
             color: #74b243;
             display: block;
-            font-weight: 500;
+            font-weight: 600;
 
             text-align: center;
             /*padding-top: 6px;*/
@@ -153,6 +153,7 @@
             line-height: 1.5;
         }
     </style>
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>

@@ -1,63 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.icia.recipe.dao.FooditemDao">
-    <!--    <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto" resultType="com.icia.recipe.dto.FooditemDto">-->
-    <!--        <![CDATA[-->
-    <!--        select i.i_path as i_path, i.i_name as i_name, f.f_price as f_price, c.c_name as c_name, count(o.f_num) count-->
-    <!--        from img as i-->
-    <!--            join fooditem as f-->
-    <!--        on i.f_num = f.f_num-->
-    <!--            join category as c-->
-    <!--            on c.c_num = f.c_num-->
-    <!--            join orderdetail as o-->
-    <!--            on o.f_num = f.f_num-->
-    <!--        group by i_path, i_name, f_price, c_name-->
-    <!--             ]]>-->
-    <!--        order by ${name} ${sort}-->
-    <!--    </select>-->
+    <!--  카테고리 소분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForChild">
+        <id property="c_num" column="c3_num"/>
+        <result property="c_name" column="c3_name"/>
+    </resultMap>
+    <!--  카테고리 중분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForParent">
+        <id property="c_num" column="c2_num"/>
+        <result property="c_name" column="c2_name"/>
+        <collection property="list" javaType="java.util.ArrayList" resultMap="mapForChild"/>
+    </resultMap>
+    <!--  카테고리 대분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForFindAll">
+        <id property="c_num" column="c1_num"/>
+        <result property="c_name" column="c1_name"/>
+        <collection property="list" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+    </resultMap>
+    <!--  이미지 Map  -->
+    <resultMap id="mapImg" type="com.icia.recipe.dto.ImgDto">
+        <id property="i_num" column="i_num"/>
+        <id property="i_name" column="i_name"/>
+        <id property="i_path" column="i_path"/>
+    </resultMap>
+
+    <resultMap type="com.icia.recipe.dto.FooditemDto" id="seachFooditemMain" >
+        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
+    </resultMap>
     <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto"
-            resultType="com.icia.recipe.dto.FooditemDto">
+           resultMap="seachFooditemMain">
         <![CDATA[
-        SELECT f.f_num, i.i_path, i.i_name, f.f_name, f.f_price, f.f_count
+        SELECT f.f_num, i.i_path, i.i_name, f.f_title,
+               f.f_price, f.f_views, c1.c_num, c2.c_num,c3.c_num, i.i_num
         FROM fooditem f
-                 JOIN img i ON i.f_num = f.f_num
-                 JOIN category c ON c.c_num = f.c_num
-                 JOIN (SELECT f_num, MIN(i_num) AS min_i_num
-                       FROM img
-                       GROUP BY f_num) min_img
-                      ON i.f_num = min_img.f_num
-                          AND i.i_num = min_img.min_i_num
+        JOIN img i
+        ON i.f_num = f.f_num
+        JOIN (
+        select min(i_num) min_inum, f_num
+        from img
+        group by f_num
+        ) img
+        ON img.f_num = i.f_num
+        AND img.min_inum = i.i_num
+        JOIN category c1
+        ON c1.c_num = f.c_num
+        left join category c2
+        on c1.c_num = c2.c_num2
+        left join category c3
+        on c2.c_num = c3.c_num2
         order by ${name} ${sort}
         ]]>
     </select>
 
-        <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForChild">
-            <id property="c_num" column="c3_num"/>
-            <result property="c_name" column="c3_name"/>
-        </resultMap>
-        <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForParent">
-            <id property="c_num" column="c2_num"/>
-            <result property="c_name" column="c2_name"/>
-            <collection property="list" javaType="java.util.ArrayList" resultMap="mapForChild"/>
-        </resultMap>
-        <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForFindAll">
-            <id property="c_num" column="c1_num"/>
-            <result property="c_name" column="c1_name"/>
-            <collection property="list" javaType="java.util.ArrayList" resultMap="mapForParent"/>
-        </resultMap>
-        <select id="searchCtg" resultType="com.icia.recipe.dto.CtgDto" resultMap="mapForFindAll">
+    <select id="searchCtg" resultType="com.icia.recipe.dto.CtgDto" resultMap="mapForFindAll">
             <![CDATA[
             select c1.c_num  c1_num, c1.c_name c1_name,
                    c2.c_num  c2_num, c2.c_num2 c2_num2, c2.c_name c2_name,
                    c3.c_num  c3_num, c3.c_num2 c3_num2, c3.c_name c3_name
             from category c1
-                     left join category c2
-                               on c1.c_num = c2.c_num2
-                     left join category c3
-                               on c2.c_num = c3.c_num2
+            left join category c2
+            on c1.c_num = c2.c_num2
+            left join category c3
+            on c2.c_num = c3.c_num2
             where left(c1.c_num, 1) = 1;
             ]]>
-            </select>
+    </select>
 
 
 

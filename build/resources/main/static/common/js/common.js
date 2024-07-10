@@ -4,8 +4,6 @@ menu[0].addEventListener("click", () => {
     menu[0].classList.add("on")
     location.href = "/"
 })
-function zz() {
-    console.log("내가왔다")
     menu[1].addEventListener("click", () => {
         menu[0].classList.remove("on")
         menu[1].classList.add("on")
@@ -97,7 +95,7 @@ function zz() {
             }
         })
     })
-}
+
 
 const idModal = new bootstrap.Modal('#searchID', {
     keyboard: false,
