@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script defer src="/common/js/jquery-3.7.1.min.js"></script>
     <style>
         main {
             display: flex;
