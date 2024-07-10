@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>로켓프레시</title>
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=3f30c2c47d7d23c7a994db0c862d45a5">
-    <link rel="stylesheet" href="/assets/css/styles.min.css?h=f1d8140dea40b1c57559575c00adff25">
+    <link rel="stylesheet" href="/assets/bootstrap/css/foodItemMain.css?h=3f30c2c47d7d23c7a994db0c862d45a5">
+    <link rel="stylesheet" href="/assets/css/foodItemMain.css?h=f1d8140dea40b1c57559575c00adff25">
     <script src="../common/js/jquery-3.7.1.min.js"></script>
 
     <style>
@@ -435,42 +435,6 @@
                                     <div id="searchCategoryComponent" class="search-filter-option-list">
                                         <ul class="search-option-items">
                                             ${cList}
-                                            <li class="search-option-item">
-                                                <input type="radio" checked="checked">
-                                                <label>
-                                                    <a class="seo-link-url"
-                                                       href="https://www.coupang.com/np/categories/420376">베이커리</a>
-                                                </label>
-                                                <a href="#" class="btn-fold">열림</a>
-                                                <ul class="search-option-items-child">
-
-                                                    <li class="search-option-item">
-                                                        <input type="radio">
-                                                        <label>
-                                                            <a class="seo-link-url"
-                                                               href="https://www.coupang.com/np/categories/435286">식빵/모닝빵</a>
-                                                        </label>
-                                                        <a href="#" class="btn-fold">열림</a>
-
-                                                        <ul class="search-option-items-child" style="display:none">
-                                                            <li class="search-option-item">
-                                                                <input type="radio">
-                                                                <label>
-                                                                    <a class="seo-link-url"
-                                                                       href="https://www.coupang.com/np/categories/435289">식빵</a>
-                                                                </label>
-                                                            </li>
-                                                            <li class="search-option-item">
-                                                                <input type="radio">
-                                                                <label>
-                                                                    <a class="seo-link-url"
-                                                                       href="https://www.coupang.com/np/categories/435228">모닝빵/베이글</a>
-                                                                </label>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>

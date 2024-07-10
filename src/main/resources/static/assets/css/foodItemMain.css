@@ -901,7 +901,7 @@ white-space
     width: 55%;
     font-weight: bold;
     color: #fff;
-    background: #77b347;
+    background: #538039;
     border-radius: 25px;
 }
 
@@ -1352,7 +1352,7 @@ white-space
     height: 55px;
     line-height: 55px;
     vertical-align: bottom;
-    border: 1px solid #77b347;
+    border: 1px solid #538039;
     border-radius: 15px;
     text-indent: 20px;
     text-align: left;
@@ -1711,7 +1711,7 @@ white-space
     height: 23px;
     line-height: 23px;
     line-height: 23px;
-    background: #77b347;
+    background: #538039;
     color: #FFF;
     font-size: 14px;
     text-align: center;
@@ -63487,7 +63487,7 @@ a.del-button:hover, a.kwd:hover {
 }
 
 .product-list li:hover .mask {
-    border: 2px solid #0073e9;
+    border: 2px solid #538039;
 }
 
 .product-list .open-new {
@@ -64107,8 +64107,8 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .product-list-paging a.selected, .product-list-paging.dynamic a.selected, .product-list-paging.dynamicPLP a.selected {
-    color: #0073e9;
-    border: 1px solid #0073e9;
+    color: #538039;
+    border: 1px solid #538039;
 }
 
 .product-list-paging a.icon, .product-list-paging.dynamic a.icon, .product-list-paging.dynamicPLP a.icon {
@@ -64391,7 +64391,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     float: left;
     line-height: 23px;
     margin-right: 25px;
-    color: #0073e9;
+    color: #538039;
     font-size: 11px;
 }
 
@@ -66687,7 +66687,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-top: 26px;
     margin-left: 14px;
     border-radius: 2px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     background-color: #346aff;
     font-family: apple sd gothic neo, nanumgothic, '나눔고딕', dotum, '돋움', sans-serif !important;
     font-size: 12px;
@@ -66779,11 +66779,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__register__product-select-container:hover .sdp-review__register__product-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .sdp-review__register__product-select-container:hover .sdp-review__register__product-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -66843,7 +66843,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__register__product-select-list.sdp-review__register__product-select-list-active, .sdp-review__register__product-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -66915,11 +66915,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__register__survey-select-container:hover .sdp-review__register__survey-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .sdp-review__register__survey-select-container:hover .sdp-review__register__survey-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -66977,7 +66977,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__register__survey-select-list.sdp-review__register__survey-select-list-active, .sdp-review__register__survey-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -67047,13 +67047,13 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 29px;
     padding: 0 8px;
     margin-right: 12px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     vertical-align: middle;
     font-size: 12px;
     font-weight: 700;
     line-height: 29px;
-    color: #0073e9;
+    color: #538039;
     background: url("//img1a.coupangcdn.com/image/productreview/web/pdp/bg-productreview-button-01.png") left bottom repeat-x #fdfefd;
     outline: 0;
 }
@@ -67141,7 +67141,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 140px;
     height: 36px;
     box-shadow: 0 -1px inset #0070cc;
-    background-color: #0073e9;
+    background-color: #538039;
     border: 1px solid #0073e6;
     border-radius: 2px;
     font-size: 14px;
@@ -67180,12 +67180,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 35px;
     float: right;
     border-radius: 2px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     box-shadow: inset 0 -1px #ddd;
     background-color: #fff;
     font-size: 14px;
     font-weight: 700;
-    color: #0073e9;
+    color: #538039;
     padding: 0;
     margin: 0;
     outline: 0;
@@ -67251,11 +67251,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__modify__survey-select-container:hover .sdp-review__modify__survey-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .sdp-review__modify__survey-select-container:hover .sdp-review__modify__survey-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -67313,7 +67313,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .sdp-review__modify__survey-select-list.sdp-review__modify__survey-select-list-active, .sdp-review__modify__survey-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -67369,13 +67369,13 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 29px;
     padding: 0 8px;
     margin-right: 12px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     vertical-align: middle;
     font-size: 12px;
     font-weight: 700;
     line-height: 29px;
-    color: #0073e9;
+    color: #538039;
     background: url("//img1a.coupangcdn.com/image/productreview/web/pdp/bg-productreview-button-01.png") left bottom repeat-x #fdfefd;
     outline: 0;
 }
@@ -67457,7 +67457,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 140px;
     height: 36px;
     box-shadow: 0 -1px inset #0070cc;
-    background-color: #0073e9;
+    background-color: #538039;
     border: 1px solid #0073e6;
     border-radius: 2px;
     font-size: 14px;
@@ -67627,7 +67627,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     color: #fff;
     outline: 0;
     cursor: pointer;
-    background-color: #0073e9;
+    background-color: #538039;
 }
 
 .sdp-review__profile__article__dimmed {
@@ -68084,11 +68084,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     padding: 0;
     margin-top: 26px;
     border-radius: 2px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     background-color: #fff;
     font-size: 14px;
     font-weight: 700;
-    color: #0073e9;
+    color: #538039;
     outline: 0;
     cursor: pointer;
 }
@@ -68156,11 +68156,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__register__product-select-container:hover .ddp-review__register__product-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .ddp-review__register__product-select-container:hover .ddp-review__register__product-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -68220,7 +68220,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__register__product-select-list.ddp-review__register__product-select-list-active, .ddp-review__register__product-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -68238,11 +68238,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__register__survey-select-container:hover .ddp-review__register__survey-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .ddp-review__register__survey-select-container:hover .ddp-review__register__survey-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -68300,7 +68300,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__register__survey-select-list.ddp-review__register__survey-select-list-active, .ddp-review__register__survey-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -68354,13 +68354,13 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 29px;
     padding: 0 8px;
     margin-right: 12px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     vertical-align: middle;
     font-size: 12px;
     font-weight: 700;
     line-height: 29px;
-    color: #0073e9;
+    color: #538039;
     background: url("//img1a.coupangcdn.com/image/productreview/web/pdp/bg-productreview-button-01.png") left bottom repeat-x #fdfefd;
     outline: 0;
 }
@@ -68442,7 +68442,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 140px;
     height: 36px;
     box-shadow: 0 -1px inset #0070cc;
-    background-color: #0073e9;
+    background-color: #538039;
     border: 1px solid #0073e6;
     border-radius: 2px;
     font-size: 14px;
@@ -68597,7 +68597,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     color: #fff;
     outline: 0;
     cursor: pointer;
-    background-color: #0073e9;
+    background-color: #538039;
 }
 
 .ddp-review__article__adventurer-popup-top, .ddp-review__average-notice-popup__top {
@@ -68865,11 +68865,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__modify__survey-select-container:hover .ddp-review__modify__survey-select-input {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .ddp-review__modify__survey-select-container:hover .ddp-review__modify__survey-select-list-wrap {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-top: none;
 }
 
@@ -68927,7 +68927,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__modify__survey-select-list.ddp-review__modify__survey-select-list-active, .ddp-review__modify__survey-select-list:hover {
-    background-color: #0073e9;
+    background-color: #538039;
     color: #fff;
 }
 
@@ -68983,13 +68983,13 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 29px;
     padding: 0 8px;
     margin-right: 12px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     vertical-align: middle;
     font-size: 12px;
     font-weight: 700;
     line-height: 29px;
-    color: #0073e9;
+    color: #538039;
     background: url("//img1a.coupangcdn.com/image/productreview/web/pdp/bg-productreview-button-01.png") left bottom repeat-x #fdfefd;
     outline: 0;
 }
@@ -69071,7 +69071,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 140px;
     height: 36px;
     box-shadow: 0 -1px inset #0070cc;
-    background-color: #0073e9;
+    background-color: #538039;
     border: 1px solid #0073e6;
     border-radius: 2px;
     font-size: 14px;
@@ -69160,7 +69160,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 42px;
     padding: 0;
     margin: 0;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     background-color: #fff;
     border-radius: 2px;
     cursor: pointer;
@@ -69182,7 +69182,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     vertical-align: middle;
     font-size: 14px;
     font-weight: 700;
-    color: #0073e9;
+    color: #538039;
     background: url("//img1a.coupangcdn.com/image/productreview/web/pdp/bg-productreview-anc-05.png") right 50% no-repeat;
 }
 
@@ -69217,7 +69217,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-left: 20px;
     text-align: left;
     font-size: 16px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
     background: url("//img1a.coupangcdn.com/image/productreview/web/popup/btn-productreview-popup-arrow-ver2.png") no-repeat;
 }
@@ -69418,7 +69418,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 16px;
     line-height: 16px;
     vertical-align: middle;
-    background-color: #0073e9;
+    background-color: #538039;
     font-size: 11px;
     color: #fff;
     cursor: pointer;
@@ -69457,11 +69457,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     padding-left: 4px;
     padding-right: 4px;
     margin-right: 4px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     vertical-align: middle;
     line-height: 16px;
     font-size: 11px;
-    color: #0073e9;
+    color: #538039;
     background-color: #fff;
     cursor: pointer;
 }
@@ -69627,10 +69627,10 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 96px;
     height: 22px;
     padding: 0;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     text-align: center;
     line-height: 24px;
     outline: 0;
@@ -71770,7 +71770,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 .prod-buy-header__productreview {
     font-size: 12px;
     font-family: Tahoma;
-    color: #0073e9;
+    color: #538039;
     overflow: hidden;
 }
 
@@ -71983,7 +71983,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-top: 6px;
     font-size: 13px;
     line-height: 13px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72006,7 +72006,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__average__star-graph__whole.ddp-review__average__star-graph__whole-btn-active .ddp-review__average__star-graph__whole-check-box {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .ddp-review__average__star-graph__whole.ddp-review__average__star-graph__whole-btn-active .ddp-review__average__star-graph__whole-check-img {
@@ -72014,7 +72014,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__average__star-graph__whole.ddp-review__average__star-graph__whole-btn-active .ddp-review__average__star-graph__whole-text {
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__average__star-graph__whole:hover .ddp-review__average__star-graph__whole-check-box {
@@ -72041,7 +72041,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     display: inline-block;
     vertical-align: middle;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__average__star-graph__whole-check-img {
@@ -72057,7 +72057,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__check-box, .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__gage-gray {
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__check-img {
@@ -72065,7 +72065,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__percent, .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__point {
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__average__star-graph-list.ddp-review__average__star-active .ddp-review__average__star-graph__gage-orange {
@@ -72111,7 +72111,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-left: 4px;
     vertical-align: middle;
     font-size: 14px;
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__average__star-graph__gage-gray {
@@ -72140,7 +72140,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-left: 6px;
     vertical-align: middle;
     font-size: 14px;
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__average__summary {
@@ -72267,7 +72267,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 16px;
     line-height: 16px;
     vertical-align: middle;
-    background-color: #0073e9;
+    background-color: #538039;
     font-size: 11px;
     color: #fff;
     cursor: pointer;
@@ -72283,12 +72283,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     padding-left: 4px;
     padding-right: 4px;
     margin-right: 4px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     vertical-align: middle;
     line-height: 16px;
     background-color: #fff;
     font-size: 11px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72390,7 +72390,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 .ddp-review__highlight__article__more__hide-btn, .ddp-review__highlight__article__more__show-btn {
     display: none;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72462,7 +72462,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 16px;
     line-height: 16px;
     vertical-align: middle;
-    background-color: #0073e9;
+    background-color: #538039;
     font-size: 11px;
     color: #fff;
     cursor: pointer;
@@ -72478,12 +72478,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     padding-left: 4px;
     padding-right: 4px;
     margin-right: 4px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     vertical-align: middle;
     line-height: 16px;
     background-color: #fff;
     font-size: 11px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72585,7 +72585,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 
 .ddp-review__article__summary__btn {
     margin-left: 4px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72675,7 +72675,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .ddp-review__article__sort-btn.ddp-review__article__sort-active .ddp-review__article__sort-btn-text {
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__article__list {
@@ -72713,7 +72713,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 16px;
     line-height: 16px;
     vertical-align: middle;
-    background-color: #0073e9;
+    background-color: #538039;
     font-size: 11px;
     color: #fff;
     cursor: pointer;
@@ -72729,12 +72729,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     padding-left: 4px;
     padding-right: 4px;
     margin-right: 4px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     vertical-align: middle;
     line-height: 16px;
     background-color: #fff;
     font-size: 11px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72900,7 +72900,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 .ddp-review__article__list-bottom__controller {
     float: left;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -72966,11 +72966,11 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 96px;
     height: 22px;
     padding: 0;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     vertical-align: middle;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     text-align: center;
     line-height: 24px;
     outline: 0;
@@ -72993,7 +72993,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-left: 13px;
     vertical-align: middle;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
@@ -73037,10 +73037,10 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 34px;
     height: 22px;
     padding: 0;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     text-align: center;
     line-height: 24px;
     outline: 0;
@@ -73058,10 +73058,10 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     height: 22px;
     margin-left: 2px;
     padding: 0;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     text-align: center;
     line-height: 24px;
     outline: 0;
@@ -73140,10 +73140,10 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     right: 0;
     width: 34px;
     height: 22px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     border-radius: 2px;
     font-size: 13px;
-    color: #0073e9;
+    color: #538039;
     line-height: 24px;
     text-align: center;
     cursor: pointer;
@@ -73202,8 +73202,8 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 
 .ddp-review__article__list-comment__form-btn.ddp-review__article__list-comment__form-btn-active {
     background-color: #fff;
-    border: 1px solid #0073e9;
-    color: #0073e9;
+    border: 1px solid #538039;
+    color: #538039;
 }
 
 .ddp-review__article__form-notice {
@@ -73240,13 +73240,13 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 #container.search .contents.search .new-breadcrumbs-style .search-header-content .search-result ul li label:hover, .contents.list .search-header.new-breadcrumbs-style .search-header-content .search-result ul li a:hover, .ddp-review__article__page-btn:hover, .filter-selected-list .init-selected-filter:hover, .left-side-filter-wrapper .clear_all:hover, .left-side-filter-wrapper .left-side-filter .filter-item a:hover, .left-side-filter-wrapper .left-side-filter .filter-item:hover, .left-side-filter-wrapper .left-side-filter .filter-title:hover, .left-side-filter-wrapper .left-side-filter .service-filter-item a:hover, .left-side-filter-wrapper .left-side-filter .service-filter-item:hover, .left-side-nav .nav-item:hover, .srp-sync #searchSortingOrder .sorting-order-options li.selected, .srp-sync #searchSortingOrder .sorting-order-options li:hover, .srp-sync .search-category-component .search-option-items-child .seo-link-url:hover, .srp-sync .search-category-component .search-option-items-child label:hover {
-    color: #0073e9;
+    color: #538039;
 }
 
 .ddp-review__article__page-btn.ddp-review__article__page-active {
     line-height: 29px;
-    border: 1px solid #0073e9;
-    color: #0073e9;
+    border: 1px solid #538039;
+    color: #538039;
 }
 
 .ddp-review__galley__title {
@@ -73350,7 +73350,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     display: inline-block;
     background: url("//img1a.coupangcdn.com/image/coupang/travel/detail/anc_01.gif") right 3px no-repeat;
     padding: 0 9px 0 0;
-    color: #0073e9;
+    color: #538039;
     font-size: 12px;
     font-weight: 400;
 }
@@ -73750,12 +73750,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 
 .left-side-filter-wrapper .left-side-filter .filter-item a.selected, .left-side-filter-wrapper .left-side-filter .service-filter-item a.selected, .left-side-nav .nav-item a.selected {
     display: block;
-    color: #0073e9;
+    color: #538039;
     font-weight: 700;
 }
 
 .left-side-nav .nav-item a:hover {
-    color: #0073e9;
+    color: #538039;
     font-weight: 700;
     text-decoration: underline;
 }
@@ -74062,7 +74062,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 .newcx-main-category-header .newcx-product-sorting .selected span {
     background-position: 0 -346px;
     padding-left: 14px;
-    color: #0073e9;
+    color: #538039;
 }
 
 .newcx-main-category-header .newcx-product-sorting .rocket {
@@ -74251,7 +74251,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .baby-product-link:hover .name {
-    color: #0073e9;
+    color: #538039;
     text-decoration: underline;
 }
 
@@ -74831,7 +74831,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     border: 0;
     background-color: transparent;
     font-size: 12px;
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
     outline: 0;
 }
@@ -74849,10 +74849,10 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     width: 80px;
     height: 16px;
     padding: 5px 0 3px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
     line-height: 14px;
     font-size: 12px;
-    color: #0073e9;
+    color: #538039;
     text-align: center;
 }
 
@@ -75345,12 +75345,12 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 }
 
 .srp-sync .search-filter a:hover, .srp-sync .search-filter label:hover, .srp-sync .search-header a:hover, .srp-sync .search-header label:hover {
-    color: #0073e9;
+    color: #538039;
     cursor: pointer;
 }
 
 .srp-sync .search-filter .selected a, .srp-sync .search-filter .selected label, .srp-sync .search-header .selected a, .srp-sync .search-header .selected label {
-    color: #0073e9;
+    color: #538039;
     font-weight: 700;
 }
 
@@ -75402,7 +75402,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-top: 1px;
     font-weight: 700;
     vertical-align: middle;
-    color: #0073e9;
+    color: #538039;
 }
 
 .srp-sync .search-filter {
@@ -75512,7 +75512,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 
 .srp-sync .search-category-component .search-option-items-child li.selected > label, .srp-sync .search-category-component .search-option-items-child li.selected > label > .seo-link-url {
     font-weight: 700;
-    color: #0073e9;
+    color: #538039;
 }
 
 .srp-sync .search-category-component .search-option-items-child a.btn-fold {
@@ -75541,7 +75541,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
 
 .srp-sync a.btn-item-fold {
     display: none;
-    color: #0073e9;
+    color: #538039;
 }
 
 .srp-sync a.btn-item-fold.enabled {
@@ -75627,7 +75627,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     text-align: center;
     line-height: 28px;
     color: #fff;
-    background-color: #0073e9;
+    background-color: #538039;
 }
 
 .srp-sync #searchPriceFilter .pricetab-pricerange a.btn-price-submit:hover {
@@ -75697,7 +75697,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     display: inline-block;
     padding: 0 10px;
     line-height: 2;
-    color: #0073e9;
+    color: #538039;
 }
 
 .srp-sync dl.search-selected-filters {
@@ -75758,7 +75758,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     margin-bottom: 20px;
     padding: 15px;
     border: 1px solid #eee;
-    border-left: 2px solid #0073e9;
+    border-left: 2px solid #538039;
 }
 
 .srp-sync .search-query-result p.no-hit em, .srp-sync .search-query-result p.no-hit span, .srp-sync .search-query-result p.no-item em, .srp-sync .search-query-result p.no-item span {
@@ -75947,7 +75947,7 @@ span.plpBadge .discount strong, span.plpBadge .save-cash strong {
     vertical-align: middle;
     white-space: nowrap;
     border-radius: 2px;
-    background-color: #0073e9;
+    background-color: #538039;
 }
 
 .srp-sync #searchSortingOrder .search-sorting-tooltip em {
@@ -77081,7 +77081,7 @@ body[data-apply-breadcrumbs-new-style=true] #container.product .sdp-header-divid
 }
 
 .clp-list__item .detail-link:hover .title {
-    color: #0073e9;
+    color: #538039;
     text-decoration: underline;
 }
 
@@ -77093,7 +77093,7 @@ body[data-apply-breadcrumbs-new-style=true] #container.product .sdp-header-divid
     z-index: 2;
     width: 220px;
     height: 398px;
-    border: 1px solid #0073e9;
+    border: 1px solid #538039;
 }
 
 #plp-brand-collection.double-brand-collection .brand-item .product-image img, #plp-brand-collection.double-brand-collection .collection-title .see-more, #plp-brand-collection.double-brand-collection .collection-title strong, #plp-brand-collection.multi-brand-collection .brand-item .product-image img, #plp-brand-collection.multi-brand-collection .collection-title .see-more, #plp-brand-collection.multi-brand-collection .collection-title strong, .clp-list__item .detail-link:hover .edge-hover, .clp-unit .rocket-delivery-product, .sdp-wide #plp-brand-collection.double-brand-collection .brand-item .product-image img, .sdp-wide #plp-brand-collection.multi-brand-collection .brand-item .product-image img {
