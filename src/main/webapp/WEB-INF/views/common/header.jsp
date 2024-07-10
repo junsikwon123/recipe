@@ -30,15 +30,18 @@
 
 </head>
 <body id="main" class="hd">
+<a href="/member/logout">
+    <button>로그아웃(임시임 오해 ㄴㄴ)</button>
+</a>
 <div id="wrap">
     <header id="header" class="hd__header">
         <div class="header">
             <section class="user-area">
                 <ul class="user-area__menu">
                     <%--로그인 클릭--%>
-                    <li><a>로그인</a></li>
+                    <li><a href="loginfrm">로그인</a></li>
                     <%--회원가입 클릭--%>
-                    <li><a>회원가입</a></li>
+                    <li><a href="joinfrm">회원가입</a></li>
                     <%--배송정보 클릭--%>
                     <li><a>배송정보</a></li>
                     <%--고객센터 클릭--%>
@@ -53,7 +56,7 @@
                         </a>
                     </h1>
                     <div class="menu">
-                        <a class="on">건강마켓</a><a>식단관리</a>
+                        <a class="on">건강마켓</a><a href="javascript:zz()">식단관리</a>
                     </div>
                     <nav class="direct">
                         <div class="direct__search btn__modal-open" data-login="y" id="searchPopup"
