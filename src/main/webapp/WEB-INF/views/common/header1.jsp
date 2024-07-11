@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: dnjs1
-  Date: 24. 7. 4.
-  Time: 오후 5:29
+  User: user
+  Date: 24. 7. 10.
+  Time: 오전 10:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -56,7 +56,7 @@
                         </a>
                     </h1>
                     <div class="menu">
-                        <a class="on" href="/">건강마켓</a><a href="/careMain">식단관리</a>
+                        <a href="/">건강마켓</a><a class="on" href="/careMain">식단관리</a>
                     </div>
                     <nav class="direct">
                         <div class="direct__search btn__modal-open" data-login="y" id="searchPopup"
@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-</header>
+    </header>
 </div>
 
 </body>

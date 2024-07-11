@@ -13,8 +13,4 @@ public class RestCareController {
     @Autowired
     CareService cSer;
 
-    @PostMapping("/lowSugar")
-    public String lowSugar() {
-        return null;
-    }
 }
