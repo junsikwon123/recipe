@@ -95,7 +95,7 @@
                                 ${list}
                                 <li class="baby-product renew-badge">
                                     <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
+                                       href="/fooditem/detail"
                                        style="height: 466px;">
                                         <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
                                             <dt class="image">

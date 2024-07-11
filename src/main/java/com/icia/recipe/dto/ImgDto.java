@@ -14,5 +14,6 @@ import lombok.experimental.Accessors;
 public class ImgDto {
     private String i_num;
     private String i_path;
-    private String i_name;
+    private String i_original_name;
+    private String i_sys_name;
 }

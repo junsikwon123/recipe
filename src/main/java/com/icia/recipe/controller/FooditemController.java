@@ -19,5 +19,8 @@ public class FooditemController {
         model.addAttribute("cList",cList);
         return "fooditem/fooditemMain";
     }
-
+    @GetMapping("fooditem/detail")
+    public String foodItemDetail(Model model){
+        return "fooditem/fooditemDetail";
+    }
 }

@@ -21,10 +21,11 @@
     <!--  이미지 Map  -->
     <resultMap id="mapImg" type="com.icia.recipe.dto.ImgDto">
         <id property="i_num" column="i_num"/>
-        <id property="i_name" column="i_name"/>
+        <id property="i_original_name" column="i_original_name"/>
+        <id property="i_sys_name" column="i_sys_name"/>
         <id property="i_path" column="i_path"/>
     </resultMap>
-
+    <!--cList 와 iList 동시에 받는법  -->
     <resultMap type="com.icia.recipe.dto.FooditemDto" id="seachFooditemMain" >
         <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForParent"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
@@ -32,7 +33,7 @@
     <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto"
            resultMap="seachFooditemMain">
         <![CDATA[
-        SELECT f.f_num, i.i_path, i.i_name, f.f_title,
+        SELECT f.f_num, i.i_path, i.i_original_name,i.i_sys_name ,f.f_title,
                f.f_price, f.f_views, c1.c_num, c2.c_num,c3.c_num, i.i_num
         FROM fooditem f
         JOIN img i

@@ -54,7 +54,7 @@ public class FooditemService {
             .append("<a class=\"baby-product-link\" href=\"/fooditem/fooditemDetail?f_num=" + fDto.getF_num() + "\" style=\"height: 466px\">")
             .append("<dl class=\"baby-product-wrap adjust-spacing\" style=\"height: 444px\">")
             .append("<dt class=\"image\">")
-            .append("<img src=\"" + fDto.getIList().get(0).getI_path() + fDto.getIList().get(0).getI_name() + "\" width=\"100%\"></dt>")
+            .append("<img src=\"" + fDto.getIList().get(0).getI_path() + fDto.getIList().get(0).getI_original_name() + "\" width=\"100%\"></dt>")
             .append("<dd class=\"descriptions\">")
             .append("<div class=\"badges\"></div>")
             .append("<div class=\"name\">" + fDto.getF_title() + "</div>")
@@ -93,6 +93,7 @@ public class FooditemService {
         HashMap<String, String> hMap = new HashMap<>();
         List<CtgDto> cList = new ArrayList<>();
         cList = fDao.searchCtg();
+       /* log.info("cList: {}",cList);*/
         return ctgMakeHtml(cList);
     }
 
@@ -127,7 +128,6 @@ public class FooditemService {
                                                 .append("<label for=\"").append(c3.getC_num()).append("\">")
                                                 .append("<a class=\"seo-link-url\" href=\"/fooditem/searchctg?=").append(c3.getC_num()).append("\">")
                                                 .append(c3.getC_name()).append("</a></label>")
-                                                .append("<a href=\"#\" class=\"btn-fold\">열림</a>")
                                                 .append("</li>");
                                     }
                                 });
@@ -141,7 +141,6 @@ public class FooditemService {
                 sb.append("</li>");
             }
         });
-
         return sb.toString();
 
     }
