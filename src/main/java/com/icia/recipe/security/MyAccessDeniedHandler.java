@@ -12,10 +12,12 @@ import java.io.IOException;
 
 @Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
+
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+                       AccessDeniedException accessDeniedException) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        session.setAttribute("msg","잘못된 작업 요청입니다.");
+        session.setAttribute("msg","잘못된 작업 요청");
         response.sendRedirect("/");
     }
 }

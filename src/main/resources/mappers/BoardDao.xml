@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icia.recipe.management.dao.BoardDao">
+    <insert id="addBigCg" parameterType="map">
+        <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+            SELECT CAST(MAX(CAST(c_num AS UNSIGNED)) + 1 AS CHAR) FROM category WHERE LEFT(c_num, 1) = '1';
+        </selectKey>
+        INSERT INTO category (c_num, c_name) VALUES (#{maxNum}, #{bigCgName})
+    </insert>
+
+    <insert id="addMidCg" parameterType="map">
+        <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+            SELECT CAST(MAX(CAST(c_num AS UNSIGNED)) + 1 AS CHAR) FROM category WHERE LEFT(c_num, 1) = '2';
+        </selectKey>
+        INSERT INTO category VALUES (#{maxNum}, #{bigCgNum}, #{midCgName})
+    </insert>
+
+    <insert id="addSmallCg" parameterType="map">
+        <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+            SELECT CAST(MAX(CAST(c_num AS UNSIGNED)) + 1 AS CHAR) FROM category WHERE LEFT(c_num, 1) = '3';
+        </selectKey>
+        INSERT INTO category VALUES (#{maxNum}, #{midCgNum}, #{smallCgName});
+    </insert>
+
+    <delete id="deleteCategory">
+        delete from category where c_name=#{name}
+    </delete>
+
+    <select id="getRecipeList" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from recipe
+    </select>
+
+    <select id="getCgName" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category
+    </select>
+
+    <select id="getFoodItemBigCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where left(c_num, 1) = '1'
+    </select>
+
+    <select id="getRecipeBigCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where left(c_num, 1) = '4'
+    </select>
+
+    <select id="getFoodItemMidCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where c_num2 = ${cg}
+    </select>
+
+    <select id="getRecipeMidCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where c_num2 = ${cgNum}
+    </select>
+
+    <select id="getFoodItemSmCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where c_num2 = ${cg}
+    </select>
+
+    <select id="getRecipeSmCg" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from category where c_num = ${cgNum}
+    </select>
+
+    <select id="getBoardTrade" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from recipe
+    </select>
+
+    <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem
+    </select>
+
+    <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem order by #{param} #{sort}
+    </select>
+
+    <insert id="addRecipeBigCg">
+        insert into recipe values ('','','','','','','')
+    </insert>
+
+    <insert id="insertFoodItem" parameterType="map">
+        insert into fooditem (c_num, c_num2, f_title, f_contents, f_price, f_count, f_edate, f_code, f_volume, f_origin, f_cal, f_save)
+        values (#{fiBigCg}, #{fiMidCg}, #{fiTitle}, #{fiContents}, #{fiPrice},
+                #{fiCounts}, #{fiExDate}, #{fiCode}, #{fiVolume}. #{fiOrigin}, #{fiCal}, #{fiSave});
+    </insert>
+    <insert id="insertFoodItemImg">
+        insert into img (i_path, i_name, f_num, m_id) values (#{path}, #{fiFile}, #{fiCode}, #{role});
+    </insert>
+    <insert id="addRecipeMidCg">
+        insert into recipe
+    </insert>
+    <insert id="addRecipeSmallCg">
+        insert into category
+    </insert>
+    <insert id="addNotBigAllCg">
+        insert into category
+    </insert>
+
+    <insert id="addAllCg">
+        <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+            SELECT CAST(MAX(CAST(c_num AS UNSIGNED)) + 1 AS CHAR) FROM category WHERE LEFT(c_num, 1) =
+            <choose>
+                <when test="#{cgName eq 'fooditem'}">
+                    '1'
+                </when>
+                <when test="#{cgName eq 'recipe'}">
+                    '4'
+                </when>
+                <when test="'1' == #{cgNum.substring(0,1)}">
+                    '2'
+                </when>
+                <when test="'2' == #{cgNum.substring(0,1)}">
+                    '3'
+                </when>
+                <when test="'4' == #{cgNum.substring(0,1)}">
+                    '5'
+                </when>
+                <when test="'5' == #{cgNum.substring(0,1)}">
+                    '6'
+                </when>
+            </choose>
+        </selectKey>
+        insert into category (c_num, c_name) values (#{maxNum}, #{cgName})
+    </insert>
+
+</mapper>
+
