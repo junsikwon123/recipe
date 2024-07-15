@@ -15,10 +15,10 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script defer src="/common/common.js"></script>
+    <script defer src="/common/js/common.js"></script>
 </head>
 <body>
-
+<jsp:include page="../common/header.jsp"></jsp:include>
 <%--아이디 찾기--%>
 <div>
     <form action="/searchid" method="post">

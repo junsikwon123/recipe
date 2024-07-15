@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icia.recipe.dao.TradeDao">
+    <!--  카테고리 소분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForChild">
+        <id property="c_num" column="c3_num"/>
+        <result property="c_name" column="c3_name"/>
+    </resultMap>
+    <!--  카테고리 중분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForParent">
+        <id property="c_num" column="c2_num"/>
+        <result property="c_name" column="c2_name"/>
+        <collection property="list" javaType="java.util.ArrayList" resultMap="mapForChild"/>
+    </resultMap>
+    <!--  카테고리 대분류 Map  -->
+    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForFindAll">
+        <id property="c_num" column="c1_num"/>
+        <result property="c_name" column="c1_name"/>
+        <collection property="list" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+    </resultMap>
+    <!--  이미지 Map  -->
+    <resultMap id="mapImg" type="com.icia.recipe.dto.ImgDto">
+        <id property="i_num" column="i_num"/>
+        <id property="i_name" column="i_name"/>
+        <id property="i_path" column="i_path"/>
+    </resultMap>
+
+    <resultMap type="com.icia.recipe.dto.FooditemDto" id="seachFooditemMain" >
+        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
+    </resultMap>
+
+<!--    <select id="tradeList">-->
+<!--        select t_num, t_title, m_id, from trade-->
+<!--    </select>-->
+
+<!--    <select id="tradeList" parameterType="com.icia.recipe.dto.TradeDto">-->
+<!--        select t_num,t_title from tradetest-->
+<!--    </select>-->
+</mapper>

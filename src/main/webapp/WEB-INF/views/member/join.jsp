@@ -31,10 +31,6 @@
     <button>취소</button>
 </a>
 <script>
-    // $.ajax({
-    //     method: "get",
-    //     url:"/member/idcheck"
-    // })
 
     const frm = document.joinfrm;
     const length = frm.length - 1;

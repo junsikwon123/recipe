@@ -26,7 +26,7 @@
     </resultMap>
 
     <resultMap type="com.icia.recipe.dto.FooditemDto" id="seachFooditemMain" >
-        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
     </resultMap>
     <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto"
