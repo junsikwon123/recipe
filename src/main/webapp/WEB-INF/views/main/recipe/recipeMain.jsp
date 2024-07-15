@@ -32,7 +32,8 @@
         }
         .main__div {
             display: block;
-            margin: 0 300px;
+            margin: 0 auto;
+            width:1300px;
             border: 1px solid #e6e7e8;
             background-color: #ffffff;
         }
@@ -101,7 +102,7 @@
         .common_sp_list_li {
             list-style: none;
             padding: 0;
-            margin: 0 12px 40px 0;
+            margin: 0 8.5px 40px;
             display: inline-block;
             vertical-align: top;
             position: relative;
