@@ -44,6 +44,9 @@
                         <sec:authorize access="isAuthenticated()">
                             <span><sec:authentication property="name" /></span>님 환영합니다
                             <li><a href="/member/logout">로그아웃</a></li>
+                            <sec:authorize access="hasRole('ADMIN')">
+                                <li><a href="/main">관리자 페이지</a></li>
+                            </sec:authorize>
                         </sec:authorize>
                     <%--배송정보 클릭--%>
                     <li><a>배송정보</a></li>

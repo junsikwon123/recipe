@@ -15,7 +15,7 @@
 <button>일반회원</button>
 </a>
 카카오로 시작하기
-<a href="/cancle">
+<a href="/">
     <button>취소</button>
 </a>
 </body>

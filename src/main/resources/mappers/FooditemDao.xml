@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.icia.recipe.dao.FooditemDao">
+<mapper namespace="com.icia.recipe.home.dao.FooditemDao">
     <!--  카테고리 소분류 Map  -->
-    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForChild">
+    <resultMap type="com.icia.recipe.home.dto.CtgDto" id="mapForChild">
         <id property="c_num" column="c3_num"/>
         <result property="c_name" column="c3_name"/>
     </resultMap>
     <!--  카테고리 중분류 Map  -->
-    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForParent">
+    <resultMap type="com.icia.recipe.home.dto.CtgDto" id="mapForParent">
         <id property="c_num" column="c2_num"/>
         <result property="c_name" column="c2_name"/>
         <collection property="list" javaType="java.util.ArrayList" resultMap="mapForChild"/>
     </resultMap>
     <!--  카테고리 대분류 Map  -->
-    <resultMap type="com.icia.recipe.dto.CtgDto" id="mapForFindAll">
+    <resultMap type="com.icia.recipe.home.dto.CtgDto" id="mapForFindAll">
         <id property="c_num" column="c1_num"/>
         <result property="c_name" column="c1_name"/>
         <collection property="list" javaType="java.util.ArrayList" resultMap="mapForParent"/>
     </resultMap>
     <!--  이미지 Map  -->
-    <resultMap id="mapImg" type="com.icia.recipe.dto.ImgDto">
+    <resultMap id="mapImg" type="com.icia.recipe.home.dto.ImgDto">
         <id property="i_num" column="i_num"/>
         <id property="i_name" column="i_name"/>
         <id property="i_path" column="i_path"/>
     </resultMap>
 
-    <resultMap type="com.icia.recipe.dto.FooditemDto" id="seachFooditemMain" >
+    <resultMap type="com.icia.recipe.home.dto.FooditemDto" id="seachFooditemMain" >
         <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
     </resultMap>
-    <select id="searchFooditem" parameterType="com.icia.recipe.dto.FooditemDto"
-           resultMap="seachFooditemMain">
+    <select id="searchFooditem"  resultType="com.icia.recipe.home.dto.FooditemDto" resultMap="seachFooditemMain">
         <![CDATA[
         SELECT f.f_num, i.i_path, i.i_name, f.f_title,
                f.f_price, f.f_views, c1.c_num, c2.c_num,c3.c_num, i.i_num
@@ -54,7 +53,7 @@
         ]]>
     </select>
 
-    <select id="searchCtg" resultType="com.icia.recipe.dto.CtgDto" resultMap="mapForFindAll">
+    <select id="searchCtg" resultType="com.icia.recipe.home.dto.CtgDto" resultMap="mapForFindAll">
             <![CDATA[
             select c1.c_num  c1_num, c1.c_name c1_name,
                    c2.c_num  c2_num, c2.c_num2 c2_num2, c2.c_name c2_name,

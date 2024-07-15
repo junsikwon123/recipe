@@ -1,6 +1,6 @@
-package com.icia.recipe.service;
+package com.icia.recipe.home.service;
 
-import com.icia.recipe.dao.TradeDao;
+import com.icia.recipe.home.dao.TradeDao;
 import com.icia.recipe.dto.TradeDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

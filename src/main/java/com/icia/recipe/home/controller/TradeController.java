@@ -1,7 +1,7 @@
 package com.icia.recipe.home.controller;
 
 import com.icia.recipe.dto.TradeDto;
-import com.icia.recipe.service.TradeService;
+import com.icia.recipe.home.service.TradeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class TradeController {
         List<TradeDto> tList=tSer.tradeList();
         model.addAttribute("tList",tList);
         log.info(">>>>>tList:{}",tList);
-        return "trade/tradeMain";
+        return "main/trade/tradeMain";
     }
 
     @GetMapping("/trade/detail")
@@ -45,12 +45,12 @@ public class TradeController {
         model.addAttribute("unitArray", unit);
         model.addAttribute("changeArray", change);
         model.addAttribute("tDto",tDto);
-        return "trade/tradeDetail";
+        return "main/trade/tradeDetail";
     }
 
     @GetMapping("/trade/write")
     public String tradeWrite(){
-        return "trade/tradeWrite";
+        return "main/trade/tradeWrite";
     }
 
     @GetMapping("/trade/save")
@@ -59,10 +59,10 @@ public class TradeController {
         boolean result=tSer.tradeSave(tDto);
         if(result){
             log.info(">>>>>>>>>save성공");
-            return "redirect:/trade/main";
+            return "redirect:main/trade/main";
         }else{
             log.info(">>>>>>>>>save실패");
-            return "trade/tradeWrite";
+            return "main/trade/tradeWrite";
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.icia.recipe.dao;
+package com.icia.recipe.home.dao;
 
 import com.icia.recipe.dto.TradeDto;
 import org.apache.ibatis.annotations.Insert;
