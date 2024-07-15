@@ -14,6 +14,6 @@
     <script defer src="/common/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<jsp:include page="common/header.jsp"></jsp:include>
+<jsp:include page="./main/common/header.jsp"></jsp:include>
 </body>
 </html>
