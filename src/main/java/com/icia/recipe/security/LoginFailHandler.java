@@ -9,7 +9,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-
 @Slf4j
 @Component
 public class LoginFailHandler implements AuthenticationFailureHandler {
@@ -19,8 +18,8 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 		//if(exception instanceof DisabledException)
         // 인증 실패 시 수행할 동작을 정의
         // 예: 에러 메시지 표시, 로그인 페이지 리다이렉션 등
-    	log.info("=========msg:{}",exception.getMessage());
+    	log.info("로그인실패 핸들러:{}",exception.getMessage());
     	request.getSession().setAttribute("msg", "로그인 실패-handler");
-    	response.sendRedirect("/member/login");
+    	response.sendRedirect("member/login");
 	}
 }

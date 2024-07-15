@@ -1,7 +1,7 @@
 package com.icia.recipe.security;
 
-import com.icia.recipe.dao.MemberDao;
-import com.icia.recipe.dto.Member;
+import com.icia.recipe.home.dao.MemberDao;
+import com.icia.recipe.home.dto.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
