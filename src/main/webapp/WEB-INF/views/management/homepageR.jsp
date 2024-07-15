@@ -12,6 +12,67 @@
 <body id="page-top">
 <script>
     let isSelected = 'false'
+    function ckBoxDeleteBtn() {
+        let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
+        let deleteKeySet = [];
+        isChecked.forEach((item)=>{
+            let selectTr = item.closest('tr')
+            let deleteKey = selectTr.getAttribute('data-fnum')
+            deleteKeySet.push(deleteKey)
+        })
+        console.log(deleteKeySet)
+        $.ajax({
+            method:'post',
+            url:"/boardlist/delete",
+            data:{"deleteKeySet":deleteKeySet}
+        }).done((resp) => {
+            console.log("[게시글 삭제] 완료")
+            let boardList = $('#tableIsHere');
+                let reverseResp = resp.reverse();
+                boardList.html('')
+                let str = "";
+                str += "<div class='table-responsive table mt-2' id='dataTable' role='grid' aria-describedby='dataTable_info'>"
+                str += "<table class='table my-0' id='dataList'>"
+                str += "<tr class='table-primary' style='vertical-align: center'><th>#</th>"
+                str += "<th><h4>상품코드<a onclick='boardListSortButton(this.id)' id='fcode' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>대분류<a onclick='boardListSortButton(this.id)' id='fcnum' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>중분류<a onclick='boardListSortButton(this.id)' id='fcnum2' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>상품이름<a onclick='boardListSortButton(this.id)' id='ftitle' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>가격<a onclick='boardListSortButton(this.id)' id='fprice' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>수량<a onclick='boardListSortButton(this.id)' id='fcount' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>등록일<a onclick='boardListSortButton(this.id)' id='fdate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<th><h4>유통기한<a onclick='boardListSortButton(this.id)' id='fedate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
+                str += "<td><input id='allClickCk' onclick='allClickCk(this)' value='selectAll' type='checkbox'>전체선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='ckBoxDeleteBtn()' class='btn btn-danger'>삭제</button></td>"
+                str += "</tr>"
+                let i = 1;
+                for (const elem of reverseResp) {
+                    str += "<tr data-fnum='" + elem.f_num + "'>"
+                    str += "<td>" + i + "</td>"
+                    str += "<td>" + elem.f_code + "</td>"
+                    str += "<td>" + elem.c_num + "</td>"
+                    str += "<td>" + elem.c_num2 + "</td>"
+                    str += "<td>" + elem.f_title + "</td>"
+                    str += "<td>" + elem.f_price + "</td>"
+                    str += "<td>" + elem.f_count + "</td>"
+                    str += "<td>" + elem.f_date + "</td>"
+                    str += "<td>" + elem.f_edate + "</td>"
+                    str += "<th><input class='ckBox' name='selectCk' type='checkbox'></th>"
+                    str += "</tr>"
+                    i++
+                }
+            str += "</table><br><br>"
+            boardList.html(str)
+        }).fail((err) => {
+            console.log("[게시글 삭제] 실패")
+        })
+    }
+
+    function allClickCk(selectAll) {
+        const i = document.getElementsByName('selectCk')
+        i.forEach((ck)=>{
+            ck.checked = selectAll.checked;
+        })
+    }
 </script>
 <!-- 첫번째 모달 창 -->
 <div class="modal fade" id="outerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -285,20 +346,18 @@
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                </select>&nbsp;</label></div>
+                                </select>&nbsp;</label>
+                                    </div>
                             </div>
                             <div class="col-md-6">
+
                                 <div class="text-md-end dataTables_filter" id="dataTable_filter">
-
+                                    <button type="button" id="registerBtn 2" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#outerModal">등록</button>
                                     <label class="form-label">
-
                                         <input type="search" class="form-control form-control-sm"
                                                aria-controls="dataTable" placeholder="페이지 내 검색">
                                     </label>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#outerModal">
-                                        등록
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -309,10 +368,7 @@
                             <%--                            ====================================================================================--%>
                             <h1 id="data" style="text-align: center">레시피/식자재 을(를) 선택해주세요</h1>
                         </div>
-                        <div id="boardListHeader">
-
-                        </div>
-                        <div id="getBoardList">
+                        <div id="tableIsHere">
 
                         </div>
                         <div class="row">
@@ -321,6 +377,8 @@
                                 of 27</p></div>
                             <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                    <button type="button" id="registerBtn" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#outerModal">등록</button>&nbsp;&nbsp;&nbsp;
                                     <ul class="pagination">
                                         <li class="page-item disabled"><a class="page-link" aria-label="Previous"
                                                                           href="#"><span aria-hidden="true">«</span></a>

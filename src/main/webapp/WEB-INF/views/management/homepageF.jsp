@@ -253,16 +253,16 @@
                                     <td>$162,700</td>
                                 </tr>
                                 </tbody>
-<%--                                <tfoot>--%>
-<%--                                <tr>--%>
-<%--                                    <td><strong>Name</strong></td>--%>
-<%--                                    <td><strong>Position</strong></td>--%>
-<%--                                    <td><strong>Office</strong></td>--%>
-<%--                                    <td><strong>Age</strong></td>--%>
-<%--                                    <td><strong>Start date</strong></td>--%>
-<%--                                    <td><strong>Salary</strong></td>--%>
-<%--                                </tr>--%>
-<%--                                </tfoot>--%>
+                                <tfoot>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td><strong>Position</strong></td>
+                                    <td><strong>Office</strong></td>
+                                    <td><strong>Age</strong></td>
+                                    <td><strong>Start date</strong></td>
+                                    <td><strong>Salary</strong></td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <div class="row">

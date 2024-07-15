@@ -17,7 +17,7 @@
 </head>
 <body id="page-top">
 <div id="wrapper">
-<%--    사이드바 E R P--%>
+    <%--    사이드바 E R P--%>
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <div class="container-fluid d-flex flex-column p-0"><br><br><br>
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/main">
@@ -27,7 +27,7 @@
             </a><br><br>
             <hr class="sidebar-divider my-0"/>
             <ul class="navbar-nav text-light" id="accordionSidebar">
-<%--                사이드바 메뉴 구성--%>
+                <%--                사이드바 메뉴 구성--%>
                 <li class="nav-item"><a class="nav-link active" href="/main"><i class="fas fa-tachometer-alt"></i>
                     <span> 매출 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/delivery"><i class="fas fa-user"></i>
@@ -38,6 +38,8 @@
                     <span> 재고 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/service">
+                    <span> 홈페이지로 </span></a></li>
             </ul>
             <div class="text-center d-none d-md-inline">
                 <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -50,7 +52,7 @@
                 <div class="container-fluid">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3" type="button"><i
                             class="fas fa-bars"></i></button>
-<%--                    검색란 --%>
+                    <%--                    검색란 --%>
                     <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
                                                         placeholder="검색어를 입력하세요"/>
@@ -62,7 +64,7 @@
                                                                             aria-expanded="false"
                                                                             data-bs-toggle="dropdown" href="#"><i
                                 class="fas fa-search"></i></a>
-<%--                            네비게이션 바에 검색버튼이 있다는데 뭔지 모름 ㅋㅋ--%>
+                            <%--                            네비게이션 바에 검색버튼이 있다는데 뭔지 모름 ㅋㅋ--%>
                             <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
                                  aria-labelledby="searchDropdown">
                                 <form class="me-auto navbar-search w-100">
@@ -76,102 +78,104 @@
                                 </form>
                             </div>
                         </li>
-<%--                        우측 상단 헤더 알림--%>
+                        <%--                        우측 상단 헤더 알림--%>
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
-                                <i class="fas fa-bell fa-fw"></i></a>
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-bell fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
                                     <h6 class="dropdown-header">알림</h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="me-3">
-                                        <div class="bg-primary icon-circle">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="small text-gray-500">24/07/02</span>
-                                        <p>보고서 출력 준비가 완료되었습니다</p>
-                                    </div>
-                                </a>
                                     <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="me-3">
-                                        <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i>
+                                        <div class="me-3">
+                                            <div class="bg-primary icon-circle">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div><span class="small text-gray-500">24/07/01</span>
-                                        <p>580,000￦의 환불비용이 법인계좌로 집행되었습니다</p>
-                                    </div>
-                                </a>
+                                        <div>
+                                            <span class="small text-gray-500">24/07/02</span>
+                                            <p>보고서 출력 준비가 완료되었습니다</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="me-3">
+                                            <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div><span class="small text-gray-500">24/07/01</span>
+                                            <p>580,000￦의 환불비용이 법인계좌로 집행되었습니다</p>
+                                        </div>
+                                    </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">
                                         모든 알림 보기</a>
-<%--                                    <a class="dropdown-item d-flex align-items-center" href="#">--%>
-<%--                                    <div class="me-3">--%>
-<%--                                        <div class="bg-warning icon-circle"><i--%>
-<%--                                                class="fas fa-exclamation-triangle text-white"></i></div>--%>
-<%--                                    </div>--%>
-<%--                                    <div><span class="small text-gray-500">24/07/03</span>--%>
-<%--                                        <p>Spending Alert: We&#39;ve noticed unusually high spending for your--%>
-<%--                                            account.</p>--%>
-<%--                                    </div>--%>
-<%--                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All--%>
-<%--                                    Alerts</a>--%>
+                                    <%--                                    <a class="dropdown-item d-flex align-items-center" href="#">--%>
+                                    <%--                                    <div class="me-3">--%>
+                                    <%--                                        <div class="bg-warning icon-circle"><i--%>
+                                    <%--                                                class="fas fa-exclamation-triangle text-white"></i></div>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                    <div><span class="small text-gray-500">24/07/03</span>--%>
+                                    <%--                                        <p>Spending Alert: We&#39;ve noticed unusually high spending for your--%>
+                                    <%--                                            account.</p>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All--%>
+                                    <%--                                    Alerts</a>--%>
                                 </div>
                             </div>
                         </li>
-<%--                        우측 상단 메세지 리스트--%>
+                        <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                <span id="span-message-count" class="badge bg-danger badge-counter"></span>
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-message-count" class="badge bg-danger badge-counter"></span>
                                     <i class="fas fa-envelope fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
                                     <h6 class="dropdown-header">메세지</h6>
                                     <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3">
-                                        <img class="rounded-circle" src="/assets/img/avatars/avatar4.jpeg"/>
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I&#39;ve been having.</span>
+                                        <div class="dropdown-list-image me-3">
+                                            <img class="rounded-circle" src="/assets/img/avatars/avatar4.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
-                                    </div>
-                                </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar2.jpeg"/>
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate">
-                                            <span>I have the photos that you ordered last month!</span></div>
-                                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                                    </div>
-                                </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar3.jpeg"/>
-                                        <div class="bg-warning status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Last month&#39;s report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I&#39;ve been having.</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
-                                    </div>
-                                </a>
+                                    </a>
                                     <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar5.jpeg"/>
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren&#39;t good...</span>
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar2.jpeg"/>
+                                            <div class="status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                                    </div>
-                                </a>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate">
+                                                <span>I have the photos that you ordered last month!</span></div>
+                                            <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar3.jpeg"/>
+                                            <div class="bg-warning status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Last month&#39;s report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar5.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren&#39;t good...</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                        </div>
+                                    </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">
                                         모든 메세지 보기</a>
                                 </div>
@@ -179,7 +183,7 @@
                             <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
                                  aria-labelledby="alertsDropdown"></div>
                         </li>
-<%--                        우측 상단 프로필--%>
+                        <%--                        우측 상단 프로필--%>
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
@@ -203,13 +207,13 @@
                     </ul>
                 </div>
             </nav>
-<%--            네비게이션 바 END--%>
+            <%--            네비게이션 바 END--%>
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="text-dark mb-0">매출 관리</h3>
                     <a class="btn btn-primary btn-sm d-none d-sm-inline-block"
-                                                                role="button" href="javascript:window.print()"><i
-                        class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
+                       role="button" href="javascript:window.print()"><i
+                            class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-xl-3 mb-4">
@@ -292,7 +296,8 @@
                                             class="fas fa-ellipsis-v text-gray-400"></i></button>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                                         <p class="text-center dropdown-header">추가 메뉴</p><a
-                                            class="dropdown-item" href="/test"> Test</a><a class="dropdown-item" href="#"> Another
+                                            class="dropdown-item" href="/test"> Test</a><a class="dropdown-item"
+                                                                                           href="#"> Another
                                         action</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#"> Something else here</a>

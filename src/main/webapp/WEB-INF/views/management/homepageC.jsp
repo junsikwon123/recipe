@@ -14,19 +14,90 @@
     if ('${msg}' != '') {
         alert('${msg}');
     }
+
+    // 카테고리 통합 삭제 로직 [5]
+    {
+        function deleteThis(cgName, element, num) {
+            console.log("deleteThis function 진입")
+            // let p = $(this).parent().attr('id');
+            let grandParent = element.parentElement.parentElement.id
+            let parent = element.parentElement.id
+            let printInDiv;
+            console.log('할배',grandParent)
+            let cg= "";
+            if (grandParent === 'bDiv') {
+                printInDiv = $('#bDiv')
+                cg = 'b';
+            } else if (grandParent === 'mDiv') {
+                printInDiv = $('#mdiv')
+                cg = 'm';
+            } else if (grandParent-- - 'sDiv') {
+                printInDiv = $('#sDiv')
+                cg = 's';
+            } else {
+                console.log("[삭제로직] 영역 재설정 요망")
+            }
+            console.log(num)
+            console.log(cgName)
+
+            $.ajax({
+                method: 'get',
+                url: "/delete/category?name=" + cgName + "&cg=" + num
+            }).done((resp) => {
+                console.log("삭제 done 진입")
+                makeBtn(cg, resp, grandParent, printInDiv)
+            }).fail((err) => {
+                console.log("감히 날 삭제하겠다고?")
+            })
+        }
+        function makeBtn(cg, resp, grandParent, printInDiv) {
+            console.log("버튼 만들기")
+            console.log(resp)
+            let i = 1; // div의 인덱스
+            let j = 0; // 버튼의 인덱스
+            let k = 5
+            let cgname = "";
+            if (cg==='b') {
+                k=8
+                cgname='bigCg';
+            } else if (cg==='m') {
+                cgname='midCg'
+            } else if (cg==='s') {
+                cgname='smCg'
+            }
+            let str = "";
+            for (const elem of resp) {
+                if (j % k === 0) {
+                    if (j !== 0) {
+                        str += "</div>"; // 이전 div를 닫음
+                    }
+                    str += "<div id=" + grandParent + i + ">"; // 새로운 div를 생성
+                    i++;
+                }
+                str += "<a class='cgTag' href='javascript:void(0)' onclick='" + cgname + "(" + elem.c_num + ")'>" + elem.c_name + "</a>";
+                str += "<button class='deleteBtn' onclick='deleteThis(\"" + elem.c_name + "\",  this , " + elem.c_num + ")'>X</button><br><br>";
+                j++;
+            }
+            printInDiv.html(str);
+        }
+    }
+
     // 카테고리 통합 추가 로직 [4]
     {
             function enterKeyPress(event, elem) {
-                if (event.key === 13) {
+                if (event.keyCode === 13) {
                     switch (elem.parentElement.parentElement.id) {
                         case "rightDiv":
-                            categoryAdd(mid)
+                            categoryAdd('mid')
+                            $('#midCgAdd').val('')
                             break;
                         case "leftDiv":
-                            categoryAdd(big)
+                            categoryAdd('big')
+                            $('#bigCgAdd').val('')
                             break;
                         case "smallDiv":
-                            categoryAdd(sm)
+                            categoryAdd('sm')
+                            $('#smallCgAdd').val('')
                             break;
                         default:
                             console.log("KEY PRESS 에러발생")
@@ -36,7 +107,7 @@
 
             function categoryAdd(item) {
                 console.log("[추가] 함수 진입")
-                let cg = document.querySelector('#selectedCg').value;
+                let cg1 = document.querySelector('#selectedCg').value;
                 let bigCgName = document.querySelector('#bigCgAdd').value;
                 let bigCgNum = document.querySelector('#selectedBigCgNum').value;
                 let midCgName = document.querySelector('#midCgAdd').value;
@@ -44,18 +115,31 @@
                 let smallCgName = document.querySelector('#smallCgAdd').value;
                 let cgName = "";
                 let cgNum = "";
+                let cg = "";
+                let printInDiv;
+                let p = "";
+                console.log(item)
                 switch (item) {
                     case "big":
                         cgName = bigCgName;
-                        cgNum = cg;
+                        cgNum = cg1;
+                        cg = 'b'
+                        printInDiv = $('#bDiv')
+                        p = 'bDiv'
                         break;
                     case "mid":
                         cgName = midCgName;
                         cgNum = bigCgNum;
+                        cg = 'm'
+                        printInDiv = $('#mDiv')
+                        p = 'mDiv'
                         break;
                     case "sm":
                         cgName = smallCgName;
                         cgNum = midCgNum;
+                        cg = 's'
+                        printInDiv = $('#sDiv')
+                        p = 'sDiv'
                         break;
                     default:
                         console.log("[추가] 에러 발생")
@@ -66,6 +150,8 @@
                     data: {"cgName": cgName, "cgNum": cgNum}
                 }).done((resp) => {
                     console.log("[추가] 함수 완료")
+                    console.log(resp)
+                    makeBtn(cg, resp, p, printInDiv)
                 }).fail((err) => {
                     console.log("[추가] 함수 실패")
                 })
@@ -271,10 +357,10 @@
                     </div>
                     <div style="">
                         <%--대분류카테고리--%>
-                        <div id="leftDiv" style="float: left; width: 30%; height: 800px;">
+                        <div id="leftDiv" style="float: left; width: 45%; height: 800px;">
                             <h4 style="text-align: center">대분류</h4>
                             <div style="text-align: center">
-                                <input onkeydown="enterKeyPress(event, this)" type="text" id="bigCgAdd" placeholder="추가할 대분류 이름" maxlength="10">
+                                <input onkeypress="enterKeyPress(event, this)" type="text" id="bigCgAdd" placeholder="추가할 대분류 이름" maxlength="10">
                                 <button onclick="categoryAdd('big')">+</button><br><br>
                             </div>
                             <div id="bDiv" style="display: flex;flex-direction: row">
@@ -284,7 +370,7 @@
                         </div>
                         <%--중분류카테고리--%>
                         <div id="rightDiv"
-                             style="float: right; width: 65%; height: 300px; margin-right: 3%;">
+                             style="float: right; width: 50%; height: 300px; margin-right: 3%;">
                             <h4 style="text-align: center">중분류</h4>
                                 <div id="mDiv" style="display: flex;flex-direction: row">
                                 </div>
@@ -295,7 +381,7 @@
                         </div>
                         <%--소분류카테고리--%>
                         <div id="smallDiv"
-                             style="float: right; width: 65%; height: 450px; margin-top: 3%; margin-right: 3%;">
+                             style="float: right; width: 50%; height: 450px; margin-top: 3%; margin-right: 3%;">
                             <h4 style="text-align: center">소분류</h4>
                             <div id="sDiv" style="display: flex;flex-direction: row">
 
