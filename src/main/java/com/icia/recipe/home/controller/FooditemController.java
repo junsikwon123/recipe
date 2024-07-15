@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FooditemController {
     @Autowired
     FooditemService fSer;
+
     @GetMapping("/fooditem/main")
     public String foodItemMain(Model model){
         String a ="salePriceAsc";

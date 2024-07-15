@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+           prefix="sec"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,7 +19,6 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/header.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="/common/js/common.js"></script>
     <style>
         #header{
             border: 1px solid #e6e7e8;
@@ -30,18 +31,23 @@
 
 </head>
 <body id="main" class="hd">
-<a href="/member/logout">
-    <button>로그아웃(임시임 오해 ㄴㄴ)</button>
-</a>
 <div id="wrap">
     <header id="header" class="hd__header">
         <div class="header">
             <section class="user-area">
                 <ul class="user-area__menu">
                     <%--로그인 클릭--%>
-                    <li><a href="loginfrm">로그인</a></li>
-                    <%--회원가입 클릭--%>
-                    <li><a href="joinfrm">회원가입</a></li>
+                        <sec:authorize access="isAnonymous()">
+                            <li><a href="/loginfrm">로그인</a></li>
+                            <li><a  href="/joinfrm">회원가입</a></li>
+                        </sec:authorize>
+                        <sec:authorize access="isAuthenticated()">
+                            <span><sec:authentication property="name" /></span>님 환영합니다
+                            <li><a href="/member/logout">로그아웃</a></li>
+                            <sec:authorize access="hasRole('ADMIN')">
+                                <li><a href="/main">관리자 페이지</a></li>
+                            </sec:authorize>
+                        </sec:authorize>
                     <%--배송정보 클릭--%>
                     <li><a>배송정보</a></li>
                     <%--고객센터 클릭--%>

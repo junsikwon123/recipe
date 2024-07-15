@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
 <mapper namespace="com.icia.recipe.home.dao.FooditemDao">
     <!--  카테고리 소분류 Map  -->
     <resultMap type="com.icia.recipe.home.dto.CtgDto" id="mapForChild">
@@ -22,19 +21,17 @@
     <!--  이미지 Map  -->
     <resultMap id="mapImg" type="com.icia.recipe.home.dto.ImgDto">
         <id property="i_num" column="i_num"/>
-        <id property="i_original_name" column="i_original_name"/>
-        <id property="i_sys_name" column="i_sys_name"/>
+        <id property="i_name" column="i_name"/>
         <id property="i_path" column="i_path"/>
     </resultMap>
-    <!--cList 와 iList 동시에 받는법  -->
+
     <resultMap type="com.icia.recipe.home.dto.FooditemDto" id="seachFooditemMain" >
-        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForParent"/>
+        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
     </resultMap>
-
-    <select id="searchFooditem" resultType="com.icia.recipe.home.dto.FooditemDto" resultMap="seachFooditemMain">
+    <select id="searchFooditem"  resultType="com.icia.recipe.home.dto.FooditemDto" resultMap="seachFooditemMain">
         <![CDATA[
-        SELECT f.f_num, i.i_path, i.i_original_name,i.i_sys_name ,f.f_title,
+        SELECT f.f_num, i.i_path, i.i_name, f.f_title,
                f.f_price, f.f_views, c1.c_num, c2.c_num,c3.c_num, i.i_num
         FROM fooditem f
         JOIN img i

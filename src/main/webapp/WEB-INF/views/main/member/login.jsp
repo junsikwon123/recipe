@@ -17,6 +17,7 @@
     </script>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <form action="/member/login" method="post">
     <input name="username" type="text" placeholder="아이디">
     <input name="password" type="password" placeholder="비밀번호">
