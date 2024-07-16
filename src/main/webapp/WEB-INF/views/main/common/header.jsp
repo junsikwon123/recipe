@@ -59,7 +59,7 @@
             <div class="header__inner">
                 <div class="header__sec">
                     <h1 class="logo">
-                        <a>
+                        <a href="/">
                             <img src="/assets/img/img_header_logo.png" alt=""><%--추후 제목 이미지 넣어야함--%>
                         </a>
                     </h1>
