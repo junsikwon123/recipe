@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BoardDao {
@@ -39,9 +40,13 @@ public interface BoardDao {
 
     List<FoodItemDto> getSortedFoodItemList(String param, String sort);
 
-    boolean insertFoodItemImg(String fiFile, String path, String role, String fiCode);
-
     boolean addAllCg(String cgName, String cgNum);
 
     boolean deleteFoodItemList(ArrayList deleteKey);
+
+    boolean insertFoodItemImg(Map<String, String> fiMap);
+
+    String getFoodItemListNaming(String cNum);
+
+    String getFoodItemListNaming2(String cNum2);
 }

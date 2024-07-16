@@ -3,6 +3,7 @@ package com.icia.recipe.management.controller;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.service.BoardService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -74,21 +76,18 @@ public class BoardRestController {
     }
 
     // 모달 컨트롤러
-    @PostMapping("/fooditemmodalinput")
-    public List<FoodItemDto> fooditemmodalinput(MultipartHttpServletRequest request) {
+    @PostMapping("/fooditem/modalinput")
+    public List<FoodItemDto> fooditemmodalinput(MultipartHttpServletRequest request, HttpSession session) throws IOException {
         log.info("[모달] 컨트롤러 진입");
         if (request != null) {
-            boolean result = bSer.insertFoodItem(request);
+            boolean result = bSer.insertFoodItem(request, session);
             if (result) {
-                log.info("[모달] 입력정보 포함. 식자재 정보 싹 가져오기");
-                return null;
+                return bSer.getFoodItemList();
             }
-
-        } else {
+            } else {
             log.info("[모달] formData null");
             return null;
-
-        }
+            }
         return null;
     }
     // 이미 가져온 보드 리스트에 대한 각 항목별 정렬

@@ -4,14 +4,20 @@ import com.icia.recipe.management.dao.BoardDao;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.dto.RecipeDto;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.Console;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -62,7 +68,7 @@ public class BoardService {
         }
     }
 
-    public boolean insertFoodItem(MultipartHttpServletRequest request) {
+    public boolean insertFoodItem(MultipartHttpServletRequest request, HttpSession session) throws IOException {
         log.info("[모달] 서비스 진입");
         String fiCode = request.getParameter("fiCode");
         String fiPrice = request.getParameter("fiPrice");
@@ -72,19 +78,60 @@ public class BoardService {
         String fiExDate = request.getParameter("fiExDate");
         String fiContents = request.getParameter("fiContents");
         String fiTitle = request.getParameter("fiTitle");
-        String fiFile = request.getParameter("fiFile");
         String fiVolume = request.getParameter("fiVolume");
         String fiOrigin = request.getParameter("fiOrigin");
         String fiCal = request.getParameter("fiCal");
         String fiSave = request.getParameter("fiSave");
-        String path = "/assets/img/fooditem/";
         String role = "ADMIN";
-        log.info(fiFile);
+        List<MultipartFile> files = request.getFiles("fiFiles");
+        ArrayList<String> fileList = new ArrayList<>();
+
         boolean update = bDao.insertFoodItem(fiCode, fiExDate, fiCounts, fiBigCg,
                 fiMidCg, fiPrice, fiContents, fiTitle, fiVolume, fiOrigin, fiCal, fiSave);
-        boolean insertImg = bDao.insertFoodItemImg(fiFile, path, role, fiCode);
-        if (update) {
-            log.info("[모달] 서비스 통과");
+        boolean insertFoodItemImg = false;
+        Map<String, String> fiMap = new HashMap<String, String>();
+        String realPath = session.getServletContext().getRealPath("/");
+        realPath += "WEB-INF/views/uploadedImg/fooditem";
+        log.info("[파일] 업로드 경로 : {}",realPath);
+
+        File dir = new File(realPath);
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+
+        for (MultipartFile mf : files) {
+            String oriFileName = mf.getOriginalFilename();
+            log.info("[파일] 기존파일명 : {}",oriFileName);
+            fiMap.put("i_original_name", oriFileName);
+            String sysFileName = System.currentTimeMillis() + "."
+                    + oriFileName.substring(oriFileName.lastIndexOf(".")+1);
+            log.info("[파일] 시스템파일명 : {}",sysFileName);
+            fiMap.put("i_sys_name",sysFileName);
+            fiMap.put("i_path", realPath);
+            fiMap.put("fiCode", fiCode);
+            fiMap.put("m_id", role);
+            String filesize = "";
+            if (mf.getSize() >= 1024) {
+                filesize = String.valueOf(mf.getSize()/1024);
+                filesize += "KB";
+                if (mf.getSize()/1024 >= 1024) {
+                    filesize = String.valueOf((mf.getSize()/1024)/1024);
+                    filesize += "MB";
+                }
+            }
+            fiMap.put("i_filesize", filesize);
+
+            try {
+                mf.transferTo(new File(realPath + sysFileName));
+                insertFoodItemImg = bDao.insertFoodItemImg(fiMap);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            
+            
+        }
+        if (update && insertFoodItemImg) {
+            log.info("[모달] 파일&업데이트 성공");
             return true;
         } else {
             log.info("[모달] 서비스 에러");
@@ -93,7 +140,12 @@ public class BoardService {
     }
 
     public List<FoodItemDto> getFoodItemList() {
-        return bDao.getFoodItemList();
+        List<FoodItemDto> fiList =  bDao.getFoodItemList();
+        for (FoodItemDto fi : fiList) {
+            fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
+            fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
+        }
+        return fiList;
     }
 
     public Object getRecipeList() {

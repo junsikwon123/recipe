@@ -12,7 +12,8 @@
 <body id="page-top">
 <script>
     let isSelected = 'false'
-    function ckBoxDeleteBtn() {
+    function ckBoxDeleteBtn(elem) {
+        $('#allClickCk').checked = false;
         let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
         let deleteKeySet = [];
         isChecked.forEach((item)=>{
@@ -42,7 +43,7 @@
                 str += "<th><h4>수량<a onclick='boardListSortButton(this.id)' id='fcount' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
                 str += "<th><h4>등록일<a onclick='boardListSortButton(this.id)' id='fdate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
                 str += "<th><h4>유통기한<a onclick='boardListSortButton(this.id)' id='fedate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<td><input id='allClickCk' onclick='allClickCk(this)' value='selectAll' type='checkbox'>전체선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='ckBoxDeleteBtn()' class='btn btn-danger'>삭제</button></td>"
+                str += "<td><input id='allClickCk' onclick='allClickCk(this)' value='selectAll' type='checkbox'>전체선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='ckBoxDeleteBtn(this)' class='btn btn-danger'>삭제</button></td>"
                 str += "</tr>"
                 let i = 1;
                 for (const elem of reverseResp) {
@@ -74,7 +75,7 @@
         })
     }
 </script>
-<!-- 첫번째 모달 창 -->
+<!-- 게시글 등록 모달 -->
 <div class="modal fade" id="outerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -93,7 +94,7 @@
                                 <div class="file_input">
                                     <img id="preview" style="width: 300px; height: 300px; border: none"><br>
                                     <label>
-                                        <input type="file" multiple name="files" onchange="selectFile(this);">
+                                        <input type="file" id="attachment" name="attachment" onchange="selectFile(this);" multiple>
                                     </label>
 
                                 </div>
@@ -137,26 +138,28 @@
         </div>
     </div>
 </div>
-
-<!-- 두번째 모달 창 -->
-<%--<div class="modal fade" id="innerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">--%>
-<%--    <div class="modal-dialog modal-dialog-centered">--%>
-<%--        <div class="modal-content">--%>
-<%--            <div class="modal-header">--%>
-<%--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeInnerModalButton"></button>--%>
-<%--            </div>--%>
-<%--            <div id="modalData" class="modal-body">--%>
-
-
-<%--            </div>--%>
-<%--            <div class="modal-footer">--%>
-<%--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--%>
-<%--                <button type="button" class="btn btn-primary">Understood</button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
+<%-- 리스트 상세보기 모달--%>
+<div class="modal fade" id="detailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="closeDetailsModalButton"></button>
+            </div>
+                <div class="modal-body">
+                    <h1 id="detailsModalTitle" style="text-align: center"></h1>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between">
+                        <div class="uploadImg">
+                            <div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+<%--모달 끝 행복(?) 시작--%>
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <div class="container-fluid d-flex flex-column p-0"><br><br><br>
@@ -354,6 +357,8 @@
                             <div class="col-md-6">
 
                                 <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                    <button type="button" id="detailModal" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#detailsModal" style="display: none"></button>
                                     <button type="button" id="registerBtn 2" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#outerModal">등록</button>
                                     <label class="form-label">
