@@ -68,7 +68,8 @@ public class BoardRestController {
     
     // 카테고리 통합 추가
     @PostMapping("/insert/category")
-    public Object insertCategory(@RequestParam("cgName") String cgName, @RequestParam("cgNum") String cgNum) {
+    public List<?> insertCategory(@RequestParam("cgName") String cgName, @RequestParam("cgNum") String cgNum) {
+        log.info("[추가] 컨트롤러 진입");
         return bSer.insertAllCg(cgName, cgNum);
     }
 

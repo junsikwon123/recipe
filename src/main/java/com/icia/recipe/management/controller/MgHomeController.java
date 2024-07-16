@@ -14,11 +14,6 @@ public class MgHomeController {
 
     @Autowired
     BoardService bSer;
-/*
-    @GetMapping("/")
-    public String Main(HttpSession session, Model model, Principal principal) {
-        return "management/main";
-    }*/
 
     @GetMapping("/main")
     public String Sales(HttpSession session, Model model) {

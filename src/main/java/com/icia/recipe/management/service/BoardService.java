@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,14 @@ public class BoardService {
     }
 
     public List<?> deleteCategory(String name, String cg) {
-        return bDao.deleteCategory(name, cg);
+        boolean result = bDao.deleteCategory(name, cg);
+        log.info(name);
+        if (result) {
+            return getAllCategory(name, cg);
+        } else {
+            log.info("[삭제] 서비스 에러");
+            return null;
+        }
     }
 
     public boolean insertFoodItem(MultipartHttpServletRequest request) {
@@ -131,7 +139,7 @@ public class BoardService {
         return null;
     }
 
-    public Object getAllCategory(String name, String cg) {
+    public List<?> getAllCategory(String name, String cg) {
         switch (String.valueOf(cg.charAt(0))) {
                 case "1" -> {
                 return bDao.getFoodItemBigCg();
@@ -158,7 +166,46 @@ public class BoardService {
             }
         }
 
-    public Object insertAllCg(String cgName, String cgNum) {
-            return bDao.addAllCg(cgName, cgNum);
+    public List<?> insertAllCg(String cgName, String cgNum) {
+        log.info("[추가] 서비스 진입");
+            boolean result = bDao.addAllCg(cgName, cgNum);
+            log.info(cgName);
+            log.info(cgNum);
+            if (result) {
+                switch (String.valueOf(cgNum.charAt(0))) {
+                    case "1":
+                        return bDao.getFoodItemMidCg(cgNum);
+                    case "2":
+                        cgNum = "3";
+                        break;
+                    case "4":
+                        cgNum = "5";
+                        break;
+                    case "5":
+                        cgNum = "6";
+                        break;
+                }
+                if (cgNum.equals("fooditem")) {
+                    cgNum = "1";
+                } else if (cgNum.equals("recipe")) {
+                    cgNum = "2";
+                }
+                log.info(cgNum);
+                return getAllCategory(cgName, cgNum);
+            } else {
+                return null;
+            }
+
+    }
+
+    public List<?> deleteFoodItemList(ArrayList deleteKey) {
+        log.info("[게시글 삭제] 서비스 진입");
+        boolean result = bDao.deleteFoodItemList(deleteKey);
+        if (result) {
+            return bDao.getFoodItemList();
+        } else {
+            log.info("[게시글 삭제] 에러 발생");
+            return null;
+        }
     }
 }

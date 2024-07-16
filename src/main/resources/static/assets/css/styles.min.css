@@ -832,3 +832,10 @@ a-img {
     height: 100%;
     object-fit: cover;
 }
+
+#registerBtn {
+    width: 70px;
+    height: 40px;
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
+    flex-grow: 0; /* 버튼이 커지지 않도록 설정 */
+}

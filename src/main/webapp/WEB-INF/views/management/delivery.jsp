@@ -40,6 +40,8 @@
                     <span> 재고 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">
+                        <span> 홈페이지로 </span></a></li>
             </ul>
             <div class="text-center d-none d-md-inline">
                 <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>

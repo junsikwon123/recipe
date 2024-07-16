@@ -4,6 +4,7 @@ import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -27,7 +28,7 @@ public interface BoardDao {
 
     List<BoardDto> getBoardTrade();
 
-    List<?> deleteCategory(String name, String cg);
+    boolean deleteCategory(String name, String cg);
 
     boolean insertFoodItem(String fiCode, String fiExDate, String fiCounts,
                                      String fiBigCg, String fiMidCg,
@@ -40,9 +41,7 @@ public interface BoardDao {
 
     boolean insertFoodItemImg(String fiFile, String path, String role, String fiCode);
 
-    Object addRecipeMidCg(String cgName, String cgNum);
+    boolean addAllCg(String cgName, String cgNum);
 
-    Object addRecipeSmallCg(String cgName, String cgNum);
-
-    Object addAllCg(String cgName, String cgNum);
+    boolean deleteFoodItemList(ArrayList deleteKey);
 }
