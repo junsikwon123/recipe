@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,8 +31,8 @@
                     <span> 재고 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link active" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">
-                        <span> 홈페이지로 </span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/">
+                    <span> 홈페이지로 </span></a></li>
             </ul>
             <div class="text-center d-none d-md-inline">
                 <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -71,7 +71,8 @@
                         </li>
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
                                     <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
                                     <i class="fas fa-bell fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
@@ -102,7 +103,8 @@
                         </li>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
                                     <span id="span-message-count" class="badge bg-danger badge-counter"></span>
                                     <i class="fas fa-envelope fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
@@ -183,7 +185,7 @@
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="text-dark mb-0">고객 센터</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block"
-                                                                role="button" href="#"><i
+                                                            role="button" href="#"><i
                         class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
                 </div>
                 <div class="row">
@@ -229,91 +231,90 @@
 
                     </div>
                 </div>
-<%--                고객센터 페이징 Start--%>
+                <%--                고객센터 페이징 Start--%>
                 <div>
                     <br>
                     <h4 style="text-align: center;justify-content: center">받은 문의</h4>
-                   <table class="table">
-                       <thead>
-                       <tr>
-                           <th>#</th>
-                           <th>유저 아이디</th>
-                           <th>문의 제목</th>
-                           <th>보류 여부</th>
-                           <th>처리 여부</th>
-                       </tr>
-                       </thead>
-                       <tbody>
-<%--                       <c:forEach>--%>
-                           <tr>
-                               <td>1</td>
-                               <td></td>
-                               <td></td>
-                               <td><input type="checkbox"/></td>
-                               <td><input type="checkbox"/></td>
-                           </tr>
-<%--                       </c:forEach>--%>
-                       </tbody>
-                   </table>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>유저 아이디</th>
+                            <th>문의 제목</th>
+                            <th>보류 여부</th>
+                            <th>처리 여부</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%--                       <c:forEach>--%>
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="checkbox"/></td>
+                            <td><input type="checkbox"/></td>
+                        </tr>
+                        <%--                       </c:forEach>--%>
+                        </tbody>
+                    </table>
                 </div>
-<%--                고객센터 페이징 End--%>
+                <%--                고객센터 페이징 End--%>
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
 
                     </div>
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="text-primary fw-bold m-0">할 일</h6>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>점심 먹기</strong></h6><span
-                                                class="text-xs">10:30 AM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-1" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-1"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>낮잠 자기</strong></h6><span
-                                                class="text-xs">11:30 AM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-2" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-2"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>퇴근 하기</strong></h6><span
-                                                class="text-xs">12:30 AM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-3" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-3"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="text-primary fw-bold m-0">할 일</h6>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2">
+                                        <h6 class="mb-0"><strong>점심 먹기</strong></h6><span
+                                            class="text-xs">10:30 AM</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check"><input id="formCheck-1" class="form-check-input"
+                                                                       type="checkbox"/><label
+                                                class="form-check-label" for="formCheck-1"></label></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2">
+                                        <h6 class="mb-0"><strong>낮잠 자기</strong></h6><span
+                                            class="text-xs">11:30 AM</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check"><input id="formCheck-2" class="form-check-input"
+                                                                       type="checkbox"/><label
+                                                class="form-check-label" for="formCheck-2"></label></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col me-2">
+                                        <h6 class="mb-0"><strong>퇴근 하기</strong></h6><span
+                                            class="text-xs">12:30 AM</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check"><input id="formCheck-3" class="form-check-input"
+                                                                       type="checkbox"/><label
+                                                class="form-check-label" for="formCheck-3"></label></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                    </div>
-                    <div class="col">
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                </div>
+                <div class="col">
                 </div>
             </div>
         </div>
@@ -323,7 +324,9 @@
             </div>
         </footer>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
 </div>
 <script src="/assets/js/script.min.js?h=bdf36300aae20ed8ebca7e88738d5267"></script>

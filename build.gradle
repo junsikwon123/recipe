@@ -49,6 +49,8 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
     // jakarta.servlet.jsp.jstl-api
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    //log4jdbc-log4j2-jdbc4.1: logback 활용한 로그 출력
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 }
 
 tasks.named('test') {

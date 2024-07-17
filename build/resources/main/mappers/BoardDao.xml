@@ -75,13 +75,16 @@
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem order by #{param} #{sort}
+        select * from fooditem order by ${param} ${sort}
     </select>
     <select id="getFoodItemListNaming" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
     </select>
     <select id="getFoodItemListNaming2" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
+    </select>
+    <select id="getFIListCnt" resultType="java.lang.Integer">
+        select count(*) from fooditem
     </select>
 
     <insert id="addRecipeBigCg">

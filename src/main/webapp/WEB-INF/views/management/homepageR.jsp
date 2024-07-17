@@ -49,14 +49,14 @@
                 for (const elem of reverseResp) {
                     str += "<tr data-fnum='" + elem.f_num + "'>"
                     str += "<td>" + i + "</td>"
-                    str += "<td>" + elem.f_code + "</td>"
-                    str += "<td>" + elem.c_num + "</td>"
-                    str += "<td>" + elem.c_num2 + "</td>"
-                    str += "<td>" + elem.f_title + "</td>"
-                    str += "<td>" + elem.f_price + "</td>"
-                    str += "<td>" + elem.f_count + "</td>"
-                    str += "<td>" + elem.f_date + "</td>"
-                    str += "<td>" + elem.f_edate + "</td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">" + elem.f_code + "</a></td>";
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.c_num+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.c_num2+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_title+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_price+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_count+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_date+"</a></td>"
+                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_edate+"</a></td>"
                     str += "<th><input class='ckBox' name='selectCk' type='checkbox'></th>"
                     str += "</tr>"
                     i++
@@ -73,6 +73,26 @@
         i.forEach((ck)=>{
             ck.checked = selectAll.checked;
         })
+    }
+    function pageInSearch(value, event) {
+        if (event.keyCode === 13) {
+            $('#pageInSearchForm').val('').focus()
+            if (window.find(value)) {
+            } else {
+                let pageNum = document.getElementById('pageNumSaveFile').name
+                let pageSize = document.getElementById('pageSizeSaveFile').name
+                $.ajax({
+                    method:'get',
+                    url:'/boardlist/search',
+                    data:{"tab":fooditem, "pageNum":pageNum, "pageSize":pageSize, "searchKeyword":value}
+                }).done((resp) => {
+
+                }).fail((err) => {
+
+                })
+            }
+        }
+
     }
 </script>
 <!-- 게시글 등록 모달 -->
@@ -251,78 +271,98 @@
                                     </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">
                                         모든 알림 보기</a>
+                                    <%--                                    <a class="dropdown-item d-flex align-items-center" href="#">--%>
+                                    <%--                                    <div class="me-3">--%>
+                                    <%--                                        <div class="bg-warning icon-circle"><i--%>
+                                    <%--                                                class="fas fa-exclamation-triangle text-white"></i></div>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                    <div><span class="small text-gray-500">24/07/03</span>--%>
+                                    <%--                                        <p>Spending Alert: We&#39;ve noticed unusually high spending for your--%>
+                                    <%--                                            account.</p>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All--%>
+                                    <%--                                    Alerts</a>--%>
                                 </div>
                             </div>
                         </li>
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
-                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
-                                                                       aria-expanded="false" data-bs-toggle="dropdown"
-                                                                       href="#"><span id="span-message-count"
-                                                                                      class="badge bg-danger badge-counter">7</span><i
-                                    class="fas fa-envelope fa-fw"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in"><h6
-                                        class="dropdown-header">alerts center</h6><a
-                                        class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar4.jpeg?h=fefb30b61c8459a66bd338b7d790c3d5">
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span>
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-message-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-envelope fa-fw"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">메세지</h6>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3">
+                                            <img class="rounded-circle" src="/assets/img/avatars/avatar4.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar2.jpeg?h=5d142be9441885f0935b84cf739d4112">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate">
-                                            <span>I have the photos that you ordered last month!</span></div>
-                                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar3.jpeg?h=c5166867f10a4e454b5b2ae8d63268b3">
-                                        <div class="bg-warning status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I&#39;ve been having.</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar5.jpeg?h=35dc45edbcda6b3fc752dab2b0f082ea">
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar2.jpeg"/>
+                                            <div class="status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p></div>
-                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                    Alerts</a></div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate">
+                                                <span>I have the photos that you ordered last month!</span></div>
+                                            <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar3.jpeg"/>
+                                            <div class="bg-warning status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Last month&#39;s report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar5.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren&#39;t good...</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">
+                                        모든 메세지 보기</a>
+                                </div>
                             </div>
                             <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
                                  aria-labelledby="alertsDropdown"></div>
                         </li>
+                        <%--                        우측 상단 프로필--%>
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                                                        aria-expanded="false" data-bs-toggle="dropdown"
-                                                                       href="#"><span
-                                    class="d-none d-lg-inline me-2 text-gray-600 small">Admin</span><img
-                                    class="border rounded-circle img-profile"
-                                    src="/assets/img/avatars/avatar2.jpeg"></a>
-                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                                                       href="#">
+                                <span class="d-none d-lg-inline me-2 text-gray-600 small">Admin</span>
+                                <img class="border rounded-circle img-profile" src="/assets/img/avatars/avatar2.jpeg"/></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> 내 정보</a>
+                                    <a class="dropdown-item" href="chrome://settings"><i
+                                            class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i> 설정</a>
+                                    <a class="dropdown-item" href="chrome://history"><i
+                                            class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i> 사용기록</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> 로그아웃</a>
                                 </div>
                             </div>
                         </li>
@@ -330,7 +370,7 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">게시판 관리</h3>
+                <h3 class="text-dark mb-4" id="subHeaderTitle">게시판 관리</h3>
 
                 <div class="card shadow">
                     <div class="card-header py-3">
@@ -344,14 +384,15 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-nowrap">
-                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label
-                                        class="form-label">Show&nbsp;<select
-                                        class="d-inline-block form-select form-select-sm">
-                                    <option value="10" selected="">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>&nbsp;</label>
+                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                                    <label class="form-label">Show&nbsp;
+                                    <select class="d-inline-block form-select form-select-sm" onchange="savePageSize(this.value)">
+                                        <option value="10" selected="">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    &nbsp</label>
+                                    <input type="hidden" id="pageSizeSaveFile" style="display: none">
                                     </div>
                             </div>
                             <div class="col-md-6">
@@ -362,8 +403,9 @@
                                     <button type="button" id="registerBtn 2" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#outerModal">등록</button>
                                     <label class="form-label">
-                                        <input type="search" class="form-control form-control-sm"
-                                               aria-controls="dataTable" placeholder="페이지 내 검색">
+                                        <input type="search" id="pageInSearchForm" class="form-control form-control-sm"
+                                               aria-controls="dataTable" placeholder="페이지 내 검색"
+                                               onkeypress="pageInSearch(this.value, event)" autocomplete="off">
                                     </label>
                                 </div>
                             </div>
@@ -379,9 +421,12 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-6 align-self-center"><p id="dataTable_info" class="dataTables_info"
-                                                                       role="status" aria-live="polite">Showing 1 to 10
-                                of 27</p></div>
+                            <div class="col-md-6 align-self-center">
+                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+                                    Showing <span id="startIdx"></span>
+                                    to <span id="endIdx"></span>
+                                    of <span id="totalCnt"></span></p>
+                            </div>
                             <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                                     <button type="button" id="registerBtn" class="btn btn-primary" data-bs-toggle="modal"
@@ -390,12 +435,13 @@
                                         <li class="page-item disabled"><a class="page-link" aria-label="Previous"
                                                                           href="#"><span aria-hidden="true">«</span></a>
                                         </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
-                                                aria-hidden="true">»</span></a></li>
+                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">1</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">2</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">3</a></li>
+                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#">
+                                            <span aria-hidden="true">»</span></a></li>
                                     </ul>
+                                    <input id="pageNumSaveFile" type="hidden" style="display: none">
                                 </nav>
                             </div>
                         </div>
@@ -409,8 +455,8 @@
             </div>
         </footer>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
 <script src="/assets/js/script.min.js?h=bdf36300aae20ed8ebca7e88738d5267"></script>
 </body>
 </html>

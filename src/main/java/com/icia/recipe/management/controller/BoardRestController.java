@@ -59,13 +59,16 @@ public class BoardRestController {
     }
     // 게시판 관리. 레시피 또는 물물교환 탭 선택에 따른 테이블 값 변경
     @GetMapping("/boardlist")
-    public Object getCategoryBigCg(@RequestParam("tab") String tab) {
+    public Object getCategoryBigCg(@RequestParam("tab") String tab,
+                                   @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         if (tab.equals("recipe")) {
             return bSer.getRecipeList();
         } else if (tab.equals("fooditem")) {
-            return bSer.getFoodItemList();
+            log.info("목록");
+            return bSer.getFoodItemList(pageNum, pageSize);
+        } else {
+            return null;
         }
-        return null;
     }
     
     // 카테고리 통합 추가
@@ -77,12 +80,13 @@ public class BoardRestController {
 
     // 모달 컨트롤러
     @PostMapping("/fooditem/modalinput")
-    public List<FoodItemDto> fooditemmodalinput(MultipartHttpServletRequest request, HttpSession session) throws IOException {
+    public List<FoodItemDto> fooditemmodalinput(MultipartHttpServletRequest request, HttpSession session,
+           @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) throws IOException {
         log.info("[모달] 컨트롤러 진입");
         if (request != null) {
             boolean result = bSer.insertFoodItem(request, session);
             if (result) {
-                return bSer.getFoodItemList();
+                return bSer.getFoodItemList(pageNum, pageSize);
             }
             } else {
             log.info("[모달] formData null");
@@ -90,12 +94,13 @@ public class BoardRestController {
             }
         return null;
     }
-    // 이미 가져온 보드 리스트에 대한 각 항목별 정렬
-    @GetMapping("/boardlistsort")
-    public Object boardlistsort(@RequestParam("id") String id) {
+    // 보드 리스트 각 항목별 정렬
+    @GetMapping("/boardlist/sort")
+    public Object boardlistsort(@RequestParam("id") String id,
+                                @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         if (String.valueOf(id.charAt(0)).equals("f")) {
             log.info("[식자재정렬] 컨트롤러 진입");
-            return bSer.getSortedFoodItemList(id);
+            return bSer.getSortedFoodItemList(id, pageNum, pageSize);
         } else if (String.valueOf(id.charAt(0)).equals("r")) {
             log.info("[레시피정렬] 컨트롤러 진입");
             return bSer.getSortedRecipeList(id);

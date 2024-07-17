@@ -49,4 +49,6 @@ public interface BoardDao {
     String getFoodItemListNaming(String cNum);
 
     String getFoodItemListNaming2(String cNum2);
+
+    Integer getFIListCnt();
 }

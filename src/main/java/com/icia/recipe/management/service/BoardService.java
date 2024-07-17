@@ -3,7 +3,6 @@ package com.icia.recipe.management.service;
 import com.icia.recipe.management.dao.BoardDao;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
-import com.icia.recipe.management.dto.RecipeDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +23,8 @@ public class BoardService {
 
     @Autowired
     private BoardDao bDao;
+
+    public static final int PAGECOUNT = 2;
 
     // 식자재 대분류 값 가져오기
     public List<BoardDto> getFoodItemBigCg() {
@@ -67,7 +67,7 @@ public class BoardService {
             return null;
         }
     }
-
+    // 모달 식자재 등록
     public boolean insertFoodItem(MultipartHttpServletRequest request, HttpSession session) throws IOException {
         log.info("[모달] 서비스 진입");
         String fiCode = request.getParameter("fiCode");
@@ -111,14 +111,18 @@ public class BoardService {
             fiMap.put("fiCode", fiCode);
             fiMap.put("m_id", role);
             String filesize = "";
-            if (mf.getSize() >= 1024) {
-                filesize = String.valueOf(mf.getSize()/1024);
-                filesize += "KB";
-                if (mf.getSize()/1024 >= 1024) {
-                    filesize = String.valueOf((mf.getSize()/1024)/1024);
-                    filesize += "MB";
+            long size = mf.getSize();
+            if (size >= 1024) {
+                double sizeKB = size / 1024.0;
+                filesize = String.format("%.2f KB", sizeKB);
+                if (sizeKB >= 1024) {
+                    double sizeMB = sizeKB / 1024.0;
+                    filesize = String.format("%.2f MB", sizeMB);
                 }
+            } else {
+                filesize = size + " B";
             }
+            log.info(filesize);
             fiMap.put("i_filesize", filesize);
 
             try {
@@ -138,23 +142,40 @@ public class BoardService {
             return false;
         }
     }
-
-    public List<FoodItemDto> getFoodItemList() {
+    
+    // 식자재 리스트 가져오기. 대분류 중분류에 해당하는 이름으로 바꾸고 ㅇㅇ
+    public List<FoodItemDto> getFoodItemList(Integer pageNum, Integer pageSize) {
         List<FoodItemDto> fiList =  bDao.getFoodItemList();
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
         }
-        return fiList;
+        int totalListCnt = fiList.size();
+        int fromIdx = (pageNum - 1)*pageSize;
+        int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+        if (fromIdx > totalListCnt) {
+            return List.of();
+        }
+        return fiList.subList(fromIdx, toIdx);
     }
 
     public Object getRecipeList() {
         return bDao.getRecipeList();
     }
-
-    public List<FoodItemDto> getSortedFoodItemList(String id) {
+    
+    // 식자재 리스트 각각 정렬 ASC, DESC 토글
+    boolean flag = true;
+    public List<FoodItemDto> getSortedFoodItemList(String id, Integer pageNum, Integer pageSize) {
         log.info("[식자재정렬] 서비스 진입");
-        String sort = "desc";
+        String sort = "";
+        if (flag) {
+            sort = "desc";
+            flag = false;
+        } else {
+            sort = "asc";
+            flag = true;
+        }
+        log.info("ORDER BY {}",sort);
         String param = "";
         switch (id) {
             case "fcode":
@@ -183,7 +204,18 @@ public class BoardService {
                 break;
 
         }
-        return bDao.getSortedFoodItemList(param, sort);
+        List<FoodItemDto> fiList =  bDao.getSortedFoodItemList(param, sort);
+        for (FoodItemDto fi : fiList) {
+            fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
+            fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
+        }
+        int totalListCnt = fiList.size();
+        Integer fromIdx = (pageNum - 1)*pageSize;
+        Integer toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+        if (fromIdx > totalListCnt) {
+            return List.of();
+        }
+        return fiList.subList(fromIdx, toIdx);
     }
 
     public Object getSortedRecipeList(String id) {
@@ -250,11 +282,11 @@ public class BoardService {
 
     }
 
-    public List<?> deleteFoodItemList(ArrayList deleteKey) {
+    public List<?> deleteFoodItemList(ArrayList deleteKey, Integer pageNum, Integer pageSize) {
         log.info("[게시글 삭제] 서비스 진입");
         boolean result = bDao.deleteFoodItemList(deleteKey);
         if (result) {
-            return bDao.getFoodItemList();
+            return getFoodItemList(pageNum, pageSize);
         } else {
             log.info("[게시글 삭제] 에러 발생");
             return null;
