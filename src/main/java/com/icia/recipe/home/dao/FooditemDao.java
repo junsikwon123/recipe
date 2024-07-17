@@ -13,5 +13,9 @@ public interface FooditemDao {
 
     List<CtgDto> searchCtg();
 
+    List<FooditemDto> searchFoodDetail(@Param("num") String num);
 
+    List<FooditemDto> searchFoodDetailInfo(@Param("num") String num);
+
+    boolean viewsPlus(String num);
 }
