@@ -376,7 +376,7 @@
                     <div class="card-header py-3">
                         <p id="boardTitle" class="text-primary m-0 fw-bold">레시피 게시글 리스트</p>
                         <div class="categorymenu">
-                            <button class="cgSelector" onclick="cgSort(this)">레시피</button>
+                            <button  type="button" class="cgSelector" onclick="cgSort(this)">레시피</button>
                             <button class="cgSelector" onclick="cgSort(this)">식자재</button>
                             <button class="cgSelector" onclick="cgSort(this)">카테고리</button>
                         </div>
