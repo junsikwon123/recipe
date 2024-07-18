@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface FooditemDao {
-    List<FooditemDto> searchFooditem(@Param("name") String name, @Param("sort") String sort);
+    List<FooditemDto> searchFooditem(@Param("name") String name, @Param("sort") String sort,@Param("numName") String numName, @Param("num") String num);
 
     List<CtgDto> searchCtg();
 
@@ -18,4 +18,6 @@ public interface FooditemDao {
     List<FooditemDto> searchFoodDetailInfo(@Param("num") String num);
 
     boolean viewsPlus(String num);
+
+    List<FooditemDto> searchctgFoodtitem(@Param("numName") String numName,@Param("cNum") String cNum);
 }

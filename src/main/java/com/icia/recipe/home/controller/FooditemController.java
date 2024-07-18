@@ -24,7 +24,8 @@ public class FooditemController {
     @GetMapping("/fooditem/main")
     public String foodItemMain(Model model){
         String a ="salePriceAsc";
-        String list = fSer.fooditemOrder(a);
+        String num = "no";
+        String list = fSer.fooditemOrder(a,num);
         String cList = fSer.fooditemctg();
         model.addAttribute("list",list);
         model.addAttribute("cList",cList);

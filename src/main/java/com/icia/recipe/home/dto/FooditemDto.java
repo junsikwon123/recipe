@@ -19,7 +19,7 @@ public class FooditemDto {
     private int f_num;
     private String f_title;
     private String f_contents;
-    private String f_price;
+    private String  f_price;
     private String f_count;
     private String f_date;
     private String f_edate;
