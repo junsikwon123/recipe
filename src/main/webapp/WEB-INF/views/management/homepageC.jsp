@@ -75,7 +75,7 @@
                     i++;
                 }
                 str += "<a class='cgTag' href='javascript:void(0)' onclick='" + cgname + "(" + elem.c_num + ")'>" + elem.c_name + "</a>";
-                str += "<button class='deleteBtn' onclick='deleteThis(\"" + elem.c_name + "\",  this , " + elem.c_num + ")'>X</button><br><br>";
+                str += "<button class='btn-close' onclick='deleteThis(\"" + elem.c_name + "\",  this , " + elem.c_num + ")'></button><br><br>";
                 j++;
             }
             printInDiv.html(str);
@@ -330,10 +330,10 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">게시판 관리</h3>
+                <h3 class="text-dark mb-4">카테고리 관리</h3>
 
                 <div class="card shadow">
-                    <div class="card-header py-3"><p class="text-primary m-0 fw-bold">카테고리 관리</p>
+                    <div class="card-header py-3"><p class="text-primary m-0 fw-bold">카테고리 확인 / 추가 / 삭제</p>
                         <div class="categorymenu">
                             <button class="cgSelector" onclick="cg(this)">레시피</button>
                             <button class="cgSelector" onclick="cg(this)">식자재</button>
