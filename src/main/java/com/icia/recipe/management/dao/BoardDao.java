@@ -51,4 +51,13 @@ public interface BoardDao {
     String getFoodItemListNaming2(String cNum2);
 
     Integer getFIListCnt();
+
+    List<FoodItemDto> getModalFIDetails(String trCode);
+
+    String getFiImg(String code);
+
+    String getFIImg(String trCode);
+
+    List<FoodItemDto> getSearchListFI(Integer pageNum, Integer pageSize, String searchKeyword);
+
 }

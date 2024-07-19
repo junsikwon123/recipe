@@ -61,6 +61,7 @@ public class BoardRestController {
     @GetMapping("/boardlist")
     public Object getCategoryBigCg(@RequestParam("tab") String tab,
                                    @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        log.info(String.valueOf(pageNum));
         if (tab.equals("recipe")) {
             return bSer.getRecipeList();
         } else if (tab.equals("fooditem")) {
@@ -94,6 +95,34 @@ public class BoardRestController {
             }
         return null;
     }
+    // 게시글 상세보기
+    @GetMapping("/boardlist/modaldetails")
+    public List<?> modalDetailsView(@RequestParam("trClass") String trClass,@RequestParam("trCode") String trCode) {
+        log.info("[상세] 진입");
+        if (trClass.equals("fooditem")) {
+            return bSer.getModalFIDetails(trCode);
+        } else if (trClass.equals("recipe")) {
+            return null;
+        } else {
+            log.info("[상세] 클래스 에러");
+            return null;
+        }
+    }
+
+    // 식자재 리스트 검색
+    @GetMapping("/boardlist/search")
+    public List<?> boardListSearch(@RequestParam("tab") String tab, @RequestParam("pageNum") Integer pageNum,
+          @RequestParam("pageSize") Integer pageSize, @RequestParam("searchKeyword") String searchKeyword) {
+        switch (tab) {
+            case "fooditem":
+                return bSer.getSearchListFI(pageNum, pageSize, searchKeyword);
+            case "recipe" :
+                return null;
+            default: return null;
+        }
+
+    }
+
     // 보드 리스트 각 항목별 정렬
     @GetMapping("/boardlist/sort")
     public Object boardlistsort(@RequestParam("id") String id,

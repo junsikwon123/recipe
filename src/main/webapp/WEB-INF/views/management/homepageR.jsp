@@ -12,61 +12,6 @@
 <body id="page-top">
 <script>
     let isSelected = 'false'
-    function ckBoxDeleteBtn(elem) {
-        $('#allClickCk').checked = false;
-        let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
-        let deleteKeySet = [];
-        isChecked.forEach((item)=>{
-            let selectTr = item.closest('tr')
-            let deleteKey = selectTr.getAttribute('data-fnum')
-            deleteKeySet.push(deleteKey)
-        })
-        console.log(deleteKeySet)
-        $.ajax({
-            method:'post',
-            url:"/boardlist/delete",
-            data:{"deleteKeySet":deleteKeySet}
-        }).done((resp) => {
-            console.log("[게시글 삭제] 완료")
-            let boardList = $('#tableIsHere');
-                let reverseResp = resp.reverse();
-                boardList.html('')
-                let str = "";
-                str += "<div class='table-responsive table mt-2' id='dataTable' role='grid' aria-describedby='dataTable_info'>"
-                str += "<table class='table my-0' id='dataList'>"
-                str += "<tr class='table-primary' style='vertical-align: center'><th>#</th>"
-                str += "<th><h4>상품코드<a onclick='boardListSortButton(this.id)' id='fcode' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>대분류<a onclick='boardListSortButton(this.id)' id='fcnum' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>중분류<a onclick='boardListSortButton(this.id)' id='fcnum2' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>상품이름<a onclick='boardListSortButton(this.id)' id='ftitle' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>가격<a onclick='boardListSortButton(this.id)' id='fprice' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>수량<a onclick='boardListSortButton(this.id)' id='fcount' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>등록일<a onclick='boardListSortButton(this.id)' id='fdate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>유통기한<a onclick='boardListSortButton(this.id)' id='fedate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<td><input id='allClickCk' onclick='allClickCk(this)' value='selectAll' type='checkbox'>전체선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='ckBoxDeleteBtn(this)' class='btn btn-danger'>삭제</button></td>"
-                str += "</tr>"
-                let i = 1;
-                for (const elem of reverseResp) {
-                    str += "<tr data-fnum='" + elem.f_num + "'>"
-                    str += "<td>" + i + "</td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">" + elem.f_code + "</a></td>";
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.c_num+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.c_num2+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_title+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_price+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_count+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_date+"</a></td>"
-                    str += "<td><a href=\"javascript:document.querySelector('#detailModal').click()\">"+elem.f_edate+"</a></td>"
-                    str += "<th><input class='ckBox' name='selectCk' type='checkbox'></th>"
-                    str += "</tr>"
-                    i++
-                }
-            str += "</table><br><br>"
-            boardList.html(str)
-        }).fail((err) => {
-            console.log("[게시글 삭제] 실패")
-        })
-    }
 
     function allClickCk(selectAll) {
         const i = document.getElementsByName('selectCk')
@@ -74,19 +19,28 @@
             ck.checked = selectAll.checked;
         })
     }
-    function pageInSearch(value, event) {
+    function pageFSearch(value, event) {
         if (event.keyCode === 13) {
             $('#pageInSearchForm').val('').focus()
             if (window.find(value)) {
             } else {
                 let pageNum = document.getElementById('pageNumSaveFile').name
                 let pageSize = document.getElementById('pageSizeSaveFile').name
+                let tab = "";
+                let title = document.querySelector('#boardTitle').innerHTML;
+                if (title.substring(0,1) === '식') {
+                    tab = 'fooditem';
+                } else if (title.substring(0,1) === '레') {
+                    tab = 'recipe';
+                }
                 $.ajax({
                     method:'get',
                     url:'/boardlist/search',
-                    data:{"tab":fooditem, "pageNum":pageNum, "pageSize":pageSize, "searchKeyword":value}
+                    data:{"tab":tab, "pageNum":pageNum, "pageSize":pageSize, "searchKeyword":value}
                 }).done((resp) => {
-
+                    console.log("done")
+                    console.log(resp)
+                    sortClassSwitch(title, null, resp)
                 }).fail((err) => {
 
                 })
@@ -159,26 +113,33 @@
     </div>
 </div>
 <%-- 리스트 상세보기 모달--%>
-<div class="modal fade" id="detailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        id="closeDetailsModalButton"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-                <div class="modal-body">
-                    <h1 id="detailsModalTitle" style="text-align: center"></h1>
-                    <div style="display: flex;flex-direction: row;justify-content: space-between">
-                        <div class="uploadImg">
-                            <div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+            <h1 class="modal-title fs-5" id="detailsModalLabel" style="text-align: center">Modal title</h1>
+            <hr class="border border-primary border-0.5 opacity-75">
+            <div style="justify-content: space-between; display: flex; flex-direction: row">
+                <div id="detailsModalImg">
+                    여기에 사진 들어갈 예정
                 </div>
+                <div id="detailsModalInfo">
+
+                </div>
+            </div>
+            <hr class="border border-primary border-0.5 opacity-100">
+            <div class="modal-body" id="detailsModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
+</div>
+
 <%--모달 끝 행복(?) 시작--%>
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -198,7 +159,7 @@
                 <li class="nav-item"><a class="nav-link active" href="/homepageR"><i class="fas fa-table"></i>
                     <span> 홈페이지 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/inventory"><i class="far fa-user-circle"></i>
-                    <span> 재고 관리</span></a></li>
+                    <span> 폐기 목록 확인</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/">
@@ -218,28 +179,28 @@
                             class="fas fa-bars"></i></button>
                     <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="Search for ...">
+                                                        placeholder="검색어를 입력하세요">
                             <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
-                                                                            aria-expanded="false"
-                                                                            data-bs-toggle="dropdown" href="#"><i
-                                class="fas fa-search"></i></a>
-                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
-                                 aria-labelledby="searchDropdown">
-                                <form class="me-auto navbar-search w-100">
-                                    <div class="input-group"><input class="bg-light form-control border-0 small"
-                                                                    type="text" placeholder="Search for ...">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary py-0" type="button"><i
-                                                    class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
+<%--                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"--%>
+<%--                                                                            aria-expanded="false"--%>
+<%--                                                                            data-bs-toggle="dropdown" href="#"><i--%>
+<%--                                class="fas fa-search"></i></a>--%>
+<%--                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"--%>
+<%--                                 aria-labelledby="searchDropdown">--%>
+<%--                                <form class="me-auto navbar-search w-100">--%>
+<%--                                    <div class="input-group"><input class="bg-light form-control border-0 small"--%>
+<%--                                                                    type="text" placeholder="Search for ...">--%>
+<%--                                        <div class="input-group-append">--%>
+<%--                                            <button class="btn btn-primary py-0" type="button"><i--%>
+<%--                                                    class="fas fa-search"></i></button>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </form>--%>
+<%--                            </div>--%>
+<%--                        </li>--%>
                         <%--                        우측 상단 헤더 알림--%>
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -370,8 +331,12 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4" id="subHeaderTitle">게시판 관리</h3>
-
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-dark mb-4" id="subHeaderTitle">게시판 관리</h3>
+                    <a class="btn btn-primary btn-sm d-none d-sm-inline-block"
+                       role="button" href="javascript:window.print()"><i
+                            class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
+                </div>
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <p id="boardTitle" class="text-primary m-0 fw-bold">레시피 게시글 리스트</p>
@@ -400,12 +365,10 @@
                                 <div class="text-md-end dataTables_filter" id="dataTable_filter">
                                     <button type="button" id="detailModal" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#detailsModal" style="display: none"></button>
-                                    <button type="button" id="registerBtn 2" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#outerModal">등록</button>
                                     <label class="form-label">
                                         <input type="search" id="pageInSearchForm" class="form-control form-control-sm"
                                                aria-controls="dataTable" placeholder="페이지 내 검색"
-                                               onkeypress="pageInSearch(this.value, event)" autocomplete="off">
+                                               onkeypress="pageFSearch(this.value, event)" autocomplete="off">
                                     </label>
                                 </div>
                             </div>
@@ -423,14 +386,17 @@
                         <div class="row">
                             <div class="col-md-6 align-self-center">
                                 <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
-                                    Showing <span id="startIdx"></span>
+                                    Showing <span id="curPage"></span>,
+                                    <span id="startIdx"></span>
                                     to <span id="endIdx"></span>
-                                    of <span id="totalCnt"></span></p>
+                                    of List
+<%--                                    <span id="totalCnt"></span></p> 전체 글의 갯수. 근데 페이징하고 나서 어떻게 해야될지 모르겠다--%>
                             </div>
                             <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                    <button type="button" id="registerBtn" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#outerModal">등록</button>&nbsp;&nbsp;&nbsp;
+                                    <div id="registerBtn-bottom">
+
+                                    </div>
                                     <ul class="pagination">
                                         <li class="page-item disabled"><a class="page-link" aria-label="Previous"
                                                                           href="#"><span aria-hidden="true">«</span></a>

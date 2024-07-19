@@ -35,7 +35,7 @@
     </delete>
 
     <select id="getRecipeList" resultType="com.icia.recipe.management.dto.BoardDto">
-        select * from recipe
+        select * from recipe order by r_num desc
     </select>
 
     <select id="getCgName" resultType="com.icia.recipe.management.dto.BoardDto">
@@ -67,11 +67,11 @@
     </select>
 
     <select id="getBoardTrade" resultType="com.icia.recipe.management.dto.BoardDto">
-        select * from recipe
+        select * from recipe order by r_num desc
     </select>
 
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem
+        select * from fooditem order by f_num desc
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
@@ -80,11 +80,31 @@
     <select id="getFoodItemListNaming" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
     </select>
+
     <select id="getFoodItemListNaming2" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
     </select>
+
     <select id="getFIListCnt" resultType="java.lang.Integer">
         select count(*) from fooditem
+    </select>
+    <select id="getModalFIDetails" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem where f_num = #{trCode}
+    </select>
+    <select id="getFiImg" resultType="java.lang.String">
+        select i_sys_name from img where f_num = #{code}
+    </select>
+    <select id="getSearchListFI" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem where f_code like #{searchKeyword}
+                                or f_title like #{searchKeyword}
+                                or f_contents like #{searchKeyword}
+                                or f_price like #{searchKeyword}
+                                or f_count like #{searchKeyword}
+                                or f_date like #{searchKeyword}
+                                or f_edate like #{searchKeyword}
+    </select>
+    <select id="getFIImg" resultType="java.lang.String">
+        select i_path from img where f_num = #{trCode}
     </select>
 
     <insert id="addRecipeBigCg">
@@ -97,8 +117,11 @@
                 #{fiCounts}, #{fiExDate}, #{fiCode}, #{fiVolume}, #{fiOrigin}, #{fiCal}, #{fiSave});
     </insert>
     <insert id="insertFoodItemImg">
+            <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+                SELECT CAST(MAX(CAST(f_num AS UNSIGNED)) AS CHAR) FROM fooditem
+            </selectKey>
         insert into img (i_path, i_sys_name, i_original_name, f_num, m_id, i_filesize)
-        values (#{i_path}, #{i_sys_name}, #{i_original_name}, #{fiCode}, #{m_id}, #{i_filesize});
+        values (#{i_path}, #{i_sys_name}, #{i_original_name}, #{maxNum}, #{m_id}, #{i_filesize});
     </insert>
 
     <insert id="addAllCg">

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -89,15 +90,18 @@ public class BoardService {
         boolean update = bDao.insertFoodItem(fiCode, fiExDate, fiCounts, fiBigCg,
                 fiMidCg, fiPrice, fiContents, fiTitle, fiVolume, fiOrigin, fiCal, fiSave);
         boolean insertFoodItemImg = false;
+
         Map<String, String> fiMap = new HashMap<String, String>();
         String realPath = session.getServletContext().getRealPath("/");
-        realPath += "WEB-INF/views/uploadedImg/fooditem";
+        realPath += "uploadedImg/fooditem/";
+        int index = realPath.indexOf("webapp");
+        realPath = realPath.substring(Integer.parseInt(index + "webapp" + 1));
         log.info("[파일] 업로드 경로 : {}",realPath);
 
-        File dir = new File(realPath);
-        if (!dir.isDirectory()) {
-            dir.mkdir();
-        }
+//        File dir = new File(realPath);
+//        if (!dir.isDirectory()) {
+//            dir.mkdir();
+//        } Security가 방해함 ㅠ
 
         for (MultipartFile mf : files) {
             String oriFileName = mf.getOriginalFilename();
@@ -108,7 +112,6 @@ public class BoardService {
             log.info("[파일] 시스템파일명 : {}",sysFileName);
             fiMap.put("i_sys_name",sysFileName);
             fiMap.put("i_path", realPath);
-            fiMap.put("fiCode", fiCode);
             fiMap.put("m_id", role);
             String filesize = "";
             long size = mf.getSize();
@@ -149,6 +152,12 @@ public class BoardService {
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
+            if (fi.getC_num().length()>6) {
+                fi.setC_num(fi.getC_num().substring(0, 6)+"...");
+            }
+            if (fi.getF_title().length()>5) {
+                fi.setF_title(fi.getF_title().substring(0, 5)+"...");
+            }
         }
         int totalListCnt = fiList.size();
         int fromIdx = (pageNum - 1)*pageSize;
@@ -292,4 +301,48 @@ public class BoardService {
             return null;
         }
     }
+
+    public List<FoodItemDto> getModalFIDetails(String trCode) {
+        List<FoodItemDto> details = bDao.getModalFIDetails(trCode);
+        for (FoodItemDto fi : details) {
+            fi.setF_img(bDao.getFiImg(trCode));
+            fi.setC_name(bDao.getFIImg(trCode));
+        }
+        return details;
+    }
+
+    public List<FoodItemDto> getSearchListFI(Integer pageNum, Integer pageSize, String searchKeyword) {
+        log.info("[식자재 검색] 진입");
+        log.info("검색어 : {}", searchKeyword);
+
+        List<FoodItemDto> fsearchList = bDao.getFoodItemList();
+        for (FoodItemDto fis : fsearchList) {
+            fis.setC_num(bDao.getFoodItemListNaming(fis.getC_num()));
+            fis.setC_num2(bDao.getFoodItemListNaming2(fis.getC_num2()));
+        }
+
+        List<FoodItemDto> filteredList = fsearchList.stream()
+                .filter(fis ->
+                        fis.getF_title().contains(searchKeyword) ||
+                                fis.getC_num().contains(searchKeyword) ||
+                                fis.getC_num2().contains(searchKeyword) ||
+                                fis.getF_code().contains(searchKeyword) ||
+                                fis.getF_price().contains(searchKeyword) ||
+                                fis.getF_count().contains(searchKeyword) ||
+                                fis.getF_date().contains(searchKeyword) ||
+                                fis.getF_edate().contains(searchKeyword) ||
+                                fis.getF_contents().contains(searchKeyword))
+                .collect(Collectors.toList());
+
+        int totalListCnt = filteredList.size();
+        int fromIdx = (pageNum - 1) * pageSize;
+        int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+
+        if (fromIdx >= totalListCnt) {
+            return List.of(); // 페이지 범위가 전체 리스트 크기를 초과하는 경우 빈 리스트 반환
+        }
+
+        return filteredList.subList(fromIdx, toIdx);
+    }
+
 }
