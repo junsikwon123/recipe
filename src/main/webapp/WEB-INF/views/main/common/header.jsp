@@ -51,9 +51,9 @@
                         </sec:authorize>
                     <%--회원가입 클릭--%>
                     <%--배송정보 클릭--%>
-                    <li><a>배송정보</a></li>
+                    <li><a href="#">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a>고객센터 </a>
+                    <li><a href="#">고객센터 </a>
                 </ul>
             </section>
             <div class="header__inner">
@@ -93,7 +93,7 @@
                                 <%--식자제 링크--%>
                                 <li class="gnb__list"><a id="headCardLink" class="gnb__list-name" href="/fooditem/main">식자재</a></li>
                                 <%--랭킹 링크--%>
-                                <li class="gnb__list"><a class="gnb__list-name main_tab">랭킹</a></li>
+                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="#">랭킹</a></li>
                                 <%--분류 링크--%>
                                 <li class="gnb__list"><a class="gnb__list-name main_tab" href="/recipe/main">분류</a></li>
                                 <%--물물교환 링크--%>
