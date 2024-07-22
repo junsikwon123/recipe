@@ -839,3 +839,17 @@ a-img {
     flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
     flex-grow: 0; /* 버튼이 커지지 않도록 설정 */
 }
+.nav-sub-link {
+    color: #ffffffcc;
+    font-size: 15px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.nav-sub-link:hover {
+    /*color: yellowgreen;*/
+    color: white;
+}
+.nav-sub-link active {
+    color: white;
+}

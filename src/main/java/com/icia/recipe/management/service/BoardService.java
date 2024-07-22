@@ -92,10 +92,11 @@ public class BoardService {
         boolean insertFoodItemImg = false;
 
         Map<String, String> fiMap = new HashMap<String, String>();
-        String realPath = session.getServletContext().getRealPath("/");
-        realPath += "uploadedImg/fooditem/";
-        int index = realPath.indexOf("webapp");
-        realPath = realPath.substring(Integer.parseInt(index + "webapp" + 1));
+//        String realPath = session.getServletContext().getRealPath("/");
+        String uploadPath = session.getServletContext().getRealPath("/") + "uploadedImg/fooditem/";
+        String realPath = "/uploadedImg/fooditem/";
+//        int index = realPath.indexOf("/views");
+//        realPath = realPath.substring(index);
         log.info("[파일] 업로드 경로 : {}",realPath);
 
 //        File dir = new File(realPath);
@@ -129,7 +130,7 @@ public class BoardService {
             fiMap.put("i_filesize", filesize);
 
             try {
-                mf.transferTo(new File(realPath + sysFileName));
+                mf.transferTo(new File(uploadPath + sysFileName));
                 insertFoodItemImg = bDao.insertFoodItemImg(fiMap);
             } catch (IOException e) {
                 throw new RuntimeException(e);

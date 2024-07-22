@@ -159,7 +159,7 @@
                 <li class="nav-item"><a class="nav-link active" href="/homepageR"><i class="fas fa-table"></i>
                     <span> 홈페이지 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/inventory"><i class="far fa-user-circle"></i>
-                    <span> 폐기 목록 확인</span></a></li>
+                    <span> 재고 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/">
