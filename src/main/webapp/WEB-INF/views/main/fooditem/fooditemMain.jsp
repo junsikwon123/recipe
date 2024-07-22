@@ -41,7 +41,9 @@
 
 
     </style>
-
+<script>
+    localStorage.setItem("num","")
+</script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
@@ -76,7 +78,7 @@
                                                 <li class="">
                                                     <input type="radio" id="sorter-saleCountDesc" name="sorter"
                                                            value="saleCountDesc">
-                                                    <label for="sorter-saleCountDesc" class="item-name">판매량순</label>
+                                                    <label for="sorter-saleCountDesc" class="item-name">조회순</label>
                                                 </li>
                                                 <li class="">
                                                     <input type="radio" id="sorter-latestAsc" name="sorter"
@@ -458,60 +460,87 @@
                 li.classList.remove('selected');
                 li.querySelector('input[type="radio"]').checked = false;
             });
-
             //현재 클릭된 라디오 버튼의 부모 li 요소에 selected 클래스 추가하고 checked 속성을 true로 설정
             const parentLi = radio.parentElement;
             parentLi.classList.add('selected');
             radio.checked = true;
+            let date = "order:" + radio.value;
+            /*let num = "${sessionScope.num}";*/
+            console.log("num: ",localStorage.getItem('num'))
+            if(localStorage.getItem('num') !== null || !localStorage.getItem('num') !== ""){
+                date += ",c_num:"+localStorage.getItem('num');
+            }
+            let dataObj = {};
+            date.split(',').forEach(part =>{
+                let [key, value] = part.split(':')
+                dataObj[key] = value;
+            })
+            console.log(dataObj);
+            console.log(date);
             $.ajax({
                 type: 'get',
-                url: "/fooditem/order?order=" + radio.value
+                url: "/fooditem/order",
+                data: dataObj
+
             }).done((resp) => {
-                console.log("resp:", resp);
                 $("#productList").html(resp)
             }).fail((err) => console.log(err))
         });
     });
 
-    function searchctg(c_num) {
+    function searchctg(obj, c_num) {
+        console.log("ctgNum",c_num)
+        localStorage.setItem('num',c_num)
         $.ajax({
-            method: "post",
-            url: "fooditem/searchctg?c_num=" + c_num
-        }).done((resp) > {}).fail((err) => console.log(err))
+            method: "get",
+            url: "/fooditem/searchctg?c_num=" + c_num
+        }).done((resp) => {
+            const ctgImg = document.getElementsByClassName("newcx-top-multi-link-banner");
+            ctgImg[0].style.display = 'none';
+            const searchLi = document.querySelectorAll('.sorting-order-options li');
+            searchLi.forEach(li => {
+                li.classList.remove('selected');
+                li.querySelector('input[type="radio"]').checked = false;
+            });
+            const listItem = obj.closest(".search-option-item")
+            ctgButtonClick(listItem);
+            const parentLi = searchRadio[0].parentElement;
+            parentLi.classList.add('selected');
+            parentLi.checked = true;
+            $("#productList").html(resp)
+        }).fail((err) => console.log(err))
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-        // 'btn-fold' 클래스를 가진 모든 요소를 가져오기
         const foldButtons = document.querySelectorAll(".btn-fold");
-
         // 각 버튼에 클릭 이벤트 리스너 추가
         foldButtons.forEach(button => {
             button.addEventListener("click", function (event) {
-                // 링크의 기본 동작을 막기
                 event.preventDefault();
-
-                // 버튼의 부모 요소를 가져오기 위해 closest 사용
                 const listItem = this.closest(".search-option-item");
-                // 이 리스트 아이템 내의 자식 ul 요소 찾기
-                const childUl = listItem.querySelector(".search-option-items-child");
-                // 자식 ul 요소의 클래스 이름을 콘솔에 출력
-                console.log(childUl.className);
-
-                // 자식 ul 요소의 display 속성을 토글 및 클래스 추가/제거
-                if (childUl.style.display === "block") {
-                    childUl.style.display = "none";
-                    listItem.classList.remove('selected', 'opened');
-                    console.log(listItem.className);
-                    this.classList.remove('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
-                } else {
-                    childUl.style.display = "block";
-                    listItem.classList.add('selected', 'opened');
-                    console.log(listItem.className);
-                    this.classList.add('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
-                }
+                ctgButtonClick(listItem);
             });
         });
     });
+
+    function ctgButtonClick(result) {
+        // 이 리스트 아이템 내의 자식 ul 요소 찾기
+        const childUl = result.querySelector(".search-option-items-child");
+        // 자식 ul 요소의 클래스 이름을 콘솔에 출력
+        console.log(childUl.className);
+
+        // 자식 ul 요소의 display 속성을 토글 및 클래스 추가/제거
+        if (childUl.style.display === "block") {
+            childUl.style.display = "none";
+            result.classList.remove('selected', 'opened');
+            result.classList.remove('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
+        } else {
+            childUl.style.display = "block";
+            result.classList.add('selected', 'opened');
+            result.classList.add('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
+        }
+    }
+
 
 </script>
 </body>
