@@ -19,5 +19,8 @@ public class ImgDto {
     private long i_sys_name; // DB시스템상 파일 이름 
     private int f_num; // 식자재 상품코드
     private int r_num; // 레시피 참조번호
+    private String m_id;
+    private String i_filesize;
+    private String i_register_date;
 
 }

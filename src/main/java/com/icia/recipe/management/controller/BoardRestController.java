@@ -61,6 +61,7 @@ public class BoardRestController {
     @GetMapping("/boardlist")
     public Object getCategoryBigCg(@RequestParam("tab") String tab,
                                    @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        log.info("[홈페이지]");
         log.info(String.valueOf(pageNum));
         if (tab.equals("recipe")) {
             return bSer.getRecipeList();
