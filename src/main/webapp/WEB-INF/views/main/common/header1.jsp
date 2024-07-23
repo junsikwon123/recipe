@@ -58,7 +58,7 @@
                 <div class="header__sec">
                     <h1 class="logo">
                         <a>
-                            <img src="/assets/img/img_header_logo.png" alt=""><%--추후 제목 이미지 넣어야함--%>
+                            <img src="/uploadedImg/main/img_header_logo.png" alt=""><%--추후 제목 이미지 넣어야함--%>
                         </a>
                     </h1>
                     <div class="menu">
@@ -76,12 +76,12 @@
                             <a class="btn__modal-open" data-login="n" data-popup-name="popup_search">검색</a></div>
                         <a class="direct__btn"></a>
                         <%--내정보 클릭--%>
-                        <img src="/assets/img/스크린샷%202024-07-04%20163834.png?h=b11bf208df18b1eb6909c6f72e111c9e" width="69" height="66">
+                        <img src="/uploadedImg/main/스크린샷%202024-07-04%20163834.png?h=b11bf208df18b1eb6909c6f72e111c9e" width="69" height="66">
                         <%--레시피 글쓰기 클릭--%>
-                        <img src="/assets/img/스크린샷%202024-06-27%20171241.png?h=9f0eff141daebd0b04983e61b2ea4b97" width="72" height="75" style="margin-bottom: -2px;margin-top: -11px;">
+                        <img src="/uploadedImg/main/스크린샷%202024-06-27%20171241.png?h=9f0eff141daebd0b04983e61b2ea4b97" width="72" height="75" style="margin-bottom: -2px;margin-top: -11px;">
                         <a class="direct__heart"> <img id="heartIMG"></a>
                         <a href="https://www.greating.co.kr/order/orderCart" class="direct__cart"> <span id="cartCnt">0</span>
-                            <img src="/assets/img/icon_header_cart.png?h=b0cf2eaea34afb39f82041851f5691b1" alt="장바구니"></a>
+                            <img src="/uploadedImg/main/icon_header_cart.png?h=b0cf2eaea34afb39f82041851f5691b1" alt="장바구니"></a>
                     </nav>
                 </div>
                 <div class="gnb">

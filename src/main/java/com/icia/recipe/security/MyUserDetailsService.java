@@ -26,6 +26,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         //User클래스: UserDetails의 구현체
         //필수:아이디,비밀번호, 권한, 선택: disabled(t/f(로그인안됨)), accountLocked(t/f(로그인안됨)),accountExpired(t/f)
-        return User.builder().username(mb.getM_name()).password(mb.getM_pw()).roles(mb.getRole()).build();
+        return User.builder().username(mb.getM_id()).password(mb.getM_pw()).roles(mb.getRole()).build();
     }
 }

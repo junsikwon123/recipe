@@ -215,9 +215,9 @@ public class FooditemService {
 //            case "foodInquiry":
 //                fDao.searchFoodDetailInquiry();
 //                break;
-//            case "change":
-//                fDao.searchFoodDetailChange();
-//                break;
+            case "change":
+                makeHtml = " <img src=\"/uploadedImg/main/@1100x2275.png\" style=\"width:1100px; height: auto; max-width:none\" >";
+                break;
         }
         log.info("makeHtml: {}", makeHtml);
         return makeHtml;

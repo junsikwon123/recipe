@@ -60,11 +60,11 @@
 <div><a href=""><strong>아직 준비중</strong></a></div>
 </div>
 <div class="care">
-    <div><a href="/lowSugar" id="content1"><img src="/assets/img/저당식단.jpg"></a></div>
-    <div><a href="#" id="content2"><img src="/assets/img/칼로리식단.jpg"></a></div>
-    <div><a href="#" id="content3"><img src="/assets/img/알레르기식단.jpg"></a></div>
-    <div><a href="#" id="content4"><img src="/assets/img/단백질식단.jpg"></a></div>
-    <div><a href="#" id="content5"><img src="/assets/img/나만의식단.jpg"></a></div>
+    <div><a href="/lowSugar" id="content1"><img src="/uploadedImg/main/저당식단.jpg"></a></div>
+    <div><a href="#" id="content2"><img src="/uploadedImg/main/칼로리식단.jpg"></a></div>
+    <div><a href="#" id="content3"><img src="/uploadedImg/main/알레르기식단.jpg"></a></div>
+    <div><a href="#" id="content4"><img src="/uploadedImg/main/단백질식단.jpg"></a></div>
+    <div><a href="#" id="content5"><img src="/uploadedImg/main/나만의식단.jpg"></a></div>
 </div>
 </body>
 </html>

@@ -56,7 +56,7 @@
                     <div class="newcx-main">
                         <div class="newcx-widget-container">
                             <div class="newcx-top-multi-link-banner" data-web-log-event="expose" data-log-sent="1">
-                                <img src="/assets/img/bannerunit_6611870e-8808-439b-905f-9f04c6ee9a2a.png?h=a6fd6576c3beddb2f65e9dceefc8b8d0">
+                                <img src="/uploadedImg/main/bannerunit_6611870e-8808-439b-905f-9f04c6ee9a2a.png?h=a6fd6576c3beddb2f65e9dceefc8b8d0">
                             </div>
                         </div>
                         <div class="newcx-list" data-search-id="1b49d3cefad242bd8585867217cf4c11">

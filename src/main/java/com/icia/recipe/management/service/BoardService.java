@@ -306,7 +306,7 @@ public class BoardService {
         List<FoodItemDto> details = bDao.getModalFIDetails(trCode);
         for (FoodItemDto fi : details) {
             fi.setF_img(bDao.getFiImg(trCode));
-            fi.setC_name(bDao.getFIImg(trCode));
+           /* fi.setC_name(bDao.getFIImg(trCode));*/
         }
         return details;
     }
