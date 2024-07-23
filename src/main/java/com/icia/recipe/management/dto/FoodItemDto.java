@@ -29,4 +29,7 @@ public class FoodItemDto {
     private String f_origin; // 상품 원산지
     private String f_save; // 상품 보관 방법
     private String f_img; // 식자재 이미지 불러올때 임시로 여기에 저장함
+    private String f_views;
+    private String f_volume;
+    private String f_cal;
 }

@@ -96,10 +96,10 @@
 
                         <br>
                         <div>
-                            <input name="foodItemTitle-modalInput" id="outerContentsTitle" type="text" placeholder="제 목"
-                                   style="width: 100%;height: 70px; font-size: xx-large">
-                            <input name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"
-                                   style="width: 100%;height: 400px;">
+                            <input class="border-bottom-primary" name="foodItemTitle-modalInput" id="outerContentsTitle" type="text" placeholder="제 목"
+                                   style="width: 100%;height: 70px; font-size: xx-large;border: none">
+                            <input class="border-bottom-primary" name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"
+                                   style="width: 100%;height: 400px;border: none">
                         </div>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2024</span></div>
+                <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
             </div>
         </footer>
     </div>
