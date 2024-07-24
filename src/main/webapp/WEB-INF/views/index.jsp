@@ -9,7 +9,8 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>그리팅몰</title>
+    <link rel="icon" href="/uploadedImg/main/MainPage/그리팅%20메인.jfif" type="image/jfif">
     <script defer src="/common/js/common.js"></script>
     <script defer src="/common/js/jquery-3.7.1.min.js"></script>
 </head>

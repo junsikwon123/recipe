@@ -853,3 +853,8 @@ a-img {
 .nav-sub-link active {
     color: white;
 }
+@media print {
+    .no-print {
+        display: none;
+    }
+}

@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 @Controller
 @Slf4j
-public class CartCotroller {
+public class CartController {
 
     @Autowired
     CartService cSer;
