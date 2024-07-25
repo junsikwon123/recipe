@@ -1,8 +1,10 @@
 package com.icia.recipe.management.service;
 
 import com.icia.recipe.management.dao.BoardDao;
+import com.icia.recipe.management.dao.InvenDao;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
+import com.icia.recipe.management.dto.InvenDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class BoardService {
 
     @Autowired
     private BoardDao bDao;
+
+    @Autowired
+    private InvenDao iDao;
 
     public static final int PAGECOUNT = 2;
 
@@ -68,6 +73,7 @@ public class BoardService {
             return null;
         }
     }
+
     // 모달 식자재 등록
     public boolean insertFoodItem(MultipartHttpServletRequest request, HttpSession session) throws IOException {
         log.info("[모달] 서비스 진입");
@@ -97,7 +103,7 @@ public class BoardService {
         String realPath = "/uploadedImg/fooditem/";
 //        int index = realPath.indexOf("/views");
 //        realPath = realPath.substring(index);
-        log.info("[파일] 업로드 경로 : {}",realPath);
+        log.info("[파일] 업로드 경로 : {}", realPath);
 
 //        File dir = new File(realPath);
 //        if (!dir.isDirectory()) {
@@ -106,12 +112,12 @@ public class BoardService {
 
         for (MultipartFile mf : files) {
             String oriFileName = mf.getOriginalFilename();
-            log.info("[파일] 기존파일명 : {}",oriFileName);
+            log.info("[파일] 기존파일명 : {}", oriFileName);
             fiMap.put("i_original_name", oriFileName);
             String sysFileName = System.currentTimeMillis() + "."
-                    + oriFileName.substring(oriFileName.lastIndexOf(".")+1);
-            log.info("[파일] 시스템파일명 : {}",sysFileName);
-            fiMap.put("i_sys_name",sysFileName);
+                    + oriFileName.substring(oriFileName.lastIndexOf(".") + 1);
+            log.info("[파일] 시스템파일명 : {}", sysFileName);
+            fiMap.put("i_sys_name", sysFileName);
             fiMap.put("i_path", realPath);
             fiMap.put("m_id", role);
             String filesize = "";
@@ -135,8 +141,8 @@ public class BoardService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            
-            
+
+
         }
         if (update && insertFoodItemImg) {
             log.info("[모달] 파일&업데이트 성공");
@@ -146,22 +152,22 @@ public class BoardService {
             return false;
         }
     }
-    
+
     // 식자재 리스트 가져오기. 대분류 중분류에 해당하는 이름으로 바꾸고 ㅇㅇ
     public List<FoodItemDto> getFoodItemList(Integer pageNum, Integer pageSize) {
-        List<FoodItemDto> fiList =  bDao.getFoodItemList();
+        List<FoodItemDto> fiList = bDao.getFoodItemList();
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
-            if (fi.getC_num().length()>6) {
-                fi.setC_num(fi.getC_num().substring(0, 6)+"...");
+            if (fi.getC_num().length() > 6) {
+                fi.setC_num(fi.getC_num().substring(0, 6) + "...");
             }
-            if (fi.getF_title().length()>5) {
-                fi.setF_title(fi.getF_title().substring(0, 5)+"...");
+            if (fi.getF_title().length() > 5) {
+                fi.setF_title(fi.getF_title().substring(0, 5) + "...");
             }
         }
         int totalListCnt = fiList.size();
-        int fromIdx = (pageNum - 1)*pageSize;
+        int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
         if (fromIdx > totalListCnt) {
             return List.of();
@@ -172,9 +178,10 @@ public class BoardService {
     public Object getRecipeList() {
         return bDao.getRecipeList();
     }
-    
+
     // 식자재 리스트 각각 정렬 ASC, DESC 토글
     boolean flag = true;
+
     public List<FoodItemDto> getSortedFoodItemList(String id, Integer pageNum, Integer pageSize) {
         log.info("[식자재정렬] 서비스 진입");
         String sort = "";
@@ -185,7 +192,7 @@ public class BoardService {
             sort = "asc";
             flag = true;
         }
-        log.info("ORDER BY {}",sort);
+        log.info("ORDER BY {}", sort);
         String param = "";
         switch (id) {
             case "fcode":
@@ -214,13 +221,13 @@ public class BoardService {
                 break;
 
         }
-        List<FoodItemDto> fiList =  bDao.getSortedFoodItemList(param, sort);
+        List<FoodItemDto> fiList = bDao.getSortedFoodItemList(param, sort);
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
         }
         int totalListCnt = fiList.size();
-        Integer fromIdx = (pageNum - 1)*pageSize;
+        Integer fromIdx = (pageNum - 1) * pageSize;
         Integer toIdx = Math.min(fromIdx + pageSize, totalListCnt);
         if (fromIdx > totalListCnt) {
             return List.of();
@@ -235,60 +242,60 @@ public class BoardService {
 
     public List<?> getAllCategory(String name, String cg) {
         switch (String.valueOf(cg.charAt(0))) {
-                case "1" -> {
+            case "1" -> {
                 return bDao.getFoodItemBigCg();
-                }
-                case "2" -> {
-                    return bDao.getFoodItemMidCg(cg);
-                }
-                case "3" -> {
-                    return bDao.getFoodItemSmCg(cg);
-                }
-                case "4" -> {
-                    return bDao.getRecipeBigCg();
-                }
-                case "5" -> {
-                    return bDao.getRecipeMidCg(cg);
-                }
-                case "6" -> {
-                    return bDao.getRecipeSmCg(cg);
-                }
-                default -> {
-                    log.info("[삭제] 서비스 에러");
-                    return null;
-                }
+            }
+            case "2" -> {
+                return bDao.getFoodItemMidCg(cg);
+            }
+            case "3" -> {
+                return bDao.getFoodItemSmCg(cg);
+            }
+            case "4" -> {
+                return bDao.getRecipeBigCg();
+            }
+            case "5" -> {
+                return bDao.getRecipeMidCg(cg);
+            }
+            case "6" -> {
+                return bDao.getRecipeSmCg(cg);
+            }
+            default -> {
+                log.info("[삭제] 서비스 에러");
+                return null;
             }
         }
+    }
 
     public List<?> insertAllCg(String cgName, String cgNum) {
         log.info("[추가] 서비스 진입");
-            boolean result = bDao.addAllCg(cgName, cgNum);
-            log.info(cgName);
-            log.info(cgNum);
-            if (result) {
-                switch (String.valueOf(cgNum.charAt(0))) {
-                    case "1":
-                        return bDao.getFoodItemMidCg(cgNum);
-                    case "2":
-                        cgNum = "3";
-                        break;
-                    case "4":
-                        cgNum = "5";
-                        break;
-                    case "5":
-                        cgNum = "6";
-                        break;
-                }
-                if (cgNum.equals("fooditem")) {
-                    cgNum = "1";
-                } else if (cgNum.equals("recipe")) {
-                    cgNum = "2";
-                }
-                log.info(cgNum);
-                return getAllCategory(cgName, cgNum);
-            } else {
-                return null;
+        boolean result = bDao.addAllCg(cgName, cgNum);
+        log.info(cgName);
+        log.info(cgNum);
+        if (result) {
+            switch (String.valueOf(cgNum.charAt(0))) {
+                case "1":
+                    return bDao.getFoodItemMidCg(cgNum);
+                case "2":
+                    cgNum = "3";
+                    break;
+                case "4":
+                    cgNum = "5";
+                    break;
+                case "5":
+                    cgNum = "6";
+                    break;
             }
+            if (cgNum.equals("fooditem")) {
+                cgNum = "1";
+            } else if (cgNum.equals("recipe")) {
+                cgNum = "2";
+            }
+            log.info(cgNum);
+            return getAllCategory(cgName, cgNum);
+        } else {
+            return null;
+        }
 
     }
 
@@ -307,7 +314,7 @@ public class BoardService {
         List<FoodItemDto> details = bDao.getModalFIDetails(trCode);
         for (FoodItemDto fi : details) {
             fi.setF_img(bDao.getFiImg(trCode));
-           /* fi.setC_name(bDao.getFIImg(trCode));*/
+            /* fi.setC_name(bDao.getFIImg(trCode));*/
         }
         return details;
     }
@@ -346,4 +353,41 @@ public class BoardService {
         return filteredList.subList(fromIdx, toIdx);
     }
 
+    public List<?> getSearchListAll(String Keyword) {
+        List<FoodItemDto> fList = iDao.getInvenList();
+        List<FoodItemDto> fSearchList = fList.stream()
+                .filter(fis ->
+                        fis.getC_name().contains(Keyword) ||
+                        fis.getF_date().contains(Keyword) ||
+                        fis.getF_date2().contains(Keyword) ||
+                        fis.getF_edate().contains(Keyword) ||
+                        fis.getF_edate2().contains(Keyword) ||
+                        fis.getF_price().contains(Keyword) ||
+                        fis.getF_code().contains(Keyword) ||
+                        fis.getF_count().contains(Keyword) ||
+                        fis.getF_title().contains(Keyword))
+                .toList();
+        for (FoodItemDto fi : fSearchList) {
+            if (fi.getF_title().length()>5) {
+                fi.setF_title(fi.getF_title().substring(0,4) + "...");
+            }
+        }
+        //
+        List<InvenDto> iaList = iDao.getInvenAddList();
+        List<InvenDto> iSearchList = iaList.stream()
+                .filter(ia ->
+                        ia.getIv_vat().contains(Keyword) ||
+                                ia.getIv_total().contains(Keyword) ||
+                                ia.getIv_price().contains(Keyword) ||
+                                ia.getIv_name().contains(Keyword) ||
+                                ia.getIv_current().contains(Keyword) ||
+                                ia.getIv_count().contains(Keyword) ||
+                                ia.getIv_company().contains(Keyword) ||
+                                ia.getIv_priceSum().contains(Keyword))
+                .toList();
+        List<List<?>> combinedList = new ArrayList<>();
+        combinedList.add(fSearchList);
+        combinedList.add(iSearchList);
+        return combinedList;
+    }
 }

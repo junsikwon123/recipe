@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -50,6 +53,12 @@ public class MgHomeController {
     @GetMapping("/test")
     public String test(HttpSession session, Model model) {
         return "management/test";
+    }
+    @GetMapping("/common/search")
+    public String search(Model model, @RequestParam("Keyword") String Keyword) {
+        List<?> searchList = bSer.getSearchListAll(Keyword);
+        model.addAttribute("searchList", searchList);
+        return "management/search";
     }
 
 
