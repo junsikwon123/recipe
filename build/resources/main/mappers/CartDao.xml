@@ -4,4 +4,42 @@
     <insert id="insertCartList">
         insert into cart value(default,#{user},#{num},#{count},default)
     </insert>
+    <delete id="deleteCart">
+        delete from cart where ca_num = #{e};
+    </delete>
+    <resultMap id="selectFooditem" type="com.icia.recipe.home.dto.FooditemDto">
+        <id property="f_num" column="f_num"/>
+        <result property="f_title" column="f_title"/>
+        <result property="f_price" column="f_price"/>
+        <result property="f_count" column="f_count"/>
+    </resultMap>
+    <resultMap id="selectImg" type="com.icia.recipe.home.dto.ImgDto">
+        <id property="i_name" column="i_name"/>
+        <result property="i_sys_name" column="i_sys_name"/>
+    </resultMap>
+    <resultMap id="selectCartAll" type="com.icia.recipe.home.dto.CartDto">
+        <id property="ca_num" column="ca_num"/>
+        <result property="ca_count" column="ca_count"/>
+        <result property="ca_date" column="ca_date"/>
+        <result property="c_name" column="c_name"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
+        <collection property="fList" javaType="java.util.ArrayList" resultMap="selectFooditem"/>
+    </resultMap>
+    <select id="selectCart" resultMap="selectCartAll">
+        select ca.ca_num,ca.m_id,ca.ca_count,f.f_title,f.f_price,ca.ca_date, i.i_path,i.i_sys_name , f.f_num,f.f_count, c.c_name
+        from cart ca
+                 join fooditem f
+                      on f.f_num = ca.f_num
+                 join img i
+                      on f.f_num = i.f_num
+                 join(
+            select min(i_num) min_inum, f_num
+            from img
+            group by f_num
+        ) min
+        on min.min_inum = i.i_num
+            join category c
+            on c.c_num = f.c_num
+        where ca.m_id = #{name};
+    </select>
 </mapper>

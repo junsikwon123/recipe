@@ -31,7 +31,7 @@ public class FooditemController {
         model.addAttribute("cList",cList);
         return "main/fooditem/fooditemMain";
     }
-    @GetMapping("fooditem/detail")
+    @GetMapping("/fooditem/detail")
     public String foodItemDetail(@RequestParam("f_num") String num, Model model){
         log.info("searchFoodDetail 입장 {}",num);
 

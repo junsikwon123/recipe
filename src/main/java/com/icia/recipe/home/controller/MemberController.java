@@ -65,7 +65,7 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @GetMapping("/member/login")
     public String login() {
-        return "member/login";
+        return "main/member/login";
     }
 
     @GetMapping("/member/login/error")
