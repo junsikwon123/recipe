@@ -20246,7 +20246,7 @@ white-space
 
 .hd .checks input[type="checkbox"]:checked + label:before, .hd .checks input[type="radio"]:checked + label:before {
   border: 1px solid #77b347;
-  background: #77b347 url(/front_pc/images/ico_comm_checkbox_on-2bb49b0f9d9a22138694752231647e7d.png) no-repeat 50% 50%;
+  background: #77b347 url(https://www.greating.co.kr/front_pc/images/ico_comm_checkbox_on-2bb49b0f9d9a22138694752231647e7d.png) no-repeat 50% 50%;
 }
 
 /* no data */
@@ -20768,8 +20768,8 @@ white-space
   padding: 0 70px 0 40px;
   font-size: 0;
   color: #666;
-  border-top: 3px solid #1c1c1c;
   background: #fafafa;
+  border-top: 3px solid black;
 }
 
 .hd .orderCart__title li {
@@ -21172,9 +21172,6 @@ white-space
   font-weight: 600;
 }
 
-.hd .orderCart__sec .tab-menu {
-  margin-bottom: 10px;
-}
 
 .hd .orderCart__sec .info {
   float: right;

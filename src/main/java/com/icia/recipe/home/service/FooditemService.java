@@ -103,9 +103,9 @@ public class FooditemService {
                     .append("<dl class=\"baby-product-wrap adjust-spacing\" style=\"height: 444px\">")
                     .append("<dt class=\"image\">");
             if (fDto.getIList().isEmpty()) {
-                sb.append("<img src=\"/assets/img/noImg.png\" width=\"100%\"></dt>");
+                sb.append("<img src=\"/uploadedImg/main/noImg.png\" width=\"100%\" onerror=\"this.src='/uploadedImg/main/noImg.png\"></dt>");
             } else {
-                sb.append("<img src=\"" + fDto.getIList().get(0).getI_path() + fDto.getIList().get(0).getI_sys_name() + "\" width=\"100%\"></dt>");
+                sb.append("<img src=\"" + fDto.getIList().get(0).getI_path() + fDto.getIList().get(0).getI_sys_name() + "\" width=\"100%\" onerror=\"this.src='/uploadedImg/main/나만의식단.jpg';\"></dt>");
             }
             sb.append("<dd class=\"descriptions\">")
                     .append("<div class=\"badges\"></div>")
