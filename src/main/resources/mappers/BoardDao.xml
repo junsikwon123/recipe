@@ -150,6 +150,14 @@
         </selectKey>
         insert into category (c_num, c_name) values (#{maxNum}, #{cgName})
     </insert>
+    <select id="getSearchModalDetails">
+        select * from fooditem f
+        join category c
+        on c.c_num = f.c_num
+        where c.c_name = #{cname} and
+              f.f_code = #{code} and
+              f.f_title like #{name}
+    </select>
 
 </mapper>
 

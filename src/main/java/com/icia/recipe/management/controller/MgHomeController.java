@@ -1,6 +1,8 @@
 package com.icia.recipe.management.controller;
 
 import com.icia.recipe.management.service.BoardService;
+import com.icia.recipe.management.service.CommonService;
+import com.icia.recipe.management.service.InvenService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -17,6 +20,12 @@ public class MgHomeController {
 
     @Autowired
     BoardService bSer;
+
+    @Autowired
+    InvenService iSer;
+
+    @Autowired
+    CommonService cSer;
 
     @GetMapping("/main")
     public String Sales(HttpSession session, Model model) {
@@ -60,6 +69,7 @@ public class MgHomeController {
         model.addAttribute("searchList", searchList);
         return "management/search";
     }
+
 
 
 }

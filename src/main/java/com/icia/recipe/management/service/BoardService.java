@@ -358,18 +358,31 @@ public class BoardService {
         List<FoodItemDto> fSearchList = fList.stream()
                 .filter(fis ->
                         fis.getC_name().contains(Keyword) ||
-                        fis.getF_date().contains(Keyword) ||
-                        fis.getF_date2().contains(Keyword) ||
-                        fis.getF_edate().contains(Keyword) ||
-                        fis.getF_edate2().contains(Keyword) ||
-                        fis.getF_price().contains(Keyword) ||
-                        fis.getF_code().contains(Keyword) ||
-                        fis.getF_count().contains(Keyword) ||
-                        fis.getF_title().contains(Keyword))
+                                fis.getF_date().contains(Keyword) ||
+                                fis.getF_date2().contains(Keyword) ||
+                                fis.getF_edate().contains(Keyword) ||
+                                fis.getF_edate2().contains(Keyword) ||
+                                fis.getF_price().contains(Keyword) ||
+                                fis.getF_code().contains(Keyword) ||
+                                fis.getF_count().contains(Keyword) ||
+                                fis.getF_title().contains(Keyword))
                 .toList();
+
         for (FoodItemDto fi : fSearchList) {
-            if (fi.getF_title().length()>5) {
-                fi.setF_title(fi.getF_title().substring(0,4) + "...");
+            // Copy f_ values to i_ fields
+            fi.setI_title(fi.getF_title());
+            fi.setI_date(fi.getF_date());
+            fi.setI_date2(fi.getF_date2());
+            fi.setI_edate(fi.getF_edate());
+            fi.setI_edate2(fi.getF_edate2());
+            fi.setI_price(fi.getF_price());
+            fi.setI_code(fi.getF_code());
+            fi.setI_count(fi.getF_count());
+            fi.setI_cname(fi.getC_name());
+
+            // Truncate i_title if necessary
+            if (fi.getI_title().length() > 5) {
+                fi.setI_title(fi.getI_title().substring(0, 4) + "...");
             }
         }
         //

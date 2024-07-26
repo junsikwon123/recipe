@@ -60,4 +60,5 @@ public interface BoardDao {
 
     List<FoodItemDto> getSearchListFI(Integer pageNum, Integer pageSize, String searchKeyword);
 
+    List<FoodItemDto> getSearchModalDetails(String cname, String code, String name);
 }
