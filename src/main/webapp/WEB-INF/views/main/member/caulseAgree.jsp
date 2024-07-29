@@ -101,6 +101,7 @@
 
     <div class="btn-container">
         <button onclick="checkAgreement()">다음 페이지로 이동</button>
+        <button onclick="home()">홈으로</button>
     </div>
 </div>
 
@@ -177,12 +178,15 @@
         }
 
         // 선택 동의 체크 여부 확인
-        if (agreeOptionalCheckbox && !agreeOptionalCheckbox.checked) {
+        if (!agreeOptionalCheckbox.checked) {
             allChecked = false;
         }
 
         // 전체 동의 체크박스 상태 변경
         agreeAllCheckbox.checked = allChecked;
+    }
+    function home(){
+        location.href="/"
     }
 </script>
 </body>

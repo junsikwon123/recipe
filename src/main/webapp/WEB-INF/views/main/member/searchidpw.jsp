@@ -16,6 +16,11 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script defer src="/common/js/common.js"></script>
+    <style>
+        .modal-header{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>

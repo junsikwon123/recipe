@@ -33,4 +33,8 @@ public class MemberService {
         member.setM_pw(passwordEncoder.encode(member.getM_pw()));
         return mDao.changepw(member);
     }
+
+    public String findId(String m_id) {
+        return mDao.findId(m_id);
+    }
 }
