@@ -47,14 +47,14 @@
         GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
         order by ${param} ${sort}
     </select>
-    <select id="getFoodItemList">
+    <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
         select * from fooditem where 1=1
         and f_code in
         <foreach collection="list" index="index" item="deletekeySet" open="(" close=")" separator=", ">
             #{deletekeySet}
         </foreach>
     </select>
-    <select id="getImg">
+    <select id="getImg" resultType="com.icia.recipe.management.dto.ImgDto2">
         select * from img where 1=1
         and f_code in
         <foreach collection="list" index="index" item="deletekeySet" open="(" close=")" separator=", ">
@@ -80,7 +80,7 @@
         INSERT INTO invenAdd (iv_company, iv_name, iv_count, iv_price, iv_vat, iv_total, iv_current)
         VALUES (#{company}, #{name}, #{count}, #{price} * 0.9, #{price} * 0.1, #{price} * #{count}, default)
     </insert>
-    <select id="getInvenAddList">
+    <select id="getInvenAddList" resultType="com.icia.recipe.management.dto.InvenDto">
         SELECT iv_num,
                iv_company,
                iv_name,
@@ -93,7 +93,7 @@
         FROM invenAdd
         ORDER BY iv_num DESC
     </select>
-    <select id="getInvenAddListSort">
+    <select id="getInvenAddListSort" resultType="com.icia.recipe.management.dto.InvenDto">
         SELECT iv_num,
                iv_company,
                iv_name,
@@ -111,7 +111,7 @@
         set iv_current = '발주 완료'
         where iv_current = '발주 전'
     </update>
-    <select id="getSearchModalDetails">
+    <select id="getSearchModalDetails" resultType="com.icia.recipe.management.dto.InvenDto">
         select iv_num,
                iv_company,
                iv_name,

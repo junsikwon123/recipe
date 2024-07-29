@@ -5,7 +5,9 @@ import com.icia.recipe.management.dao.InvenDao;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.dto.InvenDto;
+import com.icia.recipe.management.dto.MemberDto;
 import jakarta.servlet.http.HttpSession;
+import jdk.jfr.Category;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -353,54 +355,5 @@ public class BoardService {
         return filteredList.subList(fromIdx, toIdx);
     }
 
-    public List<?> getSearchListAll(String Keyword) {
-        List<FoodItemDto> fList = iDao.getInvenList();
-        List<FoodItemDto> fSearchList = fList.stream()
-                .filter(fis ->
-                        fis.getC_name().contains(Keyword) ||
-                                fis.getF_date().contains(Keyword) ||
-                                fis.getF_date2().contains(Keyword) ||
-                                fis.getF_edate().contains(Keyword) ||
-                                fis.getF_edate2().contains(Keyword) ||
-                                fis.getF_price().contains(Keyword) ||
-                                fis.getF_code().contains(Keyword) ||
-                                fis.getF_count().contains(Keyword) ||
-                                fis.getF_title().contains(Keyword))
-                .toList();
 
-        for (FoodItemDto fi : fSearchList) {
-            // Copy f_ values to i_ fields
-            fi.setI_title(fi.getF_title());
-            fi.setI_date(fi.getF_date());
-            fi.setI_date2(fi.getF_date2());
-            fi.setI_edate(fi.getF_edate());
-            fi.setI_edate2(fi.getF_edate2());
-            fi.setI_price(fi.getF_price());
-            fi.setI_code(fi.getF_code());
-            fi.setI_count(fi.getF_count());
-            fi.setI_cname(fi.getC_name());
-
-            // Truncate i_title if necessary
-            if (fi.getI_title().length() > 5) {
-                fi.setI_title(fi.getI_title().substring(0, 4) + "...");
-            }
-        }
-        //
-        List<InvenDto> iaList = iDao.getInvenAddList();
-        List<InvenDto> iSearchList = iaList.stream()
-                .filter(ia ->
-                        ia.getIv_vat().contains(Keyword) ||
-                                ia.getIv_total().contains(Keyword) ||
-                                ia.getIv_price().contains(Keyword) ||
-                                ia.getIv_name().contains(Keyword) ||
-                                ia.getIv_current().contains(Keyword) ||
-                                ia.getIv_count().contains(Keyword) ||
-                                ia.getIv_company().contains(Keyword) ||
-                                ia.getIv_priceSum().contains(Keyword))
-                .toList();
-        List<List<?>> combinedList = new ArrayList<>();
-        combinedList.add(fSearchList);
-        combinedList.add(iSearchList);
-        return combinedList;
-    }
 }

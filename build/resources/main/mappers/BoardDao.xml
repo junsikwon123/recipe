@@ -94,15 +94,6 @@
     <select id="getFiImg" resultType="java.lang.String">
         select i_sys_name from img where f_num = #{code}
     </select>
-    <select id="getSearchListFI" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem where f_code like #{searchKeyword}
-                                or f_title like #{searchKeyword}
-                                or f_contents like #{searchKeyword}
-                                or f_price like #{searchKeyword}
-                                or f_count like #{searchKeyword}
-                                or f_date like #{searchKeyword}
-                                or f_edate like #{searchKeyword}
-    </select>
     <select id="getFIImg" resultType="java.lang.String">
         select i_path from img where f_num = #{trCode}
     </select>
@@ -150,14 +141,7 @@
         </selectKey>
         insert into category (c_num, c_name) values (#{maxNum}, #{cgName})
     </insert>
-    <select id="getSearchModalDetails">
-        select * from fooditem f
-        join category c
-        on c.c_num = f.c_num
-        where c.c_name = #{cname} and
-              f.f_code = #{code} and
-              f.f_title like #{name}
-    </select>
+
 
 </mapper>
 

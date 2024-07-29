@@ -21,20 +21,4 @@ public class CommonService {
     @Autowired
     BoardDao bDao;
 
-    public List<?> getSearchModalDetails(String className, ArrayList param) {
-        List<?> thisList = null;
-        switch (className) {
-            case "inven":
-                String cname = param.get(0).toString();
-                String code = param.get(1).toString();
-                String name = param.get(2).toString();
-                thisList = bDao.getSearchModalDetails(cname, code, name);
-            case "invenAdd":
-                String company = param.get(0).toString();
-                String iname = param.get(1).toString();
-                thisList = iDao.getSearchModalDetails(company, iname);
-        }
-        log.info(thisList.toString());
-        return thisList;
-    }
 }

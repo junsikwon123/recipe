@@ -1,7 +1,7 @@
 package com.icia.recipe.management.dao;
 
 import com.icia.recipe.management.dto.FoodItemDto;
-import com.icia.recipe.management.dto.ImgDto;
+import com.icia.recipe.management.dto.ImgDto2;
 import com.icia.recipe.management.dto.InvenDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,7 +23,7 @@ public interface InvenDao {
 
     List<FoodItemDto> getFoodItemList(ArrayList deletekeySet);
 
-    List<ImgDto> getImg(ArrayList deletekeySet);
+    List<ImgDto2> getImg(ArrayList deletekeySet);
 
     boolean insertInvenAdd(String count, String company, String name, String price);
 
@@ -34,4 +34,5 @@ public interface InvenDao {
     List<InvenDto> getInvenAddListSort(String param, String sort);
 
     List<InvenDto> getSearchModalDetails(String company, String iname);
+
 }
