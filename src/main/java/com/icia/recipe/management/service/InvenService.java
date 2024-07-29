@@ -107,9 +107,13 @@ public class InvenService {
 
     @Transactional
     public List<?> deleteFromFooditem(ArrayList deleteKeySet, Integer pageNum, Integer pageSize) {
-        List<FoodItemDto> ps1Select = iDao.getFoodItemList(deleteKeySet);
-        List<ImgDto2> ps2Select = iDao.getImg(deleteKeySet);
-        boolean ps3Delete = iDao.deleteFromFoodItem(deleteKeySet);
+        String bigCgNum = deleteKeySet.get(0).toString();
+        String code = deleteKeySet.get(1).toString();
+        String cgName = deleteKeySet.get(2).toString();
+        String title = deleteKeySet.get(3).toString();
+        List<FoodItemDto> ps1Select = iDao.getFoodItemList(bigCgNum, code, cgName, title);
+        List<ImgDto2> ps2Select = iDao.getImg(bigCgNum, code, cgName, title);
+        boolean ps3Delete = iDao.deleteFromFoodItem(bigCgNum, code , title);
         if (ps3Delete) {
             for (int i = 0; i < ps2Select.size(); i++) {
                 ImgDto2 img = ps2Select.get(i);
