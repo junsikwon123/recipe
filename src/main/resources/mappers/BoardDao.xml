@@ -26,9 +26,16 @@
     <delete id="deleteCategory">
         delete from category where c_name=#{name}
     </delete>
+    <delete id="deleteFoodItemList">
+        delete from fooditem where 1=1
+        and f_num in
+                             <foreach collection="list" index="index" item="deleteKey" open="(" close=")" separator=", ">
+                                 #{deleteKey}
+                             </foreach>
+    </delete>
 
     <select id="getRecipeList" resultType="com.icia.recipe.management.dto.BoardDto">
-        select * from recipe
+        select * from recipe order by r_num desc
     </select>
 
     <select id="getCgName" resultType="com.icia.recipe.management.dto.BoardDto">
@@ -60,15 +67,35 @@
     </select>
 
     <select id="getBoardTrade" resultType="com.icia.recipe.management.dto.BoardDto">
-        select * from recipe
+        select * from recipe order by r_num desc
     </select>
 
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem
+        select * from fooditem order by f_num desc
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem order by #{param} #{sort}
+        select * from fooditem order by ${param} ${sort}
+    </select>
+    <select id="getFoodItemListNaming" resultType="java.lang.String">
+        select c_name from category where c_num=#{cNum}
+    </select>
+
+    <select id="getFoodItemListNaming2" resultType="java.lang.String">
+        select c_name from category where c_num=#{cNum}
+    </select>
+
+    <select id="getFIListCnt" resultType="java.lang.Integer">
+        select count(*) from fooditem
+    </select>
+    <select id="getModalFIDetails" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem where f_num = #{trCode}
+    </select>
+    <select id="getFiImg" resultType="java.lang.String">
+        select i_sys_name from img where f_num = #{code}
+    </select>
+    <select id="getFIImg" resultType="java.lang.String">
+        select i_path from img where f_num = #{trCode}
     </select>
 
     <insert id="addRecipeBigCg">
@@ -78,19 +105,14 @@
     <insert id="insertFoodItem" parameterType="map">
         insert into fooditem (c_num, c_num2, f_title, f_contents, f_price, f_count, f_edate, f_code, f_volume, f_origin, f_cal, f_save)
         values (#{fiBigCg}, #{fiMidCg}, #{fiTitle}, #{fiContents}, #{fiPrice},
-                #{fiCounts}, #{fiExDate}, #{fiCode}, #{fiVolume}. #{fiOrigin}, #{fiCal}, #{fiSave});
+                #{fiCounts}, #{fiExDate}, #{fiCode}, #{fiVolume}, #{fiOrigin}, #{fiCal}, #{fiSave});
     </insert>
     <insert id="insertFoodItemImg">
-        insert into img (i_path, i_name, f_num, m_id) values (#{path}, #{fiFile}, #{fiCode}, #{role});
-    </insert>
-    <insert id="addRecipeMidCg">
-        insert into recipe
-    </insert>
-    <insert id="addRecipeSmallCg">
-        insert into category
-    </insert>
-    <insert id="addNotBigAllCg">
-        insert into category
+            <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
+                SELECT CAST(MAX(CAST(f_num AS UNSIGNED)) AS CHAR) FROM fooditem
+            </selectKey>
+        insert into img (i_path, i_sys_name, i_original_name, f_num, m_id, i_filesize)
+        values (#{i_path}, #{i_sys_name}, #{i_original_name}, #{maxNum}, #{m_id}, #{i_filesize});
     </insert>
 
     <insert id="addAllCg">
@@ -119,6 +141,7 @@
         </selectKey>
         insert into category (c_num, c_name) values (#{maxNum}, #{cgName})
     </insert>
+
 
 </mapper>
 

@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>E R P</title>
+    <link rel="icon" href="/uploadedImg/main/Management/캡처.PNG" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
@@ -12,60 +13,6 @@
 <body id="page-top">
 <script>
     let isSelected = 'false'
-    function ckBoxDeleteBtn() {
-        let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
-        let deleteKeySet = [];
-        isChecked.forEach((item)=>{
-            let selectTr = item.closest('tr')
-            let deleteKey = selectTr.getAttribute('data-fnum')
-            deleteKeySet.push(deleteKey)
-        })
-        console.log(deleteKeySet)
-        $.ajax({
-            method:'post',
-            url:"/boardlist/delete",
-            data:{"deleteKeySet":deleteKeySet}
-        }).done((resp) => {
-            console.log("[게시글 삭제] 완료")
-            let boardList = $('#tableIsHere');
-                let reverseResp = resp.reverse();
-                boardList.html('')
-                let str = "";
-                str += "<div class='table-responsive table mt-2' id='dataTable' role='grid' aria-describedby='dataTable_info'>"
-                str += "<table class='table my-0' id='dataList'>"
-                str += "<tr class='table-primary' style='vertical-align: center'><th>#</th>"
-                str += "<th><h4>상품코드<a onclick='boardListSortButton(this.id)' id='fcode' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>대분류<a onclick='boardListSortButton(this.id)' id='fcnum' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>중분류<a onclick='boardListSortButton(this.id)' id='fcnum2' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>상품이름<a onclick='boardListSortButton(this.id)' id='ftitle' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>가격<a onclick='boardListSortButton(this.id)' id='fprice' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>수량<a onclick='boardListSortButton(this.id)' id='fcount' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>등록일<a onclick='boardListSortButton(this.id)' id='fdate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<th><h4>유통기한<a onclick='boardListSortButton(this.id)' id='fedate' class='Asort'><img src='/assets/img/a/sort.png' style='width: 20px; height: 20px'></a></h4></th>"
-                str += "<td><input id='allClickCk' onclick='allClickCk(this)' value='selectAll' type='checkbox'>전체선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='ckBoxDeleteBtn()' class='btn btn-danger'>삭제</button></td>"
-                str += "</tr>"
-                let i = 1;
-                for (const elem of reverseResp) {
-                    str += "<tr data-fnum='" + elem.f_num + "'>"
-                    str += "<td>" + i + "</td>"
-                    str += "<td>" + elem.f_code + "</td>"
-                    str += "<td>" + elem.c_num + "</td>"
-                    str += "<td>" + elem.c_num2 + "</td>"
-                    str += "<td>" + elem.f_title + "</td>"
-                    str += "<td>" + elem.f_price + "</td>"
-                    str += "<td>" + elem.f_count + "</td>"
-                    str += "<td>" + elem.f_date + "</td>"
-                    str += "<td>" + elem.f_edate + "</td>"
-                    str += "<th><input class='ckBox' name='selectCk' type='checkbox'></th>"
-                    str += "</tr>"
-                    i++
-                }
-            str += "</table><br><br>"
-            boardList.html(str)
-        }).fail((err) => {
-            console.log("[게시글 삭제] 실패")
-        })
-    }
 
     function allClickCk(selectAll) {
         const i = document.getElementsByName('selectCk')
@@ -74,7 +21,7 @@
         })
     }
 </script>
-<!-- 첫번째 모달 창 -->
+<!-- 게시글 등록 모달 -->
 <div class="modal fade" id="outerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -93,7 +40,7 @@
                                 <div class="file_input">
                                     <img id="preview" style="width: 300px; height: 300px; border: none"><br>
                                     <label>
-                                        <input type="file" multiple name="files" onchange="selectFile(this);">
+                                        <input type="file" id="attachment" name="attachment" onchange="selectFile(this);" multiple>
                                     </label>
 
                                 </div>
@@ -121,10 +68,10 @@
 
                         <br>
                         <div>
-                            <input name="foodItemTitle-modalInput" id="outerContentsTitle" type="text" placeholder="제 목"
-                                   style="width: 100%;height: 70px; font-size: xx-large">
-                            <input name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"
-                                   style="width: 100%;height: 400px;">
+                            <input class="border-bottom-primary" name="foodItemTitle-modalInput" id="outerContentsTitle" type="text" placeholder="제 목"
+                                   style="width: 100%;height: 70px; font-size: xx-large;border: none">
+                            <input class="border-bottom-primary" name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"
+                                   style="width: 100%;height: 400px;border: none">
                         </div>
                     </div>
                 </div>
@@ -137,26 +84,35 @@
         </div>
     </div>
 </div>
+<%-- 리스트 상세보기 모달--%>
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <h1 class="modal-title fs-5" id="detailsModalLabel" style="text-align: center">Modal title</h1>
+            <hr class="border border-primary border-0.5 opacity-75">
+            <div style="justify-content: space-between; display: flex; flex-direction: row">
+                <div id="detailsModalImg">
+                    여기에 사진 들어갈 예정
+                </div>
+                <div id="detailsModalInfo">
 
-<!-- 두번째 모달 창 -->
-<%--<div class="modal fade" id="innerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">--%>
-<%--    <div class="modal-dialog modal-dialog-centered">--%>
-<%--        <div class="modal-content">--%>
-<%--            <div class="modal-header">--%>
-<%--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeInnerModalButton"></button>--%>
-<%--            </div>--%>
-<%--            <div id="modalData" class="modal-body">--%>
+                </div>
+            </div>
+            <hr class="border border-primary border-0.5 opacity-100">
+            <div class="modal-body" id="detailsModalBody">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<%--            </div>--%>
-<%--            <div class="modal-footer">--%>
-<%--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--%>
-<%--                <button type="button" class="btn btn-primary">Understood</button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
+<%--모달 끝 행복(?) 시작--%>
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <div class="container-fluid d-flex flex-column p-0"><br><br><br>
@@ -193,30 +149,12 @@
                 <div class="container-fluid">
                     <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
                             class="fas fa-bars"></i></button>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="Search for ...">
+                        <div class="input-group" style="width: 500px;">
+                            <input class="bg-light form-control border-0 small" type="text"
+                                                        placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)">
                             <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
                         </div>
-                    </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
-                                                                            aria-expanded="false"
-                                                                            data-bs-toggle="dropdown" href="#"><i
-                                class="fas fa-search"></i></a>
-                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
-                                 aria-labelledby="searchDropdown">
-                                <form class="me-auto navbar-search w-100">
-                                    <div class="input-group"><input class="bg-light form-control border-0 small"
-                                                                    type="text" placeholder="Search for ...">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary py-0" type="button"><i
-                                                    class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
                         <%--                        우측 상단 헤더 알림--%>
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -248,78 +186,98 @@
                                     </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">
                                         모든 알림 보기</a>
+                                    <%--                                    <a class="dropdown-item d-flex align-items-center" href="#">--%>
+                                    <%--                                    <div class="me-3">--%>
+                                    <%--                                        <div class="bg-warning icon-circle"><i--%>
+                                    <%--                                                class="fas fa-exclamation-triangle text-white"></i></div>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                    <div><span class="small text-gray-500">24/07/03</span>--%>
+                                    <%--                                        <p>Spending Alert: We&#39;ve noticed unusually high spending for your--%>
+                                    <%--                                            account.</p>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All--%>
+                                    <%--                                    Alerts</a>--%>
                                 </div>
                             </div>
                         </li>
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
-                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
-                                                                       aria-expanded="false" data-bs-toggle="dropdown"
-                                                                       href="#"><span id="span-message-count"
-                                                                                      class="badge bg-danger badge-counter">7</span><i
-                                    class="fas fa-envelope fa-fw"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in"><h6
-                                        class="dropdown-header">alerts center</h6><a
-                                        class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar4.jpeg?h=fefb30b61c8459a66bd338b7d790c3d5">
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span>
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-message-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-envelope fa-fw"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">메세지</h6>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3">
+                                            <img class="rounded-circle" src="/assets/img/avatars/avatar4.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar2.jpeg?h=5d142be9441885f0935b84cf739d4112">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate">
-                                            <span>I have the photos that you ordered last month!</span></div>
-                                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar3.jpeg?h=c5166867f10a4e454b5b2ae8d63268b3">
-                                        <div class="bg-warning status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I&#39;ve been having.</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p></div>
-                                </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image me-3"><img class="rounded-circle"
-                                                                               src="/assets/img/avatars/avatar5.jpeg?h=35dc45edbcda6b3fc752dab2b0f082ea">
-                                        <div class="bg-success status-indicator"></div>
-                                    </div>
-                                    <div class="fw-bold">
-                                        <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar2.jpeg"/>
+                                            <div class="status-indicator"></div>
                                         </div>
-                                        <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p></div>
-                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                    Alerts</a></div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate">
+                                                <span>I have the photos that you ordered last month!</span></div>
+                                            <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar3.jpeg"/>
+                                            <div class="bg-warning status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Last month&#39;s report looks great, I am very happy with the progress so far, keep up the good work!</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                                                                   src="/assets/img/avatars/avatar5.jpeg"/>
+                                            <div class="bg-success status-indicator"></div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren&#39;t good...</span>
+                                            </div>
+                                            <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">
+                                        모든 메세지 보기</a>
+                                </div>
                             </div>
                             <div class="shadow dropdown-list dropdown-menu dropdown-menu-end"
                                  aria-labelledby="alertsDropdown"></div>
                         </li>
+                        <%--                        우측 상단 프로필--%>
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                                                        aria-expanded="false" data-bs-toggle="dropdown"
-                                                                       href="#"><span
-                                    class="d-none d-lg-inline me-2 text-gray-600 small">Admin</span><img
-                                    class="border rounded-circle img-profile"
-                                    src="/assets/img/avatars/avatar2.jpeg"></a>
-                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                                                       href="#">
+                                <span class="d-none d-lg-inline me-2 text-gray-600 small">Admin</span>
+                                <img class="border rounded-circle img-profile" src="/assets/img/avatars/avatar2.jpeg"/></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> 내 정보</a>
+                                    <a class="dropdown-item" href="chrome://settings"><i
+                                            class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i> 설정</a>
+                                    <a class="dropdown-item" href="chrome://history"><i
+                                            class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i> 사용기록</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> 로그아웃</a>
                                 </div>
                             </div>
                         </li>
@@ -327,13 +285,17 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">게시판 관리</h3>
-
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-dark mb-4" id="subHeaderTitle">게시판 관리</h3>
+                    <a class="btn btn-primary btn-sm d-none d-sm-inline-block"
+                       role="button" href="javascript:window.print()"><i
+                            class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
+                </div>
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <p id="boardTitle" class="text-primary m-0 fw-bold">레시피 게시글 리스트</p>
                         <div class="categorymenu">
-                            <button class="cgSelector" onclick="cgSort(this)">레시피</button>
+                            <button  type="button" class="cgSelector" onclick="cgSort(this)">레시피</button>
                             <button class="cgSelector" onclick="cgSort(this)">식자재</button>
                             <button class="cgSelector" onclick="cgSort(this)">카테고리</button>
                         </div>
@@ -341,24 +303,26 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-nowrap">
-                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label
-                                        class="form-label">Show&nbsp;<select
-                                        class="d-inline-block form-select form-select-sm">
-                                    <option value="10" selected="">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>&nbsp;</label>
+                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                                    <label class="form-label">Show&nbsp;
+                                    <select class="d-inline-block form-select form-select-sm" onchange="savePageSize(this.value)">
+                                        <option value="10" selected="">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    &nbsp</label>
+                                    <input type="hidden" id="pageSizeSaveFile" style="display: none">
                                     </div>
                             </div>
                             <div class="col-md-6">
 
                                 <div class="text-md-end dataTables_filter" id="dataTable_filter">
-                                    <button type="button" id="registerBtn 2" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#outerModal">등록</button>
+                                    <button type="button" id="detailModal" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#detailsModal" style="display: none"></button>
                                     <label class="form-label">
-                                        <input type="search" class="form-control form-control-sm"
-                                               aria-controls="dataTable" placeholder="페이지 내 검색">
+                                        <input type="search" id="pageInSearchForm" class="form-control form-control-sm"
+                                               aria-controls="dataTable" placeholder="페이지 내 검색"
+                                               onkeypress="pageFSearch(this.value, event)" autocomplete="off">
                                     </label>
                                 </div>
                             </div>
@@ -374,23 +338,30 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-6 align-self-center"><p id="dataTable_info" class="dataTables_info"
-                                                                       role="status" aria-live="polite">Showing 1 to 10
-                                of 27</p></div>
+                            <div class="col-md-6 align-self-center">
+                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+                                    Showing <span id="curPage"></span>,
+                                    <span id="startIdx"></span>
+                                    to <span id="endIdx"></span>
+                                    of List
+<%--                                    <span id="totalCnt"></span></p> 전체 글의 갯수. 근데 페이징하고 나서 어떻게 해야될지 모르겠다--%>
+                            </div>
                             <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                    <button type="button" id="registerBtn" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#outerModal">등록</button>&nbsp;&nbsp;&nbsp;
+                                    <div id="registerBtn-bottom">
+
+                                    </div>
                                     <ul class="pagination">
                                         <li class="page-item disabled"><a class="page-link" aria-label="Previous"
                                                                           href="#"><span aria-hidden="true">«</span></a>
                                         </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
-                                                aria-hidden="true">»</span></a></li>
+                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">1</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">2</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">3</a></li>
+                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#">
+                                            <span aria-hidden="true">»</span></a></li>
                                     </ul>
+                                    <input id="pageNumSaveFile" type="hidden" style="display: none">
                                 </nav>
                             </div>
                         </div>
@@ -400,12 +371,12 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2024</span></div>
+                <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
             </div>
         </footer>
     </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
 <script src="/assets/js/script.min.js?h=bdf36300aae20ed8ebca7e88738d5267"></script>
 </body>
 </html>

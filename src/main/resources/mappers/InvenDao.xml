@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icia.recipe.management.dao.InvenDao">
+    <resultMap id="InvenResultMap" type="com.icia.recipe.management.dto.FoodItemDto">
+        <id property="f_num" column="f_num"/>
+        <result property="f_title" column="f_title"/>
+        <result property="total" column="total"/>
+        <result property="f_price" column="avgPrice"/>
+        <result property="f_code" column="f_code"/>
+        <result property="f_count" column="countSum"/>
+        <result property="f_date" column="oldest_date"/>
+        <result property="f_date2" column="recent_date"/>
+        <result property="f_edate" column="oldest_edate"/>
+        <result property="f_edate2" column="recent_edate"/>
+    </resultMap>
+    <select id="getInvenList" resultMap="InvenResultMap">
+        SELECT MIN(f.f_date)                                                      AS oldest_date,
+               MAX(f.f_date)                                                      AS recent_date,
+               MIN(f.f_edate)                                                     AS oldest_edate,
+               MAX(f.f_edate)                                                     AS recent_edate,
+               c.c_name,
+               f.f_code,
+               f.f_title,
+               TRUNCATE(SUM(f.f_count), 0)                                        AS countSum,
+               FORMAT(TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0)                  AS avgPrice,
+               FORMAT(SUM(f.f_count) * TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0) AS total
+        FROM fooditem f
+                 JOIN
+             category c ON f.c_num = c.c_num
+        GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
+        order by f_num desc
+    </select>
+    <select id="getSortedInvenList" resultMap="InvenResultMap">
+        SELECT MIN(f.f_date)                                                      AS oldest_date,
+               MAX(f.f_date)                                                      AS recent_date,
+               MIN(f.f_edate)                                                     AS oldest_edate,
+               MAX(f.f_edate)                                                     AS recent_edate,
+               c.c_name,
+               f.f_code,
+               f.f_title,
+               TRUNCATE(SUM(f.f_count), 0)                                        AS countSum,
+               FORMAT(TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0)                  AS avgPrice,
+               FORMAT(SUM(f.f_count) * TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0) AS total
+        FROM fooditem f
+                 JOIN
+             category c ON f.c_num = c.c_num
+        GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
+        order by ${param} ${sort}
+    </select>
+    <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem where 1=1
+        and f_code in
+        <foreach collection="list" index="index" item="deletekeySet" open="(" close=")" separator=", ">
+            #{deletekeySet}
+        </foreach>
+    </select>
+    <select id="getImg" resultType="com.icia.recipe.management.dto.ImgDto2">
+        select * from img where 1=1
+        and f_code in
+        <foreach collection="list" index="index" item="deletekeySet" open="(" close=")" separator=", ">
+            #{deletekeySet}
+        </foreach>
+    </select>
+    <delete id="deleteFromFoodItem">
+        delete from fooditem where 1=1
+        and f_code in
+        <foreach collection="list" index="index" item="deletekeySet" open="(" close=")" separator=", ">
+            #{deletekeySet}
+        </foreach>
+    </delete>
+    <insert id="insertToDeleteBox">
+        insert into deleteBox (d_fcnum, d_fcnum2, d_ftitle, d_fcontents, d_fprice, d_fcount, d_fdate, d_fedate,
+                               d_fviews, d_fvolume, d_forigin, d_fcal, d_fsave, d_ipath, d_sysname, d_oriname,
+                               d_mid, d_fnum, d_fileSize, d_regDate)
+        values (#{fcnum}, #{fcnum2}, #{ftitle}, #{fcontents}, #{fprice}, #{fcount}], #{fdate}, #{fedate},
+                #{fviews}, #{fvolume}, #{forigin}, #{fcal}, #{fsave}, #{ipath}, #{sysname}, #{oriname},
+                #{mid}, #{fnum}, #{fileSize}, #{regDate})
+    </insert>
+    <insert id="insertInvenAdd">
+        INSERT INTO invenAdd (iv_company, iv_name, iv_count, iv_price, iv_vat, iv_total, iv_current)
+        VALUES (#{company}, #{name}, #{count}, #{price} * 0.9, #{price} * 0.1, #{price} * #{count}, default)
+    </insert>
+    <select id="getInvenAddList" resultType="com.icia.recipe.management.dto.InvenDto">
+        SELECT iv_num,
+               iv_company,
+               iv_name,
+               iv_count,
+               FORMAT(iv_price, 0) AS iv_price,
+               FORMAT(iv_vat, 0)   AS iv_vat,
+               (FORMAT(iv_total, 0)) AS iv_total,
+               iv_current,
+               FORMAT((iv_price+iv_vat),0) AS iv_priceSum
+        FROM invenAdd
+        ORDER BY iv_num DESC
+    </select>
+    <select id="getInvenAddListSort" resultType="com.icia.recipe.management.dto.InvenDto">
+        SELECT iv_num,
+               iv_company,
+               iv_name,
+               iv_count,
+               FORMAT(iv_price, 0) AS iv_price,
+               FORMAT(iv_vat, 0)   AS iv_vat,
+               (FORMAT(iv_total, 0)) AS iv_total,
+               iv_current,
+               FORMAT((iv_price+iv_vat),0) AS iv_priceSum
+        FROM invenAdd
+        ORDER BY ${param} ${sort}
+    </select>
+    <update id="finalOrder">
+        update invenAdd
+        set iv_current = '발주 완료'
+        where iv_current = '발주 전'
+    </update>
+    <select id="getSearchModalDetails" resultType="com.icia.recipe.management.dto.InvenDto">
+        select iv_num,
+               iv_company,
+               iv_name,
+               iv_count,
+               FORMAT(iv_price, 0) AS iv_price,
+               FORMAT(iv_vat, 0)   AS iv_vat,
+               (FORMAT(iv_total, 0)) AS iv_total,
+               iv_current,
+               FORMAT((iv_price+iv_vat),0) AS iv_priceSum
+        from invenAdd
+        where iv_company = #{company}
+          and iv_name = #{iname}
+    </select>
+</mapper>

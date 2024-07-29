@@ -1,12 +1,19 @@
 package com.icia.recipe.management.controller;
 
 import com.icia.recipe.management.service.BoardService;
+import com.icia.recipe.management.service.CommonService;
+import com.icia.recipe.management.service.InvenService;
+import com.icia.recipe.management.service.SearchService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -14,6 +21,12 @@ public class MgHomeController {
 
     @Autowired
     BoardService bSer;
+
+    @Autowired
+    InvenService iSer;
+
+    @Autowired
+    SearchService sSer;
 
     @GetMapping("/main")
     public String Sales(HttpSession session, Model model) {
@@ -51,6 +64,13 @@ public class MgHomeController {
     public String test(HttpSession session, Model model) {
         return "management/test";
     }
+    @GetMapping("/common/search")
+    public String search(Model model, @RequestParam("Keyword") String Keyword) {
+        List<?> searchList = sSer.getSearchListAll(Keyword);
+        model.addAttribute("searchList", searchList);
+        return "management/search";
+    }
+
 
 
 }

@@ -10,7 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main</title>
+    <title>E R P</title>
+    <link rel="icon" href="/uploadedImg/main/Management/캡처.PNG" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
@@ -55,12 +56,11 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3" type="button"><i
                             class="fas fa-bars"></i></button>
                     <%--                    검색란 --%>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="검색어를 입력하세요"/>
+                        <div class="input-group" style="width: 500px">
+                            <input class="bg-light form-control border-0 small" type="text"
+                                                        placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
                             <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
                         </div>
-                    </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
                                                                             aria-expanded="false"
@@ -486,7 +486,7 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2024</span></div>
+                <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
             </div>
         </footer>
     </div>

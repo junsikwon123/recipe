@@ -23,9 +23,10 @@ public class BoardDeleteController {
     }
 
     @PostMapping("/boardlist/delete")
-    public List<?> deleteBoard(@RequestParam("deleteKeySet") ArrayList deleteKey ) {
+    public List<?> deleteBoard(@RequestParam("deleteKeySet") ArrayList deleteKey,
+                               @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         log.info("[게시글 삭제] {}", deleteKey);
-        return bSer.deleteFoodItemList(deleteKey);
+        return bSer.deleteFoodItemList(deleteKey, pageNum, pageSize);
     }
 
 

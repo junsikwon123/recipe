@@ -21,22 +21,30 @@
     <!--  이미지 Map  -->
     <resultMap id="mapImg" type="com.icia.recipe.home.dto.ImgDto">
         <id property="i_num" column="i_num"/>
-        <id property="i_name" column="i_name"/>
-        <id property="i_path" column="i_path"/>
+        <result property="i_original_name" column="i_original_name"/>
+        <result property="i_path" column="i_path"/>
     </resultMap>
 
     <resultMap type="com.icia.recipe.home.dto.FooditemDto" id="seachFooditemMain" >
+        <id property="f_num" column="f_num"/>
+        <result property="f_title" column="f_title"/>
+        <result property="f_price" column="f_price"/>
+        <result property="f_views" column="f_views"/>
         <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
     </resultMap>
-    <select id="searchFooditem"  resultType="com.icia.recipe.home.dto.FooditemDto" resultMap="seachFooditemMain">
-        <![CDATA[
-        SELECT f.f_num, i.i_path, i.i_name, f.f_title,
-               f.f_price, f.f_views, c1.c_num, c2.c_num,c3.c_num, i.i_num
+
+    <update id="viewsPlus" parameterType="String">
+        update fooditem set f_views = f_views+1 where f_num = #{num}
+    </update>
+
+    <select id="searchFooditem" resultMap="seachFooditemMain">
+        SELECT f.f_num , i.i_path, i.i_original_name, f.f_title f_title,
+        format(f.f_price,0) f_price, f.f_views, c1.c_num c1_num, c2.c_num c2_num,c3.c_num c3_num, i.i_num
         FROM fooditem f
-        JOIN img i
+        left JOIN img i
         ON i.f_num = f.f_num
-        JOIN (
+        left JOIN (
         select min(i_num) min_inum, f_num
         from img
         group by f_num
@@ -49,8 +57,10 @@
         on c1.c_num = c2.c_num2
         left join category c3
         on c2.c_num = c3.c_num2
+        <if test="numName != 'zzzz'">
+            where ${numName} = ${num}
+        </if>
         order by ${name} ${sort}
-        ]]>
     </select>
 
     <select id="searchCtg" resultType="com.icia.recipe.home.dto.CtgDto" resultMap="mapForFindAll">
@@ -66,7 +76,54 @@
             where left(c1.c_num, 1) = 1;
             ]]>
     </select>
+    <resultMap id="searchFoodDetailMap" type="com.icia.recipe.home.dto.FooditemDto">
+        <id property="f_title" column="f_title"/>
+        <result property="f_volume" column="f_volume"/>
+        <result property="f_price" column="f_price"/>
+        <result property="f_cal" column="f_cal"/>
+        <result property="f_save" column="f_save"/>
+        <result property="f_date" column="f_date"/>
+        <result property="f_contents" column="f_contents"/>
+        <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
+    </resultMap>
+    <select id="searchFoodDetail" resultMap="searchFoodDetailMap">
+        select c1.c_name c1_name, f.f_volume, format(f.f_price,0) f_price, f.f_cal, f.f_save,
+               i.i_path, i.i_original_name, f.f_contents,f.f_title,f.f_date,
+               c1.c_num c1_num
+        from fooditem f
+        left join img i
+        on f.f_num = i.f_num
+        join category c1
+        on f.c_num = c1.c_num
+        where f.f_num = ${num}
+    </select>
+    <select id="searchFoodDetailInfo" resultType="com.icia.recipe.home.dto.FooditemDto">
+        select f_contents from fooditem where f_num = ${num}
+    </select>
 
 
+    <select id="searchctgFoodtitem" resultMap="seachFooditemMain">
+        SELECT f.f_num , i.i_path, i.i_original_name, f.f_title f_title,
+               format(f.f_price,0) f_price, f.f_views, c1.c_num c1_num,
+               c2.c_num c2_num,c3.c_num c3_num,  i.i_num
+        FROM fooditem f
+        left JOIN img i
+        ON i.f_num = f.f_num
+        left JOIN (
+            select min(i_num) min_inum, f_num
+            from img
+            group by f_num
+        ) img
+        ON img.f_num = i.f_num
+        AND img.min_inum = i.i_num
+        JOIN category c1
+        ON c1.c_num = f.c_num
+        left join category c2
+        on c1.c_num = c2.c_num2
+        left join category c3
+        on c2.c_num = c3.c_num2
+        where ${numName} = ${cNum}
+    </select>
 
 </mapper>

@@ -2,6 +2,11 @@
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+*.properties
+logback-spring.xml
+*.bin
+*.lock
+*.probe
 ### Java ###
 # Compiled class file
 *.class

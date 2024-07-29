@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main</title>
+    <title>E R P</title>
+    <link rel="icon" href="/uploadedImg/main/Management/캡처.PNG" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
@@ -53,31 +54,12 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3" type="button"><i
                             class="fas fa-bars"></i></button>
                     <%--                    검색란 --%>
-                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="검색어를 입력하세요"/>
-                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        <div class="input-group" style="width: 500px">
+                            <input id="commonSearch" class="bg-light form-control border-0 small" type="text" placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
+
+                            <button class="btn btn-primary py-0" type="button" readonly=""><i class="fas fa-search"></i></button>
                         </div>
-                    </form>
                     <ul class="navbar-nav flex-nowrap ms-auto">
-                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
-                                                                            aria-expanded="false"
-                                                                            data-bs-toggle="dropdown" href="#"><i
-                                class="fas fa-search"></i></a>
-                            <%--                            네비게이션 바에 검색버튼이 있다는데 뭔지 모름 ㅋㅋ--%>
-                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
-                                 aria-labelledby="searchDropdown">
-                                <form class="me-auto navbar-search w-100">
-                                    <div class="input-group"><input class="bg-light form-control border-0 small"
-                                                                    type="text" placeholder="Search for ..."/>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary py-0" type="button"><i
-                                                    class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
                         <%--                        우측 상단 헤더 알림--%>
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -313,9 +295,9 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-xl-4">
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-4 no-print">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary fw-bold m-0">월간 매출 분석</h6>
+                                <h6 class="text-primary fw-bold m-0">메모장</h6>
                                 <div class="dropdown no-arrow">
                                     <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                                             data-bs-toggle="dropdown" type="button"><i
@@ -334,11 +316,18 @@
                                     <canvas height="320" style="display: block; width: 257px; height: 320px;"
                                             width="257"></canvas>
                                 </div>
-                                <div class="text-center small mt-4"><span class="me-2"><i
-                                        class="fas fa-circle text-primary"></i> 식단</span><span class="me-2"><i
-                                        class="fas fa-circle text-success"></i> 식자재</span><span class="me-2"><i
-                                        class="fas fa-circle text-info"></i> 수수료</span></div>
-                            </div>
+                                <div class="text-center small mt-4">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled"><a class="page-link" aria-label="Previous"
+                                                                          href="#"><span aria-hidden="true">«</span></a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">1</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">2</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">3</a></li>
+                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#">
+                                            <span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -485,7 +474,7 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Brand 2024</span></div>
+                <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
             </div>
         </footer>
     </div>
