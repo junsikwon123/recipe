@@ -17,6 +17,9 @@ public interface MemberDao {
     @Select("select * from member where m_id=#{m_id}")
     Member getMemberInfo(String username);
 
+    @Select("select m_name from member where m_id=#{m_id}")
+    Member getMemberInfoId(String username);
+
     @Select("select m_pw from member where m_id=#{m_id}")
     String getSecurityPw(String mId);
 
@@ -31,4 +34,7 @@ public interface MemberDao {
 
     @Select("select m_id from member where m_id=#{m_id} and m_name=#{m_name} and m_phone=#{m_phone}")
     String passwordRecovery(Member member);
+
+    @Select("select m_name from member where m_id=#{m_id}")
+    String findId(String m_id);
 }

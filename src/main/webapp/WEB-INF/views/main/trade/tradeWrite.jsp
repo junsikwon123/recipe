@@ -205,11 +205,11 @@
 <div class="regi_title">
     물물교환 등록
 </div>
-<form name="tradeWritefrm" action="/trade/save" onsubmit="return save()">
+<form name="tradeWritefrm" action="/trade/save" onsubmit="return save()" method="post">
 <div class="contents_box pad_1">
     <div class="contents_line">
         <p class="contents_title1"><b>물물교환 제목</b></p>
-        <input type="text" name="t_title" id="trade_title" value class="form-control"
+        <input type="text" name="t_title" id="trade_title" class="form-control"
                placeholder="예) 저랑 교환하실분" style="width: 610px;">
     </div>
 </div>
@@ -230,6 +230,7 @@
                    <input type="text" name="t_itemcount" id="trade_no1_2" class="form-control"  placeholder="예) 10(수량)">
                    <input type="text" name="t_unit" id="trade_no1_3" class="form-control"  placeholder="예) g,ml(단위)">
                    <input type="text" name="t_change" id="trade_no1_4" class="form-control"  placeholder="예) 바꾸고 싶은 재료">
+                    <input type="text" name="t_order" value="1" style="display: none">
                     <br>
                 </li>
             </ul>
@@ -261,7 +262,7 @@
           newBtn.type="button"
           newBtn.className="btn-del"
           newBtn.style.display="none"
-          for (let i = 1; i <= 4; i++) {
+          for (let i = 1; i <= 5; i++) {
               const newInput = document.createElement("input");
               newInput.type = "text";
               newInput.id = 'trade_no'+inputCount+'_'+i;
@@ -284,6 +285,11 @@
                       newInput.placeholder = "예) 바꾸고 싶은 재료";
                       newInput.name="t_change"
                       break;
+                  case 5:
+                      newInput.value=''+inputCount
+                      newInput.name="t_order"
+                      newInput.style.display="none"
+                      break;
               }
               newLi.appendChild(newInput)
           }
@@ -301,6 +307,7 @@
               event.preventDefault();
               this.parentElement.remove();
           });
+
       })
     })
     const frm=document.tradeWritefrm

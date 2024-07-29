@@ -1,20 +1,48 @@
 package com.icia.recipe.home.dao;
 
-import com.icia.recipe.dto.TradeDto;
-import org.apache.ibatis.annotations.Insert;
+import com.icia.recipe.home.dto.TradeDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
 public interface TradeDao {
-    @Select("select t_num,t_title from tradetest")
+
     List<TradeDto> tradeList();
 
-    @Insert("insert into tradetest values(null,#{t_title},#{t_item},#{t_itemcount},#{t_unit},#{t_change})")
     boolean save(TradeDto tDto);
 
-    @Select("select * from tradetest where t_num=#{t_num}")
-    TradeDto tradeDetail(Integer t_num);
+    List<TradeDto> tradeDetail(Integer t_num);
+
+    boolean tradeUpdate(TradeDto tDto);
+
+    boolean tradeDelete(Integer t_num);
+
+    List<TradeDto> tradeDateSort();
+
+    void viewsCount(Integer tNum);
+
+    List<TradeDto> tradeViewSort();
+
+    boolean insertRecommend(TradeDto tDto);
+
+    boolean tradeRecommend(TradeDto tDto);
+
+    String selectRecommend(TradeDto tDto);
+
+    List<TradeDto> tradeCountSort();
+
+    TradeDto tradeExchangefrm(Integer tNum);
+
+    boolean tradeSaveItem(TradeDto tDto);
+
+    List<TradeDto> tradeUpdateList(Integer tNum);
+
+    List<TradeDto> tradeUpList(Integer tNum);
+
+    boolean tradeUpdateItem(TradeDto tDto);
+
+    boolean tradeUpInsert(TradeDto tDto);
+
+    boolean tradeUpDelete(TradeDto tDto);
 }

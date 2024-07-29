@@ -1,12 +1,15 @@
 package com.icia.recipe.home.controller;
 
 import com.icia.recipe.home.dto.Member;
+import com.icia.recipe.home.dto.TradeDto;
 import com.icia.recipe.home.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,7 +83,7 @@ public class MemberController {
         boolean result = mSer.changepw(member);
         if (result) {
             log.info("비밀번호 변경 성공");
-            return "redirect:main//member/login";
+            return "redirect:main/member/login";
         } else {
             log.info("비밀번호 변경 실패");
             return "main/member/searchidpw";
