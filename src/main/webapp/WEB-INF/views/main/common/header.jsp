@@ -139,6 +139,13 @@
     }, function () {
         $('#img6').css('border', '')
     })
+    $(document).ready(function() {
+        $('#searchInput2').focus(function() {
+            $(this).attr('placeholder', '검색어를 입력해 주세요.');
+        }).blur(function() {
+            $(this).attr('placeholder', '2주도 안남음. 일해라 핫산!');
+        });
+    });
 </script>
 <body id="main" class="hd">
 <div id="wrap">
@@ -162,7 +169,7 @@
                     <%--배송정보 클릭--%>
                     <li><a href="#">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a href="#">고객센터 </a>
+                    <li><a href="/customer/center">고객센터 </a>
                 </ul>
             </section>
             <div class="header__inner">
@@ -182,7 +189,7 @@
                                    style="height: 50px"
                                    id="searchInput2"
                                    class="search-input"
-                                   placeholder="재료를 입력해 주세요"
+                                   placeholder="2주도 안남음. 일해라 핫산!"
                                    autocomplete="off"
                                    onkeypress="commonSearch(this.value, event)"> <%--추후 input 창 출력 클릭 이벤트 --%>
                             <button type="button" class="direct__search-remove" style="display: none;">지우기</button>

@@ -1,23 +1,16 @@
 package com.icia.recipe.home.controller;
 
 import com.icia.recipe.home.dto.Member;
-import com.icia.recipe.home.dto.TradeDto;
 import com.icia.recipe.home.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -88,5 +81,26 @@ public class MemberController {
             log.info("비밀번호 변경 실패");
             return "main/member/searchidpw";
         }
+    }
+    @GetMapping("/customer/center")
+    public String customerCenter() {
+        return "main/customerservice/announcement";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/customer/battle")
+    public String keyboardBattle() {
+        return "main/customerservice/keyboardbattle";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/customer/dogsound")
+    public String dogSound() {
+        return "main/customerservice/dogsound";
+    }
+
+    @GetMapping("/customer/problem")
+    public String problem() {
+        return "main/customerservice/problem";
     }
 }

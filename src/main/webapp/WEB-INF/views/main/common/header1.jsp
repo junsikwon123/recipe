@@ -51,7 +51,7 @@
                     <%--배송정보 클릭--%>
                     <li><a>배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a>고객센터 </a>
+                        <li><a href="/customerCenter">고객센터 </a>
                 </ul>
             </section>
             <div class="header__inner">

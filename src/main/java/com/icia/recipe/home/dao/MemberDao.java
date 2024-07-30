@@ -42,4 +42,16 @@ public interface MemberDao {
 
     @Select("select m_id, m_name from member where m_name = #{mname} and m_phone = #{phone}")
     List<Member> getSearchIdPw(String mname, String phone);
+
+    @Select("select * from member where m_id=#{id} and m_name=#{name} and m_phone=#{phone}")
+    String getSearchPw(String id, String name, String phone);
+
+    @Update("update member set m_pw=#{pw} where m_id=#{id} and m_phone=#{phone} and m_name=#{name}")
+    boolean updateTempPw(String id, String name, String phone, String pw);
+
+    @Select("select * from member where m_pw=#{pw}")
+    String tempPwConfirm(String pw);
+
+    @Update("update member set m_pw=#{newPw} where m_pw=#{pw}")
+    boolean updateNewPw(String pw, String newPw);
 }

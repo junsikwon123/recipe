@@ -113,12 +113,134 @@
                 title.html('비밀번호 찾기')
             }, 1000);
         }
+        function verifyCode() {
+            console.log("[인증] 함수 진입")
+            let id = $('#pw_m_id').val()
+            let name = $('#pw_m_name').val()
+            let phone = $('#pw_m_phone').val()
+            const inpCode = document.querySelector(".inpCode")
+            $.ajax({
+                method:'get',
+                url:"/search/pw/verifycode",
+                data:{"id":id, "name":name, "phone":phone}
+            }).done((resp) => {
+                console.log("[인증] DONE")
+                console.log(resp)
+                inpCode.style.display = "block"
+            }).fail((err) => {
+                console.log("[인증] FAIL")
+                alert("입력하신 회원정보는 없습니다.")
+            })
+
+        }
+        function copyBtn() {
+            let here = document.getElementById("autoGeneratePw")
+            here.select()
+            here.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(here.value)
+            alert('복사되었습니다')
+        }
+        function generateTempPw(length = 12) {
+            const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        }
+        function makeNewPw() {
+            let gPw = $('#generatePw')
+            let divBtn = $('#makeBtn')
+            divBtn.css('display', 'none')
+            let str = "";
+            str += "<input type='text' id='autoGeneratePw' style='height: 50px; width: 300px;text-align: center'>"
+            str += "<button type='button' style='height: 50px; width: 64px' onclick='copyBtn()'>복사</button>"
+            gPw.html(str)
+            let pwGen = $('#autoGeneratePw')
+            let newPw = generateTempPw()
+            pwGen.val(newPw);
+            console.log(newPw)
+            let id = $('#pw_m_id').val()
+            let name = $('#pw_m_name').val()
+            let phone = $('#pw_m_phone').val()
+            $.ajax({
+                method:'post',
+                url:"/change/new/autogeneratepw",
+                data:{"id":id, "name":name, "phone":phone,"pw":newPw}
+            }).done((resp) => {
+                console.log("[임시비번 업데이트] DONE")
+            }).fail((err) => {
+                console.log("[임시비번 업데이트] FAIL")
+            })
+
+
+
+        }
+        function checkCode() {
+            const authCode=document.getElementById("authCode").value.trim()
+            if(authCode===""){
+                alert("인증코드를 입력하세요")
+            }else{
+                $.ajax({
+                    type:"post",
+                    url:"/checkcode",
+                    data:{authCode:authCode}
+                }).done((resp)=>{
+                    console.log(resp)
+                    if(resp===true) {
+                        document.getElementById("checkCode").innerHTML = "인증번호가 일치합니다"
+                        document.getElementById("checkCodeBtn").disabled = "true"
+                        let divBtn = $('#makeBtn')
+                        divBtn.html("<button type='button' onclick='makeNewPw()' class='btn' style='background-color: #77b347; color: white'>새 비밀번호 생성</button>")
+                        document.getElementById("serPwBtn").addEventListener('click', function () {
+                            $('#searchPW').modal('show');
+                        })
+                    } else {
+                        document.getElementById("checkCode").innerHTML = "인증번호가 일치하지 않습니다"
+                        document.getElementById("serPwBtn").addEventListener('click', function () {
+                            $('#searchPW').modal('hide');
+                        })
+                    }
+                }).fail((err)=>{
+                    console.log(err)
+                })
+            }
+        }
+        function changePw() {
+            let currentPw = $('#currentPw').val()
+            let changePw1 = $('#changePw1').val()
+            let changePw2 = $('#changePw2').val()
+            console.log(currentPw)
+            console.log(changePw1)
+            console.log(changePw2)
+            if (changePw1 !== changePw2) {
+                alert('변경할 비밀번호가 일치하지 않습니다. 빡대가리신가요?')
+            }
+
+            $.ajax({
+                method:'post',
+                url:"/update/password",
+                data:{"currentPw":currentPw, "changePw":changePw2}
+            }).done((resp) => {
+                console.log("[비번 변경] DONE")
+                let closeBtn = $('#pwSearchFormClose')
+                closeBtn.click();
+                alert('새 비밀번호를 사용하여 로그인 해주십시오.')
+            }).fail((err) => {
+                console.log("[비번 변경] FAIL")
+                alert('파업을 선언한다 휴먼. 얌전히 집에 가도록.')
+            })
+
+        }
     </script>
 </head>
 <body>
 <header>
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
+<h1 style="font-size: large; margin-top: 10px; margin-left: 400px">HOME > 로그인</h1><br>
 <!-- 아이디 찾기 Modal -->
 <div class="modal fade" id="searchId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -185,30 +307,31 @@
                         <input id="pw_m_name" type="text" style="height: 50px; width: 284px"><br>
                         <input type="text" placeholder="  전화번호" style="height: 50px; width: 80px" disabled>
                         <input id="pw_m_phone" type="text" style="height: 50px; width: 200px">
-                        <input id="getCode" type="button" value="인증번호" style="height: 50px; width: 80px">
+                        <input id="getCode" type="button" value="인증번호" onclick="verifyCode()" style="height: 50px; width: 80px">
                         <div class="inpCode" style="display: none">
                             <input id="authCode" name="authCode" type="text" style="height: 50px; width: 248px"
                                    placeholder="  인증번호 6자리">
-                            <input id="checkCodeBtn" type="button" style="height: 50px; width: 115px"
+                            <input id="checkCodeBtn" type="button" onclick="checkCode()" style="height: 50px; width: 115px"
                                    value="인증번호확인"><br>
                             <span id="checkCode"></span>
                         </div>
                         <br>
                         <br>
-                        <button id="serPwBtn" type="button" class="btn" style="background-color: #77b347; color: white">
-                            비밀번호 찾기
-                        </button>
+                        <div id="makeBtn">
+                        </div>
+                        <div id="generatePw">
+                        </div>
                     </form>
                 </div>
                 <div id="pwChangeForm" style="display: none; margin-top: 30px">
                     <form>
-                        <input name="m_pw" type="password" style="height: 50px; width: 300px" placeholder="  현재 비밀번호"
+                        <input id="currentPw" type="password" style="height: 50px; width: 300px" placeholder="  현재 비밀번호"
                                autocomplete="off"><br>
-                        <input name="m_pw" id="change_m_pw" type="password" style="height: 50px; width: 300px"
+                        <input id="changePw1" type="password" style="height: 50px; width: 300px"
                                placeholder="  변경할 비밀번호" autocomplete="off"><br>
-                        <input id="check_change_m_pw" type="password" style="height: 50px; width: 300px"
+                        <input id="changePw2" type="password" style="height: 50px; width: 300px"
                                placeholder="  변경할 비밀번호 확인" autocomplete="off"><br><br>
-                        <button type="button" id="changePwBtn" class="btn"
+                        <button type="button" onclick="changePw()" id="changePwBtn" class="btn"
                                 style="background-color: #77b347; color: white">
                             비밀번호 변경
                         </button>
@@ -235,10 +358,10 @@
     </h1>
     <form action="/member/login" method="post">
         <input name="username" type="text" placeholder="  아이디"
-               style="margin-top: 70px; margin-bottom: 10px; height: 60px; width: 400px" autocomplete="username"><br>
+               style="margin-top: 70px; margin-bottom: 10px; height: 60px; width: 400px"><br>
         <input name="password" type="password" placeholder="  비밀번호"
                style="margin-bottom: 20px;margin-top: 5px; height: 60px; width: 400px"
-               autocomplete="current-password"><br>
+               autocomplete="off"><br>
         <div style="display: flex;justify-content: space-between">
             <div class="hd-checkbox">
                 <input type="checkbox" id="chk2" class="hidden" data-check="n" data-checked="n"

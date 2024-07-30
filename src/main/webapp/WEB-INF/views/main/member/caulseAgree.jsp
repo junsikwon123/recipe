@@ -128,7 +128,7 @@
         }
 
         // 모든 동의 항목에 동의한 경우
-        if (agreeAllCheckbox.checked && allEssentialChecked) {
+        if (agreeAllCheckbox.checked || allEssentialChecked) {
             alert('모든 항목에 동의하셨습니다.');
             // 여기에 실제 다음 페이지로 이동하는 코드를 추가할 수 있습니다.
             location.href="/member/join"
