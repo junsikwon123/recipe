@@ -1,0 +1,25 @@
+package com.icia.recipe.management.dao;
+
+import com.icia.recipe.management.dto.BoardDto;
+import com.icia.recipe.management.dto.FoodItemDto;
+import com.icia.recipe.management.dto.InvenDto;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+@Mapper
+public interface SearchDao {
+    List<FoodItemDto> getSearchModalDetails(String cname, String code, String name);
+
+    List<InvenDto> getSearchModalDetails(String company, String iname);
+
+    List<FoodItemDto> getInvenList();
+
+    List<InvenDto> getInvenAddList();
+
+    List<BoardDto> getRecipeList();
+
+
+
+
+}

@@ -5,6 +5,7 @@ import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.dto.InvenDto;
 import com.icia.recipe.management.service.CommonService;
 import com.icia.recipe.management.service.InvenService;
+import com.icia.recipe.management.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class InvenRestController {
     private InvenDao iDao;
 
     @Autowired
-    private CommonService cSer;
+    private SearchService sSer;
 
     @GetMapping("/inventory/list")
     public List<?> invenSelect(@RequestParam("currentMenu") String currentMenu, @RequestParam("pageNum") Integer pageNum,
@@ -82,9 +83,9 @@ public class InvenRestController {
     public List<InvenDto> finalOrder() {
         return iSer.finalOrder();
     }
-    @GetMapping("/management/search")
+    @GetMapping("/search/detailmodal")
     public List<?> searchModalDetails(@RequestParam("className") String className, @RequestParam("param") ArrayList param) {
         log.info("[검색] 상세모달 깐뜨롤러 진입");
-        return cSer.getSearchModalDetails(className, param);
+        return sSer.getSearchModalDetails(className, param);
     }
 }

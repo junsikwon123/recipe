@@ -3,6 +3,7 @@ package com.icia.recipe.management.controller;
 import com.icia.recipe.management.service.BoardService;
 import com.icia.recipe.management.service.CommonService;
 import com.icia.recipe.management.service.InvenService;
+import com.icia.recipe.management.service.SearchService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class MgHomeController {
     InvenService iSer;
 
     @Autowired
-    CommonService cSer;
+    SearchService sSer;
 
     @GetMapping("/main")
     public String Sales(HttpSession session, Model model) {
@@ -65,7 +66,7 @@ public class MgHomeController {
     }
     @GetMapping("/common/search")
     public String search(Model model, @RequestParam("Keyword") String Keyword) {
-        List<?> searchList = bSer.getSearchListAll(Keyword);
+        List<?> searchList = sSer.getSearchListAll(Keyword);
         model.addAttribute("searchList", searchList);
         return "management/search";
     }

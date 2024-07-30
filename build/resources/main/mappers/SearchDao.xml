@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icia.recipe.management.dao.SearchDao">
+    <select id="getSearchModalDetails" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        SELECT MIN(f.f_date)                                                      AS f_date,
+               MAX(f.f_date)                                                      AS f_date2,
+               MIN(f.f_edate)                                                     AS f_edate,
+               MAX(f.f_edate)                                                     AS f_edate2,
+               c.c_name,
+               f.f_code,
+               f.f_title,
+               TRUNCATE(SUM(f.f_count), 0)                                        AS f_count,
+               FORMAT(TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0)                  AS f_price,
+               FORMAT(SUM(f.f_count) * TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0) AS total
+        FROM fooditem f
+                 JOIN
+             category c ON f.c_num = c.c_num
+        where c.c_name = #{cname} and
+            f.f_code = #{code} and
+            f.f_title like #{name}
+    </select>
+</mapper>

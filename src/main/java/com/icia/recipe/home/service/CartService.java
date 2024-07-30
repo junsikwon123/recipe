@@ -14,7 +14,8 @@ import java.util.List;
 @Slf4j
 public class CartService {
     @Autowired
-    CartDao cDao;
+     CartDao cDao;
+
     public String intoCartList(HashMap<String, String> hMap, Model model) {
         int result = cDao.insertCartList(hMap.get("num"),hMap.get("count"),hMap.get("user"));
         if (result <=0){

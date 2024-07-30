@@ -32,14 +32,6 @@ public class FoodItemDto {
     private String f_views;
     private String f_volume;
     private String f_cal;
+    private String f_total;
 
-    private String i_title;
-    private String i_date;
-    private String i_date2;
-    private String i_edate;
-    private String i_edate2;
-    private String i_price;
-    private String i_code;
-    private String i_count;
-    private String i_cname;
 }
