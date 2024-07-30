@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/header.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="../common/js/jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
@@ -57,6 +57,16 @@
     }
 </style>
 <script>
+    $(document).ready(function() {
+        let curUrl = window.location.href;
+        if (curUrl === "http://localhost/") {
+            console.log("루트페이지")
+            $('#mainBodyImg').css('display', 'block');
+        } else  {
+            console.log("루트페이지아님")
+            $('#mainBodyImg').css('display', 'none');
+        }
+    });
     function commonSearch(value, event) {
         if (event.keyCode === 13) {
             if (window.find(value)) { // 찾고자 하는 결과가 현재 페이지에 있으면 강조표시하고 함수 종료
@@ -69,66 +79,65 @@
         }
     }
 
-    $(function () {
-        let i = 1
-        setInterval(() => {
-            setTimeout(() => {
-                $(`#mainImg${i}`).css('display', 'block')
-            }, 5000);
-            $(`#mainImg${i}`).css('display', 'none')
-            if (i < 6) {
-                i++
-            } else {
-                i = 1
-            }
-        }, 2500);
+    let i = 1
+    setInterval(() => {
+        setTimeout(() => {
+            $(`#mainImg${i}`).css('display', 'block')
+        }, 5000);
+        $(`#mainImg${i}`).css('display', 'none')
+        if (i < 6) {
+            i++
+        } else {
+            i = 1
+        }
+    }, 2500);
+    let imgInput = $('#imgInput')
 
-        $('#img1').hover(function () {
-            $('#img1').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
-        }, function () {
-            $('#img1').css('border', '')
-        })
+    $('#img1').hover(function () {
+        $('#img1').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
+    }, function () {
+        $('#img1').css('border', '')
+    })
 
-        $('#img2').hover(function () {
-            $('#img2').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
-        }, function () {
-            $('#img2').css('border', '')
-        })
+    $('#img2').hover(function () {
+        $('#img2').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
+    }, function () {
+        $('#img2').css('border', '')
+    })
 
-        $('#img3').hover(function () {
-            $('#img3').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
-        }, function () {
-            $('#img3').css('border', '')
-        })
-        $('#img4').hover(function () {
-            $('#img4').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
-        }, function () {
-            $('#img4').css('border', '')
-        })
+    $('#img3').hover(function () {
+        $('#img3').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
+    }, function () {
+        $('#img3').css('border', '')
+    })
+    $('#img4').hover(function () {
+        $('#img4').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
+    }, function () {
+        $('#img4').css('border', '')
+    })
 
-        $('#img5').hover(function () {
-            $('#img5').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
-        }, function () {
-            $('#img5').css('border', '')
-        })
+    $('#img5').hover(function () {
+        $('#img5').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
+    }, function () {
+        $('#img5').css('border', '')
+    })
 
-        $('#img6').hover(function () {
-            $('#img6').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
-        }, function () {
-            $('#img6').css('border', '')
-        })
+    $('#img6').hover(function () {
+        $('#img6').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
+    }, function () {
+        $('#img6').css('border', '')
     })
 </script>
 <body id="main" class="hd">
@@ -198,11 +207,11 @@
                     <div class="gnb__inner">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <%--식자제 링크--%>
+                                <%--식자재 링크--%>
                                 <li class="gnb__list"><a id="headCardLink" class="gnb__list-name" href="/fooditem/main">식자재</a>
                                 </li>
                                 <%--랭킹 링크--%>
-                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="#">랭킹</a></li>
+                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="/fooditem/ranking">베스트</a></li>
                                 <%--분류 링크--%>
                                 <li class="gnb__list"><a class="gnb__list-name main_tab" href="/recipe/main">분류</a></li>
                                 <%--물물교환 링크--%>
@@ -215,15 +224,15 @@
             </div>
         </div>
     </header>
-    <main style="border: 5px solid #77b347;">
+    <main id="mainBodyImg" style="border: 5px solid #77b347;">
         <div id="bodyImg">
             <div id="imgInput" style="width: 2000px;">
-                <img id="mainImg1" src="./단하루반값.jpg" style="display: none;">
-                <img id="mainImg2" src="./1 bodyimg/삼성.jpg" style="display: none;">
-                <img id="mainImg3" src="./1 bodyimg/카누.jpg" style="display: none;">
-                <img id="mainImg4" src="./1 bodyimg/홈스타일.png" style="display: none;">
-                <img id="mainImg5" src="./1 bodyimg/쿠폰.jpg" style="display: none;">
-                <img id="mainImg6" src="./1 bodyimg/칠성.jpg" style="display: none;">
+                <img id="mainImg1" src="/uploadedImg/main/MainPage/반짝세일.png" style="display: none;">
+                <img id="mainImg2" src="/uploadedImg/main/MainPage/삼성.jpg" style="display: none;">
+                <img id="mainImg3" src="/uploadedImg/main/MainPage/카누.jpg" style="display: none;">
+                <img id="mainImg4" src="/uploadedImg/main/MainPage/홈스타일.png" style="display: none;">
+                <img id="mainImg5" src="/uploadedImg/main/MainPage/쿠폰.jpg" style="display: none;">
+                <img id="mainImg6" src="/uploadedImg/main/MainPage/칠성.jpg" style="display: none;">
             </div>
             <div id="bodyList" style="display: flex; flex-direction: column;">
                 <a href="https://pages.coupang.com/p/117380?from=home_C1&traid=home_C1&trcid=67673799965" id="img1"><img

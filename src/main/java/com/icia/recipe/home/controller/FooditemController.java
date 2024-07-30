@@ -53,6 +53,9 @@ public class FooditemController {
             String info=fSer.fooditemDetailinfo(num,"foodInfo");
             model.addAttribute("info",info);
         return "main/fooditem/fooditemDetail";
-
+    }
+    @GetMapping("/fooditem/ranking")
+    public String ranking() {
+        return "main/fooditem/ranking";
     }
 }

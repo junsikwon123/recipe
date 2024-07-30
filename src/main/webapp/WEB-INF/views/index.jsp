@@ -11,8 +11,8 @@
 <head>
     <title>그리팅몰</title>
     <link rel="icon" href="/uploadedImg/main/MainPage/그리팅%20메인.jfif" type="image/jfif">
-    <script defer src="/common/js/common.js"></script>
-    <script defer src="/common/js/jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 <body>
 <jsp:include page="./main/common/header.jsp"></jsp:include>

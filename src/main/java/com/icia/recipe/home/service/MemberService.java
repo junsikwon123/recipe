@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class MemberService {
@@ -36,5 +38,9 @@ public class MemberService {
 
     public String findId(String m_id) {
         return mDao.findId(m_id);
+    }
+
+    public List<Member> getSearchIdPw(String mname, String phone) {
+        return mDao.getSearchIdPw(mname, phone);
     }
 }
