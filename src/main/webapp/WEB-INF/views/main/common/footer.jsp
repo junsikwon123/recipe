@@ -11,6 +11,10 @@
     <title>Title</title>
 </head>
 <body>
+<header>
+</header>
+<main>
+</main>
 <div style="background-color: #f9f9f9; height: 400px; text-align: center; display: flex; flex-direction: row">
     <div style="width: 20%;"></div>
     <div style="width: 80%; display: flex; flex-direction: column;">
@@ -53,7 +57,7 @@
                 <p style="font-size: x-large; font-weight: bold">기가막히 조</p>
                 <br>
                 <p style="font-size: smaller; color: gray">대표이사 : 원준식 | 담당 : 메인페이지, CSS, DB설계</p>
-                <p style="font-size: smaller; color: gray">바지사장 : 이형구 | 담당 : 관리자페이지[ERP], CSS</p>
+                <p style="font-size: smaller; color: gray">바지사장 : 이형구 | 담당 : 메인페이지, 관리자페이지[ERP], CSS</p>
                 <p style="font-size: smaller; color: gray">전무이사 : 황인욱 | 담당 : 메인페이지, DB설계</p>
                 <p style="font-size: smaller; color: gray">상무이사 : 홍승갑 | 담당 : 메인페이지, 데이터관리</p>
                 <br>

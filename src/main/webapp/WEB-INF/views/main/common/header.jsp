@@ -165,9 +165,8 @@
                             <li><a href="/main">관리자 페이지</a></li>
                         </sec:authorize>
                     </sec:authorize>
-                    <%--회원가입 클릭--%>
                     <%--배송정보 클릭--%>
-                    <li><a href="#">배송정보</a></li>
+                    <li><a href="/delivery/info">배송정보</a></li>
                     <%--고객센터 클릭--%>
                     <li><a href="/customer/center">고객센터 </a>
                 </ul>
@@ -200,7 +199,7 @@
                             <img src="/uploadedImg/main/스크린샷 2024-07-04 163834.png" width="69" height="66">
                         </a>
                         <%--레시피 글쓰기 클릭--%>
-                        <a>
+                        <a href="#">
                             <img src="/uploadedImg/main/스크린샷%202024-06-27%20171241.png?h=9f0eff141daebd0b04983e61b2ea4b97"
                                  width="72" height="75" style="margin-bottom: -2px;margin-top: -11px;">
                         </a>

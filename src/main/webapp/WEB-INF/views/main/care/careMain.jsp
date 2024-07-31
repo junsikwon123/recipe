@@ -57,15 +57,44 @@
 <body>
 <jsp:include page="../common/header1.jsp"></jsp:include>
 <div class="careMain">
-<div><a href=""><strong>아직 준비중</strong></a></div>
+<div style="display: flex;flex-direction: column; text-align: center">
+    <a href="javacript:void(0)" onclick="careServiceInfoOpenModal()"><strong>건강식단 ></strong></a><br>
+    <p style="font-size: x-large; color: white">건강한 일상을 지키는 가장 어려운 관리</p>
+    <br>
+    <div style="justify-content: center">
+        <input style="width: 120px; height: 50px; border-radius: 40px; border: 1px solid white; background-color: transparent; color: white; text-align: center" type="text" value="#일상관리" readonly>
+        &nbsp;&nbsp;<input style="width: 150px; height: 50px; border-radius: 40px; border: 1px solid white; background-color: transparent; color: white; text-align: center" type="text" value="#매일건강한식사" readonly>
+    </div>
+</div>
 </div>
 <div class="care">
-    <div><a href="/lowSugar" id="content1"><img src="/uploadedImg/main/저당식단.jpg"></a></div>
-    <div><a href="#" id="content2"><img src="/uploadedImg/main/칼로리식단.jpg"></a></div>
-    <div><a href="#" id="content3"><img src="/uploadedImg/main/알레르기식단.jpg"></a></div>
-    <div><a href="#" id="content4"><img src="/uploadedImg/main/단백질식단.jpg"></a></div>
-    <div><a href="#" id="content5"><img src="/uploadedImg/main/나만의식단.jpg"></a></div>
+    <div><a href="/lowsugar" id="content1"><img src="/uploadedImg/main/저당식단.jpg"></a></div>
+    <div><a href="/cal" id="content2"><img src="/uploadedImg/main/칼로리식단.jpg"></a></div>
+    <div><a href="/longlivetheking" id="content3"><img src="/uploadedImg/main/알레르기식단.jpg"></a></div>
+    <div><a href="/protine" id="content4"><img src="/uploadedImg/main/단백질식단.jpg"></a></div>
+    <div><a href="/selfcare" id="content5"><img src="/uploadedImg/main/나만의식단.jpg"></a></div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>
 </footer>
