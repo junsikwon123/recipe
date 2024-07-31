@@ -137,6 +137,9 @@
                     <a class="btn__goHome" id="goHome" href="/">홈으로</a></div>
             </section>
         </div>
+        <footer>
+            <jsp:include page="../common/footer.jsp"></jsp:include>
+        </footer>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const dvList = document.getElementById("dvCartListArea");

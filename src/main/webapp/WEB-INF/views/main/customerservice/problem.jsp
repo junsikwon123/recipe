@@ -29,5 +29,8 @@
         <p>평일, 주말, 공휴일 및 시간에 관계없이 편하실 때 전화주세요</p>
     </div>
 </main>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

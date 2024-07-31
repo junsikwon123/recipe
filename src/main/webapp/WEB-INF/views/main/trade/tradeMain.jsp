@@ -123,6 +123,9 @@
         </div>
     </div>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     $(document).ready(function () {
         document.getElementById("datesort").addEventListener("click", function (event) {

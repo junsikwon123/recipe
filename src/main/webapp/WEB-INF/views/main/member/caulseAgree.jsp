@@ -104,7 +104,9 @@
         <button onclick="home()">홈으로</button>
     </div>
 </div>
-
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     function checkAgreement() {
         var agreeEssentialCheckboxes = document.querySelectorAll('.agree-essential');

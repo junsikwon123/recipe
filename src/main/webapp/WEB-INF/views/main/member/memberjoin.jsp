@@ -36,18 +36,8 @@
 <button class="btn btn-cancel"><img style="width: 60px; height: 60px" src="/uploadedImg/main/MainPage/네이년.jfif"></button>
 <button class="btn btn-cancel"><img style="width: 80px; height: 80px" src="/uploadedImg/main/MainPage/구글.jfif"></button>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

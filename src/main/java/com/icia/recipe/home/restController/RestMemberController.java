@@ -90,6 +90,11 @@ public class RestMemberController {
     }
     @PostMapping("/update/password")
     public boolean updateNewPw(@RequestParam("currentPw") String pw, @RequestParam("changePw") String newPw) {
-        return mSer.updateNewPw(pw, newPw);
+        boolean result = mSer.updateNewPw(pw, newPw);
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

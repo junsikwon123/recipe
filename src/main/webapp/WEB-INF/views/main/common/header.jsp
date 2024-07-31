@@ -155,7 +155,7 @@
                 <ul class="user-area__menu">
                     <%--로그인 클릭--%>
                     <sec:authorize access="isAnonymous()">
-                        <li><a href="/loginfrm">로그인</a></li>
+                        <li><a href="/member/login">로그인</a></li>
                         <li><a href="/joinfrm">회원가입</a></li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">

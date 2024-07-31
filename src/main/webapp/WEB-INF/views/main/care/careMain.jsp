@@ -66,5 +66,8 @@
     <div><a href="#" id="content4"><img src="/uploadedImg/main/단백질식단.jpg"></a></div>
     <div><a href="#" id="content5"><img src="/uploadedImg/main/나만의식단.jpg"></a></div>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

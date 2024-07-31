@@ -203,6 +203,9 @@
         </div>
     </article>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     function sendCartOpen() {
         console.log('들어왔니?')

@@ -30,6 +30,9 @@
 <a href="/cancle">
     <button>취소</button>
 </a>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
 
     const frm = document.joinfrm;

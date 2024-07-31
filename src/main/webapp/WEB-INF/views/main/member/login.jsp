@@ -194,9 +194,12 @@
                         document.getElementById("checkCodeBtn").disabled = "true"
                         let divBtn = $('#makeBtn')
                         divBtn.html("<button type='button' onclick='makeNewPw()' class='btn' style='background-color: #77b347; color: white'>새 비밀번호 생성</button>")
-                        document.getElementById("serPwBtn").addEventListener('click', function () {
-                            $('#searchPW').modal('show');
-                        })
+                        // let divBtn2 = $('#pwChangeForm')
+                        // let str2 = "";
+                        // str2 += "<button type='button' onclick='changePw()' id='changePwBtn' className='btn' style='background-color: #77b347; color: white'>비밀번호 변경</button>"
+                        //     divBtn2.append(str2)
+                        $('#changePwBtn').css('display', 'block')
+                        // document.getElementById('changePwBtn').display = 'false'
                     } else {
                         document.getElementById("checkCode").innerHTML = "인증번호가 일치하지 않습니다"
                         document.getElementById("serPwBtn").addEventListener('click', function () {
@@ -217,6 +220,7 @@
             console.log(changePw2)
             if (changePw1 !== changePw2) {
                 alert('변경할 비밀번호가 일치하지 않습니다. 빡대가리신가요?')
+                return
             }
 
             $.ajax({
@@ -331,11 +335,11 @@
                                placeholder="  변경할 비밀번호" autocomplete="off"><br>
                         <input id="changePw2" type="password" style="height: 50px; width: 300px"
                                placeholder="  변경할 비밀번호 확인" autocomplete="off"><br><br>
-                        <button type="button" onclick="changePw()" id="changePwBtn" class="btn"
-                                style="background-color: #77b347; color: white">
+                        <span id="check_pw"></span>
+                        <button type="button" onClick="changePw()" id="changePwBtn" className="btn"
+                                style="background-color: #77b347; color: white; display: none">
                             비밀번호 변경
                         </button>
-                        <span id="check_pw"></span>
                     </form>
                 </div>
             </div>

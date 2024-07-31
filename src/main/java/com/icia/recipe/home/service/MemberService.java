@@ -17,6 +17,9 @@ public class MemberService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    PasswordManager pm = new PasswordManager();
+
     public boolean join(Member member) {
         System.out.println("pwEncoder: "+passwordEncoder);
         member.setM_pw(passwordEncoder.encode(member.getM_pw()));
@@ -63,8 +66,8 @@ public class MemberService {
             // 전화번호가 예상치 못한 길이인 경우에 대한 처리
             throw new IllegalArgumentException("잘못된 전화번호 형식: " + phone);
         }
-        pw = passwordEncoder.encode(pw);
-        log.info("[비번암호화] 성공 : {}", pw);
+//        pw = passwordEncoder.encode(pw);
+//        log.info("[비번암호화] 성공 : {}", pw);
         boolean result = mDao.updateTempPw(id, name, phone, pw);
         if (result) {
             log.info("[비번] 첫번째 이프 통과");
@@ -82,13 +85,21 @@ public class MemberService {
     }
 
     public boolean updateNewPw(String pw, String newPw) {
-        log.info("[비번변경] pw : {}", pw);
-        log.info("[비번변경] newPw : {}", newPw);
-        Member member = new Member();
+        log.info("[현재비번] pw : {}", pw);
+        log.info("[바꿀비번] newPw : {}", newPw);
+//        String a = pm.hashPassword(pw);
+//        String b = pm.hashPassword(pw);
+//        System.out.println("a: " + a);
+//        System.out.println("b: " + b);
+//        return false;
         newPw = passwordEncoder.encode(newPw);
         if (newPw.length() > 150) {
             newPw = newPw.substring(0, 150);
         }
+//        pw = passwordEncoder.encode(pw);
+//        if (pw.length() > 150) {
+//            pw = newPw.substring(0, 150);
+//        }
         log.info("[비번변경] newPw 암호화 : {}", newPw);
         boolean result = mDao.updateNewPw(pw, newPw);
         if (result) {

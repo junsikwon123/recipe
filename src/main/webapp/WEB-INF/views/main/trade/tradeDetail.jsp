@@ -48,6 +48,9 @@
 <div id="socketAlertDiv">
     <div id="socketAlert" class="alert alert-warning" role="alert"></div>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     function update_board(t_num) {
         location.href = "/trade/updatefrm?t_num=" + t_num

@@ -24,5 +24,8 @@
     <input value="${changeArray[loop.index]}">
     <hr>
 </c:forEach>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

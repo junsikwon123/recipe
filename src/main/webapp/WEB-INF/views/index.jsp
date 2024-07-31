@@ -16,5 +16,8 @@
 </head>
 <body>
 <jsp:include page="./main/common/header.jsp"></jsp:include>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>
