@@ -248,6 +248,9 @@
 </div>
 </form>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 

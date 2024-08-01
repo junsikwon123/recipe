@@ -17,10 +17,26 @@ public class CareController {
         return "main/care/careMain";
     }
 
-    @GetMapping("/lowSugar")
+    @GetMapping("/lowsugar")
     public String lowSugar(){
         String lowSugar=cSer.lowSugar();
         log.info(lowSugar);
-        return null;
+        return "main/care/lowsugar";
+    }
+    @GetMapping("/cal")
+    public String cal(){
+        return "main/care/cal";
+    }
+    @GetMapping("/longlivetheking")
+    public String longlivetheking(){
+        return "main/care/longlivetheking";
+    }
+    @GetMapping("/protine")
+    public String protine(){
+        return "main/care/protine";
+    }
+    @GetMapping("/selfcare")
+    public String selfcare(){
+        return "main/care/selfcare";
     }
 }
