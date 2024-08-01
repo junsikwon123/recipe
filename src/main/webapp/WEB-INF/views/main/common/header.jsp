@@ -144,6 +144,7 @@
                                 <%--물물교환 링크--%>
                                 <li class="gnb__list"><a class="gnb__list-name main_tab" href="/trade/main">물물교환</a>
                                 </li>
+                                <li></li>
                             </div>
                         </div>
                     </div>
