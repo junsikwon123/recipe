@@ -15,17 +15,56 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<input value="${tDto.t_num}" style="display: none">
-<input value="${tDto.t_title}"><br>
-<c:forEach items="${itemArray}" var="item" varStatus="loop">
-    <input value="${item}" readonly>
-    <input placeholder="남은갯수:${itemcountArray[loop.index]}">
-    <input value="${unitArray[loop.index]}" readonly>
-    <input value="${changeArray[loop.index]}">
+<input name="t_num" value="${t_num}" style="display: none">
+<input name="t_title" value="${t_title}" readonly><br>
+<c:forEach var="trades" items="${tDList}">
+    <input id="t_item" value="${trades.t_item}" readonly>
+    <input id="t_itemcount" value="${trades.t_itemcount}">
+    <input id="t_unit" value="${trades.t_unit}" readonly>
+    <input id="t_change" value="${trades.t_change}">
     <hr>
 </c:forEach>
-<footer>
-    <jsp:include page="../common/footer.jsp"></jsp:include>
-</footer>
+<button id="exchange">교환신청</button>
 </body>
+<script>
+    let itemCnt = document.getElementById("t_itemcount")
+    const isNotNumber = (value) => /\D/.test(value);
+    itemCnt.addEventListener("input", function () {
+        if (itemCnt.value > ${t_itemcount}) {
+            alert("남은 수량을 확인해주세요")
+            itemCnt.value=${t_itemcount}
+        }else if(isNotNumber(itemCnt.value)){
+            alert("숫자만 입력해주세요")
+            itemCnt.value=${t_itemcount}
+        }
+    })
+    document.getElementById("exchange").addEventListener('click', function () {
+        let tradesend = `${sessionScope.login}`
+        let m_id = `${m_id}`;
+        let t_num =${t_num};
+        let title = `${t_title}`;
+        let item = document.getElementById("t_item").value
+        let itemcount = document.getElementById("t_itemcount").value
+        let unit = document.getElementById("t_unit").value
+        let change = document.getElementById("t_change").value
+        const param = {"t_num": t_num,"t_item":item,"t_itemcount":itemcount};
+
+        $.ajax({
+            url: "/trade/messageSend",
+            type: "post",
+            data:param,
+            success: function (resp) {
+                alert("교환신청이 완료되었습니다.")
+                // location.reload()
+                if (socket) {
+                    let socketMsg = tradesend + "," + m_id + "," + t_num + "," + title + "," + item + "," + itemcount + "," + unit + "," + change;
+                    socket.send(socketMsg)
+                }
+            },
+            error: function () {
+                alert("교환 신청이 실패하였습니다")
+            }
+        })
+    })
+</script>
 </html>

@@ -29,4 +29,6 @@ public class TradeDto {
     private String t_change;
     private String visible;
     private int t_order;
+    private String tradesend;
+    private int t_alertnum;
 }

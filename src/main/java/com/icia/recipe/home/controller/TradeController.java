@@ -41,13 +41,20 @@ public class TradeController {
         int tNum = tDList.get(0).getT_num();
         String t_title = tDList.get(0).getT_title();
         String m_id = tDList.get(0).getM_id();
+        String t_item=tDList.get(0).getT_item();
+        int t_itemcount=tDList.get(0).getT_itemcount();
+        String t_unit=tDList.get(0).getT_unit();
+        String t_change=tDList.get(0).getT_change();
 
-        // 모델에 배열을 저장
         log.info(">>>>>m_id:{}", m_id);
         model.addAttribute("m_id", m_id);
         model.addAttribute("t_num", tNum);
         model.addAttribute("tDList", tDList);
         model.addAttribute("t_title", t_title);
+        model.addAttribute("t_item", t_item);
+        model.addAttribute("t_itemcount", t_itemcount);
+        model.addAttribute("t_unit", t_unit);
+        model.addAttribute("t_change", t_change);
         return "main/trade/tradeDetail";
     }
 
@@ -188,5 +195,29 @@ public class TradeController {
     @GetMapping("/trade/login")
     public String tradeRecommend(TradeDto tDto) {
         return "redirect:/trade/detail?t_num=" + tDto.getT_num();
+    }
+
+    @GetMapping("/trade/exchangefrm")
+    public String tradeExcnahgeFrm(Model model, @RequestParam("t_num") Integer t_num){
+        List<TradeDto> tDList = tSer.tradeDetail(t_num);
+        int tNum = tDList.get(0).getT_num();
+        String t_title = tDList.get(0).getT_title();
+        String m_id = tDList.get(0).getM_id();
+        String t_item=tDList.get(0).getT_item();
+        int t_itemcount=tDList.get(0).getT_itemcount();
+        String t_unit=tDList.get(0).getT_unit();
+        String t_change=tDList.get(0).getT_change();
+
+        // 모델에 배열을 저장
+        log.info(">>>>>m_id:{}", m_id);
+        model.addAttribute("m_id", m_id);
+        model.addAttribute("t_num", tNum);
+        model.addAttribute("tDList", tDList);
+        model.addAttribute("t_title", t_title);
+        model.addAttribute("t_item", t_item);
+        model.addAttribute("t_itemcount", t_itemcount);
+        model.addAttribute("t_unit", t_unit);
+        model.addAttribute("t_change", t_change);
+        return "main/trade/exchangefrm";
     }
 }

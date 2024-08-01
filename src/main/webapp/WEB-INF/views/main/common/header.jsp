@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
            prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,6 +21,10 @@
     <link rel="stylesheet" href="/assets/css/header.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 
 </head>
 
@@ -33,6 +38,20 @@
         font-weight: 500;
     }
 
+    #bodyImg {
+        position: relative;
+        z-index: 0;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    #bodyList {
+        position: absolute;
+        height: 50px;
+        right: 250px;
+        top: 50px;
+    }
+
     a {
         text-decoration: none;
         color: gray;
@@ -43,6 +62,17 @@
     }
 </style>
 <script>
+    $(document).ready(function () {
+        let curUrl = window.location.href;
+        if (curUrl === "http://localhost/") {
+            console.log("루트페이지")
+            $('#mainBodyImg').css('display', 'block');
+        } else {
+            console.log("루트페이지아님")
+            $('#mainBodyImg').css('display', 'none');
+        }
+    });
+
     function commonSearch(value, event) {
         if (event.keyCode === 13) {
             if (window.find(value)) { // 찾고자 하는 결과가 현재 페이지에 있으면 강조표시하고 함수 종료
@@ -55,13 +85,66 @@
         }
     }
 
-    $(document).ready(function() {
-        $('#searchInput2').focus(function() {
-            $(this).attr('placeholder', '검색어를 입력해 주세요.');
-        }).blur(function() {
-            $(this).attr('placeholder', '2주도 안남음. 일해라 핫산!');
-        });
-    });
+    let i = 1
+    setInterval(() => {
+        setTimeout(() => {
+            $(`#mainImg${i}`).css('display', 'block')
+        }, 5000);
+        $(`#mainImg${i}`).css('display', 'none')
+        if (i < 6) {
+            i++
+        } else {
+            i = 1
+        }
+    }, 2500);
+    let imgInput = $('#imgInput')
+
+    $('#img1').hover(function () {
+        $('#img1').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
+    }, function () {
+        $('#img1').css('border', '')
+    })
+
+    $('#img2').hover(function () {
+        $('#img2').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
+    }, function () {
+        $('#img2').css('border', '')
+    })
+
+    $('#img3').hover(function () {
+        $('#img3').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
+    }, function () {
+        $('#img3').css('border', '')
+    })
+    $('#img4').hover(function () {
+        $('#img4').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
+    }, function () {
+        $('#img4').css('border', '')
+    })
+
+    $('#img5').hover(function () {
+        $('#img5').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
+    }, function () {
+        $('#img5').css('border', '')
+    })
+
+    $('#img6').hover(function () {
+        $('#img6').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
+    }, function () {
+        $('#img6').css('border', '')
+    })
 </script>
 <body id="main" class="hd">
 <div id="wrap">
@@ -71,20 +154,37 @@
                 <ul class="user-area__menu">
                     <%--로그인 클릭--%>
                     <sec:authorize access="isAnonymous()">
-                        <li><a href="/member/login">로그인</a></li>
+                        <li><a href="/loginfrm">로그인</a></li>
                         <li><a href="/joinfrm">회원가입</a></li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <span><sec:authentication property="name"/></span>님 환영합니다
+                        <span>${sessionScope.m_name}</span>님 환영합니다
                         <li><a href="/member/logout">로그아웃</a></li>
                         <sec:authorize access="hasRole('ADMIN')">
                             <li><a href="/main">관리자 페이지</a></li>
                         </sec:authorize>
                     </sec:authorize>
+                    <%--회원가입 클릭--%>
                     <%--배송정보 클릭--%>
-                    <li><a href="/delivery/info">배송정보</a></li>
+                    <li><a href="#">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a href="/customer/center">고객센터 </a>
+                    <li><a href="#">고객센터</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <sec:authorize access="isAuthenticated()">
+                        <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-bell fa-fw"></i></a>
+                                <div id="socketAlert"
+                                     class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">알림</h6>
+                                        <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
+                                        <%--                                        모든 알림 보기</a>--%>
+                                </div>
+                            </div>
+                        </li>
+                    </sec:authorize>
                 </ul>
             </section>
             <div class="header__inner">
@@ -104,7 +204,7 @@
                                    style="height: 50px"
                                    id="searchInput2"
                                    class="search-input"
-                                   placeholder="2주도 안남음. 일해라 핫산!"
+                                   placeholder="재료를 입력해 주세요"
                                    autocomplete="off"
                                    onkeypress="commonSearch(this.value, event)"> <%--추후 input 창 출력 클릭 이벤트 --%>
                             <button type="button" class="direct__search-remove" style="display: none;">지우기</button>
@@ -115,7 +215,7 @@
                             <img src="/uploadedImg/main/스크린샷 2024-07-04 163834.png" width="69" height="66">
                         </a>
                         <%--레시피 글쓰기 클릭--%>
-                        <a href="#">
+                        <a>
                             <img src="/uploadedImg/main/스크린샷%202024-06-27%20171241.png?h=9f0eff141daebd0b04983e61b2ea4b97"
                                  width="72" height="75" style="margin-bottom: -2px;margin-top: -11px;">
                         </a>
@@ -125,20 +225,15 @@
                                  alt="장바구니"></a>
                     </nav>
                 </div>
-                <div class="spinner-border text-success" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
                 <div class="gnb">
-
                     <div class="gnb__inner">
-
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <%--식자재 링크--%>
+                                <%--식자제 링크--%>
                                 <li class="gnb__list"><a id="headCardLink" class="gnb__list-name" href="/fooditem/main">식자재</a>
                                 </li>
                                 <%--랭킹 링크--%>
-                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="/fooditem/ranking">베스트</a></li>
+                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="#">랭킹</a></li>
                                 <%--분류 링크--%>
                                 <li class="gnb__list"><a class="gnb__list-name main_tab" href="/recipe/main">분류</a></li>
                                 <%--물물교환 링크--%>
@@ -152,7 +247,117 @@
             </div>
         </div>
     </header>
+    <main id="mainBodyImg" style="border: 5px solid #77b347;">
+        <div id="bodyImg">
+            <div id="imgInput" style="width: 2000px;">
+                <img id="mainImg1" src="/uploadedImg/main/MainPage/반짝세일.png" style="display: none;">
+                <img id="mainImg2" src="/uploadedImg/main/MainPage/삼성.jpg" style="display: none;">
+                <img id="mainImg3" src="/uploadedImg/main/MainPage/카누.jpg" style="display: none;">
+                <img id="mainImg4" src="/uploadedImg/main/MainPage/홈스타일.png" style="display: none;">
+                <img id="mainImg5" src="/uploadedImg/main/MainPage/쿠폰.jpg" style="display: none;">
+                <img id="mainImg6" src="/uploadedImg/main/MainPage/칠성.jpg" style="display: none;">
+            </div>
+            <div id="bodyList" style="display: flex; flex-direction: column;">
+                <a href="https://pages.coupang.com/p/117380?from=home_C1&traid=home_C1&trcid=67673799965" id="img1"><img
+                        src="/uploadedImg/main/MainPage/k뷰티.jpg" alt=""></a>
+                <a href="https://pages.coupang.com/f/s1956?from=home_C1&traid=home_C1&trcid=11380937" id="img2"><img
+                        src="/uploadedImg/main/MainPage/삼성tv 보상.jpg" alt=""></a>
+                <a href="https://pages.coupang.com/f/s50394?from=home_C1&traid=home_C1&trcid=11380944" id="img3"><img
+                        src="/uploadedImg/main/MainPage/canu.jpg" alt=""></a>
+                <a href="https://pages.coupang.com/p/102665?from=home_C1&traid=home_C1&trcid=67673800401" id="img4"><img
+                        src="/uploadedImg/main/MainPage/homestyle.png" alt=""></a>
+                <a href="https://login.coupang.com/login/login.pang?rtnUrl=https%3A%2Fmc.coupang.com%2Fssr&from=home_C1&traid=home_C1&trcid=67673800816"
+                   id="img5"><img src="/uploadedImg/main/MainPage/coupon.jpg" alt=""></a>
+                <a href="https://pages.coupang.com/f/s264096?from=home_C1&traid=home_C1&trcid=11378725" id="img6"><img
+                        src="/uploadedImg/main/MainPage/chilsung.jpg" alt=""></a>
+            </div>
+        </div>
+    </main>
 </div>
+<script>
+    let socket = null;
+    $(document).ready(function () {
+        //소켓 연결
+        connectWs();
+        $.ajax({
+            url:"/alert/List",
+            method:"post",
+        }).done(resp=>{
+            $('#socketAlert').empty()
+            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+            $('#socketAlert').append(resp)
+        }).fail(err=>{
+            console.log(err)
+        })
+    });
 
+    function connectWs() {
+        let ws = new SockJS("/push");
+        socket = ws;
+
+        ws.onopen = function () {
+            console.log('open');
+        };
+        ws.onmessage = function (event) {
+            let $socketAlert = $('#socketAlert');
+            //EchoHandler에서 설정한 메세지 넣어줌
+            $socketAlert.append(event.data)
+            // $socketAlert.css('display', 'block');
+            // ws.onclose = function () {
+            //     console.log('close');
+            // };
+        }
+    }
+
+    function accept(t_num,item,itemcount) {
+        let tNum=t_num
+        let t_item=item;
+        let t_itemcount=itemcount;
+        const param={"t_num":tNum,"t_item":t_item,"t_itemcount":t_itemcount}
+        $.ajax({
+            url: "/trade/accept",
+            method: "post",
+            data: param,
+        }).done(resp => {
+            console.log(resp)
+            if (resp === true) {
+
+            }else{
+                console.log("실패")
+            }
+        }).fail(err => {
+            console.log(err)
+        })
+    }
+
+    function refuse(t_num,tradesend,m_id) {
+        console.log("거절 글번호: " + t_num);
+        console.log("거절 당할사람: "+tradesend)
+        let removeDiv=document.getElementById("notification-"+t_num+"-"+tradesend)
+        removeDiv.remove();
+
+        $.ajax({
+            url:"/trade/refuse",
+            method: "post",
+            data:{"t_num":t_num,"tradesend":tradesend,"m_id":m_id},
+        }).done(resp=>{
+            console.log(resp)
+            $.each(resp,function (index,alert){
+                let alerts=`
+                    <div class="me-3" id="notification">
+                    <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                    </div>
+                    <div id="socketAlertDiv">
+                    <span id="current-time" class="small text-gray-500">
+                    
+                `
+            })
+        }).fail(err=>{
+            console.log(err)
+        })
+    }
+
+</script>
 </body>
 </html>

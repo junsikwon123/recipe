@@ -32,7 +32,6 @@ public interface TradeDao {
 
     List<TradeDto> tradeCountSort();
 
-    TradeDto tradeExchangefrm(Integer tNum);
 
     boolean tradeSaveItem(TradeDto tDto);
 
@@ -45,4 +44,12 @@ public interface TradeDao {
     boolean tradeUpInsert(TradeDto tDto);
 
     boolean tradeUpDelete(TradeDto tDto);
+
+    boolean tradeExchange(TradeDto tDto);
+
+    boolean alertSave(TradeDto tDto);
+
+    List<TradeDto> alertList(TradeDto tDto);
+
+    boolean alertDelete(TradeDto tDto);
 }
