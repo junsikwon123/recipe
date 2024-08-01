@@ -15,7 +15,50 @@
 
 </head>
 <body>
-<jsp:include page="./main/common/header.jsp"></jsp:include>
+<header>
+    <jsp:include page="./main/common/header.jsp"></jsp:include>
+</header>
+<main>
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/uploadedImg/main/MainPage/구매스탬프.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/바이오랜드.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/식단마스터.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/쿠폰.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/한솔냉면.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/해일찍여름.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="/uploadedImg/main/MainPage/급상승%20키워드.jpg" class="d-block w-100" alt="...">
+        </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/제주%20고당도%20감귤.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/uploadedImg/main/MainPage/천중도%20복숭아.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</main>
 <footer>
     <jsp:include page="./main/common/footer.jsp"></jsp:include>
 </footer>
