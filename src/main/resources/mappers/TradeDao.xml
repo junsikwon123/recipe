@@ -48,6 +48,10 @@
         from tradeitem where t_num=#{t_num}
     </insert>
 
+    <insert id="alertSave">
+        insert into alert values (#{m_id},#{tradesend},#{t_num},#{t_item},#{t_itemcount},#{t_unit},#{t_change},default)
+    </insert>
+
     <update id="tradeUpdate">
         update trade set t_title=#{t_title} where t_num=#{t_num}
     </update>
@@ -66,8 +70,16 @@
         update tradeitem set t_item=#{t_item},t_itemcount=#{t_itemcount},t_unit=#{t_unit},t_change=#{t_change} where t_num=#{t_num} and t_order=#{t_order}
     </update>
 
+    <update id="tradeExchange">
+        update tradeitem set t_itemcount=t_itemcount-#{t_itemcount} where t_num=#{t_num} and t_item=#{t_item}
+    </update>
+
     <delete id="tradeUpDelete">
         delete from tradeitem where t_num=#{t_num} and t_order=#{t_order}
+    </delete>
+
+    <delete id="alertDelete">
+        delete from alert where tradesend=#{tradesend} and t_num=#{t_num}
     </delete>
 
 
@@ -84,25 +96,35 @@
     </select>
 
     <select id="tradeDateSort" resultType="com.icia.recipe.home.dto.TradeDto">
-        select t_num,t_title,m_id,t_date,t_views,t_count from trade order by t_date
+        select t_num,t_title,m_id,t_date,t_views,t_count from trade where visible=1 order by t_date
     </select>
 
     <select id="tradeViewSort" resultType="com.icia.recipe.home.dto.TradeDto">
-        select t_num,t_title,m_id,t_date,t_views,t_count from trade order by t_views desc
+        select t_num,t_title,m_id,t_date,t_views,t_count from trade where visible=1 order by t_views desc
     </select>
+
     <select id="selectRecommend" resultType="java.lang.String">
         select m_id from traderecommend where m_id=#{m_id} and t_num=#{t_num}
     </select>
+
     <select id="tradeCountSort" resultType="com.icia.recipe.home.dto.TradeDto">
-        select t_num,t_title,m_id,t_date,t_views,t_count from trade order by t_count desc
+        select t_num,t_title,m_id,t_date,t_views,t_count from trade where visible=1 order by t_count desc
     </select>
+
     <select id="tradeExchangefrm" resultType="com.icia.recipe.home.dto.TradeDto">
         select * from trade where t_num=#{t_num}
     </select>
+
     <select id="tradeUpdateList" resultType="com.icia.recipe.home.dto.TradeDto">
         select t_num,t_title from trade where t_num=#{t_num}
     </select>
+
     <select id="tradeUpList" resultType="com.icia.recipe.home.dto.TradeDto">
         select * from tradeitem where t_num=#{t_num}
     </select>
+
+    <select id="alertList" resultType="com.icia.recipe.home.dto.TradeDto">
+        select * from alert where m_id=#{m_id} and t_alertnum=1
+    </select>
+
 </mapper>

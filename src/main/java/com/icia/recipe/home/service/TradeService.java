@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,10 +77,6 @@ public class TradeService {
         return tCountList;
     }
 
-    public TradeDto tradeExchangefrm(Integer t_num) {
-        return tDao.tradeExchangefrm(t_num);
-    }
-
     public boolean tradeSaveItem(TradeDto tDto) {
         return tDao.tradeSaveItem(tDto);
     }
@@ -101,5 +99,21 @@ public class TradeService {
 
     public boolean tradeUpDelete(TradeDto tDto) {
         return tDao.tradeUpDelete(tDto);
+    }
+
+    public boolean tradeExcnage(TradeDto tDto) {
+        return tDao.tradeExchange(tDto);
+    }
+
+    public boolean alertSave(TradeDto tDto) {
+        return tDao.alertSave(tDto);
+    }
+
+    public List<TradeDto> alertList(TradeDto tDto) {
+        return tDao.alertList(tDto);
+    }
+
+    public boolean alertDelete(TradeDto tDto) {
+        return tDao.alertDelete(tDto);
     }
 }

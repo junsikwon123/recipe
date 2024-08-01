@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
            prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,7 +20,11 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/header.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="../common/js/jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 
 </head>
 
@@ -57,6 +62,17 @@
     }
 </style>
 <script>
+    $(document).ready(function () {
+        let curUrl = window.location.href;
+        if (curUrl === "http://localhost/") {
+            console.log("루트페이지")
+            $('#mainBodyImg').css('display', 'block');
+        } else {
+            console.log("루트페이지아님")
+            $('#mainBodyImg').css('display', 'none');
+        }
+    });
+
     function commonSearch(value, event) {
         if (event.keyCode === 13) {
             if (window.find(value)) { // 찾고자 하는 결과가 현재 페이지에 있으면 강조표시하고 함수 종료
@@ -69,66 +85,65 @@
         }
     }
 
-    $(function () {
-        let i = 1
-        setInterval(() => {
-            setTimeout(() => {
-                $(`#mainImg${i}`).css('display', 'block')
-            }, 5000);
-            $(`#mainImg${i}`).css('display', 'none')
-            if (i < 6) {
-                i++
-            } else {
-                i = 1
-            }
-        }, 2500);
+    let i = 1
+    setInterval(() => {
+        setTimeout(() => {
+            $(`#mainImg${i}`).css('display', 'block')
+        }, 5000);
+        $(`#mainImg${i}`).css('display', 'none')
+        if (i < 6) {
+            i++
+        } else {
+            i = 1
+        }
+    }, 2500);
+    let imgInput = $('#imgInput')
 
-        $('#img1').hover(function () {
-            $('#img1').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
-        }, function () {
-            $('#img1').css('border', '')
-        })
+    $('#img1').hover(function () {
+        $('#img1').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
+    }, function () {
+        $('#img1').css('border', '')
+    })
 
-        $('#img2').hover(function () {
-            $('#img2').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
-        }, function () {
-            $('#img2').css('border', '')
-        })
+    $('#img2').hover(function () {
+        $('#img2').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
+    }, function () {
+        $('#img2').css('border', '')
+    })
 
-        $('#img3').hover(function () {
-            $('#img3').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
-        }, function () {
-            $('#img3').css('border', '')
-        })
-        $('#img4').hover(function () {
-            $('#img4').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
-        }, function () {
-            $('#img4').css('border', '')
-        })
+    $('#img3').hover(function () {
+        $('#img3').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
+    }, function () {
+        $('#img3').css('border', '')
+    })
+    $('#img4').hover(function () {
+        $('#img4').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
+    }, function () {
+        $('#img4').css('border', '')
+    })
 
-        $('#img5').hover(function () {
-            $('#img5').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
-        }, function () {
-            $('#img5').css('border', '')
-        })
+    $('#img5').hover(function () {
+        $('#img5').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
+    }, function () {
+        $('#img5').css('border', '')
+    })
 
-        $('#img6').hover(function () {
-            $('#img6').css('border', '2px solid cornflowerblue')
-            $('#imgInput').empty()
-            $('#imgInput').append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
-        }, function () {
-            $('#img6').css('border', '')
-        })
+    $('#img6').hover(function () {
+        $('#img6').css('border', '2px solid cornflowerblue')
+        imgInput.empty()
+        imgInput.append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
+    }, function () {
+        $('#img6').css('border', '')
     })
 </script>
 <body id="main" class="hd">
@@ -143,7 +158,7 @@
                         <li><a href="/joinfrm">회원가입</a></li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <span><sec:authentication property="name"/></span>님 환영합니다
+                        <span>${sessionScope.m_name}</span>님 환영합니다
                         <li><a href="/member/logout">로그아웃</a></li>
                         <sec:authorize access="hasRole('ADMIN')">
                             <li><a href="/main">관리자 페이지</a></li>
@@ -153,7 +168,23 @@
                     <%--배송정보 클릭--%>
                     <li><a href="#">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a href="#">고객센터 </a>
+                    <li><a href="#">고객센터</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <sec:authorize access="isAuthenticated()">
+                        <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-bell fa-fw"></i></a>
+                                <div id="socketAlert"
+                                     class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">알림</h6>
+                                        <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
+                                        <%--                                        모든 알림 보기</a>--%>
+                                </div>
+                            </div>
+                        </li>
+                    </sec:authorize>
                 </ul>
             </section>
             <div class="header__inner">
@@ -215,15 +246,15 @@
             </div>
         </div>
     </header>
-    <main style="border: 5px solid #77b347;">
+    <main id="mainBodyImg" style="border: 5px solid #77b347;">
         <div id="bodyImg">
             <div id="imgInput" style="width: 2000px;">
-                <img id="mainImg1" src="./단하루반값.jpg" style="display: none;">
-                <img id="mainImg2" src="./1 bodyimg/삼성.jpg" style="display: none;">
-                <img id="mainImg3" src="./1 bodyimg/카누.jpg" style="display: none;">
-                <img id="mainImg4" src="./1 bodyimg/홈스타일.png" style="display: none;">
-                <img id="mainImg5" src="./1 bodyimg/쿠폰.jpg" style="display: none;">
-                <img id="mainImg6" src="./1 bodyimg/칠성.jpg" style="display: none;">
+                <img id="mainImg1" src="/uploadedImg/main/MainPage/반짝세일.png" style="display: none;">
+                <img id="mainImg2" src="/uploadedImg/main/MainPage/삼성.jpg" style="display: none;">
+                <img id="mainImg3" src="/uploadedImg/main/MainPage/카누.jpg" style="display: none;">
+                <img id="mainImg4" src="/uploadedImg/main/MainPage/홈스타일.png" style="display: none;">
+                <img id="mainImg5" src="/uploadedImg/main/MainPage/쿠폰.jpg" style="display: none;">
+                <img id="mainImg6" src="/uploadedImg/main/MainPage/칠성.jpg" style="display: none;">
             </div>
             <div id="bodyList" style="display: flex; flex-direction: column;">
                 <a href="https://pages.coupang.com/p/117380?from=home_C1&traid=home_C1&trcid=67673799965" id="img1"><img
@@ -242,6 +273,90 @@
         </div>
     </main>
 </div>
+<script>
+    let socket = null;
+    $(document).ready(function () {
+        //소켓 연결
+        connectWs();
+        $.ajax({
+            url:"/alert/List",
+            method:"post",
+        }).done(resp=>{
+            $('#socketAlert').empty()
+            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+            $('#socketAlert').append(resp)
+        }).fail(err=>{
+            console.log(err)
+        })
+    });
 
+    function connectWs() {
+        let ws = new SockJS("/push");
+        socket = ws;
+
+        ws.onopen = function () {
+            console.log('open');
+        };
+        ws.onmessage = function (event) {
+            let $socketAlert = $('#socketAlert');
+            //EchoHandler에서 설정한 메세지 넣어줌
+            $socketAlert.append(event.data)
+            // $socketAlert.css('display', 'block');
+            // ws.onclose = function () {
+            //     console.log('close');
+            // };
+        }
+    }
+
+    function accept(t_num,item,itemcount) {
+        let tNum=t_num
+        let t_item=item;
+        let t_itemcount=itemcount;
+        const param={"t_num":tNum,"t_item":t_item,"t_itemcount":t_itemcount}
+        $.ajax({
+            url: "/trade/accept",
+            method: "post",
+            data: param,
+        }).done(resp => {
+            console.log(resp)
+            if (resp === true) {
+
+            }else{
+                console.log("실패")
+            }
+        }).fail(err => {
+            console.log(err)
+        })
+    }
+
+    function refuse(t_num,tradesend,m_id) {
+        console.log("거절 글번호: " + t_num);
+        console.log("거절 당할사람: "+tradesend)
+        let removeDiv=document.getElementById("notification-"+t_num+"-"+tradesend)
+        removeDiv.remove();
+
+        $.ajax({
+            url:"/trade/refuse",
+            method: "post",
+            data:{"t_num":t_num,"tradesend":tradesend,"m_id":m_id},
+        }).done(resp=>{
+            console.log(resp)
+            $.each(resp,function (index,alert){
+                let alerts=`
+                    <div class="me-3" id="notification">
+                    <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                    </div>
+                    <div id="socketAlertDiv">
+                    <span id="current-time" class="small text-gray-500">
+                    
+                `
+            })
+        }).fail(err=>{
+            console.log(err)
+        })
+    }
+
+</script>
 </body>
 </html>
