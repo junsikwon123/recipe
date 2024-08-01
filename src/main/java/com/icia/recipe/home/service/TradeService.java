@@ -1,6 +1,7 @@
 package com.icia.recipe.home.service;
 
 import com.icia.recipe.home.dao.TradeDao;
+import com.icia.recipe.home.dto.AlertMessage;
 import com.icia.recipe.home.dto.TradeDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -105,8 +106,8 @@ public class TradeService {
         return tDao.tradeExchange(tDto);
     }
 
-    public boolean alertSave(TradeDto tDto) {
-        return tDao.alertSave(tDto);
+    public boolean alertSave(AlertMessage alertMessage) {
+        return tDao.alertSave(alertMessage);
     }
 
     public List<TradeDto> alertList(TradeDto tDto) {
@@ -115,5 +116,9 @@ public class TradeService {
 
     public boolean alertDelete(TradeDto tDto) {
         return tDao.alertDelete(tDto);
+    }
+
+    public boolean tradeItemDelete(TradeDto tDto) {
+        return tDao.tradeItemDelete(tDto);
     }
 }

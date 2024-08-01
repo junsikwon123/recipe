@@ -38,20 +38,6 @@
         font-weight: 500;
     }
 
-    #bodyImg {
-        position: relative;
-        z-index: 0;
-        height: 500px;
-        overflow: hidden;
-    }
-
-    #bodyList {
-        position: absolute;
-        height: 50px;
-        right: 250px;
-        top: 50px;
-    }
-
     a {
         text-decoration: none;
         color: gray;
@@ -62,16 +48,6 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        let curUrl = window.location.href;
-        if (curUrl === "http://localhost/") {
-            console.log("루트페이지")
-            $('#mainBodyImg').css('display', 'block');
-        } else {
-            console.log("루트페이지아님")
-            $('#mainBodyImg').css('display', 'none');
-        }
-    });
 
     function commonSearch(value, event) {
         if (event.keyCode === 13) {
@@ -85,66 +61,7 @@
         }
     }
 
-    let i = 1
-    setInterval(() => {
-        setTimeout(() => {
-            $(`#mainImg${i}`).css('display', 'block')
-        }, 5000);
-        $(`#mainImg${i}`).css('display', 'none')
-        if (i < 6) {
-            i++
-        } else {
-            i = 1
-        }
-    }, 2500);
-    let imgInput = $('#imgInput')
 
-    $('#img1').hover(function () {
-        $('#img1').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/반짝세일.png">')
-    }, function () {
-        $('#img1').css('border', '')
-    })
-
-    $('#img2').hover(function () {
-        $('#img2').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/삼성.jpg">')
-    }, function () {
-        $('#img2').css('border', '')
-    })
-
-    $('#img3').hover(function () {
-        $('#img3').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/카누.jpg" alt="">')
-    }, function () {
-        $('#img3').css('border', '')
-    })
-    $('#img4').hover(function () {
-        $('#img4').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/홈스타일.png" alt="">')
-    }, function () {
-        $('#img4').css('border', '')
-    })
-
-    $('#img5').hover(function () {
-        $('#img5').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/쿠폰.jpg" alt="">')
-    }, function () {
-        $('#img5').css('border', '')
-    })
-
-    $('#img6').hover(function () {
-        $('#img6').css('border', '2px solid cornflowerblue')
-        imgInput.empty()
-        imgInput.append('<img src="/uploadedImg/main/MainPage/칠성.jpg" alt="">')
-    }, function () {
-        $('#img6').css('border', '')
-    })
 </script>
 <body id="main" class="hd">
 <div id="wrap">
@@ -166,9 +83,9 @@
                     </sec:authorize>
                     <%--회원가입 클릭--%>
                     <%--배송정보 클릭--%>
-                    <li><a href="#">배송정보</a></li>
+                    <li><a href="/delivery/info">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                    <li><a href="#">고객센터</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="/customer/center">고객센터</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                     <sec:authorize access="isAuthenticated()">
                         <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -247,32 +164,7 @@
             </div>
         </div>
     </header>
-    <main id="mainBodyImg" style="border: 5px solid #77b347;">
-        <div id="bodyImg">
-            <div id="imgInput" style="width: 2000px;">
-                <img id="mainImg1" src="/uploadedImg/main/MainPage/반짝세일.png" style="display: none;">
-                <img id="mainImg2" src="/uploadedImg/main/MainPage/삼성.jpg" style="display: none;">
-                <img id="mainImg3" src="/uploadedImg/main/MainPage/카누.jpg" style="display: none;">
-                <img id="mainImg4" src="/uploadedImg/main/MainPage/홈스타일.png" style="display: none;">
-                <img id="mainImg5" src="/uploadedImg/main/MainPage/쿠폰.jpg" style="display: none;">
-                <img id="mainImg6" src="/uploadedImg/main/MainPage/칠성.jpg" style="display: none;">
-            </div>
-            <div id="bodyList" style="display: flex; flex-direction: column;">
-                <a href="https://pages.coupang.com/p/117380?from=home_C1&traid=home_C1&trcid=67673799965" id="img1"><img
-                        src="/uploadedImg/main/MainPage/k뷰티.jpg" alt=""></a>
-                <a href="https://pages.coupang.com/f/s1956?from=home_C1&traid=home_C1&trcid=11380937" id="img2"><img
-                        src="/uploadedImg/main/MainPage/삼성tv 보상.jpg" alt=""></a>
-                <a href="https://pages.coupang.com/f/s50394?from=home_C1&traid=home_C1&trcid=11380944" id="img3"><img
-                        src="/uploadedImg/main/MainPage/canu.jpg" alt=""></a>
-                <a href="https://pages.coupang.com/p/102665?from=home_C1&traid=home_C1&trcid=67673800401" id="img4"><img
-                        src="/uploadedImg/main/MainPage/homestyle.png" alt=""></a>
-                <a href="https://login.coupang.com/login/login.pang?rtnUrl=https%3A%2Fmc.coupang.com%2Fssr&from=home_C1&traid=home_C1&trcid=67673800816"
-                   id="img5"><img src="/uploadedImg/main/MainPage/coupon.jpg" alt=""></a>
-                <a href="https://pages.coupang.com/f/s264096?from=home_C1&traid=home_C1&trcid=11378725" id="img6"><img
-                        src="/uploadedImg/main/MainPage/chilsung.jpg" alt=""></a>
-            </div>
-        </div>
-    </main>
+
 </div>
 <script>
     let socket = null;
@@ -280,13 +172,16 @@
         //소켓 연결
         connectWs();
         $.ajax({
-            url:"/alert/List",
-            method:"post",
-        }).done(resp=>{
+            url: "/alert/List",
+            method: "post",
+        }).done(resp => {
             $('#socketAlert').empty()
             $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
             $('#socketAlert').append(resp)
-        }).fail(err=>{
+            let notice = document.querySelector("#span-notice-count");
+            let noticelist = document.querySelectorAll("#noticelist a");
+            notice.innerHTML = noticelist.length - 1 + "+";
+        }).fail(err => {
             console.log(err)
         })
     });
@@ -302,6 +197,9 @@
             let $socketAlert = $('#socketAlert');
             //EchoHandler에서 설정한 메세지 넣어줌
             $socketAlert.append(event.data)
+            let notice = document.querySelector("#span-notice-count");
+            let noticelist = document.querySelectorAll("#noticelist a");
+            notice.innerHTML = noticelist.length - 1 + "+";
             // $socketAlert.css('display', 'block');
             // ws.onclose = function () {
             //     console.log('close');
@@ -309,20 +207,27 @@
         }
     }
 
-    function accept(t_num,item,itemcount) {
-        let tNum=t_num
-        let t_item=item;
-        let t_itemcount=itemcount;
-        const param={"t_num":tNum,"t_item":t_item,"t_itemcount":t_itemcount}
+    function accept(t_num, item, itemcount,tradesend,m_id) {
+        let tNum = t_num
+        let t_item = item;
+        let t_itemcount = itemcount;
+        const param = {"t_num": tNum, "t_item": t_item, "t_itemcount": t_itemcount}
         $.ajax({
             url: "/trade/accept",
             method: "post",
             data: param,
         }).done(resp => {
             console.log(resp)
-            if (resp === true) {
-
-            }else{
+            if (resp != null) {
+                $('#socketAlert').empty()
+                $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+                $('#socketAlert').append(resp)
+                let notice = document.querySelector("#span-notice-count");
+                let noticelist = document.querySelectorAll("#noticelist a");
+                notice.innerHTML = noticelist.length - 1 + "+";
+                let acceptMessage={"type":"accept","t_num":t_num,"tradesend":m_id,"m_id":tradesend}
+                socket.send(JSON.stringify(acceptMessage))
+            } else {
                 console.log("실패")
             }
         }).fail(err => {
@@ -330,30 +235,27 @@
         })
     }
 
-    function refuse(t_num,tradesend,m_id) {
+    function refuse(t_num, tradesend, m_id) {
         console.log("거절 글번호: " + t_num);
-        console.log("거절 당할사람: "+tradesend)
-        let removeDiv=document.getElementById("notification-"+t_num+"-"+tradesend)
-        removeDiv.remove();
+        console.log("거절 할사람: " + m_id)
+        console.log("거절 당할사람: " + tradesend)
 
         $.ajax({
-            url:"/trade/refuse",
+            url: "/trade/refuse",
             method: "post",
-            data:{"t_num":t_num,"tradesend":tradesend,"m_id":m_id},
-        }).done(resp=>{
-            console.log(resp)
-            $.each(resp,function (index,alert){
-                let alerts=`
-                    <div class="me-3" id="notification">
-                    <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                    </div>
-                    <div id="socketAlertDiv">
-                    <span id="current-time" class="small text-gray-500">
-                    
-                `
-            })
-        }).fail(err=>{
+            data: {"t_num": t_num, "tradesend": tradesend, "m_id": m_id},
+        }).done(resp => {
+            if (resp != null) {
+                $('#socketAlert').empty()
+                $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+                $('#socketAlert').append(resp)
+                let notice = document.querySelector("#span-notice-count");
+                let noticelist = document.querySelectorAll("#noticelist a");
+                notice.innerHTML = noticelist.length - 1 + "+";
+                let refuseMessage={"type":"refuse","t_num":t_num,"tradesend":m_id,"m_id":tradesend}
+                socket.send(JSON.stringify(refuseMessage))
+            }
+        }).fail(err => {
             console.log(err)
         })
     }

@@ -71,6 +71,14 @@
     </update>
 
     <update id="tradeExchange">
+        update alert set t_alertnum=2 where t_num=#{t_num} and t_item=#{t_item}
+    </update>
+
+    <update id="alertDelete">
+        update alert set t_alertnum=3 where t_num=#{t_num} and tradesend=#{tradesend} and m_id=#{m_id}
+    </update>
+
+    <update id="tradeItemDelete">
         update tradeitem set t_itemcount=t_itemcount-#{t_itemcount} where t_num=#{t_num} and t_item=#{t_item}
     </update>
 
@@ -78,9 +86,6 @@
         delete from tradeitem where t_num=#{t_num} and t_order=#{t_order}
     </delete>
 
-    <delete id="alertDelete">
-        delete from alert where tradesend=#{tradesend} and t_num=#{t_num}
-    </delete>
 
 
     <select id="tradeDetail" resultType="com.icia.recipe.home.dto.TradeDto">
