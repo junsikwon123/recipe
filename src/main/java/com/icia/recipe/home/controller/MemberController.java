@@ -76,7 +76,7 @@ public class MemberController {
         boolean result = mSer.changepw(member);
         if (result) {
             log.info("비밀번호 변경 성공");
-            return "redirect:main/member/login";
+            return "redirect:/login";
         } else {
             log.info("비밀번호 변경 실패");
             return "main/member/searchidpw";
@@ -102,5 +102,10 @@ public class MemberController {
     @GetMapping("/customer/problem")
     public String problem() {
         return "main/customerservice/problem";
+    }
+
+    @GetMapping("/cancle")
+    public String cancle(){
+        return "index";
     }
 }
