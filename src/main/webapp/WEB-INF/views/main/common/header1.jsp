@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/header.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/header.js"></script>
     <style>
         #header{
             border: 1px solid #e6e7e8;
@@ -42,7 +43,7 @@
                             <li><a  href="/joinfrm">회원가입</a></li>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <span><sec:authentication property="name" /></span>님 환영합니다
+                            <span>${sessionScope.m_name}</span>님 환영합니다
                             <li><a href="/member/logout">로그아웃</a></li>
                             <sec:authorize access="hasRole('ADMIN')">
                                 <li><a href="/main">관리자 페이지</a></li>
@@ -51,7 +52,7 @@
                     <%--배송정보 클릭--%>
                     <li><a href="/delivery/info">배송정보</a></li>
                     <%--고객센터 클릭--%>
-                        <li><a href="/customer/center">고객센터 </a>
+                        <li><a href="/customer/center">고객센터</a></li>
                 </ul>
             </section>
             <div class="header__inner">
@@ -93,10 +94,10 @@
                     <div class="gnb__inner">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <%--식자제 링크--%>
+                                <%--식자재 링크--%>
                                 <li class="gnb__list"><a id="headCardLink" class="gnb__list-name" href="/fooditem/main">식자재</a></li>
                                 <%--랭킹 링크--%>
-                                <li class="gnb__list"><a class="gnb__list-name main_tab">랭킹</a></li>
+                                <li class="gnb__list"><a class="gnb__list-name main_tab" href="/fooditem/ranking">베스트</a></li>
                                 <%--분류 링크--%>
                                 <li class="gnb__list"><a class="gnb__list-name main_tab" href="/recipe/main">분류</a></li>
                                 <%--물물교환 링크--%>

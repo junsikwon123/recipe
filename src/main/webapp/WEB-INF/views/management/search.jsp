@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <style>
+        .no-hover:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+        tr:hover {
+            background-color: #badce3;
+        }
+    </style>
 </head>
 <script>
     function searchDetailModal(value) {
@@ -293,15 +302,6 @@
                 <main id="searchMain" style="justify-content: center; background-color: white;">
                     <h1 style="color: #4e73df">- - - ● 검색결과</h1><br><br><br>
                     <div style="width: 80%; margin-left: 10%">
-                        <%--                        <c:if test="${not empty searchList}">--%>
-                        <%--                        <h3 style="color: #4e73df; text-align: center">리스트 확인용</h3>--%>
-                        <%--                        ${searchList[0]}--%>
-                        <%--                        <hr style="height: 3px; border: 0; background-color: blue">--%>
-                        <%--                        ${searchList[1]}--%>
-                        <%--                        <hr style="height: 3px; border: 0; background-color: blue">--%>
-                        <%--                        ${searchList[2]}--%>
-                        <%--                        <hr style="height: 3px; border: 0; background-color: blue">--%>
-                        <%--                        </c:if>--%>
                         <c:choose>
                             <c:when test="${not empty searchList}">
                                 <c:set var="isEmptyList" value="true"/>

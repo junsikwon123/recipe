@@ -59,6 +59,11 @@
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="../common/header.jsp"></jsp:include>
+</header>
+<main>
+
 <div class="container">
     <h1>이용약관 동의</h1>
 
@@ -104,6 +109,28 @@
         <button onclick="home()">홈으로</button>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</main>
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>
 </footer>

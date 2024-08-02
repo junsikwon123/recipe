@@ -19,4 +19,29 @@
             f.f_code = #{code} and
             f.f_title like #{name}
     </select>
+    <select id="getInvenAddList" resultType="com.icia.recipe.management.dto.InvenDto">
+        select iv_company, iv_name, ((iv_price)*0.1) as iv_vat, ((iv_price)*0.9) as iv_price, iv_count, iv_current,
+               iv_price as iv_priceSum, iv_total
+        from invenAdd
+    </select>
+    <select id="getRecipeList" resultType="com.icia.recipe.management.dto.BoardDto">
+        select * from recipe
+    </select>
+    <select id="getInvenList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        SELECT MIN(f.f_date)                                                      AS f_date,
+               MAX(f.f_date)                                                      AS f_date2,
+               MIN(f.f_edate)                                                     AS f_edate,
+               MAX(f.f_edate)                                                     AS f_edate2,
+               c.c_name,
+               f.f_code,
+               f.f_title,
+               TRUNCATE(SUM(f.f_count), 0)                                        AS f_count,
+               FORMAT(TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0)                  AS f_price,
+               FORMAT(SUM(f.f_count) * TRUNCATE(SUM(f.f_price) / COUNT(*), 0), 0) AS total
+        FROM fooditem f
+                 JOIN
+             category c ON f.c_num = c.c_num
+    </select>
+    <select id="getSearchModalDetailsInven" resultType="com.icia.recipe.management.dto.InvenDto">
+    </select>
 </mapper>

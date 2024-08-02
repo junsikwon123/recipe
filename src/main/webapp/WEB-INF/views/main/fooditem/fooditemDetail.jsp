@@ -27,8 +27,10 @@
         });
     </script>
 </head>
+<header>
+    <jsp:include page="../common/header.jsp"></jsp:include>
+</header>
 <body id="marketDetail" class="hd">
-<jsp:include page="../common/header.jsp"></jsp:include>
 <div id="wrap">
     <main id="contents" class="hd__marketDetail">
         <ul class="breadcrumb">

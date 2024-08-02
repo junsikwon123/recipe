@@ -25,6 +25,12 @@ public class InvenService {
         int totalListCnt = fList.size();
         int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+//        for (FoodItemDto fi : fList) {
+//            String count = fi.getF_count();
+//            if (count.equals('0')) {
+//
+//            }
+//        }
 
         if (fromIdx >= totalListCnt) {
             return List.of(); // 페이지 범위가 전체 리스트 크기를 초과하는 경우 빈 리스트 반환

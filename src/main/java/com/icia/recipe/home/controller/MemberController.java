@@ -108,4 +108,12 @@ public class MemberController {
     public String cancle(){
         return "index";
     }
+    @GetMapping("/member/mypage")
+    public String mypage() {
+        return "main/member/mypage";
+    }
+    @GetMapping("/delivery/info")
+    public String delivery() {
+        return "main/member/mypage";
+    }
 }

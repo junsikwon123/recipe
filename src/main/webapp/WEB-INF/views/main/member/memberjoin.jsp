@@ -32,9 +32,9 @@
 </div>
 <hr>
 <div style="display: flex; flex-direction: row; width: 45%; margin: 0 auto 0">
-<button class="btn btn-cancel"><img style="width: 100px; height: 100px" src="/uploadedImg/main/MainPage/카카오톡.jfif"></button>
-<button class="btn btn-cancel"><img style="width: 60px; height: 60px" src="/uploadedImg/main/MainPage/네이년.jfif"></button>
-<button class="btn btn-cancel"><img style="width: 80px; height: 80px" src="/uploadedImg/main/MainPage/구글.jfif"></button>
+<button class="btn btn-cancel"><img style="width: 100px; height: 100px" src="/uploadedImg/main/MainPage/카카오톡.png"></button>
+<button class="btn btn-cancel"><img style="width: 60px; height: 60px" src="/uploadedImg/main/MainPage/네이년.png"></button>
+<button class="btn btn-cancel"><img style="width: 80px; height: 80px" src="/uploadedImg/main/MainPage/구글.png"></button>
 </div>
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>

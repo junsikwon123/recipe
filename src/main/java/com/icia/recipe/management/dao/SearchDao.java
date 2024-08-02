@@ -11,7 +11,7 @@ import java.util.List;
 public interface SearchDao {
     List<FoodItemDto> getSearchModalDetails(String cname, String code, String name);
 
-    List<InvenDto> getSearchModalDetails(String company, String iname);
+    List<InvenDto> getSearchModalDetailsInven(String company, String iname);
 
     List<FoodItemDto> getInvenList();
 

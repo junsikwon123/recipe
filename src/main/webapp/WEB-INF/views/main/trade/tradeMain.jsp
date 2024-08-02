@@ -93,7 +93,11 @@
     <li>물물교환</li>
 </ul>
 <div class="body">
-    <div class="title" style="text-align: center"><strong>물물교환</strong></div>
+    <div class="title" style="text-align: center">
+        <strong>물물교환</strong><br>
+        <a href="/refrigerator"><strong style="color: #f9f9f9">냉장고</strong></a>
+
+    </div>
     <div class="trade-container">
         <div class="m_list_tit" style="width: 1100px">
             <a class="write" href="/trade/write">글쓰기</a>

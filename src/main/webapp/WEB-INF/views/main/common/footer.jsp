@@ -35,7 +35,7 @@
             <div style="">
                 <br>
                 <select style="height: 40px; width: 200px">
-                    <option selected>&nbsp;현대백화점 관계사</option>
+                    <option selected>&nbsp;인천일보 아카데미</option>
                     <option>기타</option>
                     <option>기타</option>
                     <option>기타</option>
@@ -46,7 +46,7 @@
         </div>
         <div style="display: flex;flex-direction: row; width: 80%">
             <div style="width: 40%; text-align: left; display: flex; flex-direction: column">
-                <p style="font-weight: bold; font-size: xx-large">고객센터</p><br>
+                <p style="font-weight: bold; font-size: xx-large; color: black">고객센터</p><br>
                 <p>010 - 3342 - 5982</p>
                 <p>평일, 주말, 공휴일 시간 무관</p>
                 <p>카카오톡&nbsp;&nbsp;@원준식 친구 추가하고 소식과 혜택을 받아보세요</p>
@@ -54,8 +54,7 @@
                 <p style="font-size: small; color: gray">Copyright © 2020 HYUNDAI GREEN FOOD. All Rights Reserved.</p>
             </div>
             <div style="width: 40%; text-align: left">
-                <p style="font-size: x-large; font-weight: bold">기가막히 조</p>
-                <br>
+                <p style="font-size: x-large; font-weight: bold; color: black">기가막히 조</p>
                 <p style="font-size: smaller; color: gray">대표이사 : 원준식 | 담당 : 메인페이지, CSS, DB설계</p>
                 <p style="font-size: smaller; color: gray">바지사장 : 이형구 | 담당 : 메인페이지, 관리자페이지[ERP], CSS</p>
                 <p style="font-size: smaller; color: gray">전무이사 : 황인욱 | 담당 : 메인페이지, DB설계</p>

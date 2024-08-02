@@ -358,7 +358,7 @@
     <br>
     <h4 style="font-size: xxx-large">로그인</h4>
     <br>
-    <h1 style="color: red">로그인 안하실거면 나가주세요 <img src="/uploadedImg/main/합장.png" style="width: 30px; height: 30px" alt="">
+    <h1 style="color: red; font-size: smaller">로그인 안하실거면 나가주세요 <img src="/uploadedImg/main/합장.png" style="width: 30px; height: 30px" alt="">
     </h1>
     <form action="/member/login" method="post">
         <input name="username" type="text" placeholder="  아이디"
@@ -389,5 +389,21 @@
     <a href="javascript:document.querySelector('#searchPwModal').click()">비밀번호 찾기</a> |
     <a href="/joinfrm">회원가입</a>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

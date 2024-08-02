@@ -38,7 +38,7 @@ public class SearchService {
             case "invenAdd":
                 String company = param.get(0).toString();
                 String iname = param.get(1).toString();
-                thisList = sDao.getSearchModalDetails(company, iname);
+                thisList = sDao.getSearchModalDetailsInven(company, iname);
                 break;
             default:
         }

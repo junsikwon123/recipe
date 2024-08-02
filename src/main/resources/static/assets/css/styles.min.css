@@ -861,12 +861,5 @@ a-img {
 img {
     cursor: pointer;
 }
-.no-hover:hover {
-    background-color: #4e73df !important;
-    color: white !important;
-}
-tr:hover {
-    background-color: #badce3;
-}
 
 

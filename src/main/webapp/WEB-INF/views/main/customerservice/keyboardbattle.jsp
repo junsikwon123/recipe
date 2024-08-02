@@ -50,8 +50,8 @@
                     </thead>
                     <tbody class="">
                     <tr>
-                        <th style="font-weight: bold">분류</th>
-                        <td colspan="3">
+                        <th style="font-weight: bold" class="no-hover">분류</th>
+                        <td colspan="3" class="no-hover">
                             <select style="width: 500px; height: 40px; border: lightgray 1px solid">
                                 <option selected>&nbsp;&nbsp;&nbsp;선택</option>
                                 <option>&nbsp;&nbsp;&nbsp;영양상담</option>

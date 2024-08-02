@@ -4,7 +4,6 @@ import com.icia.recipe.home.dto.TradeDto;
 import com.icia.recipe.home.service.TradeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -106,6 +105,7 @@ public class TradeController {
         return "redirect:main";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/trade/update")
     public String tradeUpdate(TradeDto tDto, HttpServletRequest request) {
         log.info("글 수정 Controller");
@@ -161,6 +161,7 @@ public class TradeController {
         return "redirect:/trade/detail?t_num=" + tDto.getT_num();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/trade/updatefrm")
     public String tradeUpdatefrm(@RequestParam("t_num") Integer t_num, Model model) {
         log.info("글 수정창 열기");
@@ -178,6 +179,7 @@ public class TradeController {
         return "main/trade/tradeUpdate";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/trade/delete")
     public String tradeDelete(@RequestParam("t_num") Integer t_num) {
         log.info(">>>>>>>>글 delete controller");
@@ -197,6 +199,7 @@ public class TradeController {
         return "redirect:/trade/detail?t_num=" + tDto.getT_num();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/trade/exchangefrm")
     public String tradeExcnahgeFrm(Model model, @RequestParam("t_num") Integer t_num){
         List<TradeDto> tDList = tSer.tradeDetail(t_num);
@@ -219,5 +222,10 @@ public class TradeController {
         model.addAttribute("t_unit", t_unit);
         model.addAttribute("t_change", t_change);
         return "main/trade/exchangefrm";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/refrigerator")
+    public String NaengJangGo() {
+        return "main/trade/refrigerator";
     }
 }
