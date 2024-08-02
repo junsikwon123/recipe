@@ -1,9 +1,10 @@
 package com.icia.recipe.home.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icia.recipe.home.dto.AlertMessage;
 import com.icia.recipe.home.dto.TradeDto;
 import com.icia.recipe.home.service.TradeService;
 import io.micrometer.common.util.StringUtils;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,10 @@ public class EchoHandler extends TextWebSocketHandler {
     @Autowired
     TradeService tSer;
 
-
-
     private List<WebSocketSession> sessions = new ArrayList<>();
     private Map<String, WebSocketSession> userSessionMap = new HashMap<>();
     private Map<String, List<String>> notificationBuffer = new HashMap<>();
+    private final ObjectMapper objectMapper;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -55,59 +55,83 @@ public class EchoHandler extends TextWebSocketHandler {
         log.info("session = " + sendPushUsername(session));
         String msg = message.getPayload(); //js에서 넘어온 메세지
         log.info("msg = " + msg);
-        if (!StringUtils.isEmpty(msg)) {
-            String[] strs = msg.split(",");
-            if (strs.length == 8) {
-                String tradeSend = strs[0]; //교환신청건 유저
-                String sendedPushUser = strs[1]; //푸시 알림 받을 유저
-                String t_num = strs[2]; //게시글 번호
-                String title = strs[3];
-                String item = strs[4]; //내가 올린 아이템
-                String itemcount = strs[5]; //내가 올린 아이템 갯수
-                String unit = strs[6]; //내가 올린 아이템 단위
-                String change = strs[7]; //교환하고싶은 아이템
-                log.info(">>>>>>>>>>" + tradeSend);
-                log.info(">>>>>>>>>>" + sendedPushUser);
-                TradeDto tDto = new TradeDto();
-                tDto.setTradesend(tradeSend);
-                tDto.setT_num(Integer.parseInt(t_num));
-                tDto.setT_item(item);
-                tDto.setT_itemcount(Integer.parseInt(itemcount));
-                tDto.setT_unit(unit);
-                tDto.setT_change(change);
-                tDto.setM_id(sendedPushUser);
-                boolean alertResult=tSer.alertSave(tDto);
-                    WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);//로그인 상태일때 알람 보냄
-                    log.info("<<<<<<<<<sendedPushSession = {}", sendedPushSession);
-                    LocalDateTime now = LocalDateTime.now();
-                    // 초를 2자리로 포맷하기 위한 DateTimeFormatter 생성
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    // 포맷팅된 문자열 생성
-                    String formattedDate = now.format(formatter);
-                    // 초를 2자리로 잘라내기 (소수점 이하를 제외)
-                    String result = formattedDate.substring(0, 19); // "yyyy-MM-dd HH:mm:ss" 형식의 첫 19글자까지 추출
-                    String notification =
-                            "<div class='me-3' id='notification-"+t_num+"-"+tradeSend+"'>" +
-                            "<i class='fas fa-file-alt text-white'></i>" +
-                            "</div>" +
-                            "</div>" +
-                            "<div id='socketAlertDiv'>" +
-                            "<span id='current-time' class='small text-gray-500'>"
-                            + result +
-                            "</span>&nbsp;" +
-                            "<button id='accept' onclick='accept(" + t_num + ", \"" + item + "\", " + itemcount + ")'>수락</button>&nbsp;" +
-                            "<button id='refuse' onclick='refuse(" + t_num + ", \"" + tradeSend + "\", \""+sendedPushUser+"\")'>거절</button>" +
-                            "<a class='dropdown-item d-flex align-items-center' href='#'>" +
-                            "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                            tradeSend + "님이" + t_num + "번 글에 " + item + " " + itemcount + unit + "과(와)" + change + "를 교환신청을 하였습니다." +
-                            "</div>" +
-                            "</a>" +
-                            "</div>" ;
-                    if (sendedPushSession != null) {
-                        sendedPushSession.sendMessage(new TextMessage(notification));
-                    } else {
-                        notificationBuffer.computeIfAbsent(sendedPushUser, k -> new ArrayList<>()).add(notification);
-                    }
+        AlertMessage alertMessage = objectMapper.readValue(msg, AlertMessage.class);
+        WebSocketSession sendedPushSession = userSessionMap.get(alertMessage.getM_id());//로그인 상태일때 알람 보냄
+        LocalDateTime now = LocalDateTime.now();
+        // 초를 2자리로 포맷하기 위한 DateTimeFormatter 생성
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // 포맷팅된 문자열 생성
+        String formattedDate = now.format(formatter);
+        // 초를 2자리로 잘라내기 (소수점 이하를 제외)
+        String result = formattedDate.substring(0, 19); // "yyyy-MM-dd HH:mm:ss" 형식의 첫 19글자까지 추출
+        if (alertMessage.getType().equals(AlertMessage.MessageType.SEND)) {
+            log.info("JSON이라서 등장");
+            log.info(alertMessage.getTradesend());
+            alertMessage.setMessage("<div class='me-3' id='notification'>" +
+                    "<i class='fas fa-file-alt text-white'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div id='socketAlertDiv'>" +
+                    "<span id='current-time' class='small text-gray-500'>"
+                    + result +
+                    "</span>&nbsp;" +
+                    "<button id='accept' onclick='accept("+alertMessage.getT_num()+",\""+alertMessage.getT_item()+"\","+alertMessage.getT_itemcount()+
+                    ", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>수락</button>&nbsp;" +
+                    "<button id='refuse' onclick='refuse(" + alertMessage.getT_num() +", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>거절</button>" +
+                    "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                    "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                    alertMessage.getTradesend() + "님이 교환신청 하였습니다." +
+                    "를 교환신청을 하였습니다." +
+                    "</div>" +
+                    "</a>" +
+                    "</div>");
+            tSer.alertSave(alertMessage);
+            if (sendedPushSession != null) {
+                sendedPushSession.sendMessage(new TextMessage(alertMessage.getMessage()));
+            } else {
+                notificationBuffer.computeIfAbsent(alertMessage.getM_id(), k -> new ArrayList<>()).add(alertMessage.getMessage());
+            }
+        }else if(alertMessage.getType().equals(AlertMessage.MessageType.refuse)){
+            log.info("거절 socket 입장");
+            alertMessage.setMessage("<div class='me-3' id='notification'>" +
+                    "<i class='fas fa-file-alt text-white'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div id='socketAlertDiv'>" +
+                    "<span id='current-time' class='small text-gray-500'>"
+                    + result +
+                    "</span>" +
+                    "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                    "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                    alertMessage.getTradesend()+"님이"+alertMessage.getT_num()+"글에 교환 신청을 거절하였습니다." +
+                    "</div>" +
+                    "</a>" +
+                    "</div>");
+            if (sendedPushSession != null) {
+                sendedPushSession.sendMessage(new TextMessage(alertMessage.getMessage()));
+            } else {
+                notificationBuffer.computeIfAbsent(alertMessage.getM_id(), k -> new ArrayList<>()).add(alertMessage.getMessage());
+            }
+        }else if(alertMessage.getType().equals(AlertMessage.MessageType.accept)){
+            log.info("수락 socket 입장");
+            alertMessage.setMessage("<div class='me-3' id='notification'>" +
+                    "<i class='fas fa-file-alt text-white'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div id='socketAlertDiv'>" +
+                    "<span id='current-time' class='small text-gray-500'>"
+                    + result +
+                    "</span>" +
+                    "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                    "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                    alertMessage.getTradesend()+"님이"+alertMessage.getT_num()+"글에 교환 신청을 수락하였습니다." +
+                    "</div>" +
+                    "</a>" +
+                    "</div>");
+            if (sendedPushSession != null) {
+                sendedPushSession.sendMessage(new TextMessage(alertMessage.getMessage()));
+            } else {
+                notificationBuffer.computeIfAbsent(alertMessage.getM_id(), k -> new ArrayList<>()).add(alertMessage.getMessage());
             }
         }
     }
@@ -123,7 +147,6 @@ public class EchoHandler extends TextWebSocketHandler {
     //알람을 보내는 유저
     private String sendPushUsername(WebSocketSession session) {
         String loginUsername;
-
         if (session.getPrincipal() == null) {
             loginUsername = null;
         } else {

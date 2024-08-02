@@ -1,5 +1,6 @@
 package com.icia.recipe.home.dao;
 
+import com.icia.recipe.home.dto.AlertMessage;
 import com.icia.recipe.home.dto.TradeDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -47,9 +48,11 @@ public interface TradeDao {
 
     boolean tradeExchange(TradeDto tDto);
 
-    boolean alertSave(TradeDto tDto);
+    boolean alertSave(AlertMessage alertMessage);
 
     List<TradeDto> alertList(TradeDto tDto);
 
     boolean alertDelete(TradeDto tDto);
+
+    boolean tradeItemDelete(TradeDto tDto);
 }

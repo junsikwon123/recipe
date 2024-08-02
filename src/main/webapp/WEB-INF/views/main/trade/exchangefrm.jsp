@@ -10,13 +10,13 @@
 <html>
 <head>
     <title>Title</title>
-    <script defer src="/common/js/common.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<input name="t_num" value="${t_num}" style="display: none">
-<input name="t_title" value="${t_title}" readonly><br>
+<input id="m_id" name="m_id" value="${m_id}" style="display: none">
+<input id="t_num" name="t_num" value="${t_num}" style="display: none">
+<input id="t_title" name="t_title" value="${t_title}" readonly><br>
 <c:forEach var="trades" items="${tDList}">
     <input id="t_item" value="${trades.t_item}" readonly>
     <input id="t_itemcount" value="${trades.t_itemcount}">
@@ -57,8 +57,9 @@
                 alert("교환신청이 완료되었습니다.")
                 // location.reload()
                 if (socket) {
-                    let socketMsg = tradesend + "," + m_id + "," + t_num + "," + title + "," + item + "," + itemcount + "," + unit + "," + change;
-                    socket.send(socketMsg)
+                    let socketMsg = {"tradesend":tradesend,"m_id":m_id,"t_num":t_num,"t_title:":title,"t_item":item,"t_itemcount":itemcount,
+                        "t_unit":unit,"t_change":change,"type":"SEND"};
+                    socket.send(JSON.stringify(socketMsg))
                 }
             },
             error: function () {
