@@ -34,4 +34,8 @@ public interface InvenDao {
     List<ImgDto2> getImg(String bigCgNum, String code, String cgName, String title);
 
     boolean deleteFromFoodItem(String bigCgNum, String code, String title);
+
+    List<FoodItemDto> emptyFoodItem();
+
+    String IdFind();
 }

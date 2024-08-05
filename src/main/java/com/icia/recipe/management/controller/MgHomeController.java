@@ -7,6 +7,8 @@ import com.icia.recipe.management.service.SearchService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,31 +31,43 @@ public class MgHomeController {
     SearchService sSer;
 
     @GetMapping("/main")
-    public String Sales(HttpSession session, Model model) {
+    public String Sales(HttpSession session, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/main";
     }
 
     @GetMapping("/delivery")
-    public String delivery(HttpSession session, Model model) {
+    public String delivery(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/delivery";
     }
 
     @GetMapping("/inventory")
-    public String inven(HttpSession session, Model model) {
+    public String inven(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/inventory";
     }
 
     @GetMapping("/service")
-    public String serviceCenter(HttpSession session, Model model) {
+    public String serviceCenter(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/service";
     }
 
     @GetMapping("/homepageR")
-    public String homepageR(HttpSession session, Model model) {
+    public String homepageR(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/homepageR";
     }
     @GetMapping("/homepageC")
-    public String homepageC(HttpSession session, Model model) {
+    public String homepageC(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
+        String m_id=userDetails.getUsername();
+        model.addAttribute("m_id",m_id);
         return "management/homepageC";
     }
     @GetMapping("/homepageT")

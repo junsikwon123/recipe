@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AlertMessage {
     public enum MessageType{
-        SEND,accept,refuse
+        SEND,accept,refuse,EMPTY
     }
     private MessageType type;
     private String tradesend;
@@ -23,4 +23,6 @@ public class AlertMessage {
     private String t_unit;
     private String t_change;
     private String message;
+    private String f_title;
+    private String f_count;
 }

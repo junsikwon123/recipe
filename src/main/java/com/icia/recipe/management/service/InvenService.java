@@ -300,4 +300,9 @@ public class InvenService {
         return iList.subList(fromIdx, toIdx);
 
     }
+
+    public List<FoodItemDto> emptyFoodItem() {
+        return iDao.emptyFoodItem();
+    }
+
 }

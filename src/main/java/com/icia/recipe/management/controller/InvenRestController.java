@@ -8,6 +8,8 @@ import com.icia.recipe.management.service.InvenService;
 import com.icia.recipe.management.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,5 +89,11 @@ public class InvenRestController {
     public List<?> searchModalDetails(@RequestParam("className") String className, @RequestParam("param") ArrayList param) {
         log.info("[검색] 상세모달 깐뜨롤러 진입");
         return sSer.getSearchModalDetails(className, param);
+    }
+
+    @GetMapping("/get/empty/food/item")
+    public List<FoodItemDto> emptyFoodItem(){
+        log.info("[품절] 깐뜨롤러 진입");
+        return iSer.emptyFoodItem();
     }
 }

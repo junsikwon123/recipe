@@ -120,6 +120,7 @@
         and c.c_name = #{cgName}
         and c.c_num = #{bigCgNum}
     </select>
+
     <select id="getImg" resultType="com.icia.recipe.management.dto.ImgDto2">
         select * from img i
         join fooditem f
@@ -130,5 +131,14 @@
         and f.f_title = #{title}
         and f.f_code = #{code}
         and c.c_name = #{cgName}
+    </select>
+
+    <select id="emptyFoodItem" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        SELECT *
+        FROM fooditem f
+        join category c
+        on c.c_num = f.c_num
+        GROUP BY f.c_num, f.c_num2, f.f_title
+        HAVING SUM(f_count) = 0
     </select>
 </mapper>
