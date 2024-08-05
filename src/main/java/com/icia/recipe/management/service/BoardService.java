@@ -16,11 +16,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -316,7 +314,8 @@ public class BoardService {
         List<FoodItemDto> details = bDao.getModalFIDetails(trCode);
         for (FoodItemDto fi : details) {
             fi.setF_img(bDao.getFiImg(trCode));
-            /* fi.setC_name(bDao.getFIImg(trCode));*/
+            fi.setC_numName(bDao.getFoodItemListNaming(fi.getC_num()));
+            fi.setC_num2Name(bDao.getFoodItemListNaming2(fi.getC_num2()));
         }
         return details;
     }
@@ -356,4 +355,32 @@ public class BoardService {
     }
 
 
+    public List<FoodItemDto> modalDetailsInfoUpdate(List Cdata, List Udata) {
+        String c_cnum = (String) Cdata.get(0);
+        String c_cnum2 = (String) Cdata.get(1);
+        String c_ftitle = (String) Cdata.get(2);
+        String fnum = (String) Cdata.get(3);
+
+        String u_code = (String) Udata.get(0);
+        String u_cnum = (String) Udata.get(1);
+        String u_cnum2 = (String) Udata.get(2);
+        String u_price = (String) Udata.get(3);
+        String u_count = (String) Udata.get(4);
+        String u_origin = (String) Udata.get(5);
+        String u_save = (String) Udata.get(6);
+        String u_cal = (String) Udata.get(7);
+
+        List<String> params = Stream.of(c_ftitle, c_cnum, c_cnum2, u_code, u_cnum, u_cnum2, u_price, u_count, u_origin, u_save, u_cal)
+                .filter(Objects::nonNull)
+                .toList();
+
+        // null이 아닌 값만을 포함한 리스트를 개별 파라미터로 전달
+        boolean result =  bDao.updateAndGetModalDetailsInfo(params.toArray(new String[0]));
+        if (result) {
+            return bDao.getModalDetailsInfoUpdateBeforeList(fnum);
+        } else {
+            log.info("[상세모달] 업데이트 실패!");
+            return null;
+        }
+    }
 }

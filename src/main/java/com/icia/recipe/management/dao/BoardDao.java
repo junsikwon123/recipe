@@ -59,4 +59,8 @@ public interface BoardDao {
     String getFIImg(String trCode);
 
     List<FoodItemDto> getSearchModalDetails(String cname, String code, String name);
+
+    boolean updateAndGetModalDetailsInfo(String[] array);
+
+    List<FoodItemDto> getModalDetailsInfoUpdateBeforeList(String fnum);
 }

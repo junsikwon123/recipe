@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <script>
+    let i = 1
     function foodTableInput(element, event) {
         if (element.value !== null && element.value !== '') {
             if (event.keyCode === 13) {
@@ -24,13 +25,14 @@
                 //
                 let table = document.getElementById('foodTable')
                 let str = "";
-                str += "<input id='selectThis' onclick='thisItemDrag(this)' draggable='true' class='fiItemsInIceBox' data-count='" + fiCount + "' data-volume='" + fiVolume + "' type='text' value='" + fiName + "' data-change='" + exchange + "' " +
+                str +="<input id='selectThis"+i+"' name='"+fiName+"' onclick='thisItemDrag(this)' draggable='true' class='fiItemsInIceBox' data-count='" + fiCount + "' data-volume='" + fiVolume + "' type='text' value='" + fiName + "' data-change='" + exchange + "' " +
                     "style='border: none; width: 100px; background-color: transparent; cursor: pointer' readonly/>"
-                str += "<hr id='isHr' style='width: 500px'>"
+                str += "<hr class='isHr' style='width: 500px'>"
                 table.innerHTML += str
                 let input = $('#fiInputBox')
                 input.val('')
                 input.focus()
+                i++
 
             }
         }
@@ -67,9 +69,15 @@
         alert('초기화 하시겠습니까?')
         table.html('')
     }
+    let hiddenInput = $('#aa')
     $(document).on("dragstart", ".fiItemsInIceBox", function (e) {
         console.log("움직인다아아앗!!");
-        document.getElementById('selectThis').name = e.currentTarget.defaultValue
+        // document.getElementById('selectThis').name = e.currentTarget.defaultValue
+        console.log(hiddenInput)
+        hiddenInput.name = $(this)[0].name
+        hiddenInput.data = $(this)[0].id
+        console.log(hiddenInput)
+
         let imgTag = $('.refrigeratorImg')
         let imgTagSrc = imgTag[0].currentSrc
         let imgUrl = imgTagSrc.replace(window.location.origin, '')
@@ -90,12 +98,13 @@
             const result = match ? match[0] : null;
             if (result === '개방') {
                 console.log("입벌려!!!")
-                let nameValue = $('#selectThis')[0].name
-                console.log(nameValue+" 한다 삭제")
-                let currentElement = document.querySelector(`input#selectThis[name="`+nameValue+`"]`);
-                currentElement.remove()
-                let hrElem = currentElement.closest('hr #isHr')
+                console.log(hiddenInput.name)
+                console.log(hiddenInput.data)
+                let currentElement = document.getElementById(hiddenInput.data)
+                console.log(currentElement)
+                let hrElem = currentElement.closest('hr')
                 console.log(hrElem)
+                currentElement.remove()
             } else {
                 alert('생각이란 것을 할 수 있는 뇌를 가지고 계신다면, 냉장고 문을 먼저 열어주세요!!')
             }
@@ -143,6 +152,7 @@
             <div id="foodTable" class="foodItem">
 
             </div>
+            <input type="hidden" style="display: none" id="aa" data="k">
         </div>
     </div>
 

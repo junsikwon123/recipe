@@ -14,7 +14,9 @@ import lombok.experimental.Accessors;
 public class FoodItemDto {
     private int f_num;// 글번호 오토 인크리먼트
     private String c_num;// 카테고리 대분류 참조번호
+    private String c_numName;// 카테고리 대분류 참조번호
     private String c_num2; // 카테고리 중분류 참조번호
+    private String c_num2Name; // 카테고리 중분류 참조번호
     private String c_name;
     private String total;
     private String f_title; // 식자재 제목

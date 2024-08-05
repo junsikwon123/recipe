@@ -106,6 +106,20 @@
                 <div id="detailsModalImg">
                     여기에 사진 들어갈 예정
                 </div>
+                <div id="detailsModalInfoUpdate" style="display: none">
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" id="dmiu_f_code" type="text">
+                    <input class="dmiu" id="dmiu_c_num" type="text">
+                    <input class="dmiu" id="dmiu_c_num2" type="text">
+                    <input class="dmiu" id="dmiu_f_price" type="text">
+                    <input class="dmiu" id="dmiu_f_count" type="text">
+                    <input class="dmiu" id="dmiu_f_origin" type="text">
+                    <input class="dmiu" id="dmiu_f_save" type="text">
+                    <input class="dmiu" id="dmiu_f_cal" type="text">
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                </div>
                 <div id="detailsModalInfo">
 
                 </div>
@@ -115,7 +129,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                <input id="modalDetailsInfoResp" style="display: none" data="">
+                <button type="button" class="btn btn-outline-info" onclick="updateInfoOpen()">수정</button>
+                <button type="button" class="btn btn-outline-warning" onclick="modalDetailsUpdate()">업데이트</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -861,5 +861,17 @@ a-img {
 img {
     cursor: pointer;
 }
+.dmiu {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    border: none;
+    width: 100px;
+    background-color: lightskyblue;
+    color: white;
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
 
 
