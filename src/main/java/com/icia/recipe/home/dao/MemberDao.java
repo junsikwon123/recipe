@@ -1,6 +1,7 @@
 package com.icia.recipe.home.dao;
 
 import com.icia.recipe.home.dto.Member;
+import com.icia.recipe.management.dto.MemberDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -12,7 +13,7 @@ public interface MemberDao {
     boolean join(Member member);
 
     @Select("select * from member where m_id=#{m_id}")
-    String check(Member member);
+    MemberDto check(String m_id);
 
     @Select("select * from member where m_id=#{m_id}")
     Member getMemberInfo(String username);
