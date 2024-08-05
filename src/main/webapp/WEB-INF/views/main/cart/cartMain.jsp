@@ -82,15 +82,13 @@
                         </ul>
                         <ul class="box" id="dvCartListArea">
                             ${caList}
-                           <%-- <li class="orderCartBox__list single">
+                            <li class="orderCartBox__list single">
                                 <div class="orderCartBox__list__inner">
-                                    <input type="hidden" name="f_num" value="f_num">&lt;%&ndash;f_num&ndash;%&gt;
-                                    <input type="hidden" name="o_name" value="보양추어탕 550g">&lt;%&ndash;f_name&ndash;%&gt;
-                                    <input type="hidden" name="dvItemPrice" value="f_price">&lt;%&ndash;f_price&ndash;%&gt;
-                                    <input type="hidden" name="dvItemCount" value="">
-                                    <input type="hidden" name="dvCartId" value="ca_num">&lt;%&ndash;ca_num 주문 완료시  삭제&ndash;%&gt;
-                                    <input type="hidden" name="dvItemImg"
-                                           value="append(cart.getIList().get(0).getI_path()).append(cart.getIList().get(0).getI_sys_name())">
+                                    <input type="hidden" name="dvItemId" value="f_num"><%--f_num--%>
+                                    <input type="hidden" name="dvItemName" value="보양추어탕 550g"><%--f_name--%>
+                                    <input type="hidden" name="dvItemPrice" value="f_price*(count=<f_count)"><%--f_price--%>
+                                    <input type="hidden" name="dvCartId" value="ca_num"><%--ca_num 주문 완료시  삭제--%>
+                                    <input type="hidden" name="dvItemcount" value="f_count"><%--인벤 최대 갯수--%>
                                     <!-- 상품선택 체크박스 -->
                                     <div class="checkBoxAll">
 				                        <span class="checks">
@@ -117,8 +115,8 @@
                                     <span class="selling-price price01">f_price원</span>
                                     <div class="prd_value">
                                         <span class="prd_length">
-                                            <input type="text" min="1" max="10" class="dvCartDetlQty"
-                                                   value="2">
+                                            <input type="text" min="1" maxlength="5" class="dvCartDetlQty"
+                                                   value="f_count">
                                             <button type="button" class="btn_st1_plus">수량 감소</button>
                                             <button type="button" class="btn_st1_minus">수량 증가</button>
                                         </span>
@@ -129,18 +127,8 @@
                                         <span class="hidden">삭제</span>
                                     </button>
                                 </div>
-                            </li>--%>
+                            </li>
                         </ul>
-                        <div class="orderCart__total" id="dvCartSummaryArea">
-                            <div class="orderCart__total__cont">
-                                <p class="orderCart__total__txt">총 결제 예정금액</p>
-                                <em class="orderCart__total__price"><span id="totalPaymentPrice">11,250</span>원</em>
-                            </div>
-                        </div>
-                        <div class="btn">
-                            <button type="button" class="btn-init green" id="dvSelectOrder" onclick="dvOrder()">구매하기
-                            </button>
-                        </div>
                     </div>
                 </div>
                 <div class="none-list" style="display: none">
@@ -149,26 +137,22 @@
                     <a class="btn__goHome" id="goHome" href="/">홈으로</a></div>
             </section>
         </div>
-        <form id="orderForm" method="POST" action="/cart/order" style="display:none;"></form>
+        <footer>
+            <jsp:include page="../common/footer.jsp"></jsp:include>
+        </footer>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                price()
                 const dvList = document.getElementById("dvCartListArea");
                 const check = document.getElementsByName("all");
-                Array.from(check).forEach(c => {
+                check.forEach(c => {
                     c.addEventListener("click", function () {
                         if (this.id === "checkall") {
-                            if (this.checked) {
-                                Array.from(check).forEach(e => {
-                                    e.checked = true
-                                })
+                            if (this.checked === true) {
+                                c.checked = true
                             } else {
-                                Array.from(check).forEach(e => {
-                                    e.checked = false
-                                })
+                                c.checked = false
                             }
-
-                        } else if (this.id !== "checkall") {
+                        } else {
                             if (this.checked === false) {
                                 check[0].checked = false
                             } else {
@@ -182,17 +166,12 @@
                 })
 
                 function registerDeleteButtons() {
+                    console.log("감자")
                     const dvDelete = document.getElementsByClassName("dvDelCartDetl");
                     Array.from(dvDelete).forEach(d => {
                         d.removeEventListener('click', deleteHandler);
                         d.addEventListener('click', deleteHandler);
                     });
-                    const countBt = document.querySelectorAll(".prd_length>*")
-                    countBt.forEach(bt => {
-                        bt.removeEventListener("click", countBtHandler)
-                        bt.addEventListener("click", countBtHandler)
-                    });
-                    price()
                 }
 
                 function deleteHandler() {
@@ -231,84 +210,8 @@
                     console.log("아...", deleteAll)
                 })
 
-                function countBtHandler() {
-                    let dvLi = this.closest(".orderCartBox__list__inner")
-                    const dvItemCount = dvLi.querySelector("input[name='dvItemCount']")
-                    const dvItemMaxcount = dvLi.querySelector("input[name='dvItemMaxcount']")
-                    let price01 = dvLi.querySelector(".price01")
-                    let price02 = dvLi.querySelector(".price02")
-                    let dvInput = dvLi.querySelector(".dvCartDetlQty")
-                    let currentValue = parseInt(dvInput.value); // 현재 값을 숫자로 변환
-                    let minValue = parseInt(dvInput.min); // 최소값
-                    let maxValue = parseInt(dvItemMaxcount.value); // 최대값
-                    switch (this.className) {
-                        case "btn_st1_minus":
-                            if (currentValue > minValue) {
-                                dvInput.value = --currentValue;
-                            }
-                            break;
-                        case "btn_st1_plus":
-                            if (currentValue < maxValue) {
-                                dvInput.value = ++currentValue;
-                            }
-                            break;
-                    }
-                    dvItemCount.value = dvInput.value
-                    let numberPrice = price01.innerHTML.replace(/[^0-9]/g, '');
-                    let newPrice2 = (dvInput.value * numberPrice).toLocaleString() + "원"
-                    price02.innerHTML = newPrice2
-                    price()
-                }
-
-                function price() {
-                    const allPrice02 = document.getElementsByClassName("price02");
-                    const totalPriceHtml = document.getElementById("totalPaymentPrice");
-                    let allprice = 0;
-                    Array.from(allPrice02).forEach(i => {
-                        allprice += Number(i.innerHTML.replace(/[^0-9]/g, ''));
-                    })
-                    totalPriceHtml.innerHTML = allprice.toLocaleString()
-
-                }
-
                 registerDeleteButtons();
             })
-
-            function dvOrder() {
-                const dvLi = document.getElementsByClassName("orderCartBox__list__inner")
-                let dvItemList = [];
-                Array.from(dvLi).forEach(e => {
-                    let dvItem = [];
-                    let select = e.querySelectorAll("input[type='hidden']")
-                    Array.from(select).forEach(i =>{
-                        dvItem.push(i.name+"="+i.value);
-                    });
-                    dvItemList.push(dvItem)
-                })
-                // FormData 객체 생성
-                const formData = new FormData();
-
-
-                dvItemList.forEach(list => {
-                    formData.append(`orderList[]`, list);
-                });
-
-                // 폼 요소 가져오기
-                const form = document.getElementById('orderForm');
-
-                // FormData를 폼 요소에 추가
-                for (let [key, value] of formData.entries()) {
-                    let input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = value;
-                    form.appendChild(input);
-                }
-
-                // 폼 제출
-               form.submit();
-            }
-
 
         </script>
     </main>

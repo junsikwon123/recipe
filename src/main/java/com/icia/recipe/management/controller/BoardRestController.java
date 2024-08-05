@@ -157,5 +157,10 @@ public class BoardRestController {
         }
     }
 
+    @PostMapping("/boardlist/modalinfo/update")
+    public List<FoodItemDto> modalDetailsInfoUpdate(@RequestParam("Cdata") List Cdata, @RequestParam("Udata") List Udata) {
+        return bSer.modalDetailsInfoUpdate(Cdata, Udata);
+    }
+
 
 }

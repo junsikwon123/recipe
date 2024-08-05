@@ -2,7 +2,7 @@ package com.icia.recipe.management.service;
 
 import com.icia.recipe.management.dao.InvenDao;
 import com.icia.recipe.management.dto.FoodItemDto;
-import com.icia.recipe.management.dto.ImgDto;
+import com.icia.recipe.management.dto.ImgDto2;
 import com.icia.recipe.management.dto.InvenDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +25,12 @@ public class InvenService {
         int totalListCnt = fList.size();
         int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+//        for (FoodItemDto fi : fList) {
+//            String count = fi.getF_count();
+//            if (count.equals('0')) {
+//
+//            }
+//        }
 
         if (fromIdx >= totalListCnt) {
             return List.of(); // 페이지 범위가 전체 리스트 크기를 초과하는 경우 빈 리스트 반환
@@ -109,12 +113,16 @@ public class InvenService {
 
     @Transactional
     public List<?> deleteFromFooditem(ArrayList deleteKeySet, Integer pageNum, Integer pageSize) {
-        List<FoodItemDto> ps1Select = iDao.getFoodItemList(deleteKeySet);
-        List<ImgDto> ps2Select = iDao.getImg(deleteKeySet);
-        boolean ps3Delete = iDao.deleteFromFoodItem(deleteKeySet);
+        String bigCgNum = deleteKeySet.get(0).toString();
+        String code = deleteKeySet.get(1).toString();
+        String cgName = deleteKeySet.get(2).toString();
+        String title = deleteKeySet.get(3).toString();
+        List<FoodItemDto> ps1Select = iDao.getFoodItemList(bigCgNum, code, cgName, title);
+        List<ImgDto2> ps2Select = iDao.getImg(bigCgNum, code, cgName, title);
+        boolean ps3Delete = iDao.deleteFromFoodItem(bigCgNum, code , title);
         if (ps3Delete) {
             for (int i = 0; i < ps2Select.size(); i++) {
-                ImgDto img = ps2Select.get(i);
+                ImgDto2 img = ps2Select.get(i);
                 FoodItemDto ps = ps1Select.get(i);
 
                 // ImgDto에서 값 추출

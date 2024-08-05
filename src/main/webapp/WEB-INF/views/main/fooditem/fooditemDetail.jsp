@@ -30,8 +30,10 @@
         });
     </script>
 </head>
+<header>
+    <jsp:include page="../common/header.jsp"></jsp:include>
+</header>
 <body id="marketDetail" class="hd">
-<jsp:include page="../common/header.jsp"></jsp:include>
 <div id="wrap">
     <main id="contents" class="hd__marketDetail">
         <ul class="breadcrumb">
@@ -206,6 +208,9 @@
         </div>
     </article>
 </div>
+<footer>
+    <jsp:include page="../common/footer.jsp"></jsp:include>
+</footer>
 <script>
     function sendCartOpen() {
         console.log('들어왔니?')

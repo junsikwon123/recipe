@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <style>
+        .no-hover:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+        tr:hover {
+            background-color: #badce3;
+        }
+    </style>
 </head>
 <body id="page-top">
 <!-- 게시글 등록 모달 -->

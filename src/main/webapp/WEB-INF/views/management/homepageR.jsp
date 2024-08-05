@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <style>
+        .no-hover:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+        tr:hover {
+            background-color: #badce3;
+        }
+    </style>
 </head>
 <body id="page-top">
 <script>
@@ -97,6 +106,20 @@
                 <div id="detailsModalImg">
                     여기에 사진 들어갈 예정
                 </div>
+                <div id="detailsModalInfoUpdate" style="display: none">
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                    <input class="dmiu" id="dmiu_f_code" type="text">
+                    <input class="dmiu" id="dmiu_c_num" type="text">
+                    <input class="dmiu" id="dmiu_c_num2" type="text">
+                    <input class="dmiu" id="dmiu_f_price" type="text">
+                    <input class="dmiu" id="dmiu_f_count" type="text">
+                    <input class="dmiu" id="dmiu_f_origin" type="text">
+                    <input class="dmiu" id="dmiu_f_save" type="text">
+                    <input class="dmiu" id="dmiu_f_cal" type="text">
+                    <input class="dmiu" type="text" style="color: red" value="수정불가" disabled>
+                </div>
                 <div id="detailsModalInfo">
 
                 </div>
@@ -106,7 +129,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                <input id="modalDetailsInfoResp" style="display: none" data="">
+                <button type="button" class="btn btn-outline-info" onclick="updateInfoOpen()">수정</button>
+                <button type="button" class="btn btn-outline-warning" onclick="modalDetailsUpdate()">업데이트</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

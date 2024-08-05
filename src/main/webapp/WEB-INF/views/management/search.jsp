@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
+    <style>
+        .no-hover:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+        tr:hover {
+            background-color: #badce3;
+        }
+    </style>
 </head>
 <script>
     function searchDetailModal(value) {
@@ -40,7 +49,7 @@
         switch (trClassName) {
             case "inven":
                 if (values[5].length > 4) {
-                    values[5] = values[5].substring(0,4)+"%";
+                    values[5] = values[5].substring(0, 4) + "%";
                 }
                 param.push(values[3])
                 param.push(values[4])
@@ -48,7 +57,7 @@
                 break;
             case "invenAdd":
                 if (values[2].length > 4) {
-                    values[2] = values[2].substring(0,4)+"%";
+                    values[2] = values[2].substring(0, 4) + "%";
                 }
                 param.push(values[1])
                 param.push(values[2])
@@ -58,38 +67,37 @@
         console.log(param)
         $.ajax({
             method: 'get',
-            url: "/management/search",
+            url: "/search/detailmodal",
             data: {"param": param, "className": trClassName}
         }).done((resp) => {
             console.log("[검색] 상세모달 DONE")
-            console.log(resp)
             let str = "";
             let data = $('#searchDetailModalInfo')
+            console.log(resp)
             switch (trClassName) {
                 case "invenAdd":
-                str += `<pre> 거래처 : \${resp[0].iv_company}\</pre>`;
-                str += `<pre> 상품명 : \${resp[0].iv_name}\</pre>`;
-                str += `<pre> 가격 : \${resp[0].iv_price}\ &#8361</pre>`;
-                str += `<pre> 부가세 : \${resp[0].iv_vat}\ &#8361</pre>`;
-                str += `<pre> 수량 : \${resp[0].iv_count}\</pre>`;
-                str += `<pre> 합계 : \${resp[0].iv_total}\ &#8361</pre>`;
-                str += `<pre> 현황 : \${resp[0].iv_current}\</pre>`;
-                break;
+                    str += `<pre> 거래처 : \${resp[0].iv_company}\</pre>`;
+                    str += `<pre> 상품명 : \${resp[0].iv_name}\</pre>`;
+                    str += `<pre> 가격 : \${resp[0].iv_price}\ &#8361</pre>`;
+                    str += `<pre> 부가세 : \${resp[0].iv_vat}\ &#8361</pre>`;
+                    str += `<pre> 수량 : \${resp[0].iv_count}\</pre>`;
+                    str += `<pre> 합계 : \${resp[0].iv_total}\ &#8361</pre>`;
+                    str += `<pre> 현황 : \${resp[0].iv_current}\</pre>`;
+                    break;
                 case "inven":
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
-                    str += `<pre>  : \${resp[0].f_}\</pre>`;
+                    str += `<pre> 등록일 : \${resp[0].f_date}\ ~ \${resp[0].f_date2}\</pre>`;
+                    str += `<pre> 유통기한 : \${resp[0].f_edate}\ ~ \${resp[0].f_edate2}\</pre>`;
+                    str += `<pre> 카테고리 : \${resp[0].c_name}\</pre>`;
+                    str += `<pre> 상품코드 : \${resp[0].f_code}\</pre>`;
+                    str += `<pre> 상품이름 : \${resp[0].f_title}\</pre>`;
+                    str += `<pre> 수량 : \${resp[0].f_count}\</pre>`;
+                    str += `<pre> 평균금액 : \${resp[0].f_price}\ &#8361</pre>`;
+                    str += `<pre> 총 계 : \${resp[0].total}\ &#8361</pre>`;
                     break;
                 default:
                     console.log("[검색] 상세모달 에러")
             }
 
-            console.log(str)
             data.html(str)
             openBtn.click()
         }).fail((err) => {
@@ -293,121 +301,169 @@
                 </div>
                 <main id="searchMain" style="justify-content: center; background-color: white;">
                     <h1 style="color: #4e73df">- - - ● 검색결과</h1><br><br><br>
-                    <%--                <div style="width: 80%; margin-left: 10%">--%>
-                    <%--                    <h3 style="color: #4e73df; text-align: center">리스트 확인용</h3>--%>
-                    <%--                    ${searchList}--%>
-                    <%--                </div>--%>
-                    <div>
-                        <!-- Iterate over the outer list -->
-                        <c:forEach var="innerList" items="${searchList}" varStatus="status">
-                            <c:if test="${not empty innerList}">
-                                <c:choose>
-                                    <c:when test="${status.index == 0 and not empty innerList[0]}">
-                                        <div style="width: 80%; text-align: center; margin-left: 10%">
-                                            <h3 style="color: #4e73df"><- - - - - 재고 - - - - -></h3><br>
-                                            <table class='table my-0 table-hover' id='dataList'>
-                                                <tr id='mInven'
-                                                    style='vertical-align: center;background-color: #4e73df; color: white'>
-                                                    <th>#</th>
-                                                    <th>
-                                                        <h4 style='text-align: center'>등록일</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4 style='text-align: center;'>유통기한</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>카테고리</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>상품코드</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>상품이름</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>수량</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>평균금액</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>총 계</h4>
-                                                    </th>
-                                                </tr>
-                                                <c:forEach var="elem" items="${innerList}" varStatus="i">
-                                                    <tr class='inven' onclick="searchDetailModal(this);">
-                                                        <td>${i.count}</td>
-                                                        <td>${elem.i_date} ~ ${elem.f_date2}</td>
-                                                        <td>${elem.i_edate} ~ ${elem.f_edate2}</td>
-                                                        <td>${elem.i_cname}</td>
-                                                        <td>${elem.i_code}</td>
-                                                        <td>${elem.i_title}</td>
-                                                        <td>${elem.i_count}</td>
-                                                        <td>${elem.i_price}&#8361</td>
-                                                        <td>${elem.total}&#8361</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                            <br><br>
-                                        </div>
-                                    </c:when>
-                                    <c:when test="${status.index == 1 and not empty innerList[0]}">
-                                        <div style="width: 80%; text-align: center; margin-left: 10%">
-                                            <h3 style="color: #4e73df"><- - - - - 발주 - - - - -></h3><br>
-                                            <table class='table my-0 table-hover'>
-                                                <tr style='vertical-align: center; background-color: #4e73df; color: white'>
-                                                    <td>#</td>
-                                                    <th>
-                                                        <h4>거래처</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>상품명</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>가격</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>부가세</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>수량</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>단가</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>합계</h4>
-                                                    </th>
-                                                    <th>
-                                                        <h4>현황</h4>
-                                                    </th>
-                                                </tr>
-                                                <c:forEach var="elem" items="${innerList}" varStatus="i">
-                                                    <tr class="invenAdd" onclick="searchDetailModal(this)">
-                                                        <td>${i.count}</td>
-                                                        <td>${elem.iv_company}</td>
-                                                        <td>${elem.iv_name}</td>
-                                                        <td>${elem.iv_price}&#8361</td>
-                                                        <td>${elem.iv_vat}&#8361</td>
-                                                        <td>${elem.iv_count}</td>
-                                                        <td>${elem.iv_priceSum}&#8361</td>
-                                                        <td>${elem.iv_total}&#8361</td>
-                                                        <td>${elem.iv_current}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </table>
-                                            <br><br>
-                                        </div>
-                                    </c:when>
-                                    <c:when test="${status.index == 2 and not empty innerList[0]}">
-                                        <h1 style="color: #4e73df">식자재</h1>
-                                        <c:forEach var="item" items="${innerList[0]}">
+                    <div style="width: 80%; margin-left: 10%">
+                        <c:choose>
+                            <c:when test="${not empty searchList}">
+                                <c:set var="isEmptyList" value="true"/>
+                                <c:forEach var="item" items="${searchList}">
+                                    <c:if test="${not empty item}">
+                                        <c:set var="isEmptyList" value="false"/>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${not isEmptyList}">
+                                    <h3 style="color: #4e73df; text-align: center">리스트 확인용</h3>
+                                    <c:forEach var="item" items="${searchList}">
+                                        <c:forEach var="subItem" items="${item}">
+                                            ${subItem}
+                                            <hr style="height: 3px; border: 0; background-color: blue">
                                         </c:forEach>
-                                    </c:when>
-                                </c:choose>
-                            </c:if>
-                        </c:forEach>
+                                    </c:forEach>
+                                </c:if>
+                            </c:when>
+                            <c:otherwise>
+                                <h2 style="color: #4e73df">검색 결과가 존재하지 않습니다.</h2>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
+                    <div>
+                        <c:forEach var="innerList" items="${searchList}" varStatus="status">
+                        <c:if test="${not empty innerList}">
+                        <c:choose>
+                        <c:when test="${status.index == 0 and not empty searchList[0]}">
+                        <div style="width: 80%; text-align: center; margin-left: 10%">
+                            <h3 style="color: #4e73df">< - - - - - 재고 - - - - - ></h3><br>
+                            <table class='table my-0' id='dataList'>
+                                <tr id='mInven'
+                                    style='vertical-align: center;background-color: #4e73df; color: white'>
+                                    <th class='no-hover'>#</th>
+                                    <th class='no-hover'>
+                                        <h4 style='text-align: center'>등록일</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4 style='text-align: center;'>유통기한</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>카테고리</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>상품코드</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>상품이름</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>수량</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>평균금액</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>총 계</h4>
+                                    </th>
+                                </tr>
+                                <c:forEach var="elem" items="${searchList[0]}" varStatus="i">
+                                    <tr class='inven' onclick="searchDetailModal(this);">
+                                        <td>${i.count}</td>
+                                        <td>${elem.f_date} ~ ${elem.f_date2}</td>
+                                        <td>${elem.f_edate} ~ ${elem.f_edate2}</td>
+                                        <td>${elem.c_name}</td>
+                                        <td>${elem.f_code}</td>
+                                        <td>${elem.f_title}</td>
+                                        <td>${elem.f_count}</td>
+                                        <td>${elem.f_price}&#8361</td>
+                                        <td>${elem.total}&#8361</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                            <br><br>
+                        </div>
+                        </c:when>
+                        <c:when test="${status.index == 1 and not empty searchList[1]}">
+                        <div style="width: 80%; text-align: center; margin-left: 10%">
+                            <h3 style="color: #4e73df">< - - - - - 발주 - - - - - ></h3><br>
+                            <table class='table my-0'>
+                                <tr style='vertical-align: center; background-color: #4e73df; color: white'>
+                                    <td class='no-hover'>#</td>
+                                    <th class='no-hover'>
+                                        <h4>거래처</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>상품명</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>가격</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>부가세</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>수량</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>단가</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>합계</h4>
+                                    </th>
+                                    <th class='no-hover'>
+                                        <h4>현황</h4>
+                                    </th>
+                                </tr>
+                                <c:forEach var="elem" items="${searchList[1]}" varStatus="i">
+                                    <tr class="invenAdd" onclick="searchDetailModal(this)">
+                                        <td>${i.count}</td>
+                                        <td>${elem.iv_company}</td>
+                                        <td>${elem.iv_name}</td>
+                                        <td>${elem.iv_price}&#8361</td>
+                                        <td>${elem.iv_vat}&#8361</td>
+                                        <td>${elem.iv_count}</td>
+                                        <td>${elem.iv_priceSum}&#8361</td>
+                                        <td>${elem.iv_total}&#8361</td>
+                                        <td>${elem.iv_current}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                            <br><br>
+                        </div>
+                            </c:when>
+                            <c:when test="${status.index == 2 and not empty searchList[2]}">
+                            <div style="width: 80%; text-align: center; margin-left: 10%">
+                                <h1 style="color: #4e73df">< - - - - - 식자재 - - - - - ></h1>
+                                <table class='table my-0'>
+                                    <tr style='vertical-align: center; background-color: #4e73df; color: white'>
+                                        <th class="no-hover">#</th>
+                                        <th class="no-hover">상품코드</th>
+                                        <th class="no-hover">대분류</th>
+                                        <th class="no-hover">중분류</th>
+                                        <th class="no-hover">상품이름</th>
+                                        <th class="no-hover">가격</th>
+                                        <th class="no-hover">수량</th>
+                                        <th class="no-hover">등록일</th>
+                                        <th class="no-hover">유통기한</th>
+                                        <c:forEach var="elem" items="${searchList[2]}" varStatus="i">
+                                    <tr>
+                                        <td class="no-hover">${i.count}</td>
+                                        <td class="no-hover">${elem.f_code}</td>
+                                        <td class="no-hover">${elem.c_num}</td>
+                                        <td class="no-hover">${elem.c_num2}</td>
+                                        <td class="no-hover">${elem.f_title}</td>
+                                        <td class="no-hover">${elem.f_price}</td>
+                                        <td class="no-hover">${elem.f_count}</td>
+                                        <td class="no-hover">${elem.f_date}</td>
+                                        <td class="no-hover">${elem.f_edate}</td>
+                                    </tr>
+                                    </c:forEach>
+                                </table>
+                                <br><br>
+                            </div>
+                            </c:when>
+                            <c:otherwise>
+                                <h2>검색 결과가 존재하지 않습니다.</h2>
+                            </c:otherwise>
+                            </c:choose>
+                            </c:if>
+                            </c:forEach>
+                        </div>
                 </main>
                 <footer class="bg-white sticky-footer">
                     <div class="container my-auto">
