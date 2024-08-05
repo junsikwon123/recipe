@@ -9,15 +9,7 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=cb606d99bb2418df19b6bc818b41e412">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
-    <style>
-        .no-hover:hover {
-            background-color: transparent !important;
-            color: white !important;
-        }
-        tr:hover {
-            background-color: #badce3;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 </head>
 <body id="page-top">
 <!-- 게시글 등록 모달 -->
@@ -139,50 +131,20 @@
                     <ul class="navbar-nav flex-nowrap ms-auto">
 
                         <%--                        우측 상단 헤더 알림--%>
-                        <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
-                            <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
-                                   href="#">
-                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
-                                    <i class="fas fa-bell fa-fw"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                    <h6 class="dropdown-header">알림</h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="me-3">
-                                            <div class="bg-primary icon-circle">
-                                                <i class="fas fa-file-alt text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span class="small text-gray-500">24/07/02</span>
-                                            <p>보고서 출력 준비가 완료되었습니다</p>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="me-3">
-                                            <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div><span class="small text-gray-500">24/07/01</span>
-                                            <p>580,000￦의 환불비용이 법인계좌로 집행되었습니다</p>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">
-                                        모든 알림 보기</a>
-                                    <%--                                    <a class="dropdown-item d-flex align-items-center" href="#">--%>
-                                    <%--                                    <div class="me-3">--%>
-                                    <%--                                        <div class="bg-warning icon-circle"><i--%>
-                                    <%--                                                class="fas fa-exclamation-triangle text-white"></i></div>--%>
-                                    <%--                                    </div>--%>
-                                    <%--                                    <div><span class="small text-gray-500">24/07/03</span>--%>
-                                    <%--                                        <p>Spending Alert: We&#39;ve noticed unusually high spending for your--%>
-                                    <%--                                            account.</p>--%>
-                                    <%--                                    </div>--%>
-                                    <%--                                </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All--%>
-                                    <%--                                    Alerts</a>--%>
+                            <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                       href="#">
+                                        <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                        <i class="fas fa-bell fa-fw"></i></a>
+                                    <div id="managementAlert"
+                                         class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">알림</h6>
+                                        <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
+                                        <%--                                        모든 알림 보기</a>--%>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -246,6 +208,7 @@
                         <%--                        우측 상단 프로필--%>
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
+                            <input id="nowId" type="text" value="${m_id}" style="display: none">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
                                                                        aria-expanded="false" data-bs-toggle="dropdown"
                                                                        href="#">

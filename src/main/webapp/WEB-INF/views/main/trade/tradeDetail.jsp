@@ -79,8 +79,6 @@
     function exchangefrm(t_num){
         location.href="/trade/exchangefrm?t_num="+t_num
     }
-
-
 </script>
 </body>
 </html>

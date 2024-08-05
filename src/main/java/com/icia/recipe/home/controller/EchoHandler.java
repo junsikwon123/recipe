@@ -81,7 +81,6 @@ public class EchoHandler extends TextWebSocketHandler {
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
                     alertMessage.getTradesend() + "님이 교환신청 하였습니다." +
-                    "를 교환신청을 하였습니다." +
                     "</div>" +
                     "</a>" +
                     "</div>");
@@ -128,6 +127,29 @@ public class EchoHandler extends TextWebSocketHandler {
                     "</div>" +
                     "</a>" +
                     "</div>");
+            if (sendedPushSession != null) {
+                sendedPushSession.sendMessage(new TextMessage(alertMessage.getMessage()));
+            } else {
+                notificationBuffer.computeIfAbsent(alertMessage.getM_id(), k -> new ArrayList<>()).add(alertMessage.getMessage());
+            }
+        }else if(alertMessage.getType().equals(AlertMessage.MessageType.EMPTY)){
+            log.info("재고0개 socket 입장");
+            log.info(alertMessage.getF_title());
+            alertMessage.setMessage("<div class='me-3' id='notification'>" +
+                    "<i class='fas fa-file-alt text-white'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div id='socketAlertDiv'>" +
+                    "<span id='current-time' class='small text-gray-500'>"
+                    + result +
+                    "</span>" +
+                    "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                    "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                    alertMessage.getF_title()+"이 0개야" +
+                    "</div>" +
+                    "</a>" +
+                    "</div>");
+//            tSer.managementAlert();
             if (sendedPushSession != null) {
                 sendedPushSession.sendMessage(new TextMessage(alertMessage.getMessage()));
             } else {
