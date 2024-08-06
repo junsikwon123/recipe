@@ -36,7 +36,7 @@
             <h2 id="cartTitleGT" class="hd__page-title">장바구니</h2>
             <a id="cartBtnGt" class="hd__page-title__btn-link" style="display: none;">그리팅 장바구니</a>
             <section class="orderCart__sec">
-                <ul class="tab-menu clearfix col3" id="carttab">
+                <ul class="tab-menu clearfix col3" id="carttab" style="padding: 0">
                     <li class="tab-menu__list tab-menu__list--on disabled" data-tab="cartOriginal" id="cartOriginal"><a>
                         <span id="originalTab">일반(${count})</span></a></li>
                     <li class="tab-menu__list disabled" data-tab="cartGift" id="cartGift">
@@ -80,7 +80,7 @@
                             <li>수량</li>
                             <li>구매금액</li>
                         </ul>
-                        <ul class="box" id="dvCartListArea">
+                        <ul class="box" id="dvCartListArea" style="padding: 0">
                             ${caList}
                             <%-- <li class="orderCartBox__list single">
                                   <div class="orderCartBox__list__inner">
@@ -280,7 +280,7 @@
                     let dvItem = [];
                     let select = e.querySelectorAll("input[type='hidden']")
                     Array.from(select).forEach(i => {
-                        dvItem.push(i.name + "=" + i.value);
+                        dvItem.push(i.name + ":" + i.value);
                     });
                     dvItemList.push(dvItem)
                 })

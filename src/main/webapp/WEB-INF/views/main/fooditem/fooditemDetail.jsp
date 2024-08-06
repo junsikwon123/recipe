@@ -29,6 +29,17 @@
             });
         });
     </script>
+    <style>
+        .pop_wrap__inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 400px;
+            padding: 30px;
+            background: #FFF;
+            transform: translate3d(-50%, -50%, 0);
+        }
+    </style>
 </head>
 <header>
     <jsp:include page="../common/header.jsp"></jsp:include>
@@ -208,17 +219,37 @@
         </div>
     </article>
 </div>
+<div class="pop_wrap active" id="confirm-layer" style="z-index: 10000; display: none;">
+    <div class="pop_wrap__inner">
+    <h2 class="pop_header hidden">confirm</h2>
+
+    <div class="pop_content">
+        <div class="text">
+            장바구니에 담았습니다.<br>바로 확인 하시겠습니까?
+        </div>
+        <button type="button" class="btn_close btn--delete" style="visibility:hidden;"></button>
+    </div>
+
+    <div class="btn_area btn confirm">
+        <button type="button" class="btn-init white" id="dvConfirmCancel">쇼핑 계속하기</button>
+        <button type="button" class="btn-init green" id="dvConfirmOk">장바구니로 이동</button>
+    </div>
+</div>
+</div>
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>
 </footer>
 <script>
     function sendCartOpen() {
-        console.log('들어왔니?')
-        const miniCart = document.getElementById("dvMiniCart")
-        if (!$('#dvMiniCart').hasClass('open')) {
+        console.log('들어왔니?');
+        const miniCart = document.getElementById("dvMiniCart");
+        const aTage = document.getElementById("btnSelOption");
+        if (!miniCart.classList.contains('open')) {
             miniCart.classList.add('open');
+            aTage.style.background = "#1c1c1c url(https://www.greating.co.kr/front_pc/images/btn_comm_arrow-down-e6bda780593314221fc082521283755d.png) no-repeat 154px 25px";
         } else {
             miniCart.classList.remove('open');
+            aTage.style.background = "#1c1c1c url(https://www.greating.co.kr/front_pc/images/btn_comm_arrow-up-dcb850e9a9bb6140063ddc673388506e.png) no-repeat 154px 25px";
         }
     }
 
@@ -303,7 +334,16 @@
                 case "intoCart":
                    /* console.log("현재 f_num",urlParams.get("f_num"))
                     let cartList ={num: urlParams.get("f_num"), count:itemCount.value}*/
-                    location.href = "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value;
+                    const popWrap = document.getElementById("confirm-layer")
+             /*       location.href = "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value;*/
+                    $.ajax({
+                        type:"get",
+                        url: "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value
+                    }).done(resp=>{
+                        if(resp){
+                            popWrap.style.display= "block";
+                        }
+                    }).fail(err => console.log(err))
                     break;
                 default:
                     console.log("이상한거 들어옴")

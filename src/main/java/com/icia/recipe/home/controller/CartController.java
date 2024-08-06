@@ -1,5 +1,6 @@
 package com.icia.recipe.home.controller;
 
+import com.icia.recipe.home.dto.OrderDto;
 import com.icia.recipe.home.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class CartController {
         return "main/cart/cartMain";
     }
 
-    @GetMapping("/cart/intoCart")
+    /*@GetMapping("/cart/intoCart")
     public String cartIntoCart(@RequestParam("num") String num, @RequestParam("count") String count, @AuthenticationPrincipal UserDetails user, Model model) {
         log.info("intoCart 입장");
         HashMap<String, String> hMap = new HashMap<>();
@@ -51,7 +52,7 @@ public class CartController {
         cSer.intoCartList(hMap, model);
 
         return null;
-    }
+    }*/
 
     @GetMapping("/cart/test")
     public String cartTest() {
@@ -59,13 +60,24 @@ public class CartController {
     }
 
     @PostMapping("/cart/order")
-    public String cartOrder(@RequestParam("orderList") List<List<String>> oList, Principal pric, Model model) {
+    public String cartOrder(@RequestParam("orderList")List<List<String>> oList, Principal pric, Model model) {
         log.info("카트 오더 입장: {}", oList);
         List<HashMap<String, String>> list = new ArrayList<>();
+        if(oList.size() >3){
+            List<String> list1 = new ArrayList<>();
+             oList.forEach( o ->{
+                o.forEach( o2 ->{
+                    list1.add(o2);
+                });
+            });
+             oList.clear();
+             oList.add(list1);
+             log.info("olist: {}" ,oList );
+        }
         oList.forEach(o -> {
             HashMap<String, String> hMap = new HashMap<>();
             o.forEach(o2 -> {
-                String[] element = o2.split("=");
+                String[] element = o2.split(":");
                 if (element.length == 2) {
                     hMap.put(element[0], element[1]);
                 } else {

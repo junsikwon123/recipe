@@ -182,17 +182,17 @@
                 <tr>
                     <th>
                         <button type="button" class="myPageCgSort activated" onclick="myPageCgSelector(this)"
-                                style="width: 300px; height: 60px">쇼핑내역
+                                style="width: 300px; height: 60px; border-radius: 4px">쇼핑내역
                         </button>
                     </th>
                     <th>
                         <button type="button" class="myPageCgSort" onclick="myPageCgSelector(this)"
-                                style="width: 300px; height: 60px">혜택*이벤트
+                                style="width: 300px; height: 60px; border-radius: 4px">혜택*이벤트
                         </button>
                     </th>
                     <th>
                         <button type="button" class="myPageCgSort" onclick="myPageCgSelector(this)"
-                                style="width: 300px; height: 60px">헬스케어
+                                style="width: 300px; height: 60px; border-radius: 4px">헬스케어
                         </button>
                     </th>
                 </tr>
@@ -206,7 +206,7 @@
                         <span style="font-weight: bold; color: black">${sessionScope.m_name}</span>님>
                     </sec:authorize></a></th>
                 </tr>
-                <tr>
+             <%--   <tr>
                     <th>
                         <button style="width: 120px; height: 120px;border:1px solid black; background-color: #f9f9f9">
                             쿠폰
@@ -235,7 +235,7 @@
                         <button style="width: 120px; height: 80px; background-color: #918c00; color: white">추천하기
                         </button>
                     </th>
-                </tr>
+                </tr>--%>
             </table>
         </div>
         <div id="dataIsHere">
