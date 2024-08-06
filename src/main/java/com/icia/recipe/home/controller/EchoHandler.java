@@ -145,8 +145,10 @@ public class EchoHandler extends TextWebSocketHandler {
                     "</span>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alertMessage.getF_title()+"이 0개야" +
+                    alertMessage.getF_title()+" 품절" +
                     "</div>" +
+                    "<button class='btn btn-outline-primary'>주문</button>" +
+                    "<button class='btn btn-outline-danger'>닫기</button>" +
                     "</a>" +
                     "</div>");
 //            tSer.managementAlert();

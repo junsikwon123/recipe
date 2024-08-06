@@ -6,9 +6,10 @@ $(document).ready(function () {
         url: "/alert/List",
         method: "post",
     }).done(resp => {
-        $('#socketAlert').empty()
-        $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
-        $('#socketAlert').append(resp)
+        let socket1 = $('#socketAlert')
+        socket1.empty()
+        socket1.append("<h6 class='dropdown-header'>알림</h6>")
+        socket1.append(resp)
         let notice = document.querySelector("#span-notice-count");
         let noticelist = document.querySelectorAll("#noticelist a");
         notice.innerHTML = noticelist.length - 1 + "+";
@@ -39,10 +40,7 @@ function connectWs() {
 }
 
 function accept(t_num, item, itemcount,tradesend,m_id) {
-    let tNum = t_num
-    let t_item = item;
-    let t_itemcount = itemcount;
-    const param = {"t_num": tNum, "t_item": t_item, "t_itemcount": t_itemcount}
+    const param = {"t_num": t_num, "t_item": item, "t_itemcount": itemcount}
     $.ajax({
         url: "/trade/accept",
         method: "post",
@@ -50,9 +48,10 @@ function accept(t_num, item, itemcount,tradesend,m_id) {
     }).done(resp => {
         console.log(resp)
         if (resp != null) {
-            $('#socketAlert').empty()
-            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
-            $('#socketAlert').append(resp)
+            let socket2 = $('#socketAlert')
+            socket2.empty()
+            socket2.append("<h6 class='dropdown-header'>알림</h6>")
+            socket2.append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");
             notice.innerHTML = noticelist.length - 1 + "+";
@@ -77,9 +76,10 @@ function refuse(t_num, tradesend, m_id) {
         data: {"t_num": t_num, "tradesend": tradesend, "m_id": m_id},
     }).done(resp => {
         if (resp != null) {
-            $('#socketAlert').empty()
-            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
-            $('#socketAlert').append(resp)
+            let socket3 = $('#socketAlert')
+            socket3.empty()
+            socket3.append("<h6 class='dropdown-header'>알림</h6>")
+            socket3.append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");
             notice.innerHTML = noticelist.length - 1 + "+";

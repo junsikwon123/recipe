@@ -63,4 +63,6 @@ public interface BoardDao {
     boolean updateAndGetModalDetailsInfo(String[] array);
 
     List<FoodItemDto> getModalDetailsInfoUpdateBeforeList(String fnum);
+
+
 }

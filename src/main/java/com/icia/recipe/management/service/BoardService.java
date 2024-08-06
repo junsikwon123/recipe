@@ -375,7 +375,7 @@ public class BoardService {
                 .toList();
 
         // null이 아닌 값만을 포함한 리스트를 개별 파라미터로 전달
-        boolean result =  bDao.updateAndGetModalDetailsInfo(params.toArray(new String[0]));
+        boolean result = bDao.updateAndGetModalDetailsInfo(params.toArray(new String[0]));
         if (result) {
             return bDao.getModalDetailsInfoUpdateBeforeList(fnum);
         } else {
@@ -383,4 +383,5 @@ public class BoardService {
             return null;
         }
     }
+
 }

@@ -141,7 +141,6 @@
         on f.c_num = c.c_num
         where f_num = #{fnum}
     </select>
-
     <insert id="addRecipeBigCg">
         insert into recipe values ('','','','','','','')
     </insert>
