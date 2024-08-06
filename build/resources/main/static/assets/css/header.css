@@ -353,10 +353,6 @@ template {
   clear: both;
 }
 
-.slick-loading .slick-track {
-  visibility: hidden;
-}
-
 .slick-slide {
   float: left;
   height: 100%;
@@ -6984,10 +6980,11 @@ white-space
   display: block;
   width: 100%;
   font-size: 20px;
+  background: #1c1c1c url(https://www.greating.co.kr/front_pc/images/btn_comm_arrow-up-dcb850e9a9bb6140063ddc673388506e.png) no-repeat 154px 25px;
   border-color: #1c1c1c;
   text-indent: -15px;
+  height: 53px;
 }
-
 .hd .option-area .btn-option .btn .active {
   background-color: #77b347;
   border-color: #77b347;

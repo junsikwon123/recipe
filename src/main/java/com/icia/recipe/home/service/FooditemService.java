@@ -192,10 +192,11 @@ public class FooditemService {
     }
 
     public String makeFoodDetailImg(List<ImgDto> iList) {
+        log.info("iList: {}",iList);
         StringBuilder sb = new StringBuilder();
         iList.forEach(i -> {
             sb.append("<div class=\"slick-slide\"><div><div class=\"slider__list\" style=\"width: 100%;display: inline-block;\">");
-            sb.append("<figure><img src=\"" + i.getI_path() + i.getI_original_name() + "\">");
+            sb.append("<figure><img src=\"" + i.getI_path() + i.getI_sys_name() + "\">");
             sb.append("</figure></div></div></div>");
         });
         return sb.toString();

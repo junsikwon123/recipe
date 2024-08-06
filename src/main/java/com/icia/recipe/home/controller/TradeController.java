@@ -203,6 +203,7 @@ public class TradeController {
     @GetMapping("/trade/exchangefrm")
     public String tradeExcnahgeFrm(Model model, @RequestParam("t_num") Integer t_num){
         List<TradeDto> tDList = tSer.tradeDetail(t_num);
+        log.info("tDList:{} ",tDList);
         int tNum = tDList.get(0).getT_num();
         String t_title = tDList.get(0).getT_title();
         String m_id = tDList.get(0).getM_id();

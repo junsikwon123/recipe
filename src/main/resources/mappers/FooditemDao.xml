@@ -21,7 +21,7 @@
     <!--  이미지 Map  -->
     <resultMap id="mapImg" type="com.icia.recipe.home.dto.ImgDto">
         <id property="i_num" column="i_num"/>
-        <result property="i_original_name" column="i_original_name"/>
+        <result property="i_sys_name" column="i_sys_name"/>
         <result property="i_path" column="i_path"/>
     </resultMap>
 
@@ -39,7 +39,7 @@
     </update>
 
     <select id="searchFooditem" resultMap="seachFooditemMain">
-        SELECT f.f_num , i.i_path, i.i_original_name, f.f_title f_title,
+        SELECT f.f_num , i.i_path, i.i_sys_name, f.f_title f_title,
         format(f.f_price,0) f_price, f.f_views, c1.c_num c1_num, c2.c_num c2_num,c3.c_num c3_num, i.i_num
         FROM fooditem f
         left JOIN img i
@@ -89,7 +89,7 @@
     </resultMap>
     <select id="searchFoodDetail" resultMap="searchFoodDetailMap">
         select c1.c_name c1_name, f.f_volume, format(f.f_price,0) f_price, f.f_cal, f.f_save,
-               i.i_path, i.i_original_name, f.f_contents,f.f_title,f.f_date,
+               i.i_path, i.i_sys_name, f.f_contents,f.f_title,f.f_date,
                c1.c_num c1_num
         from fooditem f
         left join img i
@@ -104,7 +104,7 @@
 
 
     <select id="searchctgFoodtitem" resultMap="seachFooditemMain">
-        SELECT f.f_num , i.i_path, i.i_original_name, f.f_title f_title,
+        SELECT f.f_num , i.i_path, i.i_sys_name, f.f_title f_title,
                format(f.f_price,0) f_price, f.f_views, c1.c_num c1_num,
                c2.c_num c2_num,c3.c_num c3_num,  i.i_num
         FROM fooditem f

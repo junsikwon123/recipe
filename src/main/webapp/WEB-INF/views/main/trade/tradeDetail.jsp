@@ -12,7 +12,6 @@
 <html>
 <head>
     <title>Title</title>
-    <script defer src="/common/js/common.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 </head>
