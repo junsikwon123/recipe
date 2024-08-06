@@ -56,14 +56,14 @@ public class CartController {
 
     @GetMapping("/cart/test")
     public String cartTest() {
-        return "cartOrder";
+        return "main/fooditem/test";
     }
 
     @PostMapping("/cart/order")
     public String cartOrder(@RequestParam("orderList")List<List<String>> oList, Principal pric, Model model) {
         log.info("카트 오더 입장: {}", oList);
         List<HashMap<String, String>> list = new ArrayList<>();
-        if(oList.size() >3){
+        if(oList.get(0).size() < 2){
             List<String> list1 = new ArrayList<>();
              oList.forEach( o ->{
                 o.forEach( o2 ->{

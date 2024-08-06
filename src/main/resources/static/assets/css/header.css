@@ -353,10 +353,6 @@ template {
   clear: both;
 }
 
-.slick-loading .slick-track {
-  visibility: hidden;
-}
-
 .slick-slide {
   float: left;
   height: 100%;

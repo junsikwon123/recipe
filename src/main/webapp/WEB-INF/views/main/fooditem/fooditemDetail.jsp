@@ -13,44 +13,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>사골 국밥 265g :: 그리팅, 우리집 밥상주치의</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <script>
-        $(document).ready(() => {
-            $(".slick-track").slick({
-                slidesToShow: 1,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                infinite: true,
-                arraw: true,
-            });
-        });
-    </script>
     <style>
         .pop_wrap__inner {
             position: absolute;
             top: 50%;
             left: 50%;
-            min-width: 400px;
+            min-width: 500px;
             padding: 30px;
             background: #FFF;
             transform: translate3d(-50%, -50%, 0);
+        }
+
+        .pop_wrap {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .pop_wrap__inner .btn .btn-init {
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .pop_wrap__inner .pop_content {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.3;
         }
     </style>
 </head>
 <header>
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
+<!-- Slick Carousel 라이브러리 -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- Slick Carousel CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+<script>
+    $(document).ready(() => {
+        $(".slick-track").slick({
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            infinite: true,
+            arrows: true,
+        });
+    });
+</script>
 <body id="marketDetail" class="hd">
 <div id="wrap">
     <main id="contents" class="hd__marketDetail">
         <ul class="breadcrumb">
             <li>HOME</li>
-            <li>c_name(c_num2)</li>
-            <li>c_name(c_num)</li>
+            <li>${c_name}</li>
         </ul>
         <div class="marketDetail hd__inner1100">
             <section class="marketDetail__sect hd__inner1100 overview"><h2 class="hidden">마켓상세 상품정보</h2>
@@ -162,7 +185,6 @@
                     <section class="detailInfo tab-content__sect">
                         <div style="display: flex; justify-content: center; align-items: center;">
                             ${info}
-
                         </div>
                     </section>
                 </div>
@@ -219,26 +241,27 @@
         </div>
     </article>
 </div>
-<div class="pop_wrap active" id="confirm-layer" style="z-index: 10000; display: none;">
+<div class="pop_wrap" id="confirm-layer" style="z-index: 10000; display: none;">
     <div class="pop_wrap__inner">
-    <h2 class="pop_header hidden">confirm</h2>
+        <h2 class="pop_header hidden">confirm</h2>
 
-    <div class="pop_content">
-        <div class="text">
-            장바구니에 담았습니다.<br>바로 확인 하시겠습니까?
+        <div class="pop_content">
+            <div class="text">
+                장바구니에 담았습니다.<br>바로 확인 하시겠습니까?
+            </div>
+            <button type="button" class="btn_close btn--delete" style="visibility:hidden;"></button>
         </div>
-        <button type="button" class="btn_close btn--delete" style="visibility:hidden;"></button>
-    </div>
 
-    <div class="btn_area btn confirm">
-        <button type="button" class="btn-init white" id="dvConfirmCancel">쇼핑 계속하기</button>
-        <button type="button" class="btn-init green" id="dvConfirmOk">장바구니로 이동</button>
+        <div class="btn_area btn confirm">
+            <button type="button" class="btn-init white" id="dvConfirmCancel">쇼핑 계속하기</button>
+            <button type="button" class="btn-init green" id="dvConfirmOk">장바구니로 이동</button>
+        </div>
     </div>
-</div>
 </div>
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>
 </footer>
+<form id="orderForm" method="POST" action="/cart/order" style="display:none;"></form>
 <script>
     function sendCartOpen() {
         console.log('들어왔니?');
@@ -320,28 +343,31 @@
             console.log(err)
         });
     }
+
     let cartBtn = document.getElementsByClassName("btn-init");
-    const qureyString =window.location.search;
+    const qureyString = window.location.search;
     const urlParams = new URLSearchParams(qureyString)
     console.log(cartBtn);
-    Array.from(cartBtn).forEach(bt =>{
-        bt.addEventListener("click", function (){
-            console.log("id",bt.id);
-            switch(bt.id){
+    Array.from(cartBtn).forEach(bt => {
+        bt.addEventListener("click", function () {
+            console.log("id", bt.id);
+            switch (bt.id) {
                 case "intoOrder":
-
+                    intoOrder();
                     break;
                 case "intoCart":
-                   /* console.log("현재 f_num",urlParams.get("f_num"))
-                    let cartList ={num: urlParams.get("f_num"), count:itemCount.value}*/
+                    /* console.log("현재 f_num",urlParams.get("f_num"))
+                     let cartList ={num: urlParams.get("f_num"), count:itemCount.value}*/
                     const popWrap = document.getElementById("confirm-layer")
-             /*       location.href = "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value;*/
+                    const popButton = document.getElementById("dvConfirmOk")
+                    /*       location.href = "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value;*/
                     $.ajax({
-                        type:"get",
-                        url: "/cart/"+ bt.id +"?num=" + urlParams.get("f_num")+"&count="+itemCount.value
-                    }).done(resp=>{
-                        if(resp){
-                            popWrap.style.display= "block";
+                        type: "get",
+                        url: "/cart/" + bt.id + "?num=" + urlParams.get("f_num") + "&count=" + itemCount.value
+                    }).done(resp => {
+                        if (resp) {
+                            popWrap.style.display = "block";
+                            popButton.focus()
                         }
                     }).fail(err => console.log(err))
                     break;
@@ -351,7 +377,60 @@
 
         })
     })
-    
+    const dvPopbtn = document.getElementsByClassName("btn_area")
+    const popbtn = dvPopbtn[0].querySelectorAll(".btn-init")
+    popbtn.forEach(b => {
+        b.addEventListener("click", function () {
+            const value = this.id;
+            switch (value) {
+                case"dvConfirmCancel":
+                    location.href = "/fooditem/main";
+                    break;
+                case"dvConfirmOk":
+                    location.href = "/cart/main";
+                    break;
+            }
+        })
+    })
+
+    function intoOrder() {
+        const itemCount = document.querySelector('.count>input')
+        const qureyString = window.location.search;
+        const urlParams = new URLSearchParams(qureyString)
+        const price = "${price}"
+        const dvImg = document.getElementsByClassName("slider__list")
+        const img = dvImg[0].querySelector("img")
+        const jsonImg = JSON.stringify(img.src)
+        let rePrice = price.replace(/,/g, "");
+        let dvItem = [];
+        dvItem.push("dvItemId:" + urlParams.get("f_num"));
+        dvItem.push("dvItemName:" + "${title}")
+        dvItem.push("dvItemPrice:" + rePrice);
+        dvItem.push("dvItemCount:" + itemCount.value);
+        dvItem.push("dvItemImg:" + jsonImg)
+        console.log(dvItem)
+        // FormData 객체 생성
+        const formData = new FormData();
+        dvItem.forEach(list => {
+            formData.append(`orderList[]`, list);
+        });
+        // 폼 요소 가져오기
+        const form = document.getElementById('orderForm');
+        // FormData를 폼 요소에 추가
+        for (let [key, value] of formData.entries()) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        }
+        // 폼 제출
+        form.submit();
+
+    }
+
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
