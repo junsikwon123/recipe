@@ -1,4 +1,4 @@
-let socket = null;
+let socket = new WebSocket("ws://"+location.host+"/ws/alert");
 $(document).ready(function () {
     //소켓 연결
     connectWs();
@@ -11,15 +11,18 @@ $(document).ready(function () {
         $('#socketAlert').append(resp)
         let notice = document.querySelector("#span-notice-count");
         let noticelist = document.querySelectorAll("#noticelist a");
-        notice.innerHTML = noticelist.length - 1 + "+";
+        if(noticelist-1>0) {
+            notice.innerHTML = noticelist.length - 1 + "+";
+        }
     }).fail(err => {
         console.log(err)
     })
 });
 
 function connectWs() {
-    let ws = new SockJS("/push");
-    socket = ws;
+    // let ws = new SockJS("/ws/alert");
+    let ws;
+    ws=socket;
 
     ws.onopen = function () {
         console.log('open');
@@ -36,6 +39,12 @@ function connectWs() {
         //     console.log('close');
         // };
     }
+    ws.onerror = function (error) {
+        console.error('WebSocket Error:', error);
+    };
+    socket.onclose = function () {
+        console.log('WebSocket connection closed');
+    };
 }
 
 function accept(t_num, item, itemcount,tradesend,m_id) {
@@ -50,8 +59,10 @@ function accept(t_num, item, itemcount,tradesend,m_id) {
     }).done(resp => {
         console.log(resp)
         if (resp != null) {
-            $('#socketAlert').empty()
-            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+            let selector=`#notification_${tNum}_${t_item}_${t_itemcount}`
+            console.log($(selector))
+            $(selector).remove()
+            // $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
             $('#socketAlert').append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");
@@ -66,10 +77,13 @@ function accept(t_num, item, itemcount,tradesend,m_id) {
     })
 }
 
-function refuse(t_num, tradesend, m_id) {
+function refuse(t_num, item, itemcount,tradesend,m_id) {
     console.log("거절 글번호: " + t_num);
     console.log("거절 할사람: " + m_id)
     console.log("거절 당할사람: " + tradesend)
+    let tNum = t_num
+    let t_item = item;
+    let t_itemcount = itemcount;
 
     $.ajax({
         url: "/trade/refuse",
@@ -77,8 +91,9 @@ function refuse(t_num, tradesend, m_id) {
         data: {"t_num": t_num, "tradesend": tradesend, "m_id": m_id},
     }).done(resp => {
         if (resp != null) {
-            $('#socketAlert').empty()
-            $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
+            let selector=`#notification_${tNum}_${t_item}_${t_itemcount}`
+            console.log($(selector))
+            $(selector).remove()
             $('#socketAlert').append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");

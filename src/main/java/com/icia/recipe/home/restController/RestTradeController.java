@@ -1,5 +1,6 @@
 package com.icia.recipe.home.restController;
 
+import com.icia.recipe.home.dto.AlertMessage;
 import com.icia.recipe.home.dto.TradeDto;
 import com.icia.recipe.home.service.TradeService;
 import com.icia.recipe.management.dao.BoardDao;
@@ -94,22 +95,24 @@ public class RestTradeController {
             if(delResult) {
                 List<TradeDto> alertList = tSer.alertList(tDto);
                 for (TradeDto alert : alertList) {
-                    sb.append("<div class='me-3' id='notification-" + alert.getT_num() + "-" + alert.getTradesend() + ">")
-                            .append("<i class='fas fa-file-alt text-white'></i>")
-                            .append("</div>")
-                            .append("</div>")
-                            .append("<div id='socketAlertDiv'>")
-                            .append("<span id='current-time' class='small text-gray-500'>")
-                            .append(result)
-                            .append("</span>    ;")
-                            .append("<button id='accept' onclick='accept(" + alert.getT_num() + ",\"" + alert.getT_item() + "\", " + alert.getT_itemcount() + ")'>수락</button>$nbsp;")
-                            .append("<button id='refuse' onclick='refuse(" + alert.getT_num() + ", \"" + alert.getTradesend() + "\", \"" + alert.getM_id() + "\")'>거절</button>")
-                            .append("<a class='dropdown-item d-flex align-items-center' href='#'>")
-                            .append("<div id='socketAlert' class='alert alert-warning' role='alert'>")
-                            .append(alert.getTradesend() + "님이" + alert.getT_num() + "번 글에 " + alert.getT_item() + " " + alert.getT_itemcount() + alert.getT_unit() + "과(와)" + alert.getT_change() + "를 교환신청을 하였습니다.")
-                            .append("</div>")
-                            .append("</a>")
-                            .append("</div>");
+                    String alertMessage="<div class='me-3' id='notification'>" +
+                            "<i class='fas fa-file-alt text-white'></i>" +
+                            "</div>" +
+                            "</div>" +
+                            "<div id='socketAlertDiv'>" +
+                            "<span id='current-time' class='small text-gray-500'>"
+                            + result +
+                            "</span>"+" " +
+                            "<button id='accept' onclick='accept("+alert.getT_num()+",\""+alert.getT_item()+"\","+alert.getT_itemcount()+
+                            ", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>수락</button>"+" " +
+                            "<button id='refuse' onclick='refuse(" + alert.getT_num() +", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>" +
+                            "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                            "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                            alert.getTradesend() + "님이 교환신청 하였습니다." +
+                            "</div>" +
+                            "</a>" +
+                            "</div>";
+                    sb.append(alertMessage);
                 }
                 return sb.toString();
             }
@@ -137,22 +140,24 @@ public class RestTradeController {
         if(alertResult){
             List<TradeDto> alertList = tSer.alertList(tDto);
             for(TradeDto alert:alertList){
-                sb.append("<div class='me-3' id='notification-"+alert.getT_num()+"-"+alert.getTradesend()+">")
-                        .append("<i class='fas fa-file-alt text-white'></i>")
-                        .append("</div>")
-                        .append("</div>")
-                        .append("<div id='socketAlertDiv'>")
-                        .append("<span id='current-time' class='small text-gray-500'>")
-                        .append(result)
-                        .append("</span>    ")
-                        .append("<button id='accept' onclick='accept("+alert.getT_num()+",\""+alert.getT_item()+"\", "+alert.getT_itemcount()+")'>수락</button>    ;")
-                        .append("<button id='refuse' onclick='refuse(" + alert.getT_num() + ", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>")
-                        .append("<a class='dropdown-item d-flex align-items-center' href='#'>")
-                        .append("<div id='socketAlert' class='alert alert-warning' role='alert'>")
-                        .append(alert.getTradesend() + "님이" + alert.getT_num() + "번 글에 " + alert.getT_item() + " " + alert.getT_itemcount() + alert.getT_unit() + "과(와)" + alert.getT_change() + "를 교환신청을 하였습니다.")
-                        .append("</div>")
-                        .append("</a>")
-                        .append("</div>");
+                String alertMessage="<div class='me-3' id='notification'>" +
+                        "<i class='fas fa-file-alt text-white'></i>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div id='socketAlertDiv'>" +
+                        "<span id='current-time' class='small text-gray-500'>"
+                        + result +
+                        "</span>"+" " +
+                        "<button id='accept' onclick='accept("+alert.getT_num()+",\""+alert.getT_item()+"\","+alert.getT_itemcount()+
+                        ", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>수락</button>"+" " +
+                        "<button id='refuse' onclick='refuse(" + alert.getT_num() +", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>" +
+                        "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                        "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                        alert.getTradesend() + "님이 교환신청 하였습니다." +
+                        "</div>" +
+                        "</a>" +
+                        "</div>";
+                sb.append(alertMessage);
             }
             return sb.toString();
         }else{
@@ -173,24 +178,25 @@ public class RestTradeController {
         // 초를 2자리로 잘라내기 (소수점 이하를 제외)
         String result = formattedDate.substring(0, 19); // "yyyy-MM-dd HH:mm:ss" 형식의 첫 19글자까지 추출
         for(TradeDto alert:alertList){
-            sb.append("<div class='me-3' id='notification-"+alert.getT_num()+"-"+alert.getTradesend()+">")
-                    .append("<i class='fas fa-file-alt text-white'></i>")
-                    .append("</div>")
-                    .append("</div>")
-                    .append("<div id='socketAlertDiv'>")
-                    .append("<span id='current-time' class='small text-gray-500'>")
-                    .append(result)
-                    .append("</span>    ")
-                    .append("<button id='accept' onclick='accept("+alert.getT_num()+",\""+alert.getT_item()+"\", "+alert.getT_itemcount()+")'>수락</button>    ")
-                    .append("<button id='refuse' onclick='refuse(" + alert.getT_num() + ", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>")
-                    .append("<a class='dropdown-item d-flex align-items-center' href='#'>")
-                    .append("<div id='socketAlert' class='alert alert-warning' role='alert'>")
-                    .append(alert.getTradesend() + "님이" + alert.getT_num() + "번 글에 " + alert.getT_item() + " " + alert.getT_itemcount() + alert.getT_unit() + "과(와)" + alert.getT_change() + "를 교환신청을 하였습니다.")
-                    .append("</div>")
-                    .append("</a>")
-                    .append("</div>");
+            String alertMessage="<div class='me-3' id='notification'>" +
+                    "<i class='fas fa-file-alt text-white'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div id='socketAlertDiv'>" +
+                    "<span id='current-time' class='small text-gray-500'>"
+                    + result +
+                    "</span>"+" " +
+                    "<button id='accept' onclick='accept("+alert.getT_num()+",\""+alert.getT_item()+"\","+alert.getT_itemcount()+
+                    ", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>수락</button>"+" " +
+                    "<button id='refuse' onclick='refuse(" + alert.getT_num() +", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>" +
+                    "<a class='dropdown-item d-flex align-items-center' href='#'>" +
+                    "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
+                    alert.getTradesend() + "님이 교환신청 하였습니다." +
+                    "</div>" +
+                    "</a>" +
+                    "</div>";
+            sb.append(alertMessage);
         }
-        log.info(">>>>>>>>"+sb);
         return sb.toString();
     }
 }
