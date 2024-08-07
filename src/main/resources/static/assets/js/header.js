@@ -83,7 +83,7 @@ function refuse(t_num, item, itemcount,tradesend,m_id) {
     console.log("거절 당할사람: " + tradesend)
     let tNum = t_num
     let t_item = item;
-    let t_itemcount = itemcount;
+    let t_itemcount = itemcount
 
     $.ajax({
         url: "/trade/refuse",
