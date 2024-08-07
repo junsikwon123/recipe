@@ -115,7 +115,7 @@
                 <c:if test="${trades.visible=='1'}">
                 <div class="trade-card" id="${trades.visible}">
                     <a href="/trade/detail?t_num=${trades.t_num}">${trades.t_title}
-                        <span>작성자: ${trades.m_id}</span>
+                        <span id="trade_m_id">작성자: ${trades.m_id}</span>
                         <span>날짜: ${trades.t_date}</span>
                         <span>조회수: ${trades.t_views}</span>
                         <span>추천수: ${trades.t_count}</span>

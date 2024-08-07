@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <script>
-    console.log("${monthlyDelivery}")
     window.onload = function() {
         const ctx = document.getElementById('myChart').getContext('2d');
         const ctx2 = document.getElementById('MonthlyDelivery').getContext('2d');

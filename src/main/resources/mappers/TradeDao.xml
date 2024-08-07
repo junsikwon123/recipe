@@ -131,5 +131,8 @@
     <select id="alertList" resultType="com.icia.recipe.home.dto.TradeDto">
         select * from alert where m_id=#{m_id} and t_alertnum=1
     </select>
+    <select id="getMemberName" resultType="java.lang.String">
+        select m_name from member where m_id=#{mId}
+    </select>
 
 </mapper>

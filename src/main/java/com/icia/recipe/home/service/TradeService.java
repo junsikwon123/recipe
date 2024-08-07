@@ -24,7 +24,7 @@ public class TradeService {
 
     public List<TradeDto> tradeList() {
         List<TradeDto> tList = new ArrayList<>();
-        tList=tDao.tradeList();
+        tList = tDao.tradeList();
         return tList;
     }
 
@@ -35,7 +35,13 @@ public class TradeService {
 
     public List<TradeDto> tradeDetail(Integer t_num) {
         tDao.viewsCount(t_num);
-        return tDao.tradeDetail(t_num);
+        List<TradeDto> td = tDao.tradeDetail(t_num);
+        for (TradeDto tde : td) {
+            if (tde.getT_unit().equals("근")) {
+                tde.setT_unit("한 "+tde.getT_unit());
+            }
+        }
+        return td;
     }
 
     public boolean tradeUpdate(TradeDto tDto) {
@@ -48,33 +54,33 @@ public class TradeService {
 
     public List<TradeDto> tradeDateSort() {
         List<TradeDto> tDateList = new ArrayList<>();
-        tDateList=tDao.tradeDateSort();
+        tDateList = tDao.tradeDateSort();
         return tDateList;
     }
 
     public List<TradeDto> tradeViewSort() {
-        List<TradeDto> tViewList=new ArrayList<>();
-        tViewList=tDao.tradeViewSort();
+        List<TradeDto> tViewList = new ArrayList<>();
+        tViewList = tDao.tradeViewSort();
         return tViewList;
     }
 
     public boolean tradeRecommend(TradeDto tDto) {
-        String selResult=tDao.selectRecommend(tDto);
+        String selResult = tDao.selectRecommend(tDto);
         log.info(selResult);
-        if(selResult == null) {
+        if (selResult == null) {
             if (tDao.insertRecommend(tDto) && tDao.tradeRecommend(tDto)) {
                 return true;
             } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
     public List<TradeDto> tradeCountSort() {
-        List<TradeDto> tCountList=new ArrayList<>();
-        tCountList=tDao.tradeCountSort();
+        List<TradeDto> tCountList = new ArrayList<>();
+        tCountList = tDao.tradeCountSort();
         return tCountList;
     }
 
@@ -120,5 +126,9 @@ public class TradeService {
 
     public boolean tradeItemDelete(TradeDto tDto) {
         return tDao.tradeItemDelete(tDto);
+    }
+
+    public String getMemberName(String mId) {
+        return tDao.getMemberName(mId);
     }
 }

@@ -1,6 +1,5 @@
 package com.icia.recipe.home.controller;
 
-import com.icia.recipe.home.dto.OrderDto;
 import com.icia.recipe.home.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;

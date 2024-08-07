@@ -55,4 +55,6 @@ public interface TradeDao {
     boolean alertDelete(TradeDto tDto);
 
     boolean tradeItemDelete(TradeDto tDto);
+
+    String getMemberName(String mId);
 }

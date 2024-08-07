@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <script>
-    console.log("${monthProfit}")
     window.onload = function() {
         const ctx2 = document.getElementById('MonthlyProfit').getContext('2d');
         let MonthlyProfit = new Chart(ctx2, {

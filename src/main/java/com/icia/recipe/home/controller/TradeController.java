@@ -32,6 +32,7 @@ public class TradeController {
         return "main/trade/tradeMain";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/trade/detail")
     public String tradeDetail(Model model, @RequestParam("t_num") Integer t_num) {
         log.info("...." + t_num);
@@ -44,9 +45,11 @@ public class TradeController {
         int t_itemcount=tDList.get(0).getT_itemcount();
         String t_unit=tDList.get(0).getT_unit();
         String t_change=tDList.get(0).getT_change();
+        String m_name = tSer.getMemberName(m_id);
 
         log.info(">>>>>m_id:{}", m_id);
         model.addAttribute("m_id", m_id);
+        model.addAttribute("m_name", m_name);
         model.addAttribute("t_num", tNum);
         model.addAttribute("tDList", tDList);
         model.addAttribute("t_title", t_title);
