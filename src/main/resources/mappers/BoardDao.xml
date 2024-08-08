@@ -141,7 +141,20 @@
         on f.c_num = c.c_num
         where f_num = #{fnum}
     </select>
-
+    <select id="getCategory" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from category
+        WHERE LEFT(c_num, 1) = '1';
+    </select>
+    <select id="getCategory2" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from category
+        WHERE LEFT(c_num, 1) = '2';
+    </select>
+    <select id="getBigCgNum" resultType="java.lang.String">
+        select c_num from category where c_name=#{fiBigCg}
+    </select>
+    <select id="getMidCgNum" resultType="java.lang.String">
+        select c_num from category where c_name=#{fiMidCg}
+    </select>
     <insert id="addRecipeBigCg">
         insert into recipe values ('','','','','','','')
     </insert>

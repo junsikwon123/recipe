@@ -75,7 +75,7 @@
     </update>
 
     <update id="alertDelete">
-        update alert set t_alertnum=3 where t_num=#{t_num} and tradesend=#{tradesend} and m_id=#{m_id}
+        update alert set t_alertnum=3 where t_num=#{t_num} and t_item=#{t_item} and tradesend=#{tradesend} and m_id=#{m_id}
     </update>
 
     <update id="tradeItemDelete">
@@ -130,6 +130,9 @@
 
     <select id="alertList" resultType="com.icia.recipe.home.dto.TradeDto">
         select * from alert where m_id=#{m_id} and t_alertnum=1
+    </select>
+    <select id="getMemberName" resultType="java.lang.String">
+        select m_name from member where m_id=#{mId}
     </select>
 
 </mapper>

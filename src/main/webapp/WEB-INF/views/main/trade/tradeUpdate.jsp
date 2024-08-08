@@ -264,14 +264,14 @@
                         <c:forEach items="${tUList}" var="trades" varStatus="loop">
                             <li id="liMaterial_1_${loop.index+1}" class="liMaterial_1_1">
                                 <input type="text" name="t_item" id="trade_no1_1" class="form-control"
-                                       value="${trades.t_item}">
+                                       placeholder="${trades.t_item}">
                                 <input type="text" name="t_itemcount" id="trade_no1_2" class="form-control"
-                                       value="${trades.t_itemcount}">
+                                       placeholder="${trades.t_itemcount}">
                                 <input type="text" name="t_unit" id="trade_no1_3" class="form-control"
-                                       value="${trades.t_unit}">
+                                       placeholder="${trades.t_unit}">
                                 <input type="text" name="t_change" id="trade_no1_4" class="form-control"
-                                       value="${trades.t_change}">
-                                <input type="text" name="t_order" id="trade_no1_5" value="${trades.t_order}" style="display: none" class="order">
+                                       placeholder="${trades.t_change}">
+                                <input type="text" name="t_order" id="trade_no1_5" placeholder="${trades.t_order}" style="display: none" class="order">
                                 <button id="btn-del" type="button" class="btn-del"
                                         style="display: none"></button>
                                 <br>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -68,13 +69,22 @@ public class BoardRestController {
     @GetMapping("/boardlist")
     public Object getCategoryBigCg(@RequestParam("tab") String tab,
                                    @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        // 다른데서 쓴것처럼 List<List<?>> 써서 resp 안에 다른 리스트 첨부해서 가져가서 까기
+        List<List<?>> combinedList = new ArrayList<>();
+        List<FoodItemDto> fList;
+        List<FoodItemDto> cList = bSer.getCategory();
+        List<FoodItemDto> cList2 = bSer.getCategory2();
         log.info("[홈페이지]");
         log.info(String.valueOf(pageNum));
         if (tab.equals("recipe")) {
             return bSer.getRecipeList();
         } else if (tab.equals("fooditem")) {
             log.info("목록");
-            return bSer.getFoodItemList(pageNum, pageSize);
+            fList = bSer.getFoodItemList(pageNum, pageSize);
+            combinedList.add(fList);
+            combinedList.add(cList);
+            combinedList.add(cList2);
+            return combinedList;
         } else {
             return null;
         }

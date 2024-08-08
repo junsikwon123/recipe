@@ -18,7 +18,107 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
+<script>
+    window.onload = function() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx2 = document.getElementById('MonthlyDelivery').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['배송전', '배송완료'], // X축 라벨
+                datasets: [{
+                    label: 'On/Off',
+                    data: [${todayOrder}, ${todayDelivery}], // 데이터 값 (배송전 10, 배송완료 5)
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)', // 배송전 색상
+                        'rgba(153, 102, 255, 0.2)' // 배송완료 색상
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)', // 배송전 테두리 색상
+                        'rgba(153, 102, 255, 1)' // 배송완료 테두리 색상
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + '건';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        let MonthlyDelivery = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                datasets: [{
+                    label: 'Show & Proove',
+                    data: ["${monthlyDelivery['1월']}", "${monthlyDelivery['2월']}", "${monthlyDelivery['3월']}",
+                        "${monthlyDelivery['4월']}", "${monthlyDelivery['5월']}", "${monthlyDelivery['6월']}",
+                        "${monthlyDelivery['7월']}", "${monthlyDelivery['8월']}", "${monthlyDelivery['9월']}",
+                        "${monthlyDelivery['10월']}", "${monthlyDelivery['11월']}", "${monthlyDelivery['12월']}"],
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.2)',
+                        'rgba(255, 127, 0, 0.2)',
+                        'rgba(255, 255, 0, 0.2)',
+                        'rgba(127, 255, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 255, 255, 0.2)',
+                        'rgba(0, 0, 255, 0.2)',
+                        'rgba(75, 0, 130, 0.2)',
+                        'rgba(148, 0, 211, 0.2)',
+                        'rgba(255, 105, 180, 0.2)',
+                        'rgba(255, 69, 0, 0.2)',
+                        'rgba(255, 20, 147, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, 1)',
+                        'rgba(255, 127, 0, 1)',
+                        'rgba(255, 255, 0, 1)',
+                        'rgba(127, 255, 0, 1)',
+                        'rgba(0, 255, 0, 1)',
+                        'rgba(0, 255, 255, 1)',
+                        'rgba(0, 0, 255, 1)',
+                        'rgba(75, 0, 130, 1)',
+                        'rgba(148, 0, 211, 1)',
+                        'rgba(255, 105, 180, 1)',
+                        'rgba(255, 69, 0, 1)',
+                        'rgba(255, 20, 147, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + '건';
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    };
+</script>
+
 <body id="page-top">
 <div id="wrapper">
     <%--    사이드바 E R P--%>
@@ -188,53 +288,78 @@
                         class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-start-primary py-2">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable">
+                        <div class="card shadow border-start-primary py-2" style="height: 135px; width: 400px">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-primary fw-bold text-xs mb-1">
-                                            <span>일간 배송</span>
+                                            <span style="font-size: larger">일간 배송</span>
                                         </div>
-                                        <div class="text-dark fw-bold h5 mb-0"><span>184회</span></div>
+                                        <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
+                                            <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
+                                                <span style="font-size: small">배송전</span>
+                                                <span>|</span>
+                                                <span style="font-size: small">배송완료</span>
+                                            </div>
+                                            <div style="width: 200px; justify-content: space-between; display: flex; flex-direction: row">
+                                                <p>${todayOrder}</p>
+                                                <p>|</p>
+                                                <p>${todayDelivery}</p>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-start-success py-2">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable">
+                        <div class="card shadow border-start-success py-2" style="height: 135px; width: 400px">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-success fw-bold text-xs mb-1">
-                                            <span>주간 배송</span>
+                                            <span style="font-size: larger">주간 배송</span>
                                         </div>
-                                        <div class="text-dark fw-bold h5 mb-0"><span>1723회</span></div>
+                                        <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
+                                            <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
+                                                <span style="font-size: small">배송전</span>
+                                                <span>|</span>
+                                                <span style="font-size: small">배송완료</span>
+                                            </div>
+                                            <div style="width: 200px; justify-content: space-between; display: flex; flex-direction: row">
+                                                <p>${weekOrder}</p>
+                                                <p>|</p>
+                                                <p>${weekDelivery}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-start-info py-2">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable">
+                        <div class="card shadow border-start-info py-2" style="height: 135px; width: 400px">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-info fw-bold text-xs mb-1">
-                                            <span>금일 전체 주문량 대비 배송 완료 현황</span>
+                                            <span style="font-size: large">금일 전체 주문량<br>대비 배송 완료 현황</span>
                                         </div>
                                         <div class="row g-0 align-items-center">
                                             <div class="col-auto">
-                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span>21%</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                                    <span style="font-size: larger">${todayPercentage}%</span>
+                                                </div>
                                             </div>
                                             <div class="col">
                                                 <div class="progress progress-sm">
-                                                    <div class="progress-bar bg-info" aria-valuenow="21"
-                                                         aria-valuemin="0" aria-valuemax="100" style="width: 21%;"><span
-                                                            class="visually-hidden">21%</span></div>
+                                                    <div class="progress-bar bg-info" aria-valuenow="${todayPercentage}"
+                                                         aria-valuemin="0" aria-valuemax="100" style="width: ${todayPercentage}%;"><span
+                                                            class="visually-hidden">${todayPercentage}%</span></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,13 +370,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-start-warning py-2">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable">
+                        <div class="card shadow border-start-warning py-2" style="height: 135px; width: 400px">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-warning fw-bold text-xs mb-1">
-                                            <span>보류된 업무</span></div>
+                                            <span style="font-size: x-large">보류된 업무</span></div>
                                         <div class="text-dark fw-bold h5 mb-0"><span>18</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
@@ -261,10 +386,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-7 col-xl-8">
-                        <div class="card shadow mb-4">
+                    <div class="col-lg-7 col-xl-8 draggable">
+                        <div class="card shadow mb-4" style="height: 420px">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary fw-bold m-0">월간 매출 증감표</h6>
+                                <h6 class="text-primary fw-bold m-0">월간 배송 증감표</h6>
                                 <div class="dropdown no-arrow">
                                     <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                                             data-bs-toggle="dropdown" type="button"><i
@@ -280,16 +405,16 @@
                             </div>
                             <div class="card-body">
                                 <div class="chart-area">
-                                    <canvas height="320" style="display: block; width: 572px; height: 320px;"
-                                            width="572"></canvas>
+                                    <canvas id="MonthlyDelivery" height="320" style="display: block; width: 572px; height: 320px;"
+                                            width="1000"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
+                    <div class="col-lg-5 col-xl-4 draggable">
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary fw-bold m-0">현재 배송 비율</h6>
+                                <h6 class="text-primary fw-bold m-0">금일 배송 진행률</h6>
                                 <div class="dropdown no-arrow">
                                     <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                                             data-bs-toggle="dropdown" type="button"><i
@@ -304,23 +429,21 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas height="320" style="display: block; width: 257px; height: 320px;"
-                                            width="257"></canvas>
+                                <div class="chart-area" style="justify-items: center">
+                                    <canvas id="myChart" style="display: block; width: 200px; height: 300px;">
+                                    </canvas>
                                 </div>
-                                <div class="text-center small mt-4"><span class="me-2"><i
-                                        class="fas fa-circle text-primary"></i> 배송전</span><span class="me-2"><i
-                                        class="fas fa-circle text-success"></i> 배송중</span><span class="me-2"><i
-                                        class="fas fa-circle text-info"></i> 배송완료</span></div>
+                                <div class="text-center small mt-4">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-4 draggable">
                             <div class="card-header py-3">
-                                <h6 class="text-primary fw-bold m-0">연령대별 구매분석</h6>
+                                <h6 class="text-primary fw-bold m-0">연령대별 구매분석 [회원가입시 나이 수집 안해서 없어짐..]</h6>
                             </div>
                             <div class="card-body">
                                 <h4 class="small fw-bold">10대<span class="float-end">20%</span></h4>
@@ -355,7 +478,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-4 draggable">
                             <div class="card-header py-3">
                                 <h6 class="text-primary fw-bold m-0">할 일</h6>
                             </div>
@@ -404,51 +527,95 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-lg-6 mb-4">
+                            <div class="col-lg-6 mb-4" style="width: 825px">
                                 <div class="card text-white bg-primary shadow">
                                     <div class="card-body">
-                                        <p class="m-0">우선순위</p>
-                                        <p class="text-white-50 small m-0">#4e73df</p>
+                                        <p class="m-0" style="">팀명 : 기가막히조</p>
+                                        <pre class="text-white-50 small m-0"> </pre>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-success shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">완료된 작업</p>
-                                        <p class="text-white-50 small m-0">#1cc88a</p>
+                                    <div class="card-body" style="height: 545px">
+                                        <p class="m-0" style="font-size: xx-large">완료된 작업</p>
+                                        <br>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                하나
+                                            </li>
+                                            <li>
+                                                둘
+                                            </li>
+                                            <li>
+                                                삼
+                                            </li>
+                                            <li>
+                                                넷
+                                            </li>
+                                            <li>
+                                                오
+                                            </li>
+                                            <li>
+                                                여섯
+                                            </li>
+                                            <li>
+                                                칠
+                                            </li>
+                                            <li>
+                                                팔
+                                            </li>
+                                            <li>
+                                                아홉
+                                            </li>
+                                            <li>
+                                                공
+                                            </li>
+                                        </ul>
+                                        <p class="text-white-50 small m-0">
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-info shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">정보</p>
-                                        <p class="text-white-50 small m-0">#36b9cc</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-warning shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">경고</p>
-                                        <p class="text-white-50 small m-0">#f6c23e</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-danger shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">위험</p>
-                                        <p class="text-white-50 small m-0">#e74a3b</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-secondary shadow">
-                                    <div class="card-body">
-                                        <p class="m-0">시간날 때</p>
-                                        <p class="text-white-50 small m-0">#858796</p>
+                                    <div class="card-body" style="height: 545px">
+                                        <p class="m-0" style="font-size: xx-large">미완료 작업</p>
+                                        <br>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                하나
+                                            </li>
+                                            <li>
+                                                둘
+                                            </li>
+                                            <li>
+                                                삼
+                                            </li>
+                                            <li>
+                                                넷
+                                            </li>
+                                            <li>
+                                                오
+                                            </li>
+                                            <li>
+                                                여섯
+                                            </li>
+                                            <li>
+                                                칠
+                                            </li>
+                                            <li>
+                                                팔
+                                            </li>
+                                            <li>
+                                                아홉
+                                            </li>
+                                            <li>
+                                                공
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

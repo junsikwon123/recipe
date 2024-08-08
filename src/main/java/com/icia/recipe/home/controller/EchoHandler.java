@@ -67,22 +67,21 @@ public class EchoHandler extends TextWebSocketHandler {
         if (alertMessage.getType().equals(AlertMessage.MessageType.SEND)) {
             log.info("JSON이라서 등장");
             log.info(alertMessage.getTradesend());
-            alertMessage.setMessage("<div class='me-3' id='notification'>" +
+            alertMessage.setMessage("<div class='me-3' id='notification_"+alertMessage.getT_num()+"_"+alertMessage.getT_item()+"_"+alertMessage.getT_itemcount()+"'>" +
                     "<i class='fas fa-file-alt text-white'></i>" +
-                    "</div>" +
-                    "</div>" +
                     "<div id='socketAlertDiv'>" +
                     "<span id='current-time' class='small text-gray-500'>"
                     + result +
                     "</span>&nbsp;" +
                     "<button id='accept' onclick='accept("+alertMessage.getT_num()+",\""+alertMessage.getT_item()+"\","+alertMessage.getT_itemcount()+
                     ", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>수락</button>&nbsp;" +
-                    "<button id='refuse' onclick='refuse(" + alertMessage.getT_num() +", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>거절</button>" +
+                    "<button id='refuse' onclick='refuse(" + alertMessage.getT_num()+",\""+alertMessage.getT_item()+"\","+alertMessage.getT_itemcount()+", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>거절</button>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
                     alertMessage.getTradesend() + "님이 교환신청 하였습니다." +
                     "</div>" +
                     "</a>" +
+                    "</div>" +
                     "</div>");
             tSer.alertSave(alertMessage);
             if (sendedPushSession != null) {
@@ -94,7 +93,6 @@ public class EchoHandler extends TextWebSocketHandler {
             log.info("거절 socket 입장");
             alertMessage.setMessage("<div class='me-3' id='notification'>" +
                     "<i class='fas fa-file-alt text-white'></i>" +
-                    "</div>" +
                     "</div>" +
                     "<div id='socketAlertDiv'>" +
                     "<span id='current-time' class='small text-gray-500'>"
@@ -115,7 +113,6 @@ public class EchoHandler extends TextWebSocketHandler {
             log.info("수락 socket 입장");
             alertMessage.setMessage("<div class='me-3' id='notification'>" +
                     "<i class='fas fa-file-alt text-white'></i>" +
-                    "</div>" +
                     "</div>" +
                     "<div id='socketAlertDiv'>" +
                     "<span id='current-time' class='small text-gray-500'>"
@@ -138,15 +135,16 @@ public class EchoHandler extends TextWebSocketHandler {
             alertMessage.setMessage("<div class='me-3' id='notification'>" +
                     "<i class='fas fa-file-alt text-white'></i>" +
                     "</div>" +
-                    "</div>" +
                     "<div id='socketAlertDiv'>" +
                     "<span id='current-time' class='small text-gray-500'>"
                     + result +
                     "</span>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alertMessage.getF_title()+"이 0개야" +
+                    alertMessage.getF_title()+" 품절" +
                     "</div>" +
+                    "<button class='btn btn-outline-primary'>주문</button>" +
+                    "<button class='btn btn-outline-danger'>닫기</button>" +
                     "</a>" +
                     "</div>");
 //            tSer.managementAlert();
