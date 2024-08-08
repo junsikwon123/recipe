@@ -99,10 +99,10 @@
                                 <input type="hidden" name="BF_PS_PAY_GRP_ID" value="" id="BF_PS_PAY_GRP_ID">
                                 <div id="receiverMsgDiv" class="hd-checkbox receiverMsg"
                                      style="display: block;margin-top: 5px;padding-left: 155px;">
-                                    <input type="checkbox" class="hidden" id="receiverMsg" data-checked="y">
-                                    <label class="form-label form-label" for="receiverMsg">받는 분께 알림 메시지 전송</label>
-                                    <span class="Qmark ico_tooltip btn__modal-open"
-                                          style="display: inline-block;"></span>
+                                    <%--<input type="checkbox" class="hidden" id="receiverMsg" data-checked="y">
+                                    <label class="form-label form-label" for="receiverMsg">받는 분께 알림 메시지 전송</label>--%>
+                                    <%--<span class="Qmark ico_tooltip btn__modal-open"
+                                          style="display: inline-block;"></span>--%>
                                 </div>
                             </div>
                             <input type="hidden" name="RECV_ETC_YN" value="" id="RECV_ETC_YN">
@@ -147,11 +147,11 @@
                                     <ul class="box" id="dvOrdDeliList"></ul>
                                 </div>
                                 <div class="newAddress tab-content current tab-content--show" id="deliveryInfo-tab2">
-                                    <div class="hd-checkbox newAddress__sameAs">
+                                    <%--<div class="hd-checkbox newAddress__sameAs">
                                         <input type="checkbox" class="hidden" id="sameAs" name="sameAs" value=""
                                                data-checked="n">
                                         <label class="form-label form-label" for="sameAs">주문자 정보와 동일</label>
-                                    </div>
+                                    </div>--%>
                                     <div class="newAddress__list">
                                         <label class="form-label form-label form_title" for="NEW_RECEIVER_NAME">받는
                                             분<span class="hd__necessar">*</span></label>
@@ -241,35 +241,34 @@
                         </div>
                     </section>
                     <section class="orderPayment__sect accordion itemConfirm">
-                        <h3 class="orderPayment__title accordion__head accordion__head--on">주문상품 확인</h3>
                         <div class="orderPayment__cont accordion__cont" id="dvCartListArea" style="padding-bottom: 0;">
-                            <strong id="normalTitle" class="itemConfirm__title normal-title">- 일반상품</strong>
+                            <strong id="normalTitle" class="itemConfirm__title normal-title">주문상품 확인</strong>
                             <div class="planMeals box" id="normal-item">
                                 <div class="box__list single">
                                     ${cartOrder}
-                                  <%--  <input type="hidden" class="dvCartCount" id="dvCartCount_16466933"
-                                           value="1">
-                                    <input type="hidden" class="dvCartDetlId" id="dvCartDetlId_16466933"
-                                           value="16466933">
-                                    <strong class="title">[워크맨] 직장인 단백질 도시락 A 세트(6개입)</strong>
-                                    <div class="boxInner">
-                                        <figure class="boxInner__thumb">
-                                            <img src="./그리팅몰 __ 우리집 밥상주치의, 그리팅_files/B_F99317A175504277AB35E79D13A825A6.jpg">
-                                        </figure>
-                                        <div class="detail">
-                                            <div class="detail__lft"><p class="boxInner__txt">옵션 : [워크맨] 직장인 단백질 도시락 A
-                                                세트(6개입)</p>
-                                                <p class="boxInner__txt">수량 : 1개 </p>
-                                            </div>
-                                            <div class="detail__rgt price">
-                                                <span class="price__list" id="total_price_list">상품금액
-                                                    <span class="num">48,000원</span>
-                                                </span>
-                                                <strong class="price__list">결제예정금액 <span class="num">33,600원</span>
-                                                </strong>
-                                            </div>
-                                        </div>
-                                    </div>--%>
+                                    <%--  <input type="hidden" class="dvCartCount" id="dvCartCount_16466933"
+                                             value="1">
+                                      <input type="hidden" class="dvCartDetlId" id="dvCartDetlId_16466933"
+                                             value="16466933">
+                                      <strong class="title">[워크맨] 직장인 단백질 도시락 A 세트(6개입)</strong>
+                                      <div class="boxInner">
+                                          <figure class="boxInner__thumb">
+                                              <img src="./그리팅몰 __ 우리집 밥상주치의, 그리팅_files/B_F99317A175504277AB35E79D13A825A6.jpg">
+                                          </figure>
+                                          <div class="detail">
+                                              <div class="detail__lft"><p class="boxInner__txt">옵션 : [워크맨] 직장인 단백질 도시락 A
+                                                  세트(6개입)</p>
+                                                  <p class="boxInner__txt">수량 : 1개 </p>
+                                              </div>
+                                              <div class="detail__rgt price">
+                                                  <span class="price__list" id="total_price_list">상품금액
+                                                      <span class="num">48,000원</span>
+                                                  </span>
+                                                  <strong class="price__list">결제예정금액 <span class="num">33,600원</span>
+                                                  </strong>
+                                              </div>
+                                          </div>
+                                      </div>--%>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +294,7 @@
                                     </span>
                                 </li>
                             </ul>
-                            <div class="hd-checkbox agree">
+                            <%--<div class="hd-checkbox agree">
                                 <ul>
                                     <li><input type="checkbox" class="hidden" id="chkAgreeAll" data-checked="n"><label
                                             class="form-label form-label" for="chkAgreeAll">필수 항목에 모두 동의합니다.</label>
@@ -341,7 +340,7 @@
                                         </ol>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>--%>
                         </section>
                         <button class="btn-init green btn-pay" id="dvOrder" onclick="dvOrder()">결제하기
                         </button>
@@ -421,27 +420,27 @@
             inputList.push(a.name + ":" + a.value);
         }
         const dvItemList = document.getElementsByClassName("single")
-        let itemList =[];
-        Array.from(dvItemList).forEach(i=>{
+        let itemList = [];
+        Array.from(dvItemList).forEach(i => {
             let dvitemList = i.querySelectorAll("input[type='hidden']")
             let index = 0;
             let list2 = [];
-            Array.from(dvitemList).forEach(il=>{
-                if(index === 2){
-                    index=0;
+            Array.from(dvitemList).forEach(il => {
+                if (index === 2) {
+                    index = 0;
                     itemList.push(list2);
                     list2 = [];
                 }
                 index++;
                 list2.push(il.id);
             })
-            if(list2.length>0){
+            if (list2.length > 0) {
                 itemList.push([...list2]);
             }
         })
-        console.log("price",price)
-        console.log("inputList",inputList)
-        console.log("itemList",itemList)
+        console.log("price", price)
+        console.log("inputList", inputList)
+        console.log("itemList", itemList)
         // 폼 요소 선택
         let form = document.getElementById("inputOrderForm");
 
@@ -459,22 +458,32 @@
 
         // inputList 추가
         inputList.forEach((item, index) => {
+            let arr = item.split(":")
             let inputElement = document.createElement("input");
             inputElement.type = "hidden";
-            inputElement.name = `inputList[${index}]`;
-            inputElement.value = item;
+            inputElement.name = `inputList[0].\${arr[0]}`;
+            inputElement.value = arr[1];
             form.appendChild(inputElement);
         });
 
         // itemList 추가
         itemList.forEach((item, index) => {
-            let itemElement = document.createElement("input");
-            itemElement.type = "hidden";
-            itemElement.name = `itemList[${index}]`;
-            itemElement.value = JSON.stringify(item);
-            form.appendChild(itemElement);
-        });
+            console.log(item)
+            let arr = [];
+            item.forEach(a => {
+                arr = a.split("_")
+                let itemElement = document.createElement("input");
+                itemElement.type = "hidden";
+                itemElement.name = `itemList[\${index}].\${arr[0]}`;
+                itemElement.value = arr[1];
+                form.appendChild(itemElement);
+            })
 
+        });
+        const inputData = form.querySelectorAll("input[type='hidden']");
+        inputData.forEach(input => {
+            console.log("inputData", input.name, input.value);
+        });
         // 폼 제출
         form.submit();
     }

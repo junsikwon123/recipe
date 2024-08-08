@@ -1,6 +1,8 @@
 package com.icia.recipe.home.dao;
 
 import com.icia.recipe.home.dto.CartDto;
+import com.icia.recipe.home.dto.InputListDto;
+import com.icia.recipe.home.dto.ItemListDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
@@ -17,9 +19,11 @@ public interface CartDao {
 
     int deleteCart(Object e);
 
-    boolean insertOrder(HashMap<String, String> inputMap);
-
     boolean insertOrderDetail(HashMap<String, String> e);
 
     boolean deleteCartName(String id);
+
+    boolean insertOrderDetail(ItemListDto i);
+
+    boolean insertOrder(InputListDto inputListDto);
 }

@@ -97,5 +97,9 @@ public class RestMemberController {
             return false;
         }
     }
+    @GetMapping("/member/orderListDetail")
+    public String orderListDetail(@RequestParam("o_num") String num) {
+        return mSer.selectOrderDetail(num);
+    }
 
 }

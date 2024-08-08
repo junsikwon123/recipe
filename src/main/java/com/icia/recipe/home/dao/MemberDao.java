@@ -1,6 +1,7 @@
 package com.icia.recipe.home.dao;
 
 import com.icia.recipe.home.dto.Member;
+import com.icia.recipe.home.dto.OrderDto;
 import com.icia.recipe.management.dto.MemberDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -55,4 +56,10 @@ public interface MemberDao {
 
     @Update("update member set m_pw=#{newPw} where m_pw=#{pw}")
     boolean updateNewPw(String pw, String newPw);
+
+    List<OrderDto> selectOrder(String sDto);
+
+    List<OrderDto> selectOrderDetail(String num);
+
+    int getorderCount(String id);
 }

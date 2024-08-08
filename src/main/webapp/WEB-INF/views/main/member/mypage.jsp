@@ -206,82 +206,94 @@
                         <span style="font-weight: bold; color: black">${sessionScope.m_name}</span>님>
                     </sec:authorize></a></th>
                 </tr>
-             <%--   <tr>
-                    <th>
-                        <button style="width: 120px; height: 120px;border:1px solid black; background-color: #f9f9f9">
-                            쿠폰
-                        </button>
-                    </th>
-                    <th>
-                        <button style="width: 120px; height: 120px;border:1px solid black;  background-color: #f9f9f9">안
-                            쓴 리뷰
-                        </button>
-                    </th>
-                    <th>
-                        <button style="width: 120px; height: 120px;border:1px solid black;  background-color: #f9f9f9">
-                            스푼
-                        </button>
-                    </th>
-                    <th>
-                        <button style="width: 120px; height: 120px;border:1px solid black;  background-color: #f9f9f9">
-                            h.Point
-                        </button>
-                    </th>
-                    <th colspan="2">
-                        <h2 style="font-size: small">나의 추천인 코드 []<br></h2>
-                        <h2 style="font-size: smaller">친구가 첫 구매를 확정하면 둘 다 죽음</h2>
-                    </th>
-                    <th>
-                        <button style="width: 120px; height: 80px; background-color: #918c00; color: white">추천하기
-                        </button>
-                    </th>
-                </tr>--%>
             </table>
         </div>
         <div id="dataIsHere">
             <div style="margin-top: 50px">
                 <div style="justify-content: space-between; display: flex; flex-direction: row">
-                    <div>
-                        <h5 style="font-weight: bold; color: black">진행중인 주문</h5>
-                    </div>
-                    <div>
-                        <button>주문전체보기</button>
-                    </div>
                 </div>
                 <div>
-                    <img src="/uploadedImg/main/member/주문내역이%20없습니다.PNG">
-                </div>
-            </div>
-            <div style="margin-top: 50px">
-                <div style="justify-content: space-between; display: flex; flex-direction: row">
-                    <div>
-                        <h5 style="font-weight: bold; color: black">지금 인기 있는 상품</h5>
-                    </div>
-                    <div>
-                        <p>광고</p>
-                    </div>
-                </div>
-                <div style="display: flex; flex-direction: row">
-                    <div style="display: flex; flex-direction: column">
-                        <img style="width: 170px; height: 170px; margin-right: 15px" src="/uploadedImg/main/noImg.png">
-                    </div>
-                    <div style="display: flex; flex-direction: column">
-                        <img style="width: 170px; height: 170px; margin-right: 15px" src="/uploadedImg/main/noImg.png">
-                    </div>
-                    <div style="display: flex; flex-direction: column">
-                        <img style="width: 170px; height: 170px; margin-right: 15px" src="/uploadedImg/main/noImg.png">
-                    </div>
-                    <div style="display: flex; flex-direction: column">
-                        <img style="width: 170px; height: 170px; margin-right: 15px" src="/uploadedImg/main/noImg.png">
-                    </div>
-                    <div style="display: flex; flex-direction: column">
-                        <img style="width: 170px; height: 170px" src="/uploadedImg/main/noImg.png">
-                    </div>
+                    <%--   <img src="/uploadedImg/main/member/주문내역이%20없습니다.PNG">--%>
+                    ${requestScope.orderTable}
+                    <%--<section class="orderPayment__sect accordion itemConfirm">
+                        <div class="orderPayment__cont" id="dvCartListArea" style="padding-bottom: 0;">
+                            <strong id="normalTitle" class="itemConfirm__title normal-title">-진행중인 주문</strong>
+                            <div class="planMeals box" id="normal-item">
+                                <div class="box__list single">
+                                    <strong class="title">
+                                        <a href="javascript(0):void">
+                                            [워크맨] 직장인 단백질 도시락 A 세트(6개입)
+                                        </a>
+                                    </strong>
+                                    <div class="boxInner">
+                                        <figure class="boxInner__thumb">
+                                            <img src="./그리팅몰 __ 우리집 밥상주치의, 그리팅_files/B_F99317A175504277AB35E79D13A825A6.jpg">
+                                        </figure>
+                                        <div class="detail">
+                                            <div class="detail__lft"><p class="boxInner__txt">옵션 : [워크맨] 직장인 단백질 도시락 A
+                                                세트(6개입)</p>
+                                                <p class="boxInner__txt">수량 : 1개 </p>
+                                            </div>
+                                            <div class="detail__rgt price">
+                                                   <span class="price__list" id="total_price_list">상품금액
+                                                       <span class="num">48,000원</span>
+                                                   </span>
+                                                <strong class="price__list">결제예정금액 <span class="num">33,600원</span>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>--%>
+                        ${pageHtml}
                 </div>
             </div>
         </div>
-        <%-- dataishere end--%>
     </section>
+
+    <div class="modal" tabindex="-1" id="exampleModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <section class="orderPayment__sect itemConfirm detail"style="margin: auto">
+                        <div class="orderPayment__cont" id="dvCartListArea" style="padding-bottom: 0;">
+                            <strong id="normalTitle" class="itemConfirm__title normal-title">- 주문 상세목록</strong>
+                            <div class="planMeals box" id="normal-item">
+                                <div class="box__list single">
+                                    <strong class="title">
+                                        <a href="javascript(0):void" onclick="modalOpen('88')">
+                                            [워크맨] 직장인 단백질 도시락 A 세트(6개입)
+                                        </a>
+                                    </strong>
+                                    <div class="boxInner">
+                                        <figure class="boxInner__thumb">
+                                            <img img src="/uploadedImg/fooditem/1722930023899.png">
+                                        </figure>
+                                        <div class="detail">
+                                            <div class="detail__lft"><p class="boxInner__txt">옵션 : [워크맨] 직장인 단백질 도시락 A
+                                                세트(6개입)</p>
+                                                <p class="boxInner__txt">수량 : 1개 </p>
+                                            </div>
+                                            <div class="detail__rgt price">
+                                                   <span class="price__list" id="total_price_list">상품금액
+                                                       <span class="num">48,000원</span>
+                                                   </span>
+                                                <strong class="price__list">결제예정금액 <span class="num">33,600원</span>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="aaa" style="display: none" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
 </main>
 <br>
 <br>
@@ -293,5 +305,18 @@
 <footer>
     <jsp:include page="../common/footer.jsp"></jsp:include>
 </footer>
+<script>
+    const dvModal = document.getElementsByClassName("modal-body");
+    const modalBtn = document.getElementById('aaa')
+    function modalOpen(value){
+        $.ajax({
+            method:"get",
+            url:"/member/orderListDetail?o_num="+value
+        }).done(resp=>{
+            dvModal[0].innerHTML = resp
+            modalBtn.click()
+        }).fail(err=>{console.log(err)})
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.recipe.home.dao.MemberDao">
+
+
+    <resultMap id="selectImg" type="com.icia.recipe.home.dto.ImgDto">
+        <id property="i_path" column="i_path"/>
+        <result property="i_sys_name" column="i_sys_name"/>
+    </resultMap>
+    <resultMap id="selectOrderDetail" type="com.icia.recipe.home.dto.ItemListDto">
+        <result property="dvCartDetlId" column="f_num"/>
+        <result property="dvCartCount" column="o_unit"/>
+    </resultMap>
+    <resultMap id="selectFooditem" type="com.icia.recipe.home.dto.FooditemDto">
+        <id property="f_num" column="f_num"/>
+        <result property="f_title" column="f_title"/>
+        <result property="f_price" column="f_price"/>
+        <result property="f_count" column="f_count"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
+    </resultMap>
+    <resultMap id="selectOrderAll" type="com.icia.recipe.home.dto.OrderDto">
+        <id property="o_count" column="o_count"/>
+        <result property="o_total" column="o_total"/>
+        <result property="o_num" column="o_num"/>
+        <result property="o_delivery" column="o_delivery"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
+        <collection property="fList" javaType="java.util.ArrayList" resultMap="selectFooditem"/>
+        <collection property="oList" javaType="java.util.ArrayList" resultMap="selectOrderDetail"/>
+    </resultMap>
+    <select id="selectOrder" resultMap="selectOrderAll">
+        SELECT o.o_total o_total ,o.o_count, f.f_title ,i.i_sys_name,
+               i.i_path,o.o_num,od.o_unit,f.f_num,f.f_price, o.o_num,o.o_delivery
+        from order1 o
+        join orderdetail od
+        on od.o_num = o.o_num
+        join fooditem f
+        on f.f_num = od.f_num
+        join img i
+        on i.f_num = f.f_num
+        join(
+            select min(i_num) min_inum, f_num
+            from img
+            group by f_num
+        )min
+        on min.min_inum = i.i_num
+        where o.m_id = #{id}
+        order by o.o_num
+        </select>
+    <select id="selectOrderDetail" resultMap="selectOrderAll">
+        SELECT o.o_total o_total,
+               o.o_count,
+               f.f_title,
+               i.i_sys_name,
+               i.i_path,
+               o.o_num,
+               od.o_unit,
+               f.f_num,
+               f.f_price,
+               o.o_num
+        from order1 o
+        join orderdetail od
+        on od.o_num = o.o_num
+        join fooditem f
+        on f.f_num = od.f_num
+        join img i
+        on i.f_num = f.f_num
+        join(
+            select min(i_num) min_inum, f_num
+            from img
+            group by f_num) min
+        on min.min_inum = i.i_num
+        where o.o_num= #{num}
+        order by o.o_num
+    </select>
+    <select id="getorderCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        from order1 o
+                 join orderdetail od
+                      on od.o_num = o.o_num
+                 join fooditem f
+                      on f.f_num = od.f_num
+                 join img i
+                      on i.f_num = f.f_num
+                 join(
+            select min(i_num) min_inum, f_num
+            from img
+            group by f_num
+        )min
+        on min.min_inum = i.i_num
+        where o.m_id= #{id}
+        order by o.o_num
+    </select>
+</mapper>
