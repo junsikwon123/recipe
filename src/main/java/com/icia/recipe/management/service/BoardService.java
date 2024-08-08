@@ -81,6 +81,8 @@ public class BoardService {
         String fiPrice = request.getParameter("fiPrice");
         String fiBigCg = request.getParameter("fiBigCg");
         String fiMidCg = request.getParameter("fiMidCg");
+        fiBigCg = bDao.getBigCgNum(fiBigCg);
+        fiMidCg = bDao.getMidCgNum(fiMidCg);
         String fiCounts = request.getParameter("fiCounts");
         String fiExDate = request.getParameter("fiExDate");
         String fiContents = request.getParameter("fiContents");
@@ -384,4 +386,13 @@ public class BoardService {
         }
     }
 
+    public List<FoodItemDto> getCategory() {
+        List <FoodItemDto> cList = bDao.getCategory();
+        return cList;
+    }
+
+    public List<FoodItemDto> getCategory2() {
+        List <FoodItemDto> cList = bDao.getCategory2();
+        return cList;
+    }
 }

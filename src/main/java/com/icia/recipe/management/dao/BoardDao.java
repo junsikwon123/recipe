@@ -65,4 +65,11 @@ public interface BoardDao {
     List<FoodItemDto> getModalDetailsInfoUpdateBeforeList(String fnum);
 
 
+    List<FoodItemDto> getCategory();
+
+    List<FoodItemDto> getCategory2();
+
+    String getBigCgNum(String fiBigCg);
+
+    String getMidCgNum(String fiMidCg);
 }
