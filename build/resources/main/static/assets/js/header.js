@@ -6,14 +6,13 @@ $(document).ready(function () {
         url: "/alert/List",
         method: "post",
     }).done(resp => {
-        $('#socketAlert').empty()
-        $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
-        $('#socketAlert').append(resp)
+        let $socketAlert = $('#socketAlert');
+        $socketAlert.empty()
+        $socketAlert.append("<h6 class='dropdown-header'>알림</h6>")
+        $socketAlert.append(resp)
         let notice = document.querySelector("#span-notice-count");
         let noticelist = document.querySelectorAll("#noticelist a");
-        if(noticelist-1>0) {
             notice.innerHTML = noticelist.length - 1 + "+";
-        }
     }).fail(err => {
         console.log(err)
     })
@@ -63,7 +62,7 @@ function accept(t_num, item, itemcount,tradesend,m_id) {
             console.log($(selector))
             $(selector).remove()
             // $('#socketAlert').append("<h6 class='dropdown-header'>알림</h6>")
-            $('#socketAlert').append(resp)
+            // $('#socketAlert').append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");
             notice.innerHTML = noticelist.length - 1 + "+";
@@ -83,18 +82,18 @@ function refuse(t_num, item, itemcount,tradesend,m_id) {
     console.log("거절 당할사람: " + tradesend)
     let tNum = t_num
     let t_item = item;
-    let t_itemcount = itemcount;
+    let t_itemcount = itemcount
 
     $.ajax({
         url: "/trade/refuse",
         method: "post",
-        data: {"t_num": t_num, "tradesend": tradesend, "m_id": m_id},
+        data: {"t_num": t_num,"t_item":t_item, "tradesend": tradesend, "m_id": m_id},
     }).done(resp => {
         if (resp != null) {
             let selector=`#notification_${tNum}_${t_item}_${t_itemcount}`
             console.log($(selector))
             $(selector).remove()
-            $('#socketAlert').append(resp)
+            // $('#socketAlert').append(resp)
             let notice = document.querySelector("#span-notice-count");
             let noticelist = document.querySelectorAll("#noticelist a");
             notice.innerHTML = noticelist.length - 1 + "+";
