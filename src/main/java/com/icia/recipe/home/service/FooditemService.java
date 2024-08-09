@@ -1,18 +1,17 @@
 package com.icia.recipe.home.service;
 
+import com.icia.recipe.home.common.Paging;
 import com.icia.recipe.home.dao.FooditemDao;
 import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.home.dto.CtgDto;
 import com.icia.recipe.home.dto.ImgDto;
-import com.sun.mail.imap.protocol.Item;
+import com.icia.recipe.home.dto.SearchDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import javax.mail.FetchProfile;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,8 +20,7 @@ public class FooditemService {
 
     @Autowired
     FooditemDao fDao;
-
-    public String fooditemOrder(String order,String num) {
+    public String fooditemOrder(String order, String num, SearchDto sDto) {
         log.info("fooditemOrder 입장");
         FooditemDto fDto;
         String name = "";
@@ -67,13 +65,18 @@ public class FooditemService {
         log.info("order: {},{}", name, sort);
         log.info("ctg: {},{}", numName, num);
         List<FooditemDto> list = null; //new ArrayList<>();
-        list = fDao.searchFooditem(name, sort , numName, num);
+        HashMap<String,String> hMap = new HashMap<>();
+        hMap.put("name",name);
+        hMap.put("sort",sort);
+        hMap.put("num",num);
+        sDto.setData(hMap);
+        list = fDao.searchFooditem(sDto,numName);
         //list = list.stream().sorted(Comparator.comparing(FooditemDto::getF_price)).collect(Collectors.toList());
         log.info("fDto: {}", list);
         return makeFooditemListHtml(list);
     }
 
-    public String searchctg(String c_num) {
+   /* public String searchctg(String c_num) {
         String num = c_num.substring(0,1);
         log.info("num:{}", num);
         String numName = "";
@@ -91,9 +94,9 @@ public class FooditemService {
                 return null;
         }
         log.info("보내는 것: {},{} ",numName,c_num);
-        List<FooditemDto> list = fDao.searchctgFoodtitem(numName,c_num);
+      *//*  List<FooditemDto> list = fDao.searchctgFoodtitem(numName,c_num);*//*
         return makeFooditemListHtml(list);
-    }
+    }*/
 
     private String makeFooditemListHtml(List<FooditemDto> list) {
         StringBuilder sb = new StringBuilder();
@@ -222,6 +225,13 @@ public class FooditemService {
         }
         log.info("makeHtml: {}", makeHtml);
         return makeHtml;
+    }
+
+    public String getPaging(String num, SearchDto sDto, String listUrl) {
+        int totalNum = fDao.getFooditemCount(num);
+        log.info("totalNum : {}", totalNum);
+        Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),sDto.getListCnt(),listUrl);
+        return paging.makeHtmlPaging();
     }
 }
 
