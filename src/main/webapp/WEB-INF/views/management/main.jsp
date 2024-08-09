@@ -18,9 +18,47 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         const ctx2 = document.getElementById('MonthlyProfit').getContext('2d');
         let MonthlyProfit = new Chart(ctx2, {
             type: 'bar',
@@ -80,6 +118,51 @@
             }
         })
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        // 캘린더 초기화
+        flatpickr("#calendar", {
+            inline: true,
+            onChange: function (selectedDates, dateStr, instance) {
+                // 날짜가 선택되면 모달을 표시
+                const modal = document.getElementById("memoModal");
+                document.getElementById("modal-date").innerText = dateStr;
+
+                // 이전에 저장된 메모가 있으면 로드
+                const memo = localStorage.getItem(dateStr);
+                document.getElementById("modal-memo").value = memo || "";
+
+                modal.style.display = "block";
+            }
+        });
+
+        // 모달 닫기 기능
+        const modal = document.getElementById("memoModal");
+        const closeModalBtn = document.getElementsByClassName("close")[0];
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 메모 저장 기능
+        document.getElementById("modal-save-memo").addEventListener("click", function () {
+            const selectedDate = document.getElementById("modal-date").innerText;
+            const memo = document.getElementById("modal-memo").value;
+
+            if (selectedDate) {
+                localStorage.setItem(selectedDate, memo);
+                alert("메모가 저장되었습니다.");
+                modal.style.display = "none"; // 저장 후 모달 닫기
+            } else {
+                alert("날짜를 선택하세요.");
+            }
+        });
+    });
 </script>
 <body id="page-top">
 <div id="wrapper">
@@ -119,27 +202,29 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3" type="button"><i
                             class="fas fa-bars"></i></button>
                     <%--                    검색란 --%>
-                        <div class="input-group" style="width: 500px">
-                            <input id="commonSearch" class="bg-light form-control border-0 small" type="text" placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
+                    <div class="input-group" style="width: 500px">
+                        <input id="commonSearch" class="bg-light form-control border-0 small" type="text"
+                               placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
 
-                            <button class="btn btn-primary py-0" type="button" readonly=""><i class="fas fa-search"></i></button>
-                        </div>
+                        <button class="btn btn-primary py-0" type="button" readonly=""><i class="fas fa-search"></i>
+                        </button>
+                    </div>
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <%--                        우측 상단 헤더 알림--%>
-                            <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow">
-                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
-                                       href="#">
-                                        <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
-                                        <i class="fas fa-bell fa-fw"></i></a>
-                                    <div id="managementAlert"
-                                         class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">알림</h6>
-                                        <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
-                                        <%--                                        모든 알림 보기</a>--%>
-                                    </div>
+                        <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-bell fa-fw"></i></a>
+                                <div id="managementAlert"
+                                     class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">알림</h6>
+                                    <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
+                                    <%--                                        모든 알림 보기</a>--%>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -330,7 +415,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-xl-4">
-                        <div class="card shadow mb-4 no-print">
+                        <div class="card shadow mb-4 no-print" style="height: 480px">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h6 class="text-primary fw-bold m-0">메모장</h6>
                                 <div class="dropdown no-arrow">
@@ -347,33 +432,22 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas height="320" style="display: block; width: 257px; height: 320px;"
-                                            width="257"></canvas>
+                                <div id="calendar"></div>
+
+                                <div id="memoModal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                        <h3><span id="modal-date"></span></h3>
+                                        <textarea id="modal-memo" rows="10" cols="30"
+                                                  placeholder="메모를 입력하세요..."></textarea>
+                                        <button class="btn btn-primary" id="modal-save-memo">Save Memo</button>
+                                    </div>
                                 </div>
                                 <div class="text-center small mt-4">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a class="page-link" aria-label="Previous"
-                                                                          href="#"><span aria-hidden="true">«</span></a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">1</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">2</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">3</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">4</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">5</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">6</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">7</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">8</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">9</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">10</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">11</a></li>
-                                        <li class="page-item"><a class="page-link" aria-label="Next" href="#">
-                                            <span aria-hidden="true">»</span></a></li>
-                                    </ul>
                                 </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4 draggable">
@@ -559,16 +633,16 @@
                     </div>
 
                 </div>
-        </div>
-        <footer class="bg-white sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
             </div>
-        </footer>
-    </div>
-    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Made by 이형구</span></div>
+                </div>
+            </footer>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
-</div>
-<script src="/assets/js/script.min.js?h=bdf36300aae20ed8ebca7e88738d5267"></script>
+    </div>
+    <script src="/assets/js/script.min.js?h=bdf36300aae20ed8ebca7e88738d5267"></script>
 </body>
 </html>
