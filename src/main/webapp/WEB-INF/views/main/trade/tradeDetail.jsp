@@ -176,20 +176,75 @@
         }
 
     </style>
+    <script>
+        const links = document.querySelectorAll("a");
+
+        links.forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+                event.target.classList.add("active");
+                setTimeout(() => {
+                    event.target.classList.remove("active");
+                }, 500);
+            });
+        });
+    </script>
 </head>
 <body>
-<script>
-    const links = document.querySelectorAll("a");
 
-    links.forEach(link => {
-        link.addEventListener("click", event => {
-            event.preventDefault();
-            event.target.classList.add("active");
-            setTimeout(() => {
-                event.target.classList.remove("active");
-            }, 500);
-        });
-    });
+<header>
+    <jsp:include page="../common/header.jsp"></jsp:include>
+</header>
+<h1 style="font-size: large; margin-top: 10px; margin-left: 400px">HOME > 물물교환 > 교환</h1>
+<main style="margin-left: 400px; width: 1100px; border: 3px solid #f9f9f9">
+    <input name="t_num" value="${t_num}" style="display: none">
+    <div style="justify-content: space-between; display: flex; flex-direction: row">
+        <h1> </h1>
+        <h1>교환해용★</h1>
+        <sec:authorize access="hasRole('ADMIN')">
+            <button id="deleteBtn" onclick="delete_board('${t_num}')">삭제</button>
+        </sec:authorize>
+    </div>
+    <div style="margin-left: 30px; margin-top: 100px;">
+        <c:forEach var="trades" items="${tDList}">
+            <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <h4 style="margin-top: 15px">${m_name}님의 상품 : ${trades.t_item} ${trades.t_unit} ${trades.t_itemcount}개</h4>
+            <h4>교환을 원하는 품목 : ${trades.t_change} <input id="t_itemcount" style="width: 50px" value="${trades.t_itemcount}" type="number" max="${trades.t_itemcount}" min="1"></h4>
+            </div>
+        </c:forEach>
+    </div>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 100px">
+<%--        <div>--%>
+<%--            <a class="twitter" href="#">--%>
+<%--                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">--%>
+<%--                    <path d="M67.812 16.141a26.246 26.246 0 0 1-7.519 2.06 13.134 13.134 0 0 0 5.756-7.244 26.127 26.127 0 0 1-8.313 3.176A13.075 13.075 0 0 0 48.182 10c-7.229 0-13.092 5.861-13.092 13.093 0 1.026.118 2.021.338 2.981-10.885-.548-20.528-5.757-26.987-13.679a13.048 13.048 0 0 0-1.771 6.581c0 4.542 2.312 8.551 5.824 10.898a13.048 13.048 0 0 1-5.93-1.638c-.002.055-.002.11-.002.162 0 6.345 4.513 11.638 10.504 12.84a13.177 13.177 0 0 1-3.449.457c-.846 0-1.667-.078-2.465-.231 1.667 5.2 6.499 8.986 12.23 9.09a26.276 26.276 0 0 1-16.26 5.606A26.21 26.21 0 0 1 4 55.976a37.036 37.036 0 0 0 20.067 5.882c24.083 0 37.251-19.949 37.251-37.249 0-.566-.014-1.134-.039-1.694a26.597 26.597 0 0 0 6.533-6.774z"></path>--%>
+<%--                </svg>--%>
+<%--            </a>--%>
+<%--        </div>--%>
+        <sec:authorize access="isAuthenticated()">
+<%--            추천--%>
+            <div class="container">
+                <div class="buttons">
+                    <a href="#" id="recommend" class="neon-button neon-button__2">추천</a>
+                </div>
+            </div>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <div style="">
+                <button id="exchange" class="btn btn-outline-success">교환</button>
+            </div>
+        </sec:authorize>
+
+    </div>
+    <c:if test="${m_id==sessionScope.login}">
+        <button id="updateBtn" onclick="update_board('${t_num}')">수정</button>
+        <button id="deleteBtn" onclick="delete_board('${t_num}')">삭제</button>
+    </c:if>
+
+
+</main>
+<script>
+
     let itemCnt = document.querySelectorAll("#t_itemcount")
     const isNotNumber = (value) => !/^\d+$/.test(value);
     for (let elem of itemCnt) {
@@ -209,10 +264,18 @@
         let m_id = `${m_id}`;
         let t_num =${t_num};
         let title = `${t_title}`;
-        let items = document.querySelectorAll("#t_item")
-        let itemcounts = document.querySelectorAll("#t_itemcount")
-        let units = document.querySelectorAll("#t_unit")
-        let changes = document.querySelectorAll("#t_change")
+        const regex = /t_item=([^,]+),\s*t_itemcount=([^,]+),\s*t_unit=([^,]+),\s*t_change=([^,]+)/g;
+        const items = [];
+        const itemcounts=[];
+        const units=[];
+        const changes=[]
+        let match;
+        while ((match = regex.exec(`${tDList}`)) !== null) {
+            items.push(match[1].trim()); // match[1]은 t_item의 값을 포함
+            itemcounts.push(match[2].trim());
+            units.push(match[3].trim());
+            changes.push(match[4].trim());
+        }
         let length = items.length
         $.ajax({
             url: "/trade/messageSend",
@@ -220,10 +283,11 @@
             success: function (resp) {
                 alert("교환신청이 완료되었습니다.")
                 for (let i = 0; i < length; i++) {
-                    let item = items[i].value;
-                    let itemcount = itemcounts[i].value;
-                    let unit = units[i].value;
-                    let change = changes[i].value;
+                    let item = items[i]
+                    let itemcount = itemcounts[i]
+                    console.log(itemcount)
+                    let unit = units[i]
+                    let change = changes[i]
                     if (socket) {
                         let socketMsg = {
                             "tradesend": tradesend,
@@ -247,57 +311,6 @@
     })
 
 </script>
-<header>
-    <jsp:include page="../common/header.jsp"></jsp:include>
-</header>
-<h1 style="font-size: large; margin-top: 10px; margin-left: 400px">HOME > 물물교환 > 교환</h1>
-<main style="margin-left: 400px; width: 1100px; border: 3px solid #f9f9f9">
-    <input name="t_num" value="${t_num}" style="display: none">
-    <div style="justify-content: space-between; display: flex; flex-direction: row">
-        <h1> </h1>
-        <h1>교환해용★</h1>
-        <sec:authorize access="hasRole('ADMIN')">
-            <button id="deleteBtn" onclick="delete_board('${t_num}')">삭제</button>
-        </sec:authorize>
-    </div>
-    <div style="margin-left: 30px; margin-top: 100px;">
-        <c:forEach var="trades" items="${tDList}">
-            <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <h4 style="margin-top: 15px">${m_name}님의 상품 : ${trades.t_item} ${trades.t_unit} ${trades.t_itemcount}개</h4>
-            <h4>교환을 원하는 품목 : ${trades.t_change} <input id="t_itemcount" style="width: 50px" value="${trades.t_itemcount}" type="number" max="${trades.t_itemcount}" min="1"></h4>
-            </div>
-        </c:forEach>
-    </div>
-    <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 100px">
-        <div>
-            <a class="twitter" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
-                    <path d="M67.812 16.141a26.246 26.246 0 0 1-7.519 2.06 13.134 13.134 0 0 0 5.756-7.244 26.127 26.127 0 0 1-8.313 3.176A13.075 13.075 0 0 0 48.182 10c-7.229 0-13.092 5.861-13.092 13.093 0 1.026.118 2.021.338 2.981-10.885-.548-20.528-5.757-26.987-13.679a13.048 13.048 0 0 0-1.771 6.581c0 4.542 2.312 8.551 5.824 10.898a13.048 13.048 0 0 1-5.93-1.638c-.002.055-.002.11-.002.162 0 6.345 4.513 11.638 10.504 12.84a13.177 13.177 0 0 1-3.449.457c-.846 0-1.667-.078-2.465-.231 1.667 5.2 6.499 8.986 12.23 9.09a26.276 26.276 0 0 1-16.26 5.606A26.21 26.21 0 0 1 4 55.976a37.036 37.036 0 0 0 20.067 5.882c24.083 0 37.251-19.949 37.251-37.249 0-.566-.014-1.134-.039-1.694a26.597 26.597 0 0 0 6.533-6.774z"></path>
-                </svg>
-            </a>
-        </div>
-        <sec:authorize access="isAuthenticated()">
-<%--            추천--%>
-            <div class="container">
-                <div class="buttons">
-                    <a href="#" class="neon-button neon-button__2">추천</a>
-                </div>
-            </div>
-        </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-            <div style="">
-                <button id="exchange" class="btn btn-outline-success">교환</button>
-            </div>
-        </sec:authorize>
-
-    </div>
-    <c:if test="${m_id==sessionScope.login}">
-        <button id="updateBtn" onclick="update_board('${t_num}')">수정</button>
-        <button id="deleteBtn" onclick="delete_board('${t_num}')">삭제</button>
-    </c:if>
-
-
-</main>
 <script>
     function update_board(t_num) {
         location.href = "/trade/updatefrm?t_num=" + t_num
@@ -328,10 +341,6 @@
             })
         })
     })
-
-    function exchangefrm(t_num) {
-        location.href = "/trade/exchangefrm?t_num=" + t_num
-    }
 </script>
 </body>
 </html>

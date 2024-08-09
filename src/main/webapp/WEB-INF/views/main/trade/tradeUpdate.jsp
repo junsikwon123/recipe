@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script defer src="/common/js/common.js"></script>
+<%--    <script defer src="/common/js/common.js"></script>--%>
     <script defer src="/common/js/jquery-3.7.1.min.js"></script>
     <style>
         .zz {
@@ -186,10 +186,6 @@
             border: 1px solid #ccc;
         }
 
-        .glyphicon-plus-sign:before {
-            content: url("/assets/img/plus.PNG");
-        }
-
         .btn_add .btn span {
             color: #74b243;
             font-size: 16px;
@@ -264,14 +260,14 @@
                         <c:forEach items="${tUList}" var="trades" varStatus="loop">
                             <li id="liMaterial_1_${loop.index+1}" class="liMaterial_1_1">
                                 <input type="text" name="t_item" id="trade_no1_1" class="form-control"
-                                       placeholder="${trades.t_item}">
+                                       value="${trades.t_item}">
                                 <input type="text" name="t_itemcount" id="trade_no1_2" class="form-control"
-                                       placeholder="${trades.t_itemcount}">
+                                       value="${trades.t_itemcount}">
                                 <input type="text" name="t_unit" id="trade_no1_3" class="form-control"
-                                       placeholder="${trades.t_unit}">
+                                       value="${trades.t_unit}">
                                 <input type="text" name="t_change" id="trade_no1_4" class="form-control"
-                                       placeholder="${trades.t_change}">
-                                <input type="text" name="t_order" id="trade_no1_5" placeholder="${trades.t_order}" style="display: none" class="order">
+                                       value="${trades.t_change}">
+                                <input type="text" name="t_order" id="trade_no1_5" value="${trades.t_order}" style="display: none" class="order">
                                 <button id="btn-del" type="button" class="btn-del"
                                         style="display: none"></button>
                                 <br>
@@ -389,6 +385,7 @@
 
     function update() {
         for (let i = 0; i < length; i++) {
+            console.log(inputs[i].value)
             if (inputs[i].value === "" || inputs[i].value === null) {
                 alert("정보를 입력하세요")
                 return false;
