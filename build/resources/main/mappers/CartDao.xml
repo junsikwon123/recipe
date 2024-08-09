@@ -52,18 +52,18 @@
             on c.c_num = f.c_num
         where ca.m_id = #{name};
     </select>
-    <insert id="insertOrder" parameterType="hashmap">
+    <insert id="insertOrder" parameterType="com.icia.recipe.home.dto.InputListDto">
         insert into
             order1(o_num,m_id,o_total,o_date,o_name,o_address,o_phone,o_count,o_delivery,o_post)
-        values(null,#{id},${price},default,#{name},"${addr1}_${addr2}","010-${phone1}-${phone2}",${count},default,#{post})
+        values(null,#{data.id},${data.price},default,#{name},"${addr1}_${addr2}","010-${phone1}-${phone2}",${data.count},default,#{post})
     </insert>
-    <insert id="insertOrderDetail" parameterType="hashmap">
+    <insert id="insertOrderDetail">
         <selectKey keyProperty="o_num" resultType="int" order="BEFORE">
-            select MAX(o_num) from order1 where m_id = #{id}
+            select MAX(o_num) o_num from order1 where m_id = #{data.id}
         </selectKey>
         insert into
             orderDetail(o_num,f_num,o_unit)
-        values(#{o_num},#{dvCartDetlId},#{dvCartCount})
+        values( #{o_num},#{dvCartDetlId},#{dvCartCount})
     </insert>
     <delete id="deleteCartName">
         delete

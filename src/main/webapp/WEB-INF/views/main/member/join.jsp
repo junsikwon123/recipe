@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: larger; color: black">아이디</th>
-                    <th colspan="4"><input class="id" name="m_id" type="text" placeholder="  6자리 이상의 영문 혹은 영문, 숫자를 조합하여 입력해 주세요" title="아이디" style="height: 50px; width: 600px"></th>
+                    <th colspan="4"><input class="id" name="m_id" type="text" placeholder="  6자리 이상의 영문, 숫자를 조합하여 입력해 주세요" title="아이디" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
                     <th></th>
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: larger; color: black">비밀번호</th>
-                    <th colspan="4"><input class="pw" name="m_pw" type="password" placeholder="  영문, 대소문자, 숫자, 특수문자 중 3개 이상을 조합하여 8자리 이상 입력해 주세요" title="비밀번호" style="height: 50px; width: 600px"></th>
+                    <th colspan="4"><input class="pw" name="m_pw" type="password" placeholder="  영문 대소문자,숫자,특수문자를 조합하여 8자리이상 입력해 주세요" title="비밀번호" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
                     <th></th>
@@ -50,7 +50,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: larger; color: black">비밀번호 확인</th>
-                    <th colspan="4"><input class="pwCheck" name="m_pw" type="password" placeholder="  비밀번호확인" title="비밀번호확인" style="height: 50px; width: 600px"></th>
+                    <th colspan="4"><input class="pwCheck" type="password" placeholder="  비밀번호확인" title="비밀번호확인" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
                     <th></th>
@@ -61,11 +61,16 @@
                     <th colspan="4"><input class="address" name="m_address" type="text" placeholder="  주소" title="주소" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
+                    <th></th>
+                    <th colspan="4"><span class="checkMSG"></span></th>
+                </tr>
+                <tr>
                     <th style="font-size: larger; color: black">휴대폰번호</th>
                     <th><input class="phone" name="m_phone" type="text" placeholder="  전화번호" title="전화번호" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
-                    <th style="font-size: larger; color: black">성별</th>
+                    <th></th>
+                    <th colspan="4"><span class="checkMSG"></span></th>
                 </tr>
             </table>
             <input type="submit" id="joinSubmitHiddenBtn" value="회원가입" style="display: none">
@@ -102,16 +107,26 @@
     const length = frm.length - 1;
     const check1=document.getElementsByClassName("checkMSG")
     const len=check1.length-1
-    for(let i = 0; i < length; i++){
-        frm.addEventListener("input",function (){
-            if(frm[i].value.trim()!==""){
-                check1[i].style.display="none"
-                check1[i].innerHTML=frm[i].title+"를 입력하세요"
-            }else{
-                check1[i].style.display="block"
-            }
-        })
-    }
+    const nameRange = /^(?:[가-힣]{1,10}|[a-zA-Z\s]{1,20})$/;
+    const idRange= /^[a-zA-Z0-9]{6,}$/;
+    const pwRange= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    frm.addEventListener("input", function (event) {
+        const index = Array.from(frm).indexOf(event.target);
+
+        if (index === 0) { // 이름 입력
+            check1[0].innerHTML = nameRange.test(frm[0].value) ? "" : "한글 10자 이내, 영어 20자 이내로 입력해 주세요";
+        }else if (index === 1) { // 아이디 입력
+            check1[1].innerHTML = idRange.test(frm[1].value) ? "" : "6자리 이상의 영문, 숫자를 조합하여 입력해 주세요";
+        }else if(index===2) { //비밀번호 입력
+            check1[2].innerHTML = pwRange.test(frm[2].value) ? "" : "영문 대소문자,숫자,특수문자를 조합하여 8자리이상 입력해 주세요"
+        }else if(index===3){
+            check1[3].innerHTML = (frm[2].value===frm[3].value) ? "" : "비밀번호가 일치하지 않습니다"
+        }else if(index===4){
+            check1[4].innerHTML = (frm[4].value!=="") ? "" : "주소를 입력해 주세요"
+        }else if(index===5){
+            check1[5].innerHTML = (frm[5].value!=="") ? "" : "전화번호를 입력해 주세요"
+        }
+    });
 
     function check() {
         for (let i = 0; i < length; i++) {

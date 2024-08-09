@@ -3,6 +3,7 @@ package com.icia.recipe.home.service;
 import com.icia.recipe.home.dao.CartDao;
 import com.icia.recipe.home.dao.MemberDao;
 import com.icia.recipe.home.dto.CartDto;
+import com.icia.recipe.home.dto.InputOrderDto;
 import com.icia.recipe.management.dto.MemberDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.beans.Transient;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -131,7 +129,35 @@ public class CartService {
         model.addAttribute("price", (dvItemAllPrice.get() + "").replaceAll("\\B(?=(\\d{3})+(?!\\d))", ","));
         return sb.toString();
     }
-
+    @Transactional
+    public boolean inputOrder(String price, InputOrderDto iOrder, String id) {
+        // 주문 삽입
+        HashMap<String,Object> hMap=new HashMap<>();
+        String result = price.replace(",", "");
+        hMap.put("price", result);
+        hMap.put("id", id);
+        hMap.put("count",iOrder.getItemList().size());
+        iOrder.getInputList().get(0).setData(hMap);
+        boolean order = cDao.insertOrder(iOrder.getInputList().get(0));
+        if (!order) {
+            throw new RuntimeException("Failed to insert order");
+        }
+        // 주문 상세 삽입
+        iOrder.getItemList().forEach(i->{
+            i.setData(hMap);
+            boolean itemResult = cDao.insertOrderDetail(i);
+            if (!itemResult) {
+                throw new RuntimeException("Failed to insert order detail");
+            }
+        });
+        // 장바구니 삭제
+        boolean cartDelete = cDao.deleteCartName(id);
+        if (!cartDelete) {
+            throw new RuntimeException("Failed to delete cart name");
+        }
+        return true;
+    }
+   /* @Transactional
     public boolean inputOrder(String price, List<String> inputList, List<String> itemList, String id, String count) {
         HashMap<String, String> inputMap = new HashMap<>();
         inputList.forEach(i -> {
@@ -144,15 +170,22 @@ public class CartService {
         inputMap.put("count", count);
         log.info("아...{}", inputMap);
         List<HashMap<String, String>> itemMapList = new ArrayList<>();
+        log.info("itemList: {}", itemList);
+        log.info("itemList size: {}", itemList.size());
+
         itemList.forEach(i -> {
             String[] element = i.replaceAll("[\\[\\]]", "").replaceAll("[\\{\\}\"]", "").split(",");
             HashMap<String, String> itemMap = new HashMap<>();
             log.info("왜 이게 2번? {}", element);
             Arrays.stream(element).forEach(a -> {
                 String[] element2 = a.split("_");
-                itemMap.put(element2[0], element2[1]);
-                itemMap.put("id", id);
-                itemMapList.add(itemMap);
+                if(!Objects.equals(element2[0], "dvCartDetlId")){
+                    itemMap.put(element2[0], element2[1]);
+                }else{
+                    itemMap.put(element2[0], element2[1]);
+                    itemMap.put("id", id);
+                    itemMapList.add(itemMap);
+                }
             });
         });
         log.info("itemMapList {}", itemMapList);
@@ -181,5 +214,5 @@ public class CartService {
         if (!cartDelete) {
             throw new RuntimeException("Failed to delete cart name");
         }
-    }
+    }*/
 }

@@ -1,25 +1,23 @@
 package com.icia.recipe.home.controller;
 
+import com.icia.recipe.home.dto.InputOrderDto;
+import com.icia.recipe.home.dto.ItemListDto;
 import com.icia.recipe.home.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 @Slf4j
@@ -94,16 +92,22 @@ public class CartController {
     }
 
     @PostMapping("/cart/inputOrder")
-    public String inputOrder(@RequestParam("price") String price, @RequestParam("inputList") List<String> inputList, @RequestParam("itemList") List<String> itemList, Model model, Principal principal) {
-        log.info("inputOrder입장{},{},{}", price, inputList, itemList);
-        log.info("itemList length:{}", itemList.size());
-        String id = principal.getName();
+    public String inputOrder(@RequestParam("price") String price,@ModelAttribute InputOrderDto iOrder, Model model, Principal principal) {
+        /*log.info("inputOrder입장{},{},{}", price, inputList, itemList);
+        log.info("itemList Controller:{}", itemList);
         String count = String.valueOf(itemList.size());
         boolean index = cSer.inputOrder(price, inputList, itemList, id, count);
-        /*if(!index){
+        */
+        log.info("inputOrder: {}", iOrder);
+
+        String id = principal.getName();
+        boolean index = cSer.inputOrder(price,iOrder,id);
+        if(!index){
             model.addAttribute("msg", "주문을 실패하였습니다. 지속되면 관리자에게 문의해주십시요");
-            return "redirect:/cart/main"; }*/
-        return null;
+            return "redirect:/cart/main";
+        }
+
+        return "index";
     }
 
 

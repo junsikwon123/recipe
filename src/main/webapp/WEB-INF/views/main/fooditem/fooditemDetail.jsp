@@ -399,8 +399,9 @@
         const urlParams = new URLSearchParams(qureyString)
         const price = "${price}"
         const dvImg = document.getElementsByClassName("slider__list")
-        const img = dvImg[0].querySelector("img")
-        const jsonImg = JSON.stringify(img.src)
+        let img = dvImg[0].querySelector("img")
+            img = img.src.replace("http://localhost", "")
+        const jsonImg = img
         let rePrice = price.replace(/,/g, "");
         let dvItem = [];
         dvItem.push("dvItemId:" + urlParams.get("f_num"));

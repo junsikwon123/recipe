@@ -1,6 +1,7 @@
 package com.icia.recipe.home.controller;
 
 import com.icia.recipe.home.dto.Member;
+import com.icia.recipe.home.dto.SearchDto;
 import com.icia.recipe.home.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -108,10 +112,19 @@ public class MemberController {
     public String cancle(){
         return "index";
     }
+
+
     @GetMapping("/member/mypage")
-    public String mypage() {
+    public String mypage(Principal principal,Model model) {
+        String id = principal.getName();
+       /* log.info("pageNum:{}", sDto.getPageNum());*/
+        mSer.selectOrder(id, model);
+       /* String pageHtml = mSer.getPaging(id,sDto);*/
+    /*    model.addAttribute("pageHtml", pageHtml);*/
         return "main/member/mypage";
     }
+
+
     @GetMapping("/delivery/info")
     public String delivery() {
         return "main/member/mypage";
