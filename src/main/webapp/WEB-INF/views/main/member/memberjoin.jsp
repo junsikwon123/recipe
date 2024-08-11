@@ -20,13 +20,13 @@
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
 <h1 style="font-size: xxx-large; text-align: center;margin-top: 70px">회원가입</h1>
-<div style="width: 45%; margin: 0 auto 0">
-<div style="margin-top: 100px;display: flex; flex-direction: row">
-    <a href="agreefrm" style="margin-right: 50px">
-        <button style="width: 400px; height: 400px" type="submit" class="btn btn-dark">일반회원</button>
+<div style="margin-left: 400px; width: 1100px;">
+<div style="margin-top: 100px;display: flex; flex-direction: row; text-align: center">
+    <a href="agreefrm" style="margin-right: 50px; margin-left: 270px">
+        <button style="width: 250px; height: 100px; text-align: center; font-size: xxx-large; font-weight: bold" type="submit" class="btn btn-outline-primary">일반회원</button>
     </a>
     <a href="/">
-        <button style="width: 400px; height: 400px" type="submit" class="btn btn-primary">홈페이지로</button>
+        <button style="width: 250px; height: 100px; text-align: center; font-size: xxx-large; font-weight: bold" type="submit" class="btn btn-outline-success">홈페이지로</button>
     </a>
 </div>
 </div>

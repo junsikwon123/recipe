@@ -197,4 +197,14 @@ public class RestTradeController {
         }
         return sb.toString();
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/trade/list/paging")
+    public List<TradeDto> tradeListPaging(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        List<TradeDto> t= tSer.getTradeListPaging(pageNum, pageSize);
+        log.info("[물물교환 페이징] : {}",t);
+        return t;
+    }
+
+
 }

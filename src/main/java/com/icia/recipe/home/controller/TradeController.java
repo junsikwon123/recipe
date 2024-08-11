@@ -232,4 +232,5 @@ public class TradeController {
     public String NaengJangGo() {
         return "main/trade/refrigerator";
     }
+
 }

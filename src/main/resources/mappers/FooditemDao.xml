@@ -57,10 +57,12 @@
         on c1.c_num = c2.c_num2
         left join category c3
         on c2.c_num = c3.c_num2
-        <if test="numName != 'zzzz'">
-            where ${numName} = ${num}
+        <if test="numName != null and numName != 'zzzz'">
+            where ${numName} = ${sDto.data.num}
         </if>
-        order by ${name} ${sort}
+        GROUP BY f_num
+        ORDER BY ${sDto.data.name} ${sDto.data.sort}
+        LIMIT #{sDto.startIdx}, #{sDto.listCnt}
     </select>
 
     <select id="searchCtg" resultType="com.icia.recipe.home.dto.CtgDto" resultMap="mapForFindAll">
@@ -101,29 +103,12 @@
     <select id="searchFoodDetailInfo" resultType="com.icia.recipe.home.dto.FooditemDto">
         select f_contents from fooditem where f_num = ${num}
     </select>
-
-
-    <select id="searchctgFoodtitem" resultMap="seachFooditemMain">
-        SELECT f.f_num , i.i_path, i.i_sys_name, f.f_title f_title,
-               format(f.f_price,0) f_price, f.f_views, c1.c_num c1_num,
-               c2.c_num c2_num,c3.c_num c3_num,  i.i_num
-        FROM fooditem f
-        left JOIN img i
-        ON i.f_num = f.f_num
-        left JOIN (
-            select min(i_num) min_inum, f_num
-            from img
-            group by f_num
-        ) img
-        ON img.f_num = i.f_num
-        AND img.min_inum = i.i_num
-        JOIN category c1
-        ON c1.c_num = f.c_num
-        left join category c2
-        on c1.c_num = c2.c_num2
-        left join category c3
-        on c2.c_num = c3.c_num2
-        where ${numName} = ${cNum}
+    <select id="getFooditemCount" resultType="java.lang.Integer">
+        select count(*)from fooditem
+        <if test="num != no" >
+            where c_num = ${num}
+        </if>
     </select>
+
 
 </mapper>

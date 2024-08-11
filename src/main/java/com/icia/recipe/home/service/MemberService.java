@@ -24,7 +24,7 @@ public class MemberService {
     PasswordEncoder passwordEncoder;
 
     PasswordManager pm = new PasswordManager();
-
+    private int pageCount = 0;
     public boolean join(Member member) {
         System.out.println("pwEncoder: " + passwordEncoder);
         member.setM_pw(passwordEncoder.encode(member.getM_pw()));
@@ -120,23 +120,24 @@ public class MemberService {
         int totalNum = mDao.getorderCount(id);
         log.info("totalNum : {}", totalNum);
         String listUrl = "/member/mypage?";
-        Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),5,listUrl);
+        Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),pageCount,listUrl);
         return paging.makeHtmlPaging();
     }
 
 
-    public void selectOrder(String id, Model model) {
-   /*     if (sDto.getPageNum() == null)
+    public void selectOrder(String id, Model model, SearchDto sDto) {
+        pageCount = 4;
+        if (sDto.getPageNum() == null)
             sDto.setPageNum(1);
         if (sDto.getListCnt() == null)
-            sDto.setListCnt(3);
+            sDto.setListCnt(pageCount);
         if (sDto.getStartIdx() == null)
             sDto.setStartIdx(0);
-       sDto.setStartIdx((sDto.getPageNum()-1)*sDto.getListCnt());*/
-      /*  HashMap<String,String> hMap = new HashMap<>();
+       sDto.setStartIdx((sDto.getPageNum()-1)*sDto.getListCnt());
+        HashMap<String,String> hMap = new HashMap<>();
         hMap.put("id",id);
-        sDto.setData(hMap);*/
-        List<OrderDto> list = mDao.selectOrder(id);
+        sDto.setData(hMap);
+        List<OrderDto> list = mDao.selectOrder(sDto);
         log.info("selectOrder:{}",list);
         model.addAttribute("orderTable", makeOrder(list));
         model.addAttribute("empty", "ok");

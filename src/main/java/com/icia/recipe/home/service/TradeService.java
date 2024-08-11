@@ -131,4 +131,16 @@ public class TradeService {
     public String getMemberName(String mId) {
         return tDao.getMemberName(mId);
     }
+
+    public List<TradeDto> getTradeListPaging(Integer pageNum, Integer pageSize) {
+        List<TradeDto> tList = tDao.tradeList();
+        int totalListCnt = tList.size();
+        int fromIdx = (pageNum - 1) * pageSize;
+        int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+        if (fromIdx > totalListCnt) {
+            return List.of();
+        }
+        log.info("[페이징 서비스] : {}",tList.subList(fromIdx, toIdx));
+        return tList.subList(fromIdx, toIdx);
+    }
 }

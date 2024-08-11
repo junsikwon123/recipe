@@ -2,6 +2,7 @@ package com.icia.recipe.home.dao;
 
 import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.home.dto.CtgDto;
+import com.icia.recipe.home.dto.SearchDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface FooditemDao {
-    List<FooditemDto> searchFooditem(@Param("name") String name, @Param("sort") String sort,@Param("numName") String numName, @Param("num") String num);
+    List<FooditemDto> searchFooditem(@Param("sDto") SearchDto sDto,@Param("numName") String numName);
 
     List<CtgDto> searchCtg();
 
@@ -19,5 +20,7 @@ public interface FooditemDao {
 
     boolean viewsPlus(String num);
 
-    List<FooditemDto> searchctgFoodtitem(@Param("numName") String numName,@Param("cNum") String cNum);
+    int getFooditemCount(String num);
+
+    /*List<FooditemDto> searchctgFoodtitem(@Param("numName") String numName,@Param("cNum") String cNum);*/
 }

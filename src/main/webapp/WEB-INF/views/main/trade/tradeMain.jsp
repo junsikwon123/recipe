@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-<%--     <script defer src="../common/js/common.js"></script>--%>
+    <%--     <script defer src="../common/js/common.js"></script>--%>
     <script src="../common/js/jquery-3.7.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -85,6 +85,40 @@
     }
 </style>
 <body>
+<script>
+
+    function tradeListPaging(elem) {
+        console.log("페이징 함수 진입")
+        console.log(elem.innerHTML)
+        $.ajax({
+            method: 'get',
+            url: "/trade/list/paging",
+            data: {"pageNum": elem.innerHTML, "pageSize": 8}
+        }).done((resp) => {
+            console.log("페이징 DONE")
+            console.log(resp)
+            let thisDiv = $('#tradeList')
+            let str = "";
+            for (const el of resp) {
+                if (el.visible === "1") {
+                    str += "<div class='trade-card' id='" + el.visible + "'>"
+                    str += "<a href='/trade/detail?t_num='" + el.t_num + "'>" + el.t_title
+                    str += "<span id='trade_m_id'>작성자 : " + el.m_id + "</span>"
+                    str += "<span>날짜 : " + el.t_date + "</span>"
+                    str += "<span>조회수 :" + el.t_views + "</span>"
+                    str += "<span>추천수 : " + el.t_count + "</span></a></div>"
+                }
+            }
+            if (str !== "") {
+                thisDiv.html(str)
+            } else {
+                thisDiv.html('페이지가 존재하지 않습니다. 집에가세요')
+            }
+        }).fail((err) => {
+            console.log("페이징 FAIL")
+        })
+    }
+</script>
 <header>
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
@@ -113,18 +147,51 @@
 
             <c:forEach var="trades" items="${tList}">
                 <c:if test="${trades.visible=='1'}">
-                <div class="trade-card" id="${trades.visible}">
-                    <a href="/trade/detail?t_num=${trades.t_num}">${trades.t_title}
-                        <span id="trade_m_id">작성자: ${trades.m_id}</span>
-                        <span>날짜: ${trades.t_date}</span>
-                        <span>조회수: ${trades.t_views}</span>
-                        <span>추천수: ${trades.t_count}</span>
-                    </a>
-                </div>
+                    <div class="trade-card" id="${trades.visible}">
+                        <a href="/trade/detail?t_num=${trades.t_num}">${trades.t_title}
+                            <span id="trade_m_id">작성자: ${trades.m_id}</span>
+                            <span>날짜: ${trades.t_date}</span>
+                            <span>조회수: ${trades.t_views}</span>
+                            <span>추천수: ${trades.t_count}</span>
+                        </a>
+                    </div>
                 </c:if>
             </c:forEach>
-
         </div>
+    </div>
+    <div style="margin-left: 370px; width: 1100px; text-align: center; margin-top: 25px">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" onclick="tradeListPaging(this)"
+                                         href="javascript:void(0)">1</a></li>
+                <li class="page-item"><a class="page-link" onclick="tradeListPaging(this)"
+                                         href="javascript:void(0)">2</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">3</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">4</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">5</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">6</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">7</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">8</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                         onclick="tradeListPaging(this)">9</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <footer>
@@ -209,9 +276,10 @@
             })
         })
     })
-        function total() {
-            window.location.reload()
-        }
+
+    function total() {
+        window.location.reload()
+    }
 </script>
 </body>
 </html>

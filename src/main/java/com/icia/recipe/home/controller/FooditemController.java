@@ -2,6 +2,7 @@ package com.icia.recipe.home.controller;
 
 import com.icia.recipe.home.dao.FooditemDao;
 import com.icia.recipe.home.dto.FooditemDto;
+import com.icia.recipe.home.dto.SearchDto;
 import com.icia.recipe.home.service.FooditemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -22,13 +23,24 @@ public class FooditemController {
     @Autowired
     FooditemDao fDao;
     @GetMapping("/fooditem/main")
-    public String foodItemMain(Model model){
+    public String foodItemMain(Model model, SearchDto sDto){
+        int pageCount = 20;
+        if (sDto.getPageNum() == null)
+            sDto.setPageNum(1);
+        if (sDto.getListCnt() == null)
+            sDto.setListCnt(pageCount);
+        if (sDto.getStartIdx() == null)
+            sDto.setStartIdx(0);
+        sDto.setStartIdx((sDto.getPageNum()-1)*sDto.getListCnt());
+        String listUrl = "/fooditem/main?";
         String a ="salePriceAsc";
         String num = "no";
-        String list = fSer.fooditemOrder(a,num);
+        String list = fSer.fooditemOrder(a,num,sDto);
         String cList = fSer.fooditemctg();
+        String pageHtml = fSer.getPaging(num,sDto,listUrl);
         model.addAttribute("list",list);
         model.addAttribute("cList",cList);
+        model.addAttribute("pageHtml",pageHtml);
         return "main/fooditem/fooditemMain";
     }
     @GetMapping("/fooditem/detail")

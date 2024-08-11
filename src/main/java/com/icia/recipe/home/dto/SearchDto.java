@@ -18,5 +18,4 @@ public class SearchDto {
 	private Integer listCnt; //10, 패이지당 글의 갯수
 	private Integer startIdx;// 1page: 0~ 2page:10~
 	private Map<String, String> data;
-
 }

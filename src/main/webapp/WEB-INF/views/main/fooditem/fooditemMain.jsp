@@ -54,8 +54,30 @@
                     <div class="newcx-main">
                         <div class="newcx-widget-container">
                             <div class="newcx-top-multi-link-banner" data-web-log-event="expose" data-log-sent="1">
-                                <img src="/uploadedImg/main/bannerunit_6611870e-8808-439b-905f-9f04c6ee9a2a.png?h=a6fd6576c3beddb2f65e9dceefc8b8d0">
+                                <img src="/uploadedImg/main/bannerunit_6611870e-8808-439b-905f-9f04c6ee9a2a.png?h=a6fd6576c3beddb2f65e9dceefc8b8d0" usemap="#image-map">
                             </div>
+                            <map name="image-map">
+                                <area target="_self" alt="과일" title="과일" href="javascript:imgLink(102)" coords="26,127,187,321" shape="rect">
+                                <area target="_self" alt="정육/계란" title="정육/계란" href="javascript:imgLink(103)" coords="213,125,352,324" shape="rect">
+                                <area target="_self" alt="밀키트" title="밀키트" href="javascript:imgLink(104)" coords="530,318,379,133" shape="rect">
+                                <area target="_self" alt="냉장/냉동/간편식" title="냉장/냉동/간편식" href="javascript:imgLink(105)" coords="558,126,710,322" shape="rect">
+                                <area target="_self" alt="델리/셀러드" title="델리/셀러드" href="javascript:imgLink(106)" coords="734,123,883,324" shape="rect">
+                                <area target="_self" alt="통조림/즉석밥/면" title="통조림/즉석밥/면" href="javascript:imgLink(107)" coords="903,122,1066,320" shape="rect">
+                                <area target="_self" alt="수산/건어물" title="수산/건어물" href="javascript:imgLink(108)" coords="181,528,31,337" shape="rect">
+                                <area target="_self" alt="김치/반찬" title="김치/반찬" href="javascript:imgLink(109)" coords="208,335,354,530" shape="rect">
+                                <area target="_self" alt="만두" title="만두" href="javascript:imgLink(248)" coords="376,338,534,530" shape="rect">
+                                <area target="_self" alt="쌀/잡곡" title="쌀/잡곡" href="javascript:imgLink(110)" coords="552,334,707,524" shape="poly">
+                                <area target="_self" alt="베이커리" title="베이커리" href="javascript:imgLink(101)" coords="735,336,882,527" shape="rect">
+                                <area target="_self" alt="유아식" title="유아식" href="javascript:imgLink(297)" coords="910,337,1049,520,982,424" shape="rect">
+                                <area target="_self" alt="장/양념/소스" title="장/양념/소스" href="javascript:imgLink(112)" coords="34,541,180,736" shape="rect">
+                                <area target="_self" alt="간식/떡/빙과" title="간식/떡/빙과" href="javascript:imgLink(113)" coords="202,544,356,738" shape="rect">
+                                <area target="_self" alt="커피/음료" title="커피/음료" href="javascript:imgLink(114)" coords="376,542,533,733,465,682" shape="rect">
+                                <area target="_self" alt="우유/유제품" title="우유/유제품" href="javascript:imgLink(115)" coords="552,546,704,734" shape="rect">
+                                <area target="_self" alt="채소" title="채소" href="javascript:imgLink(116)" coords="726,547,881,736" shape="rect">
+                                <area target="_self" alt="건강식품" title="건강식품" href="" coords="906,544,1056,737" shape="rect">
+                                <area target="_self" alt="생필품/꽃/반려동물" title="생필품/꽃/반려동물" href="" coords="25,757,188,946,163,872" shape="rect">
+                                <area target="_self" alt="선물세트" title="선물세트" href="" coords="203,758,358,951" shape="rect">
+                            </map>
                         </div>
                         <div class="newcx-list" data-search-id="1b49d3cefad242bd8585867217cf4c11">
                             <div class="newcx-main-category-header">
@@ -93,7 +115,7 @@
                             </div>
                             <ul id="productList" class="baby-product-list" style="margin-right: 0px;padding-left: 1px;">
                                 ${list}
-                                <li class="baby-product renew-badge">
+                               <%-- <li class="baby-product renew-badge">
                                     <a class="baby-product-link"
                                        href="/fooditem/detail"
                                        style="height: 466px;">
@@ -122,310 +144,12 @@
                                             </dd>
                                         </dl>
                                     </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
-                                <li class="baby-product renew-badge">
-                                    <a class="baby-product-link"
-                                       href="https://www.coupang.com/vp/products/153523275?itemId=2700280021&amp;vendorItemId=70690630155&amp;sourceType=CATEGORY&amp;categoryId=393660"
-                                       style="height: 466px;">
-                                        <dl class="baby-product-wrap adjust-spacing " style="height: 444px;">
-                                            <dt class="image">
-                                                <img src="/assets/img/이미지 1.jpg"
-                                                     width="100%" alt="프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개">
-                                            </dt>
-                                            <dd class="descriptions">
-                                                <div class="badges"></div>
-                                                <div class="name"> 프린스 에드워드 아일랜드 블렌드 (냉동), 1kg, 2개</div>
-                                                <div class="price-area ">
-                                                    <div class="price-wrap">
-                                                        <div class="price">
-                                                            <strong class="price-value"
-                                                                    style="font-size: 15px">19,900</strong>원
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="other-info">
-                                                    <div class="rating-star"><span class="star">
-                                                    <em class="rating" style="width: 70%;">5.0</em></span>
-                                                        <span class="rating-total-count">(5384)</span>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </a>
-                                </li>
+                                </li>--%>
                             </ul>
                             <%--식자재 미리보기 --%>
-                            <div class="clearFix"></div>
+                            <div id="pageHtml">
+                                ${pageHtml}
+                            </div>
                         </div>
                     </div>
                     <div class="newcx-nav">
@@ -466,35 +190,58 @@
             parentLi.classList.add('selected');
             radio.checked = true;
             let date = "order:" + radio.value;
-            /*let num = "${sessionScope.num}";*/
             console.log("num: ",localStorage.getItem('num'))
             if(localStorage.getItem('num') !== null || !localStorage.getItem('num') !== ""){
                 date += ",c_num:"+localStorage.getItem('num');
+            }
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            let pageNum = urlParams.get("pageNum");
+            if(pageNum !== "1"){
+                pageNum="1";
+            }
+            if(pageNum !== ""){
+                date += "pageNum:"+pageNum;
             }
             let dataObj = {};
             date.split(',').forEach(part =>{
                 let [key, value] = part.split(':')
                 dataObj[key] = value;
             })
+
             console.log(dataObj);
             console.log(date);
             $.ajax({
                 type: 'get',
                 url: "/fooditem/order",
                 data: dataObj
-
             }).done((resp) => {
-                $("#productList").html(resp)
+                $("#productList").html(resp.list)
+                $("#pageHtml").html(resp.pageHtml)
+                updateURLParameter('pageNum', pageNum);
             }).fail((err) => console.log(err))
         });
     });
 
     function searchctg(obj, c_num) {
+        console.log("this",obj);
         console.log("ctgNum",c_num)
         localStorage.setItem('num',c_num)
+        let dataObj = {};
+        dataObj["c_num"] = c_num;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let pageNum = urlParams.get("pageNum");
+        if(pageNum !== "1"){
+            pageNum="1";
+        }
+        if(pageNum !== ""){
+            dataObj["pageNum"] = pageNum;
+        }
         $.ajax({
             method: "get",
-            url: "/fooditem/searchctg?c_num=" + c_num
+            url: "/fooditem/searchctg",
+            data: dataObj
         }).done((resp) => {
             const ctgImg = document.getElementsByClassName("newcx-top-multi-link-banner");
             ctgImg[0].style.display = 'none';
@@ -508,8 +255,18 @@
             const parentLi = searchRadio[0].parentElement;
             parentLi.classList.add('selected');
             parentLi.checked = true;
-            $("#productList").html(resp)
+            $("#productList").html(resp.list)
+            $("#pageHtml").html(resp.pageHtml)
+            updateURLParameter('pageNum', pageNum);
+
         }).fail((err) => console.log(err))
+    }
+    function imgLink(c_num){
+        const ctg = document.getElementById(c_num);
+        const ctgLi = ctg.closest("li")
+        console.log("ctg",ctgLi.querySelector(".seo-link-url"))
+        const ctgLink = ctgLi.querySelector(".seo-link-url")
+        searchctg(ctgLink,c_num)
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -528,7 +285,7 @@
         // 이 리스트 아이템 내의 자식 ul 요소 찾기
         const childUl = result.querySelector(".search-option-items-child");
         // 자식 ul 요소의 클래스 이름을 콘솔에 출력
-        console.log(childUl.className);
+        console.log("cName",childUl.className);
 
         // 자식 ul 요소의 display 속성을 토글 및 클래스 추가/제거
         if (childUl.style.display === "block") {
@@ -540,6 +297,12 @@
             result.classList.add('selected', 'opened');
             result.classList.add('on'); // 선택 사항: 버튼 스타일링을 위한 'on' 클래스 토글
         }
+
+    }
+    function updateURLParameter(param, value) {
+        var url = new URL(window.location.href);
+        url.searchParams.set(param, value);
+        window.history.pushState({}, '', url);
     }
 
 

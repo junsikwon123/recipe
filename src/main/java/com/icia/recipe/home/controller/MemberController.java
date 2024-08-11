@@ -115,12 +115,13 @@ public class MemberController {
 
 
     @GetMapping("/member/mypage")
-    public String mypage(Principal principal,Model model) {
+    public String mypage(Principal principal,Model model,SearchDto sDto) {
         String id = principal.getName();
-       /* log.info("pageNum:{}", sDto.getPageNum());*/
-        mSer.selectOrder(id, model);
-       /* String pageHtml = mSer.getPaging(id,sDto);*/
-    /*    model.addAttribute("pageHtml", pageHtml);*/
+        log.info("pageNum:{}", sDto.getPageNum());
+        log.info("sDto:{}",sDto);
+        mSer.selectOrder(id, model, sDto);
+        String pageHtml = mSer.getPaging(id,sDto);
+        model.addAttribute("pageHtml", pageHtml);
         return "main/member/mypage";
     }
 
