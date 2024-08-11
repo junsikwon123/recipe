@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="../common/header1.jsp"></jsp:include>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <div class="careMain">
 <div style="display: flex;flex-direction: column; text-align: center">
     <a href="javacript:void(0)" onclick="careServiceInfoOpenModal()"><strong>건강식단 ></strong></a><br>

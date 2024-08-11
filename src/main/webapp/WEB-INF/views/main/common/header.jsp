@@ -47,6 +47,37 @@
         list-style: none;
     }
 </style>
+<script>
+    $(() => {
+        document.getElementById('titleName1').classList.remove("on")
+        document.getElementById('titleName2').classList.remove("on")
+        switch (window.location.pathname) {
+            case "/":
+                document.getElementById('titleName1').classList.add("on")
+                break;
+            case "/careMain":
+                document.getElementById('titleName2').classList.add("on")
+                break;
+            default:
+                console.log("시발 왜 안되냐고")
+        }
+    })
+    function saveTitleName(titleName) {
+        console.log("현재 타이틀 이름은 ?")
+        let tName = titleName.innerHTML
+        console.log(window.location.pathname)
+        switch (tName) {
+            case "건강마켓":
+                window.location.href="/"
+                break;
+            case "식단관리":
+                window.location.href="/careMain"
+                break;
+            default:
+                console.log("건강/식단 선택 에러")
+        }
+    }
+</script>
 <body id="main" class="hd">
 <div id="wrap">
     <header id="header" class="hd__header">
@@ -95,8 +126,10 @@
                         </a>
                     </h1>
                     <div class="menu">
-                        <a class="on" href="/">건강마켓</a><a href="/careMain">식단관리</a>
+                        <a id="titleName1" href="javascript:void(0)" onclick="saveTitleName(this)">건강마켓</a>
+                        <a id="titleName2" href="javascript:void(0)" onclick="saveTitleName(this)">식단관리</a>
                     </div>
+                    <input id="savedTitleName" style="display: none">
                     <nav class="direct">
                         <div class="direct__search btn__modal-open" data-login="y" id="searchPopup"
                              data-popup-name="popup_search" style="margin-bottom: 10px;">

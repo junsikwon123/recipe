@@ -20,9 +20,7 @@ $(document).ready(function () {
 
 function connectWs() {
     // let ws = new SockJS("/ws/alert");
-    let ws;
-    ws=socket;
-
+    let ws = socket;
     ws.onopen = function () {
         console.log('open');
     };

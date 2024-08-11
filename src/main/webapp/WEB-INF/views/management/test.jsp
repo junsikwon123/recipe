@@ -5,6 +5,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <script>
+    function fuckU(e) {
+        console.log(e)
+        console.log(e.innerHTML)
+        console.log(e.vals)
+    }
 </script>
 <body style="text-align: center; margin-top: 300px">
 <a href="/main">메인으로</a>
@@ -17,6 +22,6 @@
 <select id='foodItemBigCg-modalInput' class='modal-input' style='height: 50px; width: 150px'>
     <option selected>직접입력</option>
 </select>
-
+<a href="javascript:void(0)" onclick="fuckU(this)">시발거</a>
 </body>
 </html>

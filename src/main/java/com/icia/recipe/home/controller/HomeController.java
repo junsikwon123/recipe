@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -21,7 +22,8 @@ public class HomeController {
     MemberService mSer;
 
     @GetMapping("/")
-    public String index(MemberDto mDto,HttpSession session, Model model, Principal principal, Authentication auth,@AuthenticationPrincipal UserDetails userDetails) {
+    public String index(MemberDto mDto, HttpSession session, Model model, Principal principal, Authentication auth,
+                        @AuthenticationPrincipal UserDetails userDetails) {
         if(userDetails!=null) {
             String m_id = userDetails.getUsername();
             String m_name = mSer.findId(m_id);
@@ -31,6 +33,7 @@ public class HomeController {
         System.out.println("Principal:"+principal);
         if(session.getAttribute("msg")!=null) {
             model.addAttribute("msg", session.getAttribute("msg"));
+//            model.addAttribute("TITLE", name);
             session.removeAttribute("msg");
         }
         return "index";
