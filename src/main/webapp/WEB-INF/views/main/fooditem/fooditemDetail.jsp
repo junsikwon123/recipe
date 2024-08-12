@@ -91,9 +91,6 @@
                     <h3 class="info-area__name">
                         <span class="strong">${c_name}&nbsp;${title}</span><span>원산지 :*상세페이지 참고</span>
                     </h3>
-                    <sec:authorize access="hasRole('ADMIN')">
-                        <button>수정</button>
-                    </sec:authorize>
                     <div class="box"></div>
                     <div class="price">
                         <div class="price-discounted strong">${price}원</div>
@@ -139,7 +136,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <section class="btn-area">
                         <div class="btn">
@@ -350,6 +346,10 @@
     console.log(cartBtn);
     Array.from(cartBtn).forEach(bt => {
         bt.addEventListener("click", function () {
+            if (itemCount.value === 0){
+                alert("수량을 입력해주세요")
+                return false
+            }
             console.log("id", bt.id);
             switch (bt.id) {
                 case "intoOrder":

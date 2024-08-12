@@ -201,7 +201,7 @@
                 pageNum="1";
             }
             if(pageNum !== ""){
-                date += "pageNum:"+pageNum;
+                date += ",pageNum:"+pageNum;
             }
             let dataObj = {};
             date.split(',').forEach(part =>{
@@ -285,6 +285,9 @@
         // 이 리스트 아이템 내의 자식 ul 요소 찾기
         const childUl = result.querySelector(".search-option-items-child");
         // 자식 ul 요소의 클래스 이름을 콘솔에 출력
+        if(childUl===null){
+            return null
+        }
         console.log("cName",childUl.className);
 
         // 자식 ul 요소의 display 속성을 토글 및 클래스 추가/제거
