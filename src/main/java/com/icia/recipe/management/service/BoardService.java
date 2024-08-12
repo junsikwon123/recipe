@@ -169,7 +169,7 @@ public class BoardService {
 
     // 식자재 리스트 가져오기. 대분류 중분류에 해당하는 이름으로 바꾸고 ㅇㅇ
     public List<FoodItemDto> getFoodItemList(Integer pageNum, Integer pageSize) {
-        List<FoodItemDto> fiList = bDao.getFoodItemList();
+        List<FoodItemDto> fiList = bDao.getFoodItemList2();
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
@@ -369,27 +369,39 @@ public class BoardService {
     }
 
 
-    public List<FoodItemDto> modalDetailsInfoUpdate(List Cdata, List Udata) {
-        String c_cnum = (String) Cdata.get(0);
-        String c_cnum2 = (String) Cdata.get(1);
-        String c_ftitle = (String) Cdata.get(2);
-        String fnum = (String) Cdata.get(3);
+    public List<FoodItemDto> modalDetailsInfoUpdate(List<String> Cdata, List<String> Udata) {
+        String c_cnum = Cdata.get(0);
+        String c_cnum2 = Cdata.get(1);
+        String c_ftitle = Cdata.get(2);
+        String fnum = Cdata.get(3);
 
-        String u_code = (String) Udata.get(0);
-        String u_cnum = (String) Udata.get(1);
-        String u_cnum2 = (String) Udata.get(2);
-        String u_price = (String) Udata.get(3);
-        String u_count = (String) Udata.get(4);
-        String u_origin = (String) Udata.get(5);
-        String u_save = (String) Udata.get(6);
-        String u_cal = (String) Udata.get(7);
+        String u_code = Udata.get(0);
+        String u_cnum = Udata.get(1);
+        String u_cnum2 = Udata.get(2);
+        String u_price = Udata.get(3);
+        String u_count = Udata.get(4);
+        String u_origin = Udata.get(5);
+        String u_save = Udata.get(6);
+        String u_cal = Udata.get(7);
 
-        List<String> params = Stream.of(c_ftitle, c_cnum, c_cnum2, u_code, u_cnum, u_cnum2, u_price, u_count, u_origin, u_save, u_cal)
-                .filter(Objects::nonNull)
-                .toList();
+        // 파라미터를 Map에 넣어 MyBatis로 전달
+        Map<String, Object> params = new HashMap<>();
+        params.put("c_cnum", c_cnum);
+        params.put("c_cnum2", c_cnum2);
+        params.put("c_ftitle", c_ftitle);
+        params.put("u_code", u_code);
+        params.put("u_cnum", u_cnum);
+        params.put("u_cnum2", u_cnum2);
+        params.put("u_price", u_price);
+        params.put("u_count", u_count);
+        params.put("u_origin", u_origin);
+        params.put("u_save", u_save);
+        params.put("u_cal", u_cal);
 
-        // null이 아닌 값만을 포함한 리스트를 개별 파라미터로 전달
-        boolean result = bDao.updateAndGetModalDetailsInfo(params.toArray(new String[0]));
+        log.info("[식자재 수정] 파라미터 맵 : {}", params);
+
+        boolean result = bDao.updateAndGetModalDetailsInfo(params);
+
         if (result) {
             return bDao.getModalDetailsInfoUpdateBeforeList(fnum);
         } else {
@@ -397,6 +409,7 @@ public class BoardService {
             return null;
         }
     }
+
 
     public List<FoodItemDto> getCategory() {
         List <FoodItemDto> cList = bDao.getCategory();

@@ -57,6 +57,7 @@
         and f.f_title = #{c_ftitle}
     </update>
 
+
     <delete id="deleteCategory">
         delete from category where c_name=#{name}
     </delete>
@@ -164,6 +165,10 @@
     </select>
     <select id="getMidCgNum" resultType="java.lang.String">
         select c_num from category where c_name=#{fiMidCg}
+    </select>
+    <select id="getFoodItemList2" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem
+        where status = 1
     </select>
     <insert id="addRecipeBigCg">
         insert into recipe values ('','','','','','','')

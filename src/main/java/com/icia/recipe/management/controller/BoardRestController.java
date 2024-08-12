@@ -169,7 +169,13 @@ public class BoardRestController {
 
     @PostMapping("/boardlist/modalinfo/update")
     public List<FoodItemDto> modalDetailsInfoUpdate(@RequestParam("Cdata") List Cdata, @RequestParam("Udata") List Udata) {
+        log.info("[식자재 수정] 컨트롤러 진입");
         return bSer.modalDetailsInfoUpdate(Cdata, Udata);
+    }
+
+    @GetMapping("/modal/update/after/list")
+    public List<FoodItemDto> modalDetailsUpdateAfterList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        return bSer.getFoodItemList(pageNum, pageSize);
     }
 
 
