@@ -305,4 +305,15 @@ public class InvenService {
         return iDao.emptyFoodItem();
     }
 
+    public List<?> getFoodItemList(Integer pageNum, Integer pageSize) {
+        List<FoodItemDto> fList = iDao.getDeleteFooditemList();
+        int totalListCnt = fList.size();
+        int fromIdx = (pageNum - 1) * pageSize;
+        int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
+
+        if (fromIdx >= totalListCnt) {
+            return List.of();
+        }
+        return fList.subList(fromIdx, toIdx);
+    }
 }

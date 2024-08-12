@@ -49,6 +49,7 @@ public class InvenRestController {
                 invenList = iSer.getInvenList(pageNum, pageSize);
                 break;
             case "폐":
+                invenList = iSer.getFoodItemList(pageNum, pageSize);
                 break;
             default :
                 return null;

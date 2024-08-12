@@ -41,6 +41,7 @@
         FROM fooditem f
                  JOIN
              category c ON f.c_num = c.c_num
+        where f.status = 1
     </select>
     <select id="getSearchModalDetailsInven" resultType="com.icia.recipe.management.dto.InvenDto">
     </select>
@@ -48,6 +49,7 @@
         select * from fooditem f
         join category c
         on f.c_num = c.c_num
+        where f.status = 1
     </select>
     <select id="getMemberList" resultType="com.icia.recipe.management.dto.MemberDto">
         select * from member

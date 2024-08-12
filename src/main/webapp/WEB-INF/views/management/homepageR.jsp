@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css?h=94c76ca45cf1136042bce4cad72a7b5e">
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <body id="page-top">
 <script>
@@ -21,6 +23,9 @@
             ck.checked = selectAll.checked;
         })
     }
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
 </script>
 <!-- 게시글 등록 모달 -->
 <div class="modal fade" id="outerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -71,8 +76,10 @@
                         <div>
                             <input class="border-bottom-primary" name="foodItemTitle-modalInput" id="outerContentsTitle" type="text" placeholder="제 목"
                                    style="width: 100%;height: 70px; font-size: xx-large;border: none">
-                            <input class="border-bottom-primary" name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"
-                                   style="width: 100%;height: 400px;border: none">
+<%--                            <input class="border-bottom-primary" name='foodItemContents-modalInput' id="outerContents" type="text" placeholder="내 용"--%>
+<%--                                   style="width: 100%;height: 400px;border: none">--%>
+                            <textarea id="summernote" name="summernoteModalContents"></textarea>
+
                         </div>
                     </div>
                 </div>

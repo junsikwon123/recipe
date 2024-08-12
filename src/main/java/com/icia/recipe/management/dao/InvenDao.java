@@ -38,4 +38,6 @@ public interface InvenDao {
     List<FoodItemDto> emptyFoodItem();
 
     String IdFind();
+
+    List<FoodItemDto> getDeleteFooditemList();
 }

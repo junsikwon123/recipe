@@ -60,13 +60,16 @@
     <delete id="deleteCategory">
         delete from category where c_name=#{name}
     </delete>
-    <delete id="deleteFoodItemList">
-        delete from fooditem where 1=1
-        and f_num in
-                             <foreach collection="list" index="index" item="deleteKey" open="(" close=")" separator=", ">
-                                 #{deleteKey}
-                             </foreach>
-    </delete>
+    <update id="deleteFoodItemList">
+        UPDATE fooditem
+        SET status = 0
+        WHERE status = 1
+        AND f_num IN
+        <foreach collection="list" item="deleteKey" open="(" close=")" separator=",">
+            #{deleteKey}
+        </foreach>
+    </update>
+
 
     <select id="getRecipeList" resultType="com.icia.recipe.management.dto.BoardDto">
         select * from recipe order by r_num desc
@@ -105,11 +108,14 @@
     </select>
 
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem order by f_num desc
+        select * from fooditem
+                 where status = 1
+                 order by f_num desc
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem order by ${param} ${sort}
+        select * from fooditem where status = 1
+                                order by ${param} ${sort}
     </select>
     <select id="getFoodItemListNaming" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
@@ -127,7 +133,7 @@
         from fooditem f
         join category c
         on f.c_num=c.c_num
-        where f_num = #{trCode}
+        where f_num = #{trCode} and f.status = 1
     </select>
     <select id="getFiImg" resultType="java.lang.String">
         select i_sys_name from img where f_num = #{code}
@@ -139,15 +145,15 @@
         select * from fooditem f
         join category c
         on f.c_num = c.c_num
-        where f_num = #{fnum}
+        where f_num = #{fnum} and status = 1
     </select>
     <select id="getCategory" resultType="com.icia.recipe.management.dto.FoodItemDto">
         select * from category
-        WHERE LEFT(c_num, 1) = '1';
+        WHERE LEFT(c_num, 1) = '1'
     </select>
     <select id="getCategory2" resultType="com.icia.recipe.management.dto.FoodItemDto">
         select * from category
-        WHERE LEFT(c_num, 1) = '2';
+        WHERE LEFT(c_num, 1) = '2'
     </select>
     <select id="getBigCgNum" resultType="java.lang.String">
         select c_num from category where c_name=#{fiBigCg}
