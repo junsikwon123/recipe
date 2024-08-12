@@ -19,32 +19,34 @@
         <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
     </resultMap>
     <resultMap id="selectOrderAll" type="com.icia.recipe.home.dto.OrderDto">
-        <id property="o_count" column="o_count"/>
+        <id property="o_num" column="o_num"/>
         <result property="o_total" column="o_total"/>
-        <result property="o_num" column="o_num"/>
+        <result property="o_count" column="o_count"/>
         <result property="o_delivery" column="o_delivery"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
         <collection property="fList" javaType="java.util.ArrayList" resultMap="selectFooditem"/>
         <collection property="oList" javaType="java.util.ArrayList" resultMap="selectOrderDetail"/>
     </resultMap>
     <select id="selectOrder" resultMap="selectOrderAll">
-        SELECT o.o_total o_total ,o.o_count, f.f_title ,i.i_sys_name,
-               i.i_path,o.o_num,od.o_unit,f.f_num,f.f_price, o.o_num,o.o_delivery
-        from order1 o
-        join orderdetail od
-        on od.o_num = o.o_num
-        join fooditem f
+        SELECT o.o_num,o.o_total, o.o_count, f.f_title, i.i_sys_name,
+            i.i_path, MIN(f.f_num) AS f_num, f.f_num, o.o_delivery
+        FROM order1 o
+        JOIN orderdetail od
+        ON od.o_num = o.o_num
+        JOIN fooditem f
         on f.f_num = od.f_num
-        join img i
-        on i.f_num = f.f_num
-        join(
-            select min(i_num) min_inum, f_num
-            from img
-            group by f_num
-        )min
-        on min.min_inum = i.i_num
-        where o.m_id = #{id}
-        order by o.o_num
+        JOIN img i
+        ON i.f_num = f.f_num
+        JOIN (
+             SELECT MIN(i_num) AS min_inum, f_num
+             FROM img
+             GROUP BY f_num
+        ) min_img
+        ON min_img.min_inum = i.i_num
+        WHERE o.m_id = #{data.id}
+        GROUP BY o.o_num
+        ORDER BY o.o_num desc
+        limit #{startIdx},#{listCnt}
         </select>
     <select id="selectOrderDetail" resultMap="selectOrderAll">
         SELECT o.o_total o_total,
@@ -73,21 +75,6 @@
         order by o.o_num
     </select>
     <select id="getorderCount" resultType="java.lang.Integer">
-        SELECT count(*)
-        from order1 o
-                 join orderdetail od
-                      on od.o_num = o.o_num
-                 join fooditem f
-                      on f.f_num = od.f_num
-                 join img i
-                      on i.f_num = f.f_num
-                 join(
-            select min(i_num) min_inum, f_num
-            from img
-            group by f_num
-        )min
-        on min.min_inum = i.i_num
-        where o.m_id= #{id}
-        order by o.o_num
+        select count(*) from order1 where m_id=#{id};
     </select>
 </mapper>

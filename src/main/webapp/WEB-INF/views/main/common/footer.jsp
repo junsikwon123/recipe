@@ -58,7 +58,6 @@
                 <p style="font-size: smaller; color: gray">대표이사 : 원준식 | 담당 : 메인페이지, CSS, DB설계</p>
                 <p style="font-size: smaller; color: gray">바지사장 : 이형구 | 담당 : 메인페이지, 관리자페이지[ERP], CSS</p>
                 <p style="font-size: smaller; color: gray">전무이사 : 황인욱 | 담당 : 메인페이지, DB설계</p>
-                <p style="font-size: smaller; color: gray">상무이사 : 홍승갑 | 담당 : 메인페이지, 데이터관리</p>
                 <br>
                 <p style="font-size: smaller; color: gray">교육원소재지 : 인천 미추홀구 매소홀로488번길 6-32 태승빌딩 5층</p>
                 <p style="font-size: smaller; color: gray">교육 기간 : 2024/03/01 ~ 2024/08/20</p>
