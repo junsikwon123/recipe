@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: larger; color: black">아이디</th>
-                    <th colspan="4"><input class="id" name="m_id" type="text" placeholder="  6자리 이상의 영문, 숫자를 조합하여 입력해 주세요" title="아이디" style="height: 50px; width: 600px"></th>
+                    <th colspan="4"><input class="id" name="m_id" type="text" placeholder="  예) example@naver.com" title="아이디" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
                     <th></th>
@@ -108,7 +108,7 @@
     const check1=document.getElementsByClassName("checkMSG")
     const len=check1.length-1
     const nameRange = /^(?:[가-힣]{1,10}|[a-zA-Z\s]{1,20})$/;
-    const idRange= /^[a-zA-Z0-9]{6,}$/;
+    const idRange= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const pwRange= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     frm.addEventListener("input", function (event) {
         const index = Array.from(frm).indexOf(event.target);
@@ -116,7 +116,7 @@
         if (index === 0) { // 이름 입력
             check1[0].innerHTML = nameRange.test(frm[0].value) ? "" : "한글 10자 이내, 영어 20자 이내로 입력해 주세요";
         }else if (index === 1) { // 아이디 입력
-            check1[1].innerHTML = idRange.test(frm[1].value) ? "" : "6자리 이상의 영문, 숫자를 조합하여 입력해 주세요";
+            check1[1].innerHTML = idRange.test(frm[1].value) ? "" : "이메일 형식으로 입력해 주세요";
         }else if(index===2) { //비밀번호 입력
             check1[2].innerHTML = pwRange.test(frm[2].value) ? "" : "영문 대소문자,숫자,특수문자를 조합하여 8자리이상 입력해 주세요"
         }else if(index===3){
