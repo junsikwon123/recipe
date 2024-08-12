@@ -91,9 +91,6 @@
                     <h3 class="info-area__name">
                         <span class="strong">${c_name}&nbsp;${title}</span><span>원산지 :*상세페이지 참고</span>
                     </h3>
-                    <sec:authorize access="hasRole('ADMIN')">
-                        <button>수정</button>
-                    </sec:authorize>
                     <div class="box"></div>
                     <div class="price">
                         <div class="price-discounted strong">${price}원</div>
