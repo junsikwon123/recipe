@@ -116,6 +116,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
             </div>
+            <input id="modalDetailsInfoResp" style="display: none">
         </div>
     </div>
 </div>

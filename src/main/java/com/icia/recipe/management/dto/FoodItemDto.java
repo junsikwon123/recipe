@@ -35,5 +35,12 @@ public class FoodItemDto {
     private String f_volume;
     private String f_cal;
     private String f_total;
+    private String i_num;
+    private String i_path;
+    private String i_sys_name;
+    private String i_original_name;
+    private String m_id;
+    private String i_filesize;
+    private String i_register_date;
 
 }

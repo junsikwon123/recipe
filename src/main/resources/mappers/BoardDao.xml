@@ -108,9 +108,11 @@
     </select>
 
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem
-                 where status = 1
-                 order by f_num desc
+        select * from fooditem f
+                 join img i
+                 on f.f_num = i.f_num
+                 where f.status = 1
+                 order by f.f_num desc
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
@@ -132,8 +134,10 @@
         select *
         from fooditem f
         join category c
-        on f.c_num=c.c_num
-        where f_num = #{trCode} and f.status = 1
+        on f.c_num = c.c_num
+        join img i
+        on f.f_num = i.f_num
+        where f.f_num = #{trCode} and f.status = 1
     </select>
     <select id="getFiImg" resultType="java.lang.String">
         select i_sys_name from img where f_num = #{code}

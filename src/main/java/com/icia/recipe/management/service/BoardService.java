@@ -77,12 +77,12 @@ public class BoardService {
     // 모달 식자재 등록
     public boolean insertFoodItem(MultipartHttpServletRequest request, HttpSession session) throws IOException {
         log.info("[모달] 서비스 진입");
+
+        // 파라미터 추출
         String fiCode = request.getParameter("fiCode");
         String fiPrice = request.getParameter("fiPrice");
-        String fiBigCg = request.getParameter("fiBigCg");
-        String fiMidCg = request.getParameter("fiMidCg");
-        fiBigCg = bDao.getBigCgNum(fiBigCg);
-        fiMidCg = bDao.getMidCgNum(fiMidCg);
+        String fiBigCg = bDao.getBigCgNum(request.getParameter("fiBigCg"));
+        String fiMidCg = bDao.getMidCgNum(request.getParameter("fiMidCg"));
         String fiCounts = request.getParameter("fiCounts");
         String fiExDate = request.getParameter("fiExDate");
         String fiContents = request.getParameter("fiContents");
@@ -92,68 +92,80 @@ public class BoardService {
         String fiCal = request.getParameter("fiCal");
         String fiSave = request.getParameter("fiSave");
         String role = "ADMIN";
+
+        // 식자재 정보 DB 저장
+        boolean update = bDao.insertFoodItem(fiCode, fiExDate, fiCounts, fiBigCg, fiMidCg, fiPrice, fiContents, fiTitle, fiVolume, fiOrigin, fiCal, fiSave);
+
+        // 파일 업로드 및 DB 저장
         List<MultipartFile> files = request.getFiles("fiFiles");
-        ArrayList<String> fileList = new ArrayList<>();
+        boolean insertFoodItemImg = saveFiles(files, session, role);
 
-        boolean update = bDao.insertFoodItem(fiCode, fiExDate, fiCounts, fiBigCg,
-                fiMidCg, fiPrice, fiContents, fiTitle, fiVolume, fiOrigin, fiCal, fiSave);
-        boolean insertFoodItemImg = false;
-
-        Map<String, String> fiMap = new HashMap<String, String>();
-//        String realPath = session.getServletContext().getRealPath("/");
-        String uploadPath = session.getServletContext().getRealPath("/") + "uploadedImg/fooditem/";
-        String realPath = "/uploadedImg/fooditem/";
-//        int index = realPath.indexOf("/views");
-//        realPath = realPath.substring(index);
-        log.info("[파일] 업로드 경로 : {}", realPath);
-
-//        File dir = new File(realPath);
-//        if (!dir.isDirectory()) {
-//            dir.mkdir();
-//        } Security가 방해함 ㅠ
-
-        for (MultipartFile mf : files) {
-            String oriFileName = mf.getOriginalFilename();
-            log.info("[파일] 기존파일명 : {}", oriFileName);
-            fiMap.put("i_original_name", oriFileName);
-            String sysFileName = System.currentTimeMillis() + "."
-                    + oriFileName.substring(oriFileName.lastIndexOf(".") + 1);
-            log.info("[파일] 시스템파일명 : {}", sysFileName);
-            fiMap.put("i_sys_name", sysFileName);
-            fiMap.put("i_path", realPath);
-            fiMap.put("m_id", role);
-            String filesize = "";
-            long size = mf.getSize();
-            if (size >= 1024) {
-                double sizeKB = size / 1024.0;
-                filesize = String.format("%.2f KB", sizeKB);
-                if (sizeKB >= 1024) {
-                    double sizeMB = sizeKB / 1024.0;
-                    filesize = String.format("%.2f MB", sizeMB);
-                }
-            } else {
-                filesize = size + " B";
-            }
-            log.info(filesize);
-            fiMap.put("i_filesize", filesize);
-
-            try {
-                mf.transferTo(new File(uploadPath + sysFileName));
-                insertFoodItemImg = bDao.insertFoodItemImg(fiMap);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-
-        }
+        // 결과 반환
         if (update && insertFoodItemImg) {
             log.info("[모달] 파일&업데이트 성공");
             return true;
         } else {
-            log.info("[모달] 서비스 에러");
+            log.error("[모달] 서비스 에러");
             return false;
         }
     }
+
+    private boolean saveFiles(List<MultipartFile> files, HttpSession session, String role) {
+        String uploadPath = session.getServletContext().getRealPath("/") + "uploadedImg/fooditem/";
+        String realPath = "/uploadedImg/fooditem/";
+        log.info("[파일] 업로드 경로 : {}", realPath);
+
+        for (MultipartFile mf : files) {
+            if (mf.isEmpty()) continue;  // 빈 파일 체크
+
+            String oriFileName = mf.getOriginalFilename();
+            log.info("[파일] 기존파일명 : {}", oriFileName);
+
+            String sysFileName = System.currentTimeMillis() + "." + getFileExtension(oriFileName);
+            log.info("[파일] 시스템파일명 : {}", sysFileName);
+
+            String filesize = formatFileSize(mf.getSize());
+            log.info("[파일] 크기 : {}", filesize);
+
+            // 파일 정보 Map에 저장
+            Map<String, String> fiMap = new HashMap<>();
+            fiMap.put("i_original_name", oriFileName);
+            fiMap.put("i_sys_name", sysFileName);
+            fiMap.put("i_path", realPath);
+            fiMap.put("m_id", role);
+            fiMap.put("i_filesize", filesize);
+
+            // 파일 저장 및 DB 삽입
+            try {
+                mf.transferTo(new File(uploadPath + sysFileName));
+                boolean isInserted = bDao.insertFoodItemImg(fiMap);
+                if (!isInserted) return false;  // 하나라도 실패하면 false 반환
+            } catch (IOException e) {
+                log.error("[파일] 업로드 실패: {}", e.getMessage());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    private String formatFileSize(long size) {
+        if (size >= 1024) {
+            double sizeKB = size / 1024.0;
+            if (sizeKB >= 1024) {
+                double sizeMB = sizeKB / 1024.0;
+                return String.format("%.2f MB", sizeMB);
+            } else {
+                return String.format("%.2f KB", sizeKB);
+            }
+        } else {
+            return size + " B";
+        }
+    }
+
 
     // 식자재 리스트 가져오기. 대분류 중분류에 해당하는 이름으로 바꾸고 ㅇㅇ
     public List<FoodItemDto> getFoodItemList(Integer pageNum, Integer pageSize) {
