@@ -35,6 +35,7 @@
         FROM fooditem f
                  JOIN
              category c ON f.c_num = c.c_num
+        where f.status = 1
         GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
     </select>
     <select id="getSortedInvenList" resultMap="InvenResultMap">
@@ -51,6 +52,7 @@
         FROM fooditem f
                  JOIN
              category c ON f.c_num = c.c_num
+        where f.status = 1
         GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
         order by ${param} ${sort}
     </select>
@@ -119,6 +121,7 @@
         and f.f_code = #{code}
         and c.c_name = #{cgName}
         and c.c_num = #{bigCgNum}
+        and f.status = 1
     </select>
 
     <select id="getImg" resultType="com.icia.recipe.management.dto.ImgDto2">
@@ -138,7 +141,11 @@
         FROM fooditem f
         join category c
         on c.c_num = f.c_num
+        where f.status = 1
         GROUP BY f.c_num, f.c_num2, f.f_title
         HAVING SUM(f_count) = 0
+    </select>
+    <select id="getDeleteFooditemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select * from fooditem where status = 0
     </select>
 </mapper>
