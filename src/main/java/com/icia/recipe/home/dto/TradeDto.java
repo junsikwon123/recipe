@@ -19,6 +19,7 @@ public class TradeDto {
 
     private int t_num;
     private String m_id;
+    private String m_name;
     private String t_count;
     private String t_date;
     private int t_views;

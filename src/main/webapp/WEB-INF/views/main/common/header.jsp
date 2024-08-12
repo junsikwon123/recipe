@@ -59,7 +59,7 @@
                 document.getElementById('titleName2').classList.add("on")
                 break;
             default:
-                console.log("시발 왜 안되냐고")
+                document.getElementById('titleName1').classList.add("on")
         }
     })
     function saveTitleName(titleName) {
@@ -76,6 +76,18 @@
             default:
                 console.log("건강/식단 선택 에러")
         }
+    }
+    function commonSearch(keyword, event) {
+        console.log("충격과 공포의 검색기능 시작이다 그지깽깽이들아")
+        if (event.keyCode === 13) {
+            if (window.find(keyword)) {
+                $('#searchInput2').focus()
+            } else {
+                console.log("일단 여기는 없다 니모를 찾아서 ㄱㄱ")
+                window.location.href="/common/main/search?value="+keyword
+            }
+        }
+
     }
 </script>
 <body id="main" class="hd">

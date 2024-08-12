@@ -12,15 +12,15 @@ import java.util.List;
 @Mapper
 public interface CommonDao {
 
-    @Select("")
+    @Select("select * from category")
     List<CtgDto> getCategoryList();
 
-    @Select("")
+    @Select("select * from fooditem")
     List<FooditemDto> getFooditemList();
 
-    @Select("")
+    @Select("select * from trade t join member m on t.m_id = m.m_id")
     List<TradeDto> getTradeList();
 
-    @Select("")
+    @Select("select * from tradeitem")
     List<TradeItemDto> getTradeItemList();
 }

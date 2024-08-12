@@ -24,7 +24,15 @@ public class MainSearchService {
         List<FooditemDto> fooditemList = cDao.getFooditemList();
         List<TradeDto> tradeList = cDao.getTradeList();
         List<TradeItemDto> tradeItemList = cDao.getTradeItemList();
+        String[] values = null;
+        if (value.contains(" ")) {
+            values = value.split(" ");
+        } else if (value.contains(", ")) {
+            values = value.split(", ");
+        }
+        if (values != null) {
 
+        }
         List<CtgDto> cgFilterList = categoryList.stream()
                 .filter(cg->
                         cg.getC_num().contains(value) ||
@@ -32,14 +40,21 @@ public class MainSearchService {
                 .toList();
         List<FooditemDto> fiFilterList = fooditemList.stream()
                 .filter(fi ->
-                        fi.getF_title().contains(value))
+                        fi.getF_title().contains(value) ||
+                        fi.getF_contents().contains(value) ||
+                        fi.getF_price().contains(value) ||
+                        fi.getF_count().contains(value) ||
+                        fi.getF_date().contains(value) ||
+                        fi.getF_edate().contains(value))
                 .toList();
         List<TradeDto> tFilterList = tradeList.stream()
                 .filter(t ->
-                        t.getM_id().contains(value))
+                        t.getM_name().contains(value) ||
+                        t.getT_title().contains(value))
                 .toList();
         List<TradeItemDto> tiFilterList = tradeItemList.stream()
                 .filter(ti->
+                        ti.getT_item().contains(value) ||
                         ti.getT_change().contains(value))
                 .toList();
         List<List<?>> allList = new ArrayList<>();

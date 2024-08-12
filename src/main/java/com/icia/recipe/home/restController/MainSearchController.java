@@ -3,6 +3,7 @@ package com.icia.recipe.home.restController;
 import com.icia.recipe.home.service.MainSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 @Slf4j
 public class MainSearchController {
 
@@ -19,6 +20,7 @@ public class MainSearchController {
 
     @GetMapping("/common/main/search")
     public String mainSearchList(@RequestParam("value") String value, Model model) {
+        log.info("[메인 검색] 컨트롤러 진입");
         List<?> mainSearchList = cSer.getAllTableList(value);
         model.addAttribute("mainSearchList", mainSearchList);
         return "main/common/mainsearch";
