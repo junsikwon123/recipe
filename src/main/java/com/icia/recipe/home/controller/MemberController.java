@@ -113,7 +113,7 @@ public class MemberController {
         return "index";
     }
 
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/member/mypage")
     public String mypage(Principal principal,Model model,SearchDto sDto) {
         String id = principal.getName();

@@ -139,7 +139,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <section class="btn-area">
                         <div class="btn">
@@ -350,6 +349,10 @@
     console.log(cartBtn);
     Array.from(cartBtn).forEach(bt => {
         bt.addEventListener("click", function () {
+            if (itemCount.value === 0){
+                alert("수량을 입력해주세요")
+                return false
+            }
             console.log("id", bt.id);
             switch (bt.id) {
                 case "intoOrder":
