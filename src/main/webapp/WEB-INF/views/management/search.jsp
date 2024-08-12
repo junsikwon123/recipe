@@ -301,30 +301,30 @@
                 </div>
                 <main id="searchMain" style="justify-content: center; background-color: white;">
                     <h1 style="color: #4e73df">- - - ● 검색결과</h1><br><br><br>
-                    <div style="width: 80%; margin-left: 10%">
-                        <c:choose>
-                            <c:when test="${not empty searchList}">
-                                <c:set var="isEmptyList" value="true"/>
-                                <c:forEach var="item" items="${searchList}">
-                                    <c:if test="${not empty item}">
-                                        <c:set var="isEmptyList" value="false"/>
-                                    </c:if>
-                                </c:forEach>
-                                <c:if test="${not isEmptyList}">
-                                    <h3 style="color: #4e73df; text-align: center">리스트 확인용</h3>
-                                    <c:forEach var="item" items="${searchList}">
-                                        <c:forEach var="subItem" items="${item}">
-                                            ${subItem}
-                                            <hr style="height: 3px; border: 0; background-color: blue">
-                                        </c:forEach>
-                                    </c:forEach>
-                                </c:if>
-                            </c:when>
-                            <c:otherwise>
-                                <h2 style="color: #4e73df">검색 결과가 존재하지 않습니다.</h2>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+<%--                    <div style="width: 80%; margin-left: 10%">--%>
+<%--                        <c:choose>--%>
+<%--                            <c:when test="${not empty searchList}">--%>
+<%--                                <c:set var="isEmptyList" value="true"/>--%>
+<%--                                <c:forEach var="item" items="${searchList}">--%>
+<%--                                    <c:if test="${not empty item}">--%>
+<%--                                        <c:set var="isEmptyList" value="false"/>--%>
+<%--                                    </c:if>--%>
+<%--                                </c:forEach>--%>
+<%--                                <c:if test="${not isEmptyList}">--%>
+<%--                                    <h3 style="color: #4e73df; text-align: center">리스트 확인용</h3>--%>
+<%--                                    <c:forEach var="item" items="${searchList}">--%>
+<%--                                        <c:forEach var="subItem" items="${item}">--%>
+<%--                                            ${subItem}--%>
+<%--                                            <hr style="height: 3px; border: 0; background-color: blue">--%>
+<%--                                        </c:forEach>--%>
+<%--                                    </c:forEach>--%>
+<%--                                </c:if>--%>
+<%--                            </c:when>--%>
+<%--                            <c:otherwise>--%>
+<%--                                <h2 style="color: #4e73df">검색 결과가 존재하지 않습니다.</h2>--%>
+<%--                            </c:otherwise>--%>
+<%--                        </c:choose>--%>
+<%--                    </div>--%>
                     <div>
                         <c:forEach var="innerList" items="${searchList}" varStatus="status">
                         <c:if test="${not empty innerList}">
@@ -456,6 +456,47 @@
                                 </table>
                                 <br><br>
                             </div>
+                            </c:when>
+                            <c:when test="${status.index == 3 and not empty searchList[3]}">
+                                <div style="width: 80%; text-align: center; margin-left: 10%">
+                                    <h1 style="color: #4e73df">< - - - - - 회원 - - - - - ></h1>
+                                    <table class='table my-0'>
+                                        <tr style='vertical-align: center; background-color: #4e73df; color: white'>
+                                            <th class="no-hover">#</th>
+                                            <th class="no-hover">이름</th>
+                                            <th class="no-hover">아이디</th>
+                                            <th class="no-hover">주소</th>
+                                            <th class="no-hover">번호</th>
+                                            <th class="no-hover">권한</th>
+                                            <th class="no-hover">블랙</th>
+                                            <c:forEach var="elem" items="${searchList[3]}" varStatus="i">
+                                        <tr>
+                                            <td class="no-hover">${i.count}</td>
+                                            <td class="no-hover">${elem.m_name}</td>
+                                            <td class="no-hover">${elem.m_id}</td>
+                                            <td class="no-hover">${elem.m_address}</td>
+                                            <td class="no-hover">${elem.m_phone}</td>
+                                        <c:choose>
+                                            <c:when test="${elem.role == 'ADMIN'}">
+                                                <td class="no-hover">관리자</td>
+                                            </c:when>
+                                            <c:when test="${elem.role == 'user'}">
+                                                <td class="no-hover">사용자</td>
+                                            </c:when>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${elem.m_block == 0}">
+                                                <td class="no-hover">일반인</td>
+                                            </c:when>
+                                            <c:when test="${elem.m_block != 0}">
+                                                <td class="no-hover">전과자</td>
+                                            </c:when>
+                                        </c:choose>
+                                        </tr>
+                                        </c:forEach>
+                                    </table>
+                                    <br><br>
+                                </div>
                             </c:when>
                             <c:otherwise>
                                 <h2>검색 결과가 존재하지 않습니다.</h2>

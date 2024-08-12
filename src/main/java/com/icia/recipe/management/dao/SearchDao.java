@@ -3,6 +3,7 @@ package com.icia.recipe.management.dao;
 import com.icia.recipe.management.dto.BoardDto;
 import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.dto.InvenDto;
+import com.icia.recipe.management.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface SearchDao {
 
     List<BoardDto> getRecipeList();
 
+    List<FoodItemDto> getFoodItemList();
 
-
-
+    List<MemberDto> getMemberList();
 }
