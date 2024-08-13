@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>사골 국밥 265g :: 그리팅, 우리집 밥상주치의</title>
+    <title>Title</title>
     <style>
         .pop_wrap__inner {
             position: absolute;

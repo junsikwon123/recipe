@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>로켓프레시</title>
+    <title>Title</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/foodItemMain.css?h=3f30c2c47d7d23c7a994db0c862d45a5">
     <link rel="stylesheet" href="/assets/css/foodItemMain.css?h=f1d8140dea40b1c57559575c00adff25">
     <style>

@@ -75,7 +75,7 @@
             </table>
             <input type="submit" id="joinSubmitHiddenBtn" value="회원가입" style="display: none">
         </form>
-        <a href="javascript:document.querySelector('#joinSubmitHiddenBtn').click()" style="height: 50px; width: 300px; background-color: #77b347; color: white; font-size: larger; font-weight: bold">회원가입</a>
+        <a href="javascript:document.querySelector('#joinSubmitHiddenBtn').click()" style="height: 50px; width: 500px; background-color: #77b347; color: white; font-size: larger; font-weight: bold; border-radius: 5px ">회원가입</a>
         <button onclick="location.href='/'" style="margin-top: 100px">홈페이지로</button>
     </section>
 

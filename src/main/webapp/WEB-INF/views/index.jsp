@@ -9,8 +9,7 @@
 
 <html>
 <head>
-    <title>그리팅몰</title>
-    <link rel="icon" href="/uploadedImg/main/MainPage/그리팅%20메인.jfif" type="image/jfif">
+    <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         #bodyWasteTitle:hover {
