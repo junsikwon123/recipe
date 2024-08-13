@@ -237,18 +237,7 @@ public class MemberService {
         return sb.toString();
     }
 
-    public List<FooditemDto> getRanking1() {
-        return mDao.getRanking1();
+    public List<FooditemDto> getRanking() {
+        return mDao.getRanking();
     }
-    public List<FooditemDto> getRanking2() {
-        return mDao.getRanking2();
-    }
-    public List<FooditemDto> getRanking3() {
-        return mDao.getRanking3();
-    }
-    public List<FooditemDto> getRanking4() {
-        return mDao.getRanking4();
-    }
-
-
 }

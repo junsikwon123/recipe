@@ -38,14 +38,8 @@ public class HomeController {
 //            model.addAttribute("TITLE", name);
             session.removeAttribute("msg");
         }
-        List<FooditemDto> Rank1 = mSer.getRanking1();
-        List<FooditemDto> Rank2 = mSer.getRanking2();
-        List<FooditemDto> Rank3 = mSer.getRanking3();
-        List<FooditemDto> Rank4 = mSer.getRanking4();
-        model.addAttribute("Rank1", Rank1);
-        model.addAttribute("Rank2", Rank2);
-        model.addAttribute("Rank3", Rank3);
-        model.addAttribute("Rank4", Rank4);
+        List<FooditemDto> Rank = mSer.getRanking();
+        model.addAttribute("Rank", Rank);
         return "index";
     }
 

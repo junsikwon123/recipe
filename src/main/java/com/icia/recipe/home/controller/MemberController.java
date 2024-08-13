@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -92,15 +91,15 @@ public class MemberController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/customer/battle")
-    public String keyboardBattle() {
-        return "main/customerservice/keyboardbattle";
+    @GetMapping("/customer/question")
+    public String question() {
+        return "main/customerservice/question";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/customer/dogsound")
-    public String dogSound() {
-        return "main/customerservice/dogsound";
+    @GetMapping("/customer/sound")
+    public String customerSound() {
+        return "main/customerservice/customerSound";
     }
 
     @GetMapping("/customer/problem")

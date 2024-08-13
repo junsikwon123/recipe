@@ -64,9 +64,8 @@ public interface MemberDao {
     List<OrderDto> selectOrderDetail(String num);
 
     int getorderCount(String id);
-    List<FooditemDto> getRanking1();
-    List<FooditemDto> getRanking2();
-    List<FooditemDto> getRanking3();
-    List<FooditemDto> getRanking4();
 
+    List<FooditemDto> getRanking();
+
+    List<FooditemDto> getRanking50();
 }

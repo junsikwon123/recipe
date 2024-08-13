@@ -16,4 +16,8 @@ public interface DeliveryDao {
     int getOrderCount();
 
     int getMonthlyDelivery(int i);
+
+    int getTodayOrderDelivering();
+
+    int getWeekDelivering();
 }

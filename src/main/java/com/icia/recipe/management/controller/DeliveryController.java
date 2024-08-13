@@ -31,8 +31,10 @@ public class DeliveryController {
         // 일간 배송 관련
         int dayDelivery = dDao.getTodayOrderDelivery();
         int dayOrder = dDao.getTodayOrderCount();
+        int dayDelivering = dDao.getTodayOrderDelivering();
         model.addAttribute("todayDelivery", dayDelivery);
         model.addAttribute("todayOrder", dayOrder);
+        model.addAttribute("todayDelivering", dayDelivering);
         int dayOrderCount = dDao.getOrderCount();
         double percentage = 0;
         if (dayOrder > 0) {
@@ -44,8 +46,10 @@ public class DeliveryController {
         // 주간 배송 관련
         int weekDelivery = dDao.getWeekOrderDelivery();
         int weekOrder = dDao.getWeekOrderCount();
+        int weekDelivering = dDao.getWeekDelivering();
         model.addAttribute("weekDelivery", weekDelivery);
         model.addAttribute("weekOrder", weekOrder);
+        model.addAttribute("weekDelivering", weekDelivering);
         // 월간 배송 관련
         HashMap MonthlyDelivery = dSer.getMonthlyDelivery();
         model.addAttribute("monthlyDelivery", MonthlyDelivery);

@@ -28,16 +28,18 @@
         let myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['배송전', '배송완료'], // X축 라벨
+                labels: ['배송준비중', '배송중', '배송완료'], // X축 라벨
                 datasets: [{
                     label: 'On/Off',
-                    data: [${todayOrder}, ${todayDelivery}], // 데이터 값 (배송전 10, 배송완료 5)
+                    data: [${todayOrder}, ${todayDelivering}, ${todayDelivery}], // 데이터 값 (배송전 10, 배송완료 5)
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.2)', // 배송전 색상
+                        'rgba(100, 145, 220, 0.2)', // 배송전 색상
                         'rgba(153, 102, 255, 0.2)' // 배송완료 색상
                     ],
                     borderColor: [
                         'rgba(75, 192, 192, 1)', // 배송전 테두리 색상
+                        'rgba(100, 145, 220, 1)', // 배송전 색상
                         'rgba(153, 102, 255, 1)' // 배송완료 테두리 색상
                     ],
                     borderWidth: 1
@@ -298,16 +300,19 @@
                                         </div>
                                         <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
                                             <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
-                                                <span style="font-size: small">배송전</span>
-                                                <span>|</span>
-                                                <span style="font-size: small">배송완료</span>
+                                                <div>
+                                                    <span style="font-size: small">배송준비중</span>
+                                                    <p>${todayOrder}</p>
+                                                </div>
+                                                <div>
+                                                    <span style="font-size: small">배송중</span>
+                                                    <p>${todayDelivering}</p>
+                                                </div>
+                                                <div>
+                                                    <span style="font-size: small">배송완료</span>
+                                                    <p>${todayDelivery}</p>
+                                                </div>
                                             </div>
-                                            <div style="width: 200px; justify-content: space-between; display: flex; flex-direction: row">
-                                                <p>${todayOrder}</p>
-                                                <p>|</p>
-                                                <p>${todayDelivery}</p>
-                                            </div>
-
                                         </div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
@@ -325,14 +330,18 @@
                                         </div>
                                         <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
                                             <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
-                                                <span style="font-size: small">배송전</span>
-                                                <span>|</span>
-                                                <span style="font-size: small">배송완료</span>
-                                            </div>
-                                            <div style="width: 200px; justify-content: space-between; display: flex; flex-direction: row">
-                                                <p>${weekOrder}</p>
-                                                <p>|</p>
-                                                <p>${weekDelivery}</p>
+                                                <div>
+                                                    <span style="font-size: small">배송준비중</span>
+                                                    <p>${weekOrder}</p>
+                                                </div>
+                                                <div>
+                                                    <span style="font-size: small">배송중</span>
+                                                    <p>${weekDelivering}</p>
+                                                </div>
+                                                <div>
+                                                    <span style="font-size: small">배송완료</span>
+                                                    <p>${weekDelivery}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -21,17 +21,10 @@
         <div style="display: flex; flex-direction: row">
             <div style="width: 180px; height: 230px; background-color: #F5F5F5; margin-left: 400px; margin-top: 20px; justify-content: center; border-radius: 20px">
                 <br>
-                <a class="customerCenter-menu Active" href="/customer/center"
-                   style="font-size: large; margin-left: 20px">
-                    공지사항</a><br><br>
-                <a class="customerCenter-menu" href="/customer/problem" style="font-size: large; margin-left: 20px"> 자주
-                    묻는
-                    질문</a><br><br>
-                <a class="customerCenter-menu" href="/customer/battle" style="font-size: large; margin-left: 20px">
-                    1:1신청</a><br><br>
-                <a class="customerCenter-menu" href="/customer/dogsound" style="font-size: large; margin-left: 20px">
-                    진상의
-                    소리</a><br><br>
+                <a class="customerCenter-menu Active" href="/customer/center" style="font-size: large; margin-left: 20px"> 공지사항</a><br><br>
+                <a class="customerCenter-menu" href="/customer/problem" style="font-size: large; margin-left: 20px"> 자주 묻는 질문</a><br><br>
+                <a class="customerCenter-menu" href="/customer/question" style="font-size: large; margin-left: 20px"> 1:1 문의</a><br><br>
+                <a class="customerCenter-menu" href="/customer/sound" style="font-size: large; margin-left: 20px"> 고객의 소리</a><br><br>
                 <p style="margin-top: 20px; color: #77b347; font-size: xx-large">상담사</p>
                 <p style="color: #77b347; font-size: xx-large">황 인 욱</p>
                 <p style="color: #77b347; font-size: x-large">010-2857-8839</p>
