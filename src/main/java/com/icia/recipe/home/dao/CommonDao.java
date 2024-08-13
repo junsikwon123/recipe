@@ -15,7 +15,7 @@ public interface CommonDao {
     @Select("select * from category")
     List<CtgDto> getCategoryList();
 
-    @Select("select * from fooditem")
+    @Select("select f_num, c_num, c_num2, f_title, f_price, f_count, f_date, f_edate, f_views, f_code, f_volume, f_origin, f_cal, f_save from fooditem")
     List<FooditemDto> getFooditemList();
 
     @Select("select * from trade t join member m on t.m_id = m.m_id")
