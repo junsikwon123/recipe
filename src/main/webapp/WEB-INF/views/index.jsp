@@ -32,6 +32,9 @@
 <header>
     <jsp:include page="./main/common/header.jsp"></jsp:include>
 </header>
+<script>
+    console.log('${Rank1}')
+</script>
 <main>
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">

@@ -1,5 +1,6 @@
 package com.icia.recipe.management.controller;
 
+import com.icia.recipe.management.dto.FoodItemDto;
 import com.icia.recipe.management.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class BoardDeleteController {
                                @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         log.info("[게시글 삭제] {}", deleteKey);
         return bSer.deleteFoodItemList(deleteKey, pageNum, pageSize);
+    }
+    @GetMapping("/permanent/delete")
+    public List<FoodItemDto> perDelete() {
+        return bSer.permanentDelte();
     }
 
 

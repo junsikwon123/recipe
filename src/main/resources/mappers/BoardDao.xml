@@ -61,6 +61,15 @@
     <delete id="deleteCategory">
         delete from category where c_name=#{name}
     </delete>
+    <delete id="permanentDeleteFoodItem">
+        delete from fooditem
+        where status = 0
+    </delete>
+    <select id="deletedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
+        select f_num, f_title, f_price, f_date, f_edate, f_views, f_code, f_volume, f_origin, f_cal, f_save
+        from fooditem
+        where status = 0
+    </select>
     <update id="deleteFoodItemList">
         UPDATE fooditem
         SET status = 0
@@ -109,16 +118,45 @@
     </select>
 
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem f
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
+        from fooditem f
                  join img i
-                 on f.f_num = i.f_num
-                 where f.status = 1
-                 order by f.f_num desc
+                      on f.f_num = i.f_num
+        where f.status = 1
+        order by f.f_num desc
     </select>
 
     <select id="getSortedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem where status = 1
-                                order by ${param} ${sort}
+        select f_num,
+               c_num,
+               c_num2,
+               f_title,
+               f_price,
+               f_count,
+               f_date,
+               f_edate,
+               f_views,
+               f_code,
+               f_volume,
+               f_origin,
+               f_cal,
+               f_save
+        from fooditem
+        where status = 1
+        order by ${param} ${sort}
     </select>
     <select id="getFoodItemListNaming" resultType="java.lang.String">
         select c_name from category where c_num=#{cNum}
@@ -132,7 +170,20 @@
         select count(*) from fooditem
     </select>
     <select id="getModalFIDetails" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select *
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
         from fooditem f
         join category c
         on f.c_num = c.c_num
@@ -147,7 +198,21 @@
         select i_path from img where f_num = #{trCode}
     </select>
     <select id="getModalDetailsInfoUpdateBeforeList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem f
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
+        from fooditem f
         join category c
         on f.c_num = c.c_num
         where f_num = #{fnum} and status = 1
@@ -167,24 +232,12 @@
         select c_num from category where c_name=#{fiMidCg}
     </select>
     <select id="getFoodItemList2" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem
+        select f_num, c_num, c_num2, f_title, f_price, f_count, f_date, f_edate, f_views, f_code, f_volume, f_origin, f_cal, f_save
+        from fooditem
         where status = 1
     </select>
     <insert id="addRecipeBigCg">
         insert into recipe values ('','','','','','','')
-    </insert>
-
-    <insert id="insertFoodItem" parameterType="map">
-        insert into fooditem (c_num, c_num2, f_title, f_contents, f_price, f_count, f_edate, f_code, f_volume, f_origin, f_cal, f_save)
-        values (#{fiBigCg}, #{fiMidCg}, #{fiTitle}, #{fiContents}, #{fiPrice},
-                #{fiCounts}, #{fiExDate}, #{fiCode}, #{fiVolume}, #{fiOrigin}, #{fiCal}, #{fiSave});
-    </insert>
-    <insert id="insertFoodItemImg">
-            <selectKey keyProperty="maxNum" resultType="String" order="BEFORE">
-                SELECT CAST(MAX(CAST(f_num AS UNSIGNED)) AS CHAR) FROM fooditem
-            </selectKey>
-        insert into img (i_path, i_sys_name, i_original_name, f_num, m_id, i_filesize)
-        values (#{i_path}, #{i_sys_name}, #{i_original_name}, #{maxNum}, #{m_id}, #{i_filesize});
     </insert>
 
     <insert id="addAllCg">

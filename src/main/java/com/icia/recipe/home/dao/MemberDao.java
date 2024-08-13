@@ -1,5 +1,6 @@
 package com.icia.recipe.home.dao;
 
+import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.home.dto.Member;
 import com.icia.recipe.home.dto.OrderDto;
 import com.icia.recipe.home.dto.SearchDto;
@@ -63,4 +64,9 @@ public interface MemberDao {
     List<OrderDto> selectOrderDetail(String num);
 
     int getorderCount(String id);
+    List<FooditemDto> getRanking1();
+    List<FooditemDto> getRanking2();
+    List<FooditemDto> getRanking3();
+    List<FooditemDto> getRanking4();
+
 }

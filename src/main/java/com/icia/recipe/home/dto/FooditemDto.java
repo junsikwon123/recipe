@@ -28,6 +28,8 @@ public class FooditemDto {
     private String f_cal;
     private String f_save;
     private String e_date;
+    private String f_code;
+    private String f_origin;
     // 카테고리 테이블
     List<CtgDto> cList = new ArrayList<>();
     // 이미지 테이블

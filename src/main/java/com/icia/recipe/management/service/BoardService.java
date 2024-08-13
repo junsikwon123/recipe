@@ -1,5 +1,6 @@
 package com.icia.recipe.management.service;
 
+import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.management.dao.BoardDao;
 import com.icia.recipe.management.dao.InvenDao;
 import com.icia.recipe.management.dto.BoardDto;
@@ -419,5 +420,15 @@ public class BoardService {
     public List<FoodItemDto> getCategory2() {
         List <FoodItemDto> cList = bDao.getCategory2();
         return cList;
+    }
+
+    public List<FoodItemDto> permanentDelte() {
+        boolean result = bDao.permanentDeleteFoodItem();
+        if (result) {
+            return bDao.deletedFoodItemList();
+        } else {
+            log.info("[영구삭제] 서비스 에러");
+            return null;
+        }
     }
 }

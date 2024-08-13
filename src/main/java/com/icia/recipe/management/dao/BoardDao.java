@@ -71,4 +71,8 @@ public interface BoardDao {
     boolean updateAndGetModalDetailsInfo(Map<String, Object> params);
 
     List<FoodItemDto> getFoodItemList2();
+
+    boolean permanentDeleteFoodItem();
+
+    List<FoodItemDto> deletedFoodItemList();
 }
