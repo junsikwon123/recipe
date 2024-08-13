@@ -183,7 +183,9 @@
                f.f_volume,
                f.f_origin,
                f.f_cal,
-               f.f_save
+               f.f_save,
+               i.i_path,
+               i.i_sys_name
         from fooditem f
         join category c
         on f.c_num = c.c_num
