@@ -58,12 +58,7 @@ public interface BoardDao {
 
     String getFIImg(String trCode);
 
-    List<FoodItemDto> getSearchModalDetails(String cname, String code, String name);
-
-    boolean updateAndGetModalDetailsInfo(String[] array);
-
     List<FoodItemDto> getModalDetailsInfoUpdateBeforeList(String fnum);
-
 
     List<FoodItemDto> getCategory();
 
@@ -72,4 +67,8 @@ public interface BoardDao {
     String getBigCgNum(String fiBigCg);
 
     String getMidCgNum(String fiMidCg);
+
+    boolean updateAndGetModalDetailsInfo(Map<String, Object> params);
+
+    List<FoodItemDto> getFoodItemList2();
 }
