@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>파이널</title>
+    <title>Title</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -132,9 +132,9 @@
             </section>
             <div class="header__inner">
                 <div class="header__sec">
-                    <h1 class="logo">
+                    <h1 class="logo"style="height: 80px;display: inline-block" >
                         <a href="/">
-                            <img src="/uploadedImg/main/img_header_logo.png" alt=""><%--추후 제목 이미지 넣어야함--%>
+                            <img src="/uploadedImg/main/logo.png" alt=""style="width: 180px;"><%--추후 제목 이미지 넣어야함--%>
                         </a>
                     </h1>
                     <div class="menu">
