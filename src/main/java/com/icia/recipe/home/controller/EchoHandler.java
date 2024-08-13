@@ -78,7 +78,7 @@ public class EchoHandler extends TextWebSocketHandler {
                     "<button id='refuse' onclick='refuse(" + alertMessage.getT_num()+",\""+alertMessage.getT_item()+"\","+alertMessage.getT_itemcount()+", \"" + alertMessage.getTradesend() + "\", \""+alertMessage.getM_id()+"\")'>거절</button>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alertMessage.getTradesend() + "님이 교환신청 하였습니다." +
+                    alertMessage.getTradesend() + "님이 "+alertMessage.getT_item()+" "+alertMessage.getT_itemcount()+alertMessage.getT_unit()+" 과 "+alertMessage.getT_change()+"를 교환신청 하였습니다." +
                     "</div>" +
                     "</a>" +
                     "</div>" +
@@ -100,7 +100,7 @@ public class EchoHandler extends TextWebSocketHandler {
                     "</span>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alertMessage.getTradesend()+"님이"+alertMessage.getT_num()+"글에 교환 신청을 거절하였습니다." +
+                    alertMessage.getTradesend()+"님이 교환 신청을 거절하였습니다." +
                     "</div>" +
                     "</a>" +
                     "</div>");
@@ -120,7 +120,7 @@ public class EchoHandler extends TextWebSocketHandler {
                     "</span>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alertMessage.getTradesend()+"님이"+alertMessage.getT_num()+"글에 교환 신청을 수락하였습니다." +
+                    alertMessage.getTradesend()+"님이 교환 신청을 수락하였습니다." +
                     "</div>" +
                     "</a>" +
                     "</div>");

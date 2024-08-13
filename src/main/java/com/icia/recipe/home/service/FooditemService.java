@@ -53,10 +53,10 @@ public class FooditemService {
                 numName = "c1.c_num";
                 break;
             case "2":
-                numName = "c2.c_num";
+                numName = "f.c_num2";
                 break;
             case "3","4":
-                numName = "c3.c_num";
+                numName = "f.c_num2";
                 break;
             default:
                 numName = "zzzz";
