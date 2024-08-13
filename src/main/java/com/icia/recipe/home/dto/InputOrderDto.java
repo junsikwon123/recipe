@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 @Accessors(chain=true)
 public class InputOrderDto {
+    private String f_num;
     List<ItemListDto> itemList;
     List<InputListDto> inputList;
 }

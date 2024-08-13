@@ -21,8 +21,8 @@ public class AlertMessage {
     private String t_item;
     private int t_itemcount;
     private String t_unit;
-    private String t_change;
     private String message;
     private String f_title;
     private String f_count;
+    private String t_change;
 }

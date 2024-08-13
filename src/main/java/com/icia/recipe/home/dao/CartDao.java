@@ -26,4 +26,6 @@ public interface CartDao {
     boolean insertOrderDetail(ItemListDto i);
 
     boolean insertOrder(InputListDto inputListDto);
+
+    boolean updateFooditemCount(ItemListDto i);
 }

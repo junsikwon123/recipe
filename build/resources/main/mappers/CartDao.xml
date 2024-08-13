@@ -4,6 +4,9 @@
     <insert id="insertCartList">
         insert into cart value(default,#{user},#{num},#{count}, default)
     </insert>
+    <update id="updateFooditemCount">
+        update fooditem set f_count=(f_count-${dvCartCount}) where f_num=${dvCartDetlId};
+    </update>
     <delete id="deleteCart">
         delete
         from cart
