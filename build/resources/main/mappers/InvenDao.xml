@@ -114,7 +114,21 @@
           and iv_name = #{iname}
     </select>
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem f
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
+        from fooditem f
         join category c
         on f.c_num = c.c_num
         where f.f_title = #{title}
@@ -137,7 +151,20 @@
     </select>
 
     <select id="emptyFoodItem" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        SELECT *
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
         FROM fooditem f
         join category c
         on c.c_num = f.c_num
@@ -146,6 +173,20 @@
         HAVING SUM(f_count) = 0
     </select>
     <select id="getDeleteFooditemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem where status = 0
+        select f_num,
+               c_num,
+               c_num2,
+               f_title,
+               f_price,
+               f_count,
+               f_date,
+               f_edate,
+               f_views,
+               f_code,
+               f_volume,
+               f_origin,
+               f_cal,
+               f_save
+        from fooditem where status = 0
     </select>
 </mapper>

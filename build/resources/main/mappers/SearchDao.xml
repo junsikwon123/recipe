@@ -46,7 +46,21 @@
     <select id="getSearchModalDetailsInven" resultType="com.icia.recipe.management.dto.InvenDto">
     </select>
     <select id="getFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
-        select * from fooditem f
+        select f.f_num,
+               f.c_num,
+               f.c_num2,
+               f.f_title,
+               f.f_price,
+               f.f_count,
+               f.f_date,
+               f.f_edate,
+               f.f_views,
+               f.f_code,
+               f.f_volume,
+               f.f_origin,
+               f.f_cal,
+               f.f_save
+        from fooditem f
         join category c
         on f.c_num = c.c_num
         where f.status = 1

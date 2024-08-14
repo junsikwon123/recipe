@@ -14,6 +14,11 @@
         FROM ORDER1
         WHERE O_DELIVERY=0
     </select>
+    <select id="getTodayOrderDelivering" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM ORDER1
+        WHERE O_DELIVERY=1
+    </select>
     <select id="getWeekOrderDelivery" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM order1_status_log
@@ -36,6 +41,12 @@
         FROM order1
         WHERE DATE_FORMAT(o_date, '%Y-%m') = '2024-0${i}'
           AND o_delivery = 2;
+    </select>
+    <select id="getWeekDelivering" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM order1
+        WHERE o_delivery = 1
+          AND o_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE();
     </select>
 </mapper>
 

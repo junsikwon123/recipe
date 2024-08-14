@@ -299,7 +299,9 @@
                     input.value = value;
                     form.appendChild(input);
                 }
+                console.log(form)
                 // 폼 제출
+
                 form.submit();
             }
         </script>

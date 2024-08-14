@@ -2,6 +2,7 @@ package com.icia.recipe.home.service;
 
 import com.icia.recipe.home.common.Paging;
 import com.icia.recipe.home.dao.MemberDao;
+import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.home.dto.Member;
 import com.icia.recipe.home.dto.OrderDto;
 import com.icia.recipe.home.dto.SearchDto;
@@ -234,5 +235,9 @@ public class MemberService {
         });
         sb.append("</div>").append("</section>");
         return sb.toString();
+    }
+
+    public List<FooditemDto> getRanking() {
+        return mDao.getRanking();
     }
 }

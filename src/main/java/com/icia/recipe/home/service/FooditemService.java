@@ -2,6 +2,7 @@ package com.icia.recipe.home.service;
 
 import com.icia.recipe.home.common.Paging;
 import com.icia.recipe.home.dao.FooditemDao;
+import com.icia.recipe.home.dao.MemberDao;
 import com.icia.recipe.home.dto.FooditemDto;
 import com.icia.recipe.home.dto.CtgDto;
 import com.icia.recipe.home.dto.ImgDto;
@@ -20,6 +21,10 @@ public class FooditemService {
 
     @Autowired
     FooditemDao fDao;
+
+    @Autowired
+    MemberDao mDao;
+
     public String fooditemOrder(String order, String num, SearchDto sDto) {
         log.info("fooditemOrder 입장");
         FooditemDto fDto;
@@ -53,10 +58,10 @@ public class FooditemService {
                 numName = "c1.c_num";
                 break;
             case "2":
-                numName = "c2.c_num";
+                numName = "f.c_num2";
                 break;
             case "3","4":
-                numName = "c3.c_num";
+                numName = "f.c_num2";
                 break;
             default:
                 numName = "zzzz";
@@ -228,6 +233,10 @@ public class FooditemService {
         log.info("totalNum : {}", totalNum);
         Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),sDto.getListCnt(),listUrl);
         return paging.makeHtmlPaging();
+    }
+
+    public List<FooditemDto> getRanking50() {
+        return mDao.getRanking50();
     }
 }
 

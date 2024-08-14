@@ -43,7 +43,6 @@ public class MainSearchService {
                     .filter(fi ->
                             Arrays.stream(values).anyMatch(val ->
                                     fi.getF_title().contains(val) ||
-                                            fi.getF_contents().contains(val) ||
                                             fi.getF_price().contains(val) ||
                                             fi.getF_count().contains(val) ||
                                             fi.getF_date().contains(val) ||
@@ -83,7 +82,6 @@ public class MainSearchService {
             List<FooditemDto> fiFilterList = fooditemList.stream()
                     .filter(fi ->
                             fi.getF_title().contains(value) ||
-                                    fi.getF_contents().contains(value) ||
                                     fi.getF_price().contains(value) ||
                                     fi.getF_count().contains(value) ||
                                     fi.getF_date().contains(value) ||

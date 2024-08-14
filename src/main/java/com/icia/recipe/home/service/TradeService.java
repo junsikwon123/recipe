@@ -35,13 +35,7 @@ public class TradeService {
 
     public List<TradeDto> tradeDetail(Integer t_num) {
         tDao.viewsCount(t_num);
-        List<TradeDto> td = tDao.tradeDetail(t_num);
-        for (TradeDto tde : td) {
-            if (tde.getT_unit().equals("근")) {
-                tde.setT_unit("한 "+tde.getT_unit());
-            }
-        }
-        return td;
+        return tDao.tradeDetail(t_num);
     }
 
     public boolean tradeUpdate(TradeDto tDto) {

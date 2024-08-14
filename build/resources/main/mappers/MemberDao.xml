@@ -77,4 +77,35 @@
     <select id="getorderCount" resultType="java.lang.Integer">
         select count(*) from order1 where m_id=#{id};
     </select>
+    <resultMap id="ranking" type="com.icia.recipe.home.dto.FooditemDto">
+        <id property="f_code" column="f_code"/>
+        <result property="f_title" column="f_title"/>
+        <result property="f_price" column="f_price"/>
+        <result property="f_views" column="f_views"/>
+        <result property="f_volume" column="f_volume"/>
+        <result property="f_origin" column="f_origin"/>
+        <result property="f_cal" column="f_cal"/>
+        <result property="f_save" column="f_save"/>
+        <collection property="iList" javaType="java.util.ArrayList" resultMap="selectImg"/>
+    </resultMap>
+    <select id="getRanking" resultMap="ranking">
+        SELECT f.f_title, f.f_price, f.f_views, f.f_code,f.f_volume, f.f_origin, f.f_cal, f.f_save, i.i_path, i.i_sys_name
+             , i.i_original_name
+        FROM fooditem f
+        join img i
+        on f.f_num = i.f_num
+        WHERE f.status = 1
+        ORDER BY f.f_views DESC
+        LIMIT 4
+    </select>
+    <select id="getRanking50" resultMap="ranking">
+        SELECT f.f_title, f.f_price, f.f_views, f.f_code,f.f_volume, f.f_origin, f.f_cal, f.f_save, i.i_path, i.i_sys_name
+             , i.i_original_name
+        FROM fooditem f
+                 join img i
+                      on f.f_num = i.f_num
+        WHERE f.status = 1
+        ORDER BY f.f_views DESC
+        LIMIT 50
+    </select>
 </mapper>

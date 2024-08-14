@@ -133,6 +133,7 @@ public class CartService {
     public boolean inputOrder(String price, InputOrderDto iOrder, String id) {
         // 주문 삽입
         HashMap<String,Object> hMap=new HashMap<>();
+        log.info("inputOrder,{}",iOrder);
         String result = price.replace(",", "");
         hMap.put("price", result);
         hMap.put("id", id);
@@ -148,6 +149,13 @@ public class CartService {
             boolean itemResult = cDao.insertOrderDetail(i);
             if (!itemResult) {
                 throw new RuntimeException("Failed to insert order detail");
+            }
+        });
+        // 게시글 수량 빼기
+        iOrder.getItemList().forEach(i->{
+            boolean itemMinus = cDao.updateFooditemCount(i);
+            if (!itemMinus) {
+                throw new RuntimeException("Failed to update fooditem count");
             }
         });
         // 장바구니 삭제

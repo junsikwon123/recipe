@@ -57,8 +57,9 @@
         on c1.c_num = c2.c_num2
         left join category c3
         on c2.c_num = c3.c_num2
+        where f.status = 1
         <if test="numName != null and numName != 'zzzz'">
-            where ${numName} = ${sDto.data.num}
+            and ${numName} = ${sDto.data.num}
         </if>
         GROUP BY f_num
         ORDER BY ${sDto.data.name} ${sDto.data.sort}
@@ -109,6 +110,5 @@
             where c_num = ${num}
         </if>
     </select>
-
 
 </mapper>

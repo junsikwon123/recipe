@@ -66,7 +66,9 @@ public class FooditemController {
         return "main/fooditem/fooditemDetail";
     }
     @GetMapping("/fooditem/ranking")
-    public String ranking() {
+    public String ranking(Model model) {
+        List<FooditemDto> fList = fSer.getRanking50();
+        model.addAttribute("list", fList);
         return "main/fooditem/ranking";
     }
 }

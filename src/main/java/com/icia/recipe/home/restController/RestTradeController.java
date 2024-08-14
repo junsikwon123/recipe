@@ -188,7 +188,7 @@ public class RestTradeController {
                     "<button id='refuse' onclick='refuse(" + alert.getT_num()+",\""+alert.getT_item()+"\","+alert.getT_itemcount() +", \"" + alert.getTradesend() + "\", \""+alert.getM_id()+"\")'>거절</button>" +
                     "<a class='dropdown-item d-flex align-items-center' href='#'>" +
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
-                    alert.getTradesend() + "님이 교환신청 하였습니다." +
+                    alert.getTradesend() + "님이 "+alert.getT_item()+" "+alert.getT_itemcount()+alert.getT_unit()+" 과 "+alert.getT_change()+"를 교환신청 하였습니다." +
                     "</div>" +
                     "</a>" +
                     "</div>" +
