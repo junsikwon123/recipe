@@ -52,7 +52,6 @@ public class FooditemController {
             return "index";
         }*/
         List<FooditemDto> list = fSer.searchFoodDetail(num , model);
-        log.info("list: {}",list);
         list.forEach(l ->{
             model.addAttribute("title",l.getF_title());
             model.addAttribute("price",l.getF_price());

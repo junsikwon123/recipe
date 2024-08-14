@@ -21,7 +21,7 @@ public interface CartDao {
 
     boolean insertOrderDetail(HashMap<String, String> e);
 
-    boolean deleteCartName(String id);
+    int deleteCartName(String id);
 
     boolean insertOrderDetail(ItemListDto i);
 

@@ -353,7 +353,8 @@
         </div>
     </main>
 </div>
-<form id="inputOrderForm" method="POST" action="/cart/inputOrder" style="display:none;"></form>
+<form id="inputOrderForm" method="POST" action="/cart/inputOrder" target="blankifr" style="display:none;"></form>
+<iframe name='blankifr' style='display:none;'></iframe>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -484,8 +485,29 @@
         inputData.forEach(input => {
             console.log("inputData", input.name, input.value);
         });
-        // 폼 제출
-        form.submit();
+        const item = document.querySelectorAll('.boxInner__txt')
+        console.log("dk..",item)
+        let value = price.replace(",", "");
+        let itemName = item[0].innerHTML.replace("옵션 :","")
+        let dataItemCount = item.length-(item.length/2)
+        console.log(itemName,dataItemCount)
+        // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
+        let data = {
+            name: itemName+" 외 "+dataItemCount+"개",    // 카카오페이에 보낼 대표 상품명
+            totalPrice: value // 총 결제금액
+        };
+        console.log('item' ,data )
+        let check = false;
+        $.ajax({
+            type: 'POST',
+            url: '/order/pay/ready',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (response) {
+                form.submit();
+                location.href = response.next_redirect_pc_url;
+            }
+        });
     }
 </script>
 </body>

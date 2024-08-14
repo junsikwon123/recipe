@@ -190,17 +190,14 @@ public class FooditemService {
     public List<FooditemDto> searchFoodDetail(String num, Model model) {
         log.info("views: {}",fDao.viewsPlus(num));
         List<FooditemDto> list = fDao.searchFoodDetail(num);
-        log.info("fDao , {}", list);
         if (!list.get(0).getIList().isEmpty()) {
             String img = makeFoodDetailImg(list.get(0).getIList());
             model.addAttribute("img", img);
         }
-
         return list;
     }
 
     public String makeFoodDetailImg(List<ImgDto> iList) {
-        log.info("iList: {}",iList);
         StringBuilder sb = new StringBuilder();
         iList.forEach(i -> {
             sb.append("<div class=\"slick-slide\"><div><div class=\"slider__list\" style=\"width: 100%;display: inline-block;\">");
@@ -228,7 +225,6 @@ public class FooditemService {
                 makeHtml = " <img src=\"/uploadedImg/main/@1100x2275.png\" style=\"width:1100px; height: auto; max-width:none\" >";
                 break;
         }
-        log.info("makeHtml: {}", makeHtml);
         return makeHtml;
     }
 
