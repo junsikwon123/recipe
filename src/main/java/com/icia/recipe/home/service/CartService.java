@@ -151,8 +151,8 @@ public class CartService {
             }
         });
         // 장바구니 삭제
-        boolean cartDelete = cDao.deleteCartName(id);
-        if (!cartDelete) {
+        int cartDelete = cDao.deleteCartName(id);
+        if (cartDelete<0) {
             throw new RuntimeException("Failed to delete cart name");
         }
         return true;

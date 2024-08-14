@@ -29,6 +29,43 @@ public class MemberController {
         return "main/member/memberjoin";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/customer/battle")
+    public String keyboardBattle() {
+        return "main/customerservice/keyboardbattle";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/customer/dogsound")
+    public String dogSound() {
+        return "main/customerservice/dogsound";
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @GetMapping("/loginfrm")
+    public String loginfrm() {
+        return "main/member/login";
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @GetMapping("/member/login")
+    public String login() {
+        return "main/member/login";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/member/mypage")
+    public String mypage(Principal principal,Model model,SearchDto sDto) {
+        String id = principal.getName();
+        log.info("pageNum:{}", sDto.getPageNum());
+        log.info("sDto:{}",sDto);
+        mSer.selectOrder(id, model, sDto);
+        String pageHtml = mSer.getPaging(id,sDto);
+        model.addAttribute("pageHtml", pageHtml);
+        return "main/member/mypage";
+    }
+
+
     @GetMapping("/agreefrm")
     public String agree() {
         return "main/member/caulseAgree";
@@ -51,21 +88,9 @@ public class MemberController {
         }
     }
 
-    @PreAuthorize("isAnonymous()")
-    @GetMapping("/loginfrm")
-    public String loginfrm() {
-        return "main/member/login";
-    }
-
     @GetMapping("searchfrm")
     public String searchfrm() {
         return "main/member/searchidpw";
-    }
-
-    @PreAuthorize("isAnonymous()")
-    @GetMapping("/member/login")
-    public String login() {
-        return "main/member/login";
     }
 
     @GetMapping("/member/login/error")
@@ -91,17 +116,6 @@ public class MemberController {
         return "main/customerservice/announcement";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/customer/battle")
-    public String keyboardBattle() {
-        return "main/customerservice/keyboardbattle";
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/customer/dogsound")
-    public String dogSound() {
-        return "main/customerservice/dogsound";
-    }
 
     @GetMapping("/customer/problem")
     public String problem() {
@@ -113,17 +127,7 @@ public class MemberController {
         return "index";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/member/mypage")
-    public String mypage(Principal principal,Model model,SearchDto sDto) {
-        String id = principal.getName();
-        log.info("pageNum:{}", sDto.getPageNum());
-        log.info("sDto:{}",sDto);
-        mSer.selectOrder(id, model, sDto);
-        String pageHtml = mSer.getPaging(id,sDto);
-        model.addAttribute("pageHtml", pageHtml);
-        return "main/member/mypage";
-    }
+
 
 
     @GetMapping("/delivery/info")

@@ -409,6 +409,7 @@
         dvItem.push("dvItemPrice:" + rePrice);
         dvItem.push("dvItemCount:" + itemCount.value);
         dvItem.push("dvItemImg:" + jsonImg)
+        dvItem.push("dvCartId:"+0);
         console.log(dvItem)
         // FormData 객체 생성
         const formData = new FormData();
