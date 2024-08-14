@@ -92,7 +92,7 @@ public class CartController {
     }
 
     @PostMapping("/cart/inputOrder")
-    public String inputOrder(@RequestParam("price") String price,@ModelAttribute InputOrderDto iOrder, Model model, Principal principal) {
+    public String inputOrder(@ModelAttribute InputOrderDto iOrder, Model model, Principal principal) {
         /*log.info("inputOrder입장{},{},{}", price, inputList, itemList);
         log.info("itemList Controller:{}", itemList);
         String count = String.valueOf(itemList.size());
@@ -101,11 +101,11 @@ public class CartController {
         log.info("inputOrder: {}", iOrder);
 
         String id = principal.getName();
-        boolean index = cSer.inputOrder(price,iOrder,id);
-        if(!index){
+        //boolean index = cSer.inputOrder(price,iOrder,id);
+        /*if(!index){
             model.addAttribute("msg", "주문을 실패하였습니다. 지속되면 관리자에게 문의해주십시요");
             return "redirect:/cart/main";
-        }
+        }*/
 
         return "index";
     }
