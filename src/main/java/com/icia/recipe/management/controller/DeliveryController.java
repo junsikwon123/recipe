@@ -1,6 +1,7 @@
 package com.icia.recipe.management.controller;
 
 import com.icia.recipe.management.dao.DeliveryDao;
+import com.icia.recipe.management.dto.DeliveryDto;
 import com.icia.recipe.management.service.DeliveryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class DeliveryController {
         // 월간 배송 관련
         HashMap MonthlyDelivery = dSer.getMonthlyDelivery();
         model.addAttribute("monthlyDelivery", MonthlyDelivery);
+        // 주문리스트
+        List<DeliveryDto> dList = dSer.getOrderList();
+        List<DeliveryDto> aList = dSer.getOrderList2();
+        model.addAttribute("orderList", dList);
+        model.addAttribute("deliveryList", aList);
         return "management/delivery";
     }
 }

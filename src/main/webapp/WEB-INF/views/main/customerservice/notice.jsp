@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+           prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
     <title>Title</title>
@@ -24,6 +28,8 @@
 <header>
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
+<script>
+</script>
 <main>
     <h1 style="font-size: large; margin-top: 10px; margin-left: 400px">HOME > 고객센터 > 공지사항</h1>
     <h1 style="font-size: xx-large; margin-top: 30px; margin-left: 400px; font-weight: bold">공지사항</h1>
@@ -44,7 +50,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th colspan="2" scope="col">전체 뭐 몇개 있겠지 함 맞춰보던가</th>
+                    <th colspan="2" scope="col">전체 ${nList.size()}</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"><input type="text" style="height: 40px; border-radius: 30px" placeholder="  검색어를 입력하세요"></th>
@@ -52,53 +58,19 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 첫번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
+                    <th style="text-align: center">#</th>
+                    <th style="text-align: center">분류</th>
+                    <th colspan="5" style="text-align: center">제목</th>
+                    <th style="text-align: center">작성자</th>
                 </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 2번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 3번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 4번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 5번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 6번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 7번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
-                <tr>
-                    <td><button style="background-color: white; border: 1px solid black; width: 60px; height: 40px">공지</button></td>
-                    <td><a href="#">대충 8번째 공지</a></td>
-                    <td></td>
-                    <td colspan="2" style="text-align: right">2024-07-30</td>
-                </tr>
+                <c:forEach var="item" items="${nList}" varStatus="i">
+                    <tr>
+                        <th style="text-align: center">${i.count}</th>
+                        <th style="text-align: center">공지</th>
+                        <th colspan="5" style="text-align: center">${item.title}</th>
+                        <th style="text-align: center;">${item.m_id}</th>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -121,7 +93,7 @@
             <li class="page-item"><a class="page-link" aria-label="Next" href="#">
                 <span aria-hidden="true">»</span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
             <sec:authorize access="hasRole('ADMIN')">
-                <button>글쓰기</button>
+                <a href="/customer/center/noticeWrite">글쓰기</a>
             </sec:authorize>
         </ul>
 

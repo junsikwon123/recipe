@@ -27,6 +27,9 @@
         <collection property="fList" javaType="java.util.ArrayList" resultMap="selectFooditem"/>
         <collection property="oList" javaType="java.util.ArrayList" resultMap="selectOrderDetail"/>
     </resultMap>
+    <insert id="insertNotice">
+        insert into notice (title, contents, m_id) values (#{title}, #{contents}, #{id})
+    </insert>
     <select id="selectOrder" resultMap="selectOrderAll">
         SELECT o.o_num,o.o_total, o.o_count, f.f_title, i.i_sys_name,
             i.i_path, MIN(f.f_num) AS f_num, f.f_num, o.o_delivery
@@ -107,5 +110,8 @@
         WHERE f.status = 1
         ORDER BY f.f_views DESC
         LIMIT 50
+    </select>
+    <select id="getNoticeList" resultType="com.icia.recipe.home.dto.NoticeDto">
+        select * from notice
     </select>
 </mapper>

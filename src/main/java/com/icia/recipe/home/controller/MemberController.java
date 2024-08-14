@@ -1,8 +1,10 @@
 package com.icia.recipe.home.controller;
 
 import com.icia.recipe.home.dto.Member;
+import com.icia.recipe.home.dto.NoticeDto;
 import com.icia.recipe.home.dto.SearchDto;
 import com.icia.recipe.home.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -86,8 +89,10 @@ public class MemberController {
         }
     }
     @GetMapping("/customer/center")
-    public String customerCenter() {
-        return "main/customerservice/announcement";
+    public String customerCenter(Model model) {
+        List<NoticeDto> nList = mSer.getNoticeList();
+        model.addAttribute("nList", nList);
+        return "main/customerservice/notice";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -122,6 +127,28 @@ public class MemberController {
         String pageHtml = mSer.getPaging(id,sDto);
         model.addAttribute("pageHtml", pageHtml);
         return "main/member/mypage";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/customer/center/noticeWrite")
+    public String noticeWrite(Principal principal, Model model) {
+        String id = principal.getName();
+        model.addAttribute("id", id);
+        return "main/customerservice/noticeWrite";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/customer/center/noticeWrite/done")
+    public String noticeWriteDone(HttpServletRequest request) {
+        String title = request.getParameter("noticeTitle");
+        String contents = request.getParameter("noticeContents");
+        String id = request.getParameter("currentID");
+        boolean result = mSer.insertNotice(title, contents, id);
+        if (result) {
+            return "/customer/center";
+        } else {
+            log.info("[공지 입력] 에러");
+            return null;
+        }
     }
 
 

@@ -2,10 +2,7 @@ package com.icia.recipe.home.service;
 
 import com.icia.recipe.home.common.Paging;
 import com.icia.recipe.home.dao.MemberDao;
-import com.icia.recipe.home.dto.FooditemDto;
-import com.icia.recipe.home.dto.Member;
-import com.icia.recipe.home.dto.OrderDto;
-import com.icia.recipe.home.dto.SearchDto;
+import com.icia.recipe.home.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -239,5 +236,17 @@ public class MemberService {
 
     public List<FooditemDto> getRanking() {
         return mDao.getRanking();
+    }
+
+    public boolean insertNotice(String title, String contents, String id) {
+        return mDao.insertNotice(title, contents, id);
+    }
+
+    public List<NoticeDto> getNoticeList() {
+        List<NoticeDto> nList = mDao.getNoticeList();
+        for (NoticeDto n : nList) {
+            n.setM_id("관리자");
+        }
+        return nList;
     }
 }

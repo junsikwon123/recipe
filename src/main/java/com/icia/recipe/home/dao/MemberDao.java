@@ -1,9 +1,6 @@
 package com.icia.recipe.home.dao;
 
-import com.icia.recipe.home.dto.FooditemDto;
-import com.icia.recipe.home.dto.Member;
-import com.icia.recipe.home.dto.OrderDto;
-import com.icia.recipe.home.dto.SearchDto;
+import com.icia.recipe.home.dto.*;
 import com.icia.recipe.management.dto.MemberDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -68,4 +65,8 @@ public interface MemberDao {
     List<FooditemDto> getRanking();
 
     List<FooditemDto> getRanking50();
+
+    boolean insertNotice(String title, String contents, String id);
+
+    List<NoticeDto> getNoticeList();
 }
