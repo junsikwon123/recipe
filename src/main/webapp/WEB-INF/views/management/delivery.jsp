@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -20,9 +22,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .listSelectorBtn:hover {
+            background-color: #4e73df;
+            color: white;
+        }
+    </style>
 </head>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         const ctx = document.getElementById('myChart').getContext('2d');
         const ctx2 = document.getElementById('MonthlyDelivery').getContext('2d');
         let myChart = new Chart(ctx, {
@@ -53,7 +61,7 @@
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(tooltipItem) {
+                            label: function (tooltipItem) {
                                 return tooltipItem.label + ': ' + tooltipItem.raw + '건';
                             }
                         }
@@ -119,6 +127,91 @@
             }
         })
     };
+
+    function allClickCk(selectAll) {
+        const i = document.getElementsByName('selectCk')
+        i.forEach((ck) => {
+            ck.checked = selectAll.checked;
+        })
+    }
+
+    function ckBoxDeliveryStart(elem) {
+        console.log("배송시작 진입")
+        $('#allClickCk').checked = false;
+        let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
+        let keySet = [];
+        isChecked.forEach((item) => {
+            let selectTr = item.closest('tr')
+            let key = selectTr.getAttribute('data-num')
+            keySet.push(key)
+        })
+        $.ajax({
+            method: 'post',
+            url: "/order/delivery/start",
+            data: {"keySet": keySet}
+        }).done((resp) => {
+            console.log("[배송시작] DONE")
+            console.log(resp)
+            let here = $('#tbody')
+            let str = "";
+            let i = 1;
+            for (const elem of resp) {
+                str += "<tr data-num='" + elem.o_num + "'>";
+                str += "<th>" + i + "</th>"
+                str += "<th colspan='3'>" + elem.o_date + "</th>";
+                str += "<th colspan='3'>" + elem.m_id + "</th>";
+                str += "<th colspan='3'>" + elem.o_address + "</th>";
+                str += "<th colspan='3'>" + elem.o_post + "</th>";
+                str += "<th colspan='2'><input class='ckBox' name='selectCk' type='checkbox'></th>";
+                str += "</tr>"
+                i++
+            }
+            here.html(str)
+        }).fail((err) => {
+            console.log("[배송시작] FAIL")
+        })
+    }
+
+    function listSelector(e) {
+        console.log("선택")
+        console.log(e.innerHTML)
+        let order = $('#orderList')
+        let delivery = $('#deliveryList')
+        switch (e.innerHTML) {
+            case "주문리스트":
+                order.css('display', 'block')
+                delivery.css('display', 'none')
+                break;
+            case "배송리스트":
+                delivery.css('display', 'block')
+                order.css('display', 'none')
+                break;
+            default:
+                console.log("리스트 셀렉터 에러 발생")
+        }
+    }
+    function ckBoxDeliveryEnd(elem) {
+        console.log("배송완료 진입")
+        $('#allClickCk').checked = false;
+        let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
+        let keySet = [];
+        isChecked.forEach((item) => {
+            let selectTr = item.closest('tr')
+            let key = selectTr.getAttribute('data-num')
+            keySet.push(key)
+        })
+        $.ajax({
+            method: 'post',
+            url: "/order/delivery/end",
+            data: {"keySet": keySet}
+        }).done((resp) => {
+            console.log("[배송완료] DONE")
+            console.log(resp)
+            window.location.href = "/delivery"
+        }).fail((err) => {
+            console.log("[배송시작] FAIL")
+        })
+    }
 </script>
 
 <body id="page-top">
@@ -144,8 +237,8 @@
                     <span> 재고 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">
-                        <span> 홈페이지로 </span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/">
+                    <span> 홈페이지로 </span></a></li>
             </ul>
             <div class="text-center d-none d-md-inline">
                 <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -159,11 +252,11 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3" type="button"><i
                             class="fas fa-bars"></i></button>
                     <%--                    검색란 --%>
-                        <div class="input-group" style="width: 500px">
-                            <input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
-                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
-                        </div>
+                    <div class="input-group" style="width: 500px">
+                        <input class="bg-light form-control border-0 small" type="text"
+                               placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)"/>
+                        <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                    </div>
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
                                                                             aria-expanded="false"
@@ -201,7 +294,8 @@
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
                                     <span id="span-message-count" class="badge bg-danger badge-counter"></span>
                                     <i class="fas fa-envelope fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
@@ -298,7 +392,8 @@
                                         <div class="text-uppercase text-primary fw-bold text-xs mb-1">
                                             <span style="font-size: larger">일간 배송</span>
                                         </div>
-                                        <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
+                                        <div class="text-dark fw-bold h5 mb-0"
+                                             style="display: flex; flex-direction: column">
                                             <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
                                                 <div>
                                                     <span style="font-size: small">배송준비중</span>
@@ -328,7 +423,8 @@
                                         <div class="text-uppercase text-success fw-bold text-xs mb-1">
                                             <span style="font-size: larger">주간 배송</span>
                                         </div>
-                                        <div class="text-dark fw-bold h5 mb-0" style="display: flex; flex-direction: column">
+                                        <div class="text-dark fw-bold h5 mb-0"
+                                             style="display: flex; flex-direction: column">
                                             <div style="width: 214px; justify-content: space-between; display: flex; flex-direction: row">
                                                 <div>
                                                     <span style="font-size: small">배송준비중</span>
@@ -367,8 +463,10 @@
                                             <div class="col">
                                                 <div class="progress progress-sm">
                                                     <div class="progress-bar bg-info" aria-valuenow="${todayPercentage}"
-                                                         aria-valuemin="0" aria-valuemax="100" style="width: ${todayPercentage}%;"><span
-                                                            class="visually-hidden">${todayPercentage}%</span></div>
+                                                         aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: ${todayPercentage}%;"><span
+                                                            class="visually-hidden">${todayPercentage}%</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -414,7 +512,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="chart-area">
-                                    <canvas id="MonthlyDelivery" height="320" style="display: block; width: 572px; height: 320px;"
+                                    <canvas id="MonthlyDelivery" height="320"
+                                            style="display: block; width: 572px; height: 320px;"
                                             width="1000"></canvas>
                                 </div>
                             </div>
@@ -450,181 +549,98 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <div class="card shadow mb-4 draggable">
-                            <div class="card-header py-3">
-                                <h6 class="text-primary fw-bold m-0">연령대별 구매분석 [회원가입시 나이 수집 안해서 없어짐..]</h6>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="small fw-bold">10대<span class="float-end">20%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 20%;"><span
-                                            class="visually-hidden">20%</span></div>
-                                </div>
-                                <h4 class="small fw-bold">20대<span class="float-end">40%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 40%;"><span
-                                            class="visually-hidden">40%</span></div>
-                                </div>
-                                <h4 class="small fw-bold">30대<span class="float-end">60%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 60%;"><span
-                                            class="visually-hidden">60%</span></div>
-                                </div>
-                                <h4 class="small fw-bold">40대<span class="float-end">80%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 80%;"><span
-                                            class="visually-hidden">80%</span></div>
-                                </div>
-                                <h4 class="small fw-bold">50대<span class="float-end">100%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 100%;"><span
-                                            class="visually-hidden">100%</span></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card shadow mb-4 draggable">
-                            <div class="card-header py-3">
-                                <h6 class="text-primary fw-bold m-0">할 일</h6>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>점심 먹기</strong></h6><span
-                                                class="text-xs">12:20 PM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-1" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-1"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>낮잠 자기</strong></h6><span
-                                                class="text-xs">12:40 PM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-2" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-2"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <h6 class="mb-0"><strong>퇴근 하기</strong></h6><span
-                                                class="text-xs">20:30 PM</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check"><input id="formCheck-3" class="form-check-input"
-                                                                           type="checkbox"/><label
-                                                    class="form-check-label" for="formCheck-3"></label></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-lg-6 mb-4" style="width: 825px">
-                                <div class="card text-white bg-primary shadow">
+                            <div id="listSelector" class="col-lg-6 mb-4" style="width: 1825px">
+                                <div class="card text-white shadow">
+                                    <div class="card-body"
+                                         style="justify-content: center; display: flex; flex-direction: row">
+                                        <a class="listSelectorBtn" onclick="listSelector(this)"
+                                           href="javascript:void(0)" style="width: 50%; text-align: center">주문리스트</a>
+                                        <a class="listSelectorBtn" onclick="listSelector(this)"
+                                           href="javascript:void(0)" style="width: 50%; text-align: center">배송리스트</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="orderList" class="col-lg-6 mb-4" style="width: 1825px;">
+                                <div class="card text-white shadow">
                                     <div class="card-body">
-                                        <p class="m-0" style="">팀명 : 기가막히조</p>
-                                        <pre class="text-white-50 small m-0"> </pre>
+                                        <table style="border-spacing: 20px; border-collapse: separate">
+                                            <tr>
+                                                <th><p class="m-0" style="text-align: center; font-size: x-large">
+                                                    주문리스트</p></th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="1">#</th>
+                                                <th colspan="3">주문 날짜</th>
+                                                <th colspan="3" style="text-align: center">구매자 아이디</th>
+                                                <th colspan="3" style="text-align: center">주소</th>
+                                                <th colspan="3">우편번호</th>
+                                                <th colspan=""><input id='allClickCk' onclick='allClickCk(this)'
+                                                                      value='selectAll' type='checkbox'>전체
+                                                </th>
+                                                <th colspan="">
+                                                    <button onclick="ckBoxDeliveryStart(this)"
+                                                            class="btn btn-outline-primary">배송
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                            <tbody id="tbody">
+                                            <c:forEach var="item" items="${orderList}" varStatus="i">
+                                                <tr data-num="${item.o_num}">
+                                                    <th colspan="1">${i.count}</th>
+                                                    <th colspan="3">${item.o_date}</th>
+                                                    <th colspan="3">${item.m_id}</th>
+                                                    <th colspan="3">${item.o_address}</th>
+                                                    <th colspan="3">${item.o_post}</th>
+                                                    <th colspan="2"><input class='ckBox' name='selectCk'
+                                                                           type='checkbox'></th>
+                                                </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-success shadow">
-                                    <div class="card-body" style="height: 545px">
-                                        <p class="m-0" style="font-size: xx-large">완료된 작업</p>
-                                        <br>
-                                        <br>
-                                        <ul>
-                                            <li>
-                                                하나
-                                            </li>
-                                            <li>
-                                                둘
-                                            </li>
-                                            <li>
-                                                삼
-                                            </li>
-                                            <li>
-                                                넷
-                                            </li>
-                                            <li>
-                                                오
-                                            </li>
-                                            <li>
-                                                여섯
-                                            </li>
-                                            <li>
-                                                칠
-                                            </li>
-                                            <li>
-                                                팔
-                                            </li>
-                                            <li>
-                                                아홉
-                                            </li>
-                                            <li>
-                                                공
-                                            </li>
-                                        </ul>
-                                        <p class="text-white-50 small m-0">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-info shadow">
-                                    <div class="card-body" style="height: 545px">
-                                        <p class="m-0" style="font-size: xx-large">미완료 작업</p>
-                                        <br>
-                                        <br>
-                                        <ul>
-                                            <li>
-                                                하나
-                                            </li>
-                                            <li>
-                                                둘
-                                            </li>
-                                            <li>
-                                                삼
-                                            </li>
-                                            <li>
-                                                넷
-                                            </li>
-                                            <li>
-                                                오
-                                            </li>
-                                            <li>
-                                                여섯
-                                            </li>
-                                            <li>
-                                                칠
-                                            </li>
-                                            <li>
-                                                팔
-                                            </li>
-                                            <li>
-                                                아홉
-                                            </li>
-                                            <li>
-                                                공
-                                            </li>
-                                        </ul>
+                            <div id="deliveryList" class="col-lg-6 mb-4" style="width: 1825px; display: none">
+                                <div class="card text-white shadow">
+                                    <div class="card-body">
+                                        <table style="border-spacing: 20px; border-collapse: separate">
+                                            <tr>
+                                                <th><p class="m-0" style="text-align: center; font-size: x-large">
+                                                    배송리스트</p></th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="1">#</th>
+                                                <th colspan="3">주문 날짜</th>
+                                                <th colspan="3" style="text-align: center">구매자 아이디</th>
+                                                <th colspan="6" style="text-align: center">배송상태</th>
+                                                <th colspan=""><input id='allClickCk' onclick='allClickCk(this)'
+                                                                      value='selectAll' type='checkbox'>전체
+                                                </th>
+                                                <th colspan="">
+                                                    <button onclick="ckBoxDeliveryEnd(this)"
+                                                            class="btn btn-outline-primary">완료
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                            <tbody id="tbody2">
+                                            <c:forEach var="item" items="${deliveryList}" varStatus="i">
+                                                <tr data-num="${item.o_num}">
+                                                    <th colspan="1">${i.count}</th>
+                                                    <th colspan="3">${item.o_date}</th>
+                                                    <th colspan="3">${item.m_id}</th>
+                                                    <th colspan="6">배송중</th>
+                                                    <th colspan="2"><input class='ckBox' name='selectCk'
+                                                                           type='checkbox'></th>
+                                                </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>

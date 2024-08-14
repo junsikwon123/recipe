@@ -1,10 +1,12 @@
 package com.icia.recipe.management.service;
 
 import com.icia.recipe.management.dao.DeliveryDao;
+import com.icia.recipe.management.dto.DeliveryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,5 +23,21 @@ public class DeliveryService {
             monthMap.put((i+"월"), monthlyDelivery);
         }
         return monthMap;
+    }
+
+    public List<DeliveryDto> getOrderList() {
+        return dDao.getOrderList();
+    }
+
+    public boolean deliveryStart(ArrayList keySet) {
+        return dDao.deliveryStart(keySet);
+    }
+
+    public List<DeliveryDto> getOrderList2() {
+        return dDao.getOrderList2();
+    }
+
+    public boolean deliveryEnd(ArrayList keySet) {
+        return dDao.deliveryEnd(keySet);
     }
 }

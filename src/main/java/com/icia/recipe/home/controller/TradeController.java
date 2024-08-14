@@ -19,7 +19,8 @@ import java.util.List;
 
 @Controller
 @Slf4j
-public class TradeController {
+public class
+TradeController {
 
     @Autowired
     TradeService tSer;
