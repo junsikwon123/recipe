@@ -34,4 +34,6 @@ public interface DeliveryDao {
     boolean deliveryEnd(ArrayList keySet);
 
     boolean updateDeliveryStatus(ArrayList keySet);
+
+    int getTotalOrder();
 }

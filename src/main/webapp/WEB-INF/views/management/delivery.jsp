@@ -482,7 +482,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-info fw-bold text-xs mb-1">
-                                            <span style="font-size: large">금일 전체 주문량<br>대비 배송 완료 현황</span>
+                                            <span style="font-size: large">배송 완료 현황</span>
                                         </div>
                                         <div class="row g-0 align-items-center">
                                             <div class="col-auto">
@@ -609,7 +609,7 @@
                                                 <th colspan="3" style="text-align: center">구매자 아이디</th>
                                                 <th colspan="3" style="text-align: center">주소</th>
                                                 <th colspan="3">우편번호</th>
-                                                <th colspan=""><input id='allClickCk' onclick='allClickCk(this)'
+                                                <th colspan=""><input class='allClickCk' onclick='allClickCk(this)'
                                                                       value='selectAll' type='checkbox'>전체
                                                 </th>
                                                 <th colspan="">
@@ -649,7 +649,7 @@
                                                 <th colspan="3">주문 날짜</th>
                                                 <th colspan="3" style="text-align: center">구매자 아이디</th>
                                                 <th colspan="6" style="text-align: center">배송 진행률</th>
-                                                <th colspan=""><input id='allClickCk' onclick='allClickCk(this)'
+                                                <th colspan=""><input class='allClickCk' onclick='allClickCk(this)'
                                                                       value='selectAll' type='checkbox'>전체
                                                 </th>
                                                 <th colspan="">

@@ -428,7 +428,7 @@
                             </c:when>
                             <c:when test="${status.index == 2 and not empty searchList[2]}">
                             <div style="width: 80%; text-align: center; margin-left: 10%">
-                                <h1 style="color: #4e73df">< - - - - - 식자재 - - - - - ></h1>
+                                <h3 style="color: #4e73df">< - - - - - 식자재 - - - - - ></h3>
                                 <table class='table my-0'>
                                     <tr style='vertical-align: center; background-color: #4e73df; color: white'>
                                         <th class="no-hover">#</th>

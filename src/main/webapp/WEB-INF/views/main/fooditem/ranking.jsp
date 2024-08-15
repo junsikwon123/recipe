@@ -74,16 +74,22 @@
             <a href="#"><img src="/uploadedImg/main/MainPage/건강한%20식재료%20장보기.jpg"></a>
             <div style="display: flex; flex-direction: row; width: 100%; text-align: center">
                 <div style="flex-grow: 1; margin-right: 0.5%">
-                        <c:forEach var="item" items="${list}" varStatus="status">
-                            <!-- 1, 4, 7, 10번째 항목만 처리 -->
-                            <c:if test="${(status.index % 3) == 0}">
-                                <p style="font-size: x-large; font-weight: bold; text-align: center; margin-top: 30px">
-                                    Best${status.index + 1}
-                                </p>
-                                <img src="${item.IList[0].i_path}${item.IList[0].i_sys_name}" style="display: block; margin: 0 auto; height: 225px; width: 225px;" onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
-                                <input type="text" value="${item.f_title}" style="text-decoration: none; border: none; text-align: center; color: gray;" draggable="false">
-                            </c:if>
-                        </c:forEach>
+                    <c:forEach var="item" items="${list}" varStatus="status">
+                        <!-- 1, 4, 7, 10번째 항목만 처리 -->
+                        <c:if test="${(status.index % 3) == 0}">
+                            <p style="font-size: x-large; font-weight: bold; text-align: center; margin-top: 30px">
+                                Best${status.index + 1}
+                            </p>
+                            <a href="/fooditem/detail?f_num=${item.f_num}">
+                                <img src="${item.IList[0].i_path}${item.IList[0].i_sys_name}"
+                                     style="display: block; margin: 0 auto; height: 225px; width: 225px;"
+                                     onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
+                            </a>
+                            <input type="text" value="${item.f_title}"
+                                   style="text-decoration: none; border: none; text-align: center; color: gray;"
+                                   draggable="false">
+                        </c:if>
+                    </c:forEach>
                 </div>
                 <div style="flex-grow: 1; margin-right: 0.5%; text-align: center">
                     <c:forEach var="item" items="${list}" varStatus="status">
@@ -92,8 +98,14 @@
                             <p style="font-size: x-large; font-weight: bold; text-align: center; margin-top: 30px">
                                 Best${status.index + 1}
                             </p>
-                            <img src="${item.IList[0].i_path}${item.IList[0].i_sys_name}" style="display: block; margin: 0 auto; height: 225px; width: 225px;" onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
-                            <input type="text" value="${item.f_title}" style="text-decoration: none; border: none; text-align: center; color: gray;" draggable="false">
+                            <a href="/fooditem/detail?f_num=${item.f_num}">
+                                <img src="${item.IList[0].i_path}${item.IList[0].i_sys_name}"
+                                     style="display: block; margin: 0 auto; height: 225px; width: 225px;"
+                                     onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
+                            </a>
+                            <input type="text" value="${item.f_title}"
+                                   style="text-decoration: none; border: none; text-align: center; color: gray;"
+                                   draggable="false">
                         </c:if>
                     </c:forEach>
                 </div>
@@ -104,9 +116,15 @@
                             <p style="font-size: x-large; font-weight: bold; text-align: center; margin-top: 30px">
                                 Best${status.index + 1}
                             </p>
-                            <img src="${item.IList[0].i_path}
-                            ${item.IList[0].i_sys_name}" style="display: block; margin: 0 auto; height: 225px; width: 225px;" onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
-                            <input type="text" value="${item.f_title}" style="text-decoration: none; border: none; text-align: center; color: gray;" draggable="false">
+                            <a href="/fooditem/detail?f_num=${item.f_num}">
+                                <img src="${item.IList[0].i_path}${item.IList[0].i_sys_name}"
+                                     style="display: block; margin: 0 auto; height: 225px; width: 225px;"
+                                     onerror="this.onerror=null; this.src='/uploadedImg/main/noImg.png';">
+                            </a>
+
+                            <input type="text" value="${item.f_title}"
+                                   style="text-decoration: none; border: none; text-align: center; color: gray;"
+                                   draggable="false">
                         </c:if>
                     </c:forEach>
                 </div>

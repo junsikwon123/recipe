@@ -29,6 +29,11 @@
     <jsp:include page="../common/header.jsp"></jsp:include>
 </header>
 <script>
+    function pageFSearch(elem, event) {
+        if (event.keyCode === 13) {
+            window.find(elem)
+        }
+    }
 </script>
 <main>
     <h1 style="font-size: large; margin-top: 10px; margin-left: 400px">HOME > 고객센터 > 공지사항</h1>
@@ -53,7 +58,9 @@
                     <th colspan="2" scope="col">전체 ${nList.size()}</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col"><input type="text" style="height: 40px; border-radius: 30px" placeholder="  검색어를 입력하세요"></th>
+                    <th scope="col" colspan="4"> <input type="search" id="pageInSearchForm" class="form-control form-control-sm"
+                                            aria-controls="dataTable" placeholder="페이지 내 검색"
+                                            onkeypress="pageFSearch(this.value, event)" autocomplete="off"></th>
                 </tr>
                 </thead>
                 <tbody>

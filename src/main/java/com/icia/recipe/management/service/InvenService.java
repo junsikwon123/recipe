@@ -261,7 +261,6 @@ public class InvenService {
             sort = "asc";
             flag2 = true;
         }
-
         switch (id) {
             case "pcompany":
                 param = "iv_company";
@@ -301,19 +300,13 @@ public class InvenService {
 
     }
 
-    public List<FoodItemDto> emptyFoodItem() {
-        return iDao.emptyFoodItem();
-    }
+    public List<FoodItemDto> emptyFoodItem() { return iDao.emptyFoodItem(); }
 
     public List<?> getFoodItemList(Integer pageNum, Integer pageSize) {
         List<FoodItemDto> fList = iDao.getDeleteFooditemList();
         int totalListCnt = fList.size();
         int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
-
-        if (fromIdx >= totalListCnt) {
-            return List.of();
-        }
-        return fList.subList(fromIdx, toIdx);
+        return (fromIdx >= totalListCnt) ? List.of() : fList.subList(fromIdx, toIdx);
     }
 }

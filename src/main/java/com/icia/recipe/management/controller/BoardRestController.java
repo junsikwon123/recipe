@@ -7,6 +7,7 @@ import com.icia.recipe.management.service.InvenService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ public class BoardRestController {
     private InvenService iSer;
 
     // 카테고리 관리. select option에 따라 대분류 div에 해당 값 가져오기
+    @Secured("ROLE_ADMIN")
     @GetMapping("/bigcategory")
     public List<BoardDto> getCategory(@RequestParam("cg") String cg) {
         if (cg.equals("fooditem")) {
@@ -42,6 +44,7 @@ public class BoardRestController {
 
     // 카테고리 관리. 대분류 선택시 그 대분류에 포함된 중분류 값 가져오기
     // 중분류 카테고리 매핑
+    @Secured("ROLE_ADMIN")
     @GetMapping("/midcategory")
     public List<BoardDto> getMiddleCategory(@RequestParam("cg") String cg) {
         if (String.valueOf(cg.charAt(0)).equals("1")) {
@@ -55,6 +58,7 @@ public class BoardRestController {
     }
 
     // 소분류 카테고리 매핑
+    @Secured("ROLE_ADMIN")
     @GetMapping("/smallcategory")
     public List<BoardDto> getSmallCategory(@RequestParam("cg") String cg) {
         if (String.valueOf(cg.charAt(0)).equals("2")) {
@@ -67,6 +71,7 @@ public class BoardRestController {
 
     // 게시판 관리. 레시피 또는 물물교환 탭 선택에 따른 테이블 값 변경
     @GetMapping("/boardlist")
+    @Secured("ROLE_ADMIN")
     public Object getCategoryBigCg(@RequestParam("tab") String tab,
                                    @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         // 다른데서 쓴것처럼 List<List<?>> 써서 resp 안에 다른 리스트 첨부해서 가져가서 까기
@@ -92,12 +97,14 @@ public class BoardRestController {
 
     // 카테고리 통합 추가
     @PostMapping("/insert/category")
+    @Secured("ROLE_ADMIN")
     public List<?> insertCategory(@RequestParam("cgName") String cgName, @RequestParam("cgNum") String cgNum) {
         log.info("[추가] 컨트롤러 진입");
         return bSer.insertAllCg(cgName, cgNum);
     }
 
     // 모달 컨트롤러
+    @Secured("ROLE_ADMIN")
     @PostMapping("/fooditem/modalinput")
     public List<FoodItemDto> fooditemmodalinput(MultipartHttpServletRequest request, HttpSession session,
                                                 @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) throws IOException {
@@ -115,6 +122,7 @@ public class BoardRestController {
     }
 
     // 게시글 상세보기
+    @Secured("ROLE_ADMIN")
     @GetMapping("/boardlist/modaldetails")
     public List<?> modalDetailsView(@RequestParam("trClass") String trClass, @RequestParam("trCode") String trCode) {
         log.info("[상세] 진입");
@@ -129,6 +137,7 @@ public class BoardRestController {
     }
 
     // 식자재 리스트 검색
+    @Secured("ROLE_ADMIN")
     @GetMapping("/boardlist/search")
     public List<?> boardListSearch(@RequestParam("tab") String tab, @RequestParam("pageNum") Integer pageNum,
                                    @RequestParam("pageSize") Integer pageSize, @RequestParam("searchKeyword") String searchKeyword) {
@@ -153,6 +162,7 @@ public class BoardRestController {
 
     // 보드 리스트 각 항목별 정렬
     @GetMapping("/boardlist/sort")
+    @Secured("ROLE_ADMIN")
     public Object boardlistsort(@RequestParam("id") String id,
                                 @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         if (String.valueOf(id.charAt(0)).equals("f")) {
@@ -168,12 +178,14 @@ public class BoardRestController {
     }
 
     @PostMapping("/boardlist/modalinfo/update")
+    @Secured("ROLE_ADMIN")
     public List<FoodItemDto> modalDetailsInfoUpdate(@RequestParam("Cdata") List Cdata, @RequestParam("Udata") List Udata) {
         log.info("[식자재 수정] 컨트롤러 진입");
         return bSer.modalDetailsInfoUpdate(Cdata, Udata);
     }
 
     @GetMapping("/modal/update/after/list")
+    @Secured("ROLE_ADMIN")
     public List<FoodItemDto> modalDetailsUpdateAfterList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         return bSer.getFoodItemList(pageNum, pageSize);
     }

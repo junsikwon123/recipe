@@ -206,7 +206,7 @@
                     <div class="count-area dvMiniCartOrderItemIndex" id="orderItemBoxIndex_1">
                         <span class="count__name">수량</span>
                         <div class="count hd__amount-count">
-                            <input type="text" class="dvMiniCartOrderItemQty" name="QTY" value="0">
+                            <input type="text" class="dvMiniCartOrderItemQty" name="QTY" value="0" max="${count}">
                             <button type="button" class="btn__count-down dvMiniCartOrderItemQtyDown" disabled="">
                                 <span class="hidden">빼기</span>
                             </button>
@@ -275,6 +275,7 @@
     const countList = document.querySelectorAll('.count>*');
     const itemCount = document.querySelector('.count>input')
     const relative = document.getElementsByClassName('relative');
+    const count1 = "${count}";
     let i = 0;
     countList.forEach(count => {
         count.addEventListener('click', function () {
@@ -282,21 +283,23 @@
                 case "btn__count-up dvMiniCartOrderItemQtyUp":
                     console.log(count.className);
                     ++i;
+                    if(i > count1){i=count1}
                     break;
                 case "btn__count-down dvMiniCartOrderItemQtyDown":
                     --i;
+                    if(i > count1){i=count1}
                     break;
                 case "dvMiniCartOrderItemQty":
                     count.addEventListener('change', () => {
                         i = count.value;
+                        if(i > count1){i=count1}
                     })
                     break;
-
             }
             let price = "${price}";
             let rePrice = price.replace(/,/g, "");
             console.log(rePrice);
-            itemCount.value = i;
+            (i > count1) ? itemCount.value = count1 : itemCount.value = i;
             totalPrice = rePrice * itemCount.value;
             relative[0].innerHTML = "총 상품금액  " + totalPrice.toLocaleString()
             if (itemCount.value <= 0) {
@@ -304,9 +307,7 @@
             } else {
                 countList[1].disabled = false;
             }
-
         })
-
     })
 
     function foodDetail(obj, result) {
@@ -372,7 +373,7 @@
                     }).fail(err => console.log(err))
                     break;
                 default:
-                    console.log("이상한거 들어옴")
+                    console.log("이상한거 들어옴 꾸엑")
             }
 
         })

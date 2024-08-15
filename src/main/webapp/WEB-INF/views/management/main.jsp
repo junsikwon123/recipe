@@ -55,12 +55,14 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         #progressBar {
             width: 100%;
             background-color: #f3f3f3;
             border-radius: 20px;
             overflow: hidden;
         }
+
         #progressBar div {
             height: 30px;
             width: 0;
@@ -74,13 +76,14 @@
 </head>
 <script>
     window.onload = function () {
+
         const ctx2 = document.getElementById('MonthlyProfit').getContext('2d');
         let MonthlyProfit = new Chart(ctx2, {
             type: 'bar',
             data: {
                 labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 datasets: [{
-                    label: '칼바람 할 사람?',
+                    label: 'On/Off',
                     data: ["${monthProfit['1월']}", "${monthProfit['2월']}", "${monthProfit['3월']}",
                         "${monthProfit['4월']}", "${monthProfit['5월']}", "${monthProfit['6월']}",
                         "${monthProfit['7월']}", "${monthProfit['8월']}", "${monthProfit['9월']}",
@@ -185,11 +188,11 @@
         const modal = document.getElementById("memoModal");
         const closeModalBtn = document.getElementsByClassName("close")[0];
 
-        closeModalBtn.onclick = function() {
+        closeModalBtn.onclick = function () {
             modal.style.display = "none";
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
@@ -209,6 +212,11 @@
             }
         });
     });
+
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
 </script>
 <body id="page-top">
 <div id="wrapper">
@@ -402,7 +410,8 @@
                                         </div>
                                         <div class="row g-0 align-items-center">
                                             <div class="col-auto">
-                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span id="progressPercentage"></span></div>
+                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span
+                                                        id="progressPercentage"></span></div>
                                             </div>
                                             <div class="col">
                                                 <div class="progress progress-sm">

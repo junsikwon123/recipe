@@ -58,7 +58,7 @@
                         <th>&nbsp;</th>
                     </tr>
                     <tr>
-                        <th colspan="6">전체 대충 오조오오오오오옭 개</th>
+                        <th colspan="6">전체</th>
                     </tr>
                     <tr>
                         <th>&nbsp;</th>
@@ -76,57 +76,17 @@
                     <tr class="table-group-divider" style="color: lightgray">
                         <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
                         <th style="color: black">[명령]</th>
-                        <th colspan="5" style="color: black">그만 자고[황인욱]</th>
+                        <th colspan="5" style="color: black">그만 자고 [황인욱]</th>
                     </tr>
                     <tr class="table-group-divider" style="color: lightgray">
                         <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
                         <th style="color: black">[명령]</th>
-                        <th colspan="5" style="color: black">그만 욕심내고[원준식]</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[명령]</th>
-                        <th colspan="5" style="color: black">그만 겜 쳐하고[이형구]</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[명령]</th>
-                        <th colspan="5" style="color: black">그만 폰질좀 하시고[홍승갑]</th>
+                        <th colspan="5" style="color: black">다키스트 던전 그만하고 [원준식]</th>
                     </tr>
                     <tr class="table-group-divider" style="color: lightgray">
                         <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
                         <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
-                    </tr>
-                    <tr class="table-group-divider" style="color: lightgray">
-                        <th><img style="height: 30px; width: 60px; color: black" src="/uploadedImg/main/MainPage/QNA.png"></th>
-                        <th style="color: black">[흠]</th>
-                        <th colspan="5" style="color: black">대충 페이지 체우기용 ㅇㅇ</th>
+                        <th colspan="5" style="color: black">대충 페이지 채우기용 ㅇㅇ</th>
                     </tr>
                 </table>
             </div>

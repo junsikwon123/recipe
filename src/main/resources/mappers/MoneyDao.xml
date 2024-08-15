@@ -4,7 +4,7 @@
 <mapper namespace="com.icia.recipe.management.dao.MoneyDao">
 
     <select id="getTodayProfitCount" resultType="java.lang.Integer">
-        select sum(o_total) from order1;
+        select sum(o_total) from order1 where o_date = curdate()
     </select>
     <select id="getWeekProfitCount" resultType="java.lang.Integer">
         SELECT sum(o_total)

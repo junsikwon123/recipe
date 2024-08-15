@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MoneyDao {
-    int getTodayProfitCount();
+    Integer getTodayProfitCount();
 
-    int getWeekProfitCount();
+    Integer getWeekProfitCount();
 
     int getMonthlyProfit(int i);
 }

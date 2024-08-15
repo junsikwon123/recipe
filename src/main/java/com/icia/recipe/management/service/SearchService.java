@@ -109,14 +109,12 @@ public class SearchService {
         List<FoodItemDto> searchFoodItem = fiList.stream()
                 .filter(fi -> keywords == null ? (
                         fi.getF_title().contains(Keyword) ||
-                                fi.getF_contents().contains(Keyword) ||
                                 fi.getF_price().contains(Keyword) ||
                                 fi.getF_count().contains(Keyword) ||
                                 fi.getF_date().contains(Keyword) ||
                                 fi.getF_edate().contains(Keyword)
                         ) : Arrays.stream(keywords).anyMatch(k ->
                         fi.getF_title().contains(k) ||
-                                fi.getF_contents().contains(k) ||
                                 fi.getF_price().contains(k) ||
                                 fi.getF_count().contains(k) ||
                                 fi.getF_date().contains(k) ||

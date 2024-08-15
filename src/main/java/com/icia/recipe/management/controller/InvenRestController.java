@@ -8,6 +8,7 @@ import com.icia.recipe.management.service.InvenService;
 import com.icia.recipe.management.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class InvenRestController {
     private SearchService sSer;
 
     @GetMapping("/inventory/list")
+    @Secured("ROLE_ADMIN")
     public List<?> invenSelect(@RequestParam("currentMenu") String currentMenu, @RequestParam("pageNum") Integer pageNum,
                                @RequestParam("pageSize") Integer pageSize) {
         log.info("[재고] 페번호: {}",pageNum);
@@ -57,6 +59,7 @@ public class InvenRestController {
         return invenList;
     }
     @GetMapping("/inventory/sort")
+    @Secured("ROLE_ADMIN")
     public List<?> invenSort(@RequestParam("id") String id, @RequestParam("pageNum") Integer pageNum,
                              @RequestParam("pageSize") Integer pageSize) {
         switch (id.charAt(0)) {
@@ -69,6 +72,7 @@ public class InvenRestController {
         return null;
     }
     @PostMapping("/inventory/modalinput")
+    @Secured("ROLE_ADMIN")
     public List<?> invenAdd(@RequestParam("company") String company, @RequestParam("name") String name,
                                    @RequestParam("count") String count, @RequestParam("price") String price,
                                    @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
@@ -76,6 +80,7 @@ public class InvenRestController {
         return iSer.insertInvenAdd(pageNum, pageSize, company, name, count, price);
     }
     @GetMapping("/inven/deletebox")
+    @Secured("ROLE_ADMIN")
     public List<?> moveToDeleteBox(@RequestParam("deleteKeySet") ArrayList deleteKeySet, @RequestParam("pageNum") Integer pageNum,
                                    @RequestParam("pageSize") Integer pageSize) {
 
@@ -83,16 +88,20 @@ public class InvenRestController {
 
     }
     @GetMapping("/inventory/order")
+    @Secured("ROLE_ADMIN")
     public List<InvenDto> finalOrder() {
         return iSer.finalOrder();
     }
+
     @GetMapping("/search/detailmodal")
+    @Secured("ROLE_ADMIN")
     public List<?> searchModalDetails(@RequestParam("className") String className, @RequestParam("param") ArrayList param) {
         log.info("[검색] 상세모달 깐뜨롤러 진입");
         return sSer.getSearchModalDetails(className, param);
     }
 
     @GetMapping("/get/empty/food/item")
+    @Secured("ROLE_ADMIN")
     public List<FoodItemDto> emptyFoodItem(){
         log.info("[품절] 깐뜨롤러 진입");
         return iSer.emptyFoodItem();

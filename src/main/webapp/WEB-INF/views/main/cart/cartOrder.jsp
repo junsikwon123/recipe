@@ -344,7 +344,7 @@
                         </section>
                         <button class="btn-init green btn-pay" id="dvOrder" onclick="dvOrder()">결제하기
                         </button>
-                        <button class="btn-init white btn-cancel" id="dvCancelOrder">취소</button>
+                        <button class="btn-init white btn-cancel" id="dvCancelOrder" onclick="cancel()">취소</button>
                         <input type="hidden" name="jointYN" id="jointYN" value="N">
                         <input type="hidden" name="jointDate" id="jointDate" value="">
                         <input type="hidden" name="jointDetlId" id="jointDetlId" value=""></div>
@@ -359,6 +359,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+    function cancel() {
+        window.location.href = "/"
+    }
     function daumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -499,7 +502,12 @@
         };*/
         /* let check = false;*/
         let formData = new FormData(document.getElementById("inputOrderForm"));  //{id:"aaa",pw:100,key:[1111,2222]}
-         formData.append("name",itemName+" 외 "+dataItemCount+"개");
+        dataItemCount = dataItemCount-1;
+        if (dataItemCount = 0) {
+            formData.append("name",itemName);
+        } else {
+            formData.append("name",itemName+" 외 "+(dataItemCount)+"개");
+        }
      /*   let data = {
             name: itemName + " 외 " + dataItemCount + "개",    // 카카오페이에 보낼 대표 상품명
             totalPrice: price, // 총 결제금액

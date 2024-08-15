@@ -40,7 +40,7 @@
                     <li class="tab-menu__list tab-menu__list--on disabled" data-tab="cartOriginal" id="cartOriginal"><a>
                         <span id="originalTab">일반(${count})</span></a></li>
                     <li class="tab-menu__list disabled" data-tab="cartGift" id="cartGift">
-                        <a><span id="giftTab">선물(0)</span></a></li>
+                        <a style="cursor: pointer"><span id="giftTab">선물(0)</span></a></li>
                 </ul>
                 <div id="orderCartTop" class="orderCart__top" style="display: none;">
                     <div class="orderCart__top__ctrl" id="allDiv">
@@ -49,7 +49,7 @@
                             <label class="form-label" for="checkall">전체선택</label></span>
                         <div class="btn__delete">
                             <a class="btn-round" id="dvShippingTypeSelectCart" style="display: none;">선물주문 이동</a>
-                            <a class="btn-round" id="dvDelSelectCart">선택삭제</a>
+                            <a class="btn-round" id="dvDelSelectCart" style="cursor: pointer">선택삭제</a>
                         </div>
                     </div>
                     <div id="giftType10" class="orderCart__top__gift accordion" style="display: none;"><a

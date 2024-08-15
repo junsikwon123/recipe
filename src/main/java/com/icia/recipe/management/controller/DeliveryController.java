@@ -5,6 +5,7 @@ import com.icia.recipe.management.dto.DeliveryDto;
 import com.icia.recipe.management.service.DeliveryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class DeliveryController {
     @Autowired
     DeliveryService dSer;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delivery")
     public String delivery(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         String m_id=userDetails.getUsername();
@@ -38,16 +40,21 @@ public class DeliveryController {
         model.addAttribute("todayDelivering", dayDelivering);
         int dayOrderCount = dDao.getOrderCount();
         double percentage = 0;
+        log.info("{}",dayDelivery);
+        log.info("{}",dayOrderCount);
+        int getTotal = dDao.getTotalOrder();
         if (dayOrder > 0) {
-            percentage = ((double) dayDelivery / dayOrderCount) * 100;
+            percentage = ((double) getTotal / dayOrderCount) * 100;
         }
+        log.info("{}",percentage);
         DecimalFormat df = new DecimalFormat("0.0");
         log.info("퍼센트 비율 : {}", percentage);
         model.addAttribute("todayPercentage",df.format(percentage));
-        // 주간 배송 관련
-        int weekDelivery = dDao.getWeekOrderDelivery();
-        int weekOrder = dDao.getWeekOrderCount();
-        int weekDelivering = dDao.getWeekDelivering();
+
+        // 주간 배송 관련 ㅇㅇ
+        int weekOrder = dDao.getWeekOrderCount(); // 준비중
+        int weekDelivery = dDao.getWeekOrderDelivery(); // 배송와뇰
+        int weekDelivering = dDao.getWeekDelivering(); // 배송중
         model.addAttribute("weekDelivery", weekDelivery);
         model.addAttribute("weekOrder", weekOrder);
         model.addAttribute("weekDelivering", weekDelivering);

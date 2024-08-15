@@ -5,6 +5,7 @@ import com.icia.recipe.management.dto.DeliveryDto;
 import com.icia.recipe.management.service.DeliveryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class DeliveryRestController {
     DeliveryService dSer;
 
     @PostMapping("/order/delivery/start")
+    @Secured("ROLE_ADMIN")
     public List<DeliveryDto> deliveryStart(@RequestParam("keySet") ArrayList keySet, Model model) {
         boolean result = dSer.deliveryStart(keySet);
         if (result) {
@@ -49,6 +51,7 @@ public class DeliveryRestController {
         }
     }
     @PostMapping("/order/delivery/end")
+    @Secured("ROLE_ADMIN")
     public List<DeliveryDto> deliveryEnd(@RequestParam("keySet") ArrayList keySet, Model model) {
         boolean result = dSer.deliveryEnd(keySet);
         if (result) {

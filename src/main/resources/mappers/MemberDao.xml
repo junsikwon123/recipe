@@ -83,6 +83,7 @@
     <resultMap id="ranking" type="com.icia.recipe.home.dto.FooditemDto">
         <id property="f_code" column="f_code"/>
         <result property="f_title" column="f_title"/>
+        <result property="f_num" column="f_num"/>
         <result property="f_price" column="f_price"/>
         <result property="f_views" column="f_views"/>
         <result property="f_volume" column="f_volume"/>
@@ -102,7 +103,7 @@
         LIMIT 4
     </select>
     <select id="getRanking50" resultMap="ranking">
-        SELECT f.f_title, f.f_price, f.f_views, f.f_code,f.f_volume, f.f_origin, f.f_cal, f.f_save, i.i_path, i.i_sys_name
+        SELECT f.f_num, f.f_title, f.f_price, f.f_views, f.f_code,f.f_volume, f.f_origin, f.f_cal, f.f_save, i.i_path, i.i_sys_name
              , i.i_original_name
         FROM fooditem f
                  join img i
