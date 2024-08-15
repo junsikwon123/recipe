@@ -18,6 +18,14 @@
             #{o_num}
         </foreach>
     </update>
+    <update id="updateDeliveryStatus">
+        update order1
+        set o_delivery = 2
+        where o_delivery=1 and o_num IN
+        <foreach item="o_num" collection="keySet" open="(" separator="," close=")">
+            #{o_num}
+        </foreach>
+    </update>
     <select id="getTodayOrderDelivery" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM order1_status_log

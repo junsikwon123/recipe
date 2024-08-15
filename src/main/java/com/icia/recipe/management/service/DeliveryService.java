@@ -40,4 +40,13 @@ public class DeliveryService {
     public boolean deliveryEnd(ArrayList keySet) {
         return dDao.deliveryEnd(keySet);
     }
+
+    public boolean deliveryEndUpdate(ArrayList keySet) {
+        boolean update = dDao.updateDeliveryStatus(keySet);
+        if (update) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

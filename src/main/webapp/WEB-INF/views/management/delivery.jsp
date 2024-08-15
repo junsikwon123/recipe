@@ -27,6 +27,21 @@
             background-color: #4e73df;
             color: white;
         }
+        #progressBar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        #progressBar div {
+            height: 30px;
+            width: 0;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            border-radius: 20px;
+        }
     </style>
 </head>
 <script>
@@ -134,8 +149,23 @@
             ck.checked = selectAll.checked;
         })
     }
+    function startProgress() {
+        alert('진행률 운동 갱신!')
+        let progress = document.getElementById("progress");
+        let width = 0;
+        let interval = setInterval(function () {
+            if (width >= 100) {
+                clearInterval(interval); // 60초 후에 타이머 멈춤
+            } else {
+                width += 100 / 60; // 60초 동안 100%로 채움
+                progress.style.width = width + '%';
+                progress.innerHTML = Math.round(width) + '%';
+            }
+        }, 1000); // 1초마다 실행
+    }
 
     function ckBoxDeliveryStart(elem) {
+        startProgress()
         console.log("배송시작 진입")
         $('#allClickCk').checked = false;
         let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
@@ -567,10 +597,11 @@
                             <div id="orderList" class="col-lg-6 mb-4" style="width: 1825px;">
                                 <div class="card text-white shadow">
                                     <div class="card-body">
-                                        <table style="border-spacing: 20px; border-collapse: separate">
-                                            <tr>
-                                                <th><p class="m-0" style="text-align: center; font-size: x-large">
-                                                    주문리스트</p></th>
+                                        <table style="border-spacing: 20px; border-collapse: separate; margin: 0 auto">
+                                            <tr style="text-align: center">
+                                                <th>
+                                                    <p class="m-0" style="font-size: x-large">주문리스트</p>
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th colspan="1">#</th>
@@ -607,8 +638,8 @@
                             </div>
                             <div id="deliveryList" class="col-lg-6 mb-4" style="width: 1825px; display: none">
                                 <div class="card text-white shadow">
-                                    <div class="card-body">
-                                        <table style="border-spacing: 20px; border-collapse: separate">
+                                    <div class="card-body" style="">
+                                        <table style="border-spacing: 20px; border-collapse: separate; margin: 0 auto">
                                             <tr>
                                                 <th><p class="m-0" style="text-align: center; font-size: x-large">
                                                     배송리스트</p></th>
@@ -617,7 +648,7 @@
                                                 <th colspan="1">#</th>
                                                 <th colspan="3">주문 날짜</th>
                                                 <th colspan="3" style="text-align: center">구매자 아이디</th>
-                                                <th colspan="6" style="text-align: center">배송상태</th>
+                                                <th colspan="6" style="text-align: center">배송 진행률</th>
                                                 <th colspan=""><input id='allClickCk' onclick='allClickCk(this)'
                                                                       value='selectAll' type='checkbox'>전체
                                                 </th>
@@ -633,7 +664,9 @@
                                                     <th colspan="1">${i.count}</th>
                                                     <th colspan="3">${item.o_date}</th>
                                                     <th colspan="3">${item.m_id}</th>
-                                                    <th colspan="6">배송중</th>
+                                                    <th colspan="6"><div id="progressBar">
+                                                        <div id="progress"></div>
+                                                    </div></th>
                                                     <th colspan="2"><input class='ckBox' name='selectCk'
                                                                            type='checkbox'></th>
                                                 </tr>

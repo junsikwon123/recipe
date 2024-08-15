@@ -32,4 +32,6 @@ public interface DeliveryDao {
     List<DeliveryDto> getOrderList2();
 
     boolean deliveryEnd(ArrayList keySet);
+
+    boolean updateDeliveryStatus(ArrayList keySet);
 }

@@ -138,13 +138,15 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/customer/center/noticeWrite/done")
-    public String noticeWriteDone(HttpServletRequest request) {
+    public String noticeWriteDone(HttpServletRequest request, Model model) {
         String title = request.getParameter("noticeTitle");
         String contents = request.getParameter("noticeContents");
         String id = request.getParameter("currentID");
         boolean result = mSer.insertNotice(title, contents, id);
         if (result) {
-            return "/customer/center";
+            List<NoticeDto> nList = mSer.getNoticeList();
+            model.addAttribute("nList", nList);
+            return "main/customerservice/notice";
         } else {
             log.info("[공지 입력] 에러");
             return null;

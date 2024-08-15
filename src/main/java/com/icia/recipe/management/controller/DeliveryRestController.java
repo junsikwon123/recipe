@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -27,13 +31,23 @@ public class DeliveryRestController {
     public List<DeliveryDto> deliveryStart(@RequestParam("keySet") ArrayList keySet, Model model) {
         boolean result = dSer.deliveryStart(keySet);
         if (result) {
-            return dDao.getOrderList();
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            boolean update = dSer.deliveryEndUpdate(keySet);
+            if (update) {
+                return dDao.getOrderList();
+            } else {
+                log.info("[배송완료] 컨트롤러 에러");
+                return null;
+            }
         } else {
             log.info("[배송시작] 컨트롤러 에러");
             return null;
         }
     }
-
     @PostMapping("/order/delivery/end")
     public List<DeliveryDto> deliveryEnd(@RequestParam("keySet") ArrayList keySet, Model model) {
         boolean result = dSer.deliveryEnd(keySet);

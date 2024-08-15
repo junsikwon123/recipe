@@ -55,6 +55,21 @@
             text-decoration: none;
             cursor: pointer;
         }
+        #progressBar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        #progressBar div {
+            height: 30px;
+            width: 0;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            border-radius: 20px;
+        }
     </style>
 </head>
 <script>
@@ -134,6 +149,37 @@
                 modal.style.display = "block";
             }
         });
+
+        function updateProgressBar() {
+            const startHour = 9; // 09:00
+            const endHour = 18;  // 18:00
+            const totalMinutes = (endHour - startHour) * 60; // 총 9시간 = 540분
+
+            const now = new Date(); // 현재 시간 가져오기
+            const currentHour = now.getHours();
+            const currentMinutes = now.getMinutes();
+
+            // 현재 시간이 오전 9시 이후이고 오후 6시 이전일 때만 계산
+            if (currentHour >= startHour && currentHour < endHour) {
+                const elapsedMinutes = (currentHour - startHour) * 60 + currentMinutes;
+                const progressPercent = (elapsedMinutes / totalMinutes) * 100;
+
+                document.getElementById("progress").style.width = progressPercent + '%';
+                document.getElementById('progressPercentage').innerHTML = document.getElementById("progress").style.width
+                document.getElementById("progress").innerHTML = Math.round(progressPercent) + '%';
+            } else if (currentHour < startHour) {
+                // 오전 9시 이전일 경우 진행률 0%
+                document.getElementById("progress").style.width = '0%';
+                document.getElementById("progress").innerHTML = '0%';
+            } else {
+                // 오후 6시 이후일 경우 진행률 100%
+                document.getElementById("progress").style.width = '100%';
+                document.getElementById("progress").innerHTML = '100%';
+            }
+        }
+
+        updateProgressBar();
+        setInterval(updateProgressBar, 60000);
 
         // 모달 닫기 기능
         const modal = document.getElementById("memoModal");
@@ -356,13 +402,13 @@
                                         </div>
                                         <div class="row g-0 align-items-center">
                                             <div class="col-auto">
-                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span>37%</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0 me-3"><span id="progressPercentage"></span></div>
                                             </div>
                                             <div class="col">
                                                 <div class="progress progress-sm">
-                                                    <div class="progress-bar bg-info" aria-valuenow="37"
-                                                         aria-valuemin="0" aria-valuemax="100" style="width: 37%;"><span
-                                                            class="visually-hidden">37%</span></div>
+                                                    <div id="progressBar">
+                                                        <div id="progress"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -552,34 +598,18 @@
                                             <br>
                                             <ul>
                                                 <li>
-                                                    하나
+                                                    일간 매출은 금일 주문된 상품들의 합산 금액을 가져옵니다.
+                                                </li>
+
+                                                <li>
+                                                    업무 진행률은 금일 오전 09시부터 오후 06시까지의 진행률 그래프로, 퇴근까지 남은 퍼센트를 알려줍니다
+                                                </li>
+
+                                                <li>
+                                                    월간 매출 증감표는 각 월별 매출액을 가져옵니다.
                                                 </li>
                                                 <li>
-                                                    둘
-                                                </li>
-                                                <li>
-                                                    삼
-                                                </li>
-                                                <li>
-                                                    넷
-                                                </li>
-                                                <li>
-                                                    오
-                                                </li>
-                                                <li>
-                                                    여섯
-                                                </li>
-                                                <li>
-                                                    칠
-                                                </li>
-                                                <li>
-                                                    팔
-                                                </li>
-                                                <li>
-                                                    아홉
-                                                </li>
-                                                <li>
-                                                    공
+                                                    메모장은 본연의 기능을 잘 수행합니다. 다만 css가 조금 빈약합니다
                                                 </li>
                                             </ul>
                                             <p class="text-white-50 small m-0">
@@ -595,34 +625,16 @@
                                             <br>
                                             <ul>
                                                 <li>
-                                                    하나
+                                                    연령대별 구매분석. 어려울게 없으나 데이터가 없어 구현하지 못했습니다
                                                 </li>
                                                 <li>
-                                                    둘
+                                                    주간 매출은 오늘부터 7일전까지의 합산 금액 로직을 짜놨는데 결과가 이상하네요
                                                 </li>
                                                 <li>
-                                                    삼
+                                                    보류된 업무는 껍데기입니다.
                                                 </li>
                                                 <li>
-                                                    넷
-                                                </li>
-                                                <li>
-                                                    오
-                                                </li>
-                                                <li>
-                                                    여섯
-                                                </li>
-                                                <li>
-                                                    칠
-                                                </li>
-                                                <li>
-                                                    팔
-                                                </li>
-                                                <li>
-                                                    아홉
-                                                </li>
-                                                <li>
-                                                    공
+                                                    월간 매출 증감표와 메모장 영역에는 추가메뉴 버튼이 있지만 별도의 기능은 없습니다
                                                 </li>
                                             </ul>
                                         </div>
