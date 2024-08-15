@@ -353,7 +353,7 @@
         </div>
     </main>
 </div>
-<form id="inputOrderForm" method="POST" action="/cart/inputOrder" target="blankifr" style="display:none;"></form>
+<form id="inputOrderForm" method="post" action="/cart/inputOrder" target="blankifr" style="display:none;"></form>
 <iframe name='blankifr' style='display:none;'></iframe>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -443,6 +443,7 @@
         console.log("inputList", inputList)
         console.log("itemList", itemList)
         // 폼 요소 선택
+
         let form = document.getElementById("inputOrderForm");
 
         // 기존에 추가된 모든 자식 요소 제거
@@ -492,19 +493,30 @@
         let dataItemCount = item.length-(item.length/2)
         console.log(itemName,dataItemCount)
         // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
-        let data = {
+        /*  let data = {
             name: itemName+" 외 "+dataItemCount+"개",    // 카카오페이에 보낼 대표 상품명
             totalPrice: value // 총 결제금액
-        };
-        console.log('item' ,data )
-        let check = false;
+        };*/
+        /* let check = false;*/
+        let formData = new FormData(document.getElementById("inputOrderForm"));  //{id:"aaa",pw:100,key:[1111,2222]}
+         formData.append("name",itemName+" 외 "+dataItemCount+"개");
+     /*   let data = {
+            name: itemName + " 외 " + dataItemCount + "개",    // 카카오페이에 보낼 대표 상품명
+            totalPrice: price, // 총 결제금액
+            inputList: inputList,
+            itemList: itemList
+        };*/
+
+        console.log("formData",formData.get('name'));
         $.ajax({
             type: 'POST',
             url: '/order/pay/ready',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
+            // data: JSON.stringify(formData),
+            data: formData,
+            processData:false, //urlencoded(쿼리스트링 형식)처리 금지
+            contentType:false, //multipart의 경우 false
+            /*contentType: 'application/json',*/
             success: function (response) {
-                form.submit();
                 location.href = response.next_redirect_pc_url;
             }
         });
