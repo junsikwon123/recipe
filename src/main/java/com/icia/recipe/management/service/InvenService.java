@@ -36,13 +36,15 @@ public class InvenService {
             return List.of(); // 페이지 범위가 전체 리스트 크기를 초과하는 경우 빈 리스트 반환
         }
         for (FoodItemDto fi : fList) {
-            if (fi.getF_title().length()>=6) {
-                fi.setF_title(fi.getF_title().substring(0,5)+"...");
+            if (fi.getF_title().length() >= 6) {
+                fi.setF_title(fi.getF_title().substring(0, 5) + "...");
             }
         }
         return fList.subList(fromIdx, toIdx);
     }
+
     boolean flag = true;
+
     public List<?> getInvenListSort(String id, Integer pageNum, Integer pageSize) {
         log.info("[재고] 정렬 서비스 진입");
         String sort = "";
@@ -100,9 +102,9 @@ public class InvenService {
                     return null;
             }
         }
-        List<FoodItemDto> iList =  iDao.getSortedInvenList(param, sort);
+        List<FoodItemDto> iList = iDao.getSortedInvenList(param, sort);
         int totalListCnt = iList.size();
-        int fromIdx = (pageNum - 1)*pageSize;
+        int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
         if (fromIdx > totalListCnt) {
             return List.of();
@@ -117,50 +119,9 @@ public class InvenService {
         String code = deleteKeySet.get(1).toString();
         String cgName = deleteKeySet.get(2).toString();
         String title = deleteKeySet.get(3).toString();
-        List<FoodItemDto> ps1Select = iDao.getFoodItemList(bigCgNum, code, cgName, title);
-        List<ImgDto2> ps2Select = iDao.getImg(bigCgNum, code, cgName, title);
-        boolean ps3Delete = iDao.deleteFromFoodItem(bigCgNum, code , title);
-        if (ps3Delete) {
-            for (int i = 0; i < ps2Select.size(); i++) {
-                ImgDto2 img = ps2Select.get(i);
-                FoodItemDto ps = ps1Select.get(i);
-
-                // ImgDto에서 값 추출
-                long ipath = img.getI_path();
-                long sysname = img.getI_sys_name();
-                long oriname = img.getI_original_name();
-                String mid = img.getM_id();
-                int fnum = img.getF_num();
-                String fileSize = img.getI_filesize();
-                String regDate = img.getI_register_date();
-
-                // FoodItemDto에서 값 추출
-                String fcnum = ps.getC_num();
-                String fcnum2 = ps.getC_num2();
-                String ftitle = ps.getF_title();
-                String fcontents = ps.getF_contents();
-                String fprice = ps.getF_price();
-                String fcount = ps.getF_count();
-                String fdate = ps.getF_date();
-                String fedate = ps.getF_edate();
-                String fviews = ps.getF_views();
-                String fvolume = ps.getF_volume();
-                String forigin = ps.getF_origin();
-                String fcal = ps.getF_cal();
-                String fsave = ps.getF_save();
-
-                // iDao의 insertToDeleteBox 메서드 호출
-                boolean ps4Insert = iDao.insertToDeleteBox(fcnum, fcnum2, ftitle, fcontents, fprice, fcount, fdate, fedate,
-                        fviews, fvolume, forigin, fcal, fsave, ipath, sysname, oriname, mid, fnum, fileSize, regDate);
-
-                // 삽입 실패 시 로그 기록 후 null 반환
-                if (!ps4Insert) {
-                    log.info("[폐기] 과정중 INSERT 에러발생");
-                    return null;
-                }
-            }
-            // 모든 작업 성공시 삭제된 재고리스트 반환
-            return iDao.getInvenList();
+        boolean update = iDao.updateFoodItem(bigCgNum, code, cgName);
+        if (update) {
+            return getInvenList(pageNum, pageSize);
         } else {
             log.info("[폐기] 삭제 실패");
             return null;
@@ -168,7 +129,7 @@ public class InvenService {
     }
 
     public List<?> insertInvenAdd(Integer pageNum, Integer pageSize, String company,
-                                         String name, String count, String price) {
+                                  String name, String count, String price) {
         boolean result = iDao.insertInvenAdd(count, company, name, price);
         if (result) {
             return iDao.getInvenAddList();
@@ -208,22 +169,22 @@ public class InvenService {
             searchList = fList.stream()
                     .filter(fis ->
                             fis.getF_title().contains(searchKeyword) ||
-                            fis.getF_code().contains(searchKeyword) ||
-                            fis.getF_count().contains(searchKeyword) ||
-                            fis.getF_price().contains(searchKeyword) ||
-                            fis.getC_name().contains(searchKeyword))
+                                    fis.getF_code().contains(searchKeyword) ||
+                                    fis.getF_count().contains(searchKeyword) ||
+                                    fis.getF_price().contains(searchKeyword) ||
+                                    fis.getC_name().contains(searchKeyword))
                     .toList();
         } else if (iList != null) {
             searchList = iList.stream()
                     .filter(iv ->
                             iv.getIv_company().contains(searchKeyword) ||
-                            iv.getIv_priceSum().contains(searchKeyword) ||
-                            iv.getIv_count().contains(searchKeyword) ||
-                            iv.getIv_current().contains(searchKeyword) ||
-                            iv.getIv_name().contains(searchKeyword) ||
-                            iv.getIv_price().contains(searchKeyword) ||
-                            iv.getIv_total().contains(searchKeyword) ||
-                            iv.getIv_vat().contains(searchKeyword))
+                                    iv.getIv_priceSum().contains(searchKeyword) ||
+                                    iv.getIv_count().contains(searchKeyword) ||
+                                    iv.getIv_current().contains(searchKeyword) ||
+                                    iv.getIv_name().contains(searchKeyword) ||
+                                    iv.getIv_price().contains(searchKeyword) ||
+                                    iv.getIv_total().contains(searchKeyword) ||
+                                    iv.getIv_vat().contains(searchKeyword))
                     .toList();
         } else {
             log.info("[재고 검색] 서비스 에러");
@@ -250,7 +211,9 @@ public class InvenService {
         }
         return iList.subList(fromIdx, toIdx);
     }
+
     boolean flag2 = true;
+
     public List<InvenDto> getInvenAddListSort(String id, Integer pageNum, Integer pageSize) {
         String param = "";
         String sort = "";
@@ -300,7 +263,9 @@ public class InvenService {
 
     }
 
-    public List<FoodItemDto> emptyFoodItem() { return iDao.emptyFoodItem(); }
+    public List<FoodItemDto> emptyFoodItem() {
+        return iDao.emptyFoodItem();
+    }
 
     public List<?> getFoodItemList(Integer pageNum, Integer pageSize) {
         List<FoodItemDto> fList = iDao.getDeleteFooditemList();

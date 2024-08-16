@@ -56,14 +56,6 @@
         GROUP BY c.c_num, c.c_num2, c.c_name, f.f_title
         order by ${param} ${sort}
     </select>
-    <insert id="insertToDeleteBox">
-        insert into deleteBox (d_fcnum, d_fcnum2, d_ftitle, d_fcontents, d_fprice, d_fcount, d_fdate, d_fedate,
-                               d_fviews, d_fvolume, d_forigin, d_fcal, d_fsave, d_ipath, d_sysname, d_oriname,
-                               d_mid, d_fnum, d_fileSize, d_regDate)
-        values (#{fcnum}, #{fcnum2}, #{ftitle}, #{fcontents}, #{fprice}, #{fcount}], #{fdate}, #{fedate},
-                #{fviews}, #{fvolume}, #{forigin}, #{fcal}, #{fsave}, #{ipath}, #{sysname}, #{oriname},
-                #{mid}, #{fnum}, #{fileSize}, #{regDate})
-    </insert>
     <insert id="insertInvenAdd">
         INSERT INTO invenAdd (iv_company, iv_name, iv_count, iv_price, iv_vat, iv_total, iv_current)
         VALUES (#{company}, #{name}, #{count}, #{price} * 0.9, #{price} * 0.1, #{price} * #{count}, default)
@@ -189,4 +181,8 @@
                f_save
         from fooditem where status = 0
     </select>
+    <update id="updateFoodItem">
+        update fooditem set status = 0
+        where f_code = #{code} and c_num = #{bigCgNum}
+    </update>
 </mapper>

@@ -29,8 +29,8 @@ public class DeliveryController {
     @Secured("ROLE_ADMIN")
     @GetMapping("/delivery")
     public String delivery(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         // 일간 배송 관련
         int dayDelivery = dDao.getTodayOrderDelivery();
         int dayOrder = dDao.getTodayOrderCount();
@@ -40,16 +40,11 @@ public class DeliveryController {
         model.addAttribute("todayDelivering", dayDelivering);
         int dayOrderCount = dDao.getOrderCount();
         double percentage = 0;
-        log.info("{}",dayDelivery);
-        log.info("{}",dayOrderCount);
         int getTotal = dDao.getTotalOrder();
-        if (dayOrder > 0) {
-            percentage = ((double) getTotal / dayOrderCount) * 100;
-        }
-        log.info("{}",percentage);
+        percentage = ((double) getTotal / dayOrderCount) * 100;
         DecimalFormat df = new DecimalFormat("0.0");
         log.info("퍼센트 비율 : {}", percentage);
-        model.addAttribute("todayPercentage",df.format(percentage));
+        model.addAttribute("todayPercentage", df.format(percentage));
 
         // 주간 배송 관련 ㅇㅇ
         int weekOrder = dDao.getWeekOrderCount(); // 준비중

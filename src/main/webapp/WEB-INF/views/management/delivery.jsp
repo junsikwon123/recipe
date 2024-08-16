@@ -27,13 +27,13 @@
             background-color: #4e73df;
             color: white;
         }
-        .progressBar {
+        #progressBar {
             width: 100%;
             background-color: #f3f3f3;
             border-radius: 20px;
             overflow: hidden;
         }
-        .progressBar div {
+        #progressBar div {
             height: 30px;
             width: 0;
             background-color: #4caf50;
@@ -151,7 +151,7 @@
     }
     function startProgress() {
         alert('진행률 운동 갱신!')
-        let progress = document.getElementsByClassName("progress");
+        let progress = document.getElementById("progress");
         let width = 0;
         let interval = setInterval(function () {
             if (width >= 100) {
@@ -664,8 +664,8 @@
                                                     <th colspan="1">${i.count}</th>
                                                     <th colspan="3">${item.o_date}</th>
                                                     <th colspan="3">${item.m_id}</th>
-                                                    <th colspan="6"><div class="progressBar">
-                                                        <div class="progress"></div>
+                                                    <th colspan="6"><div id="progressBar">
+                                                        <div id="progress"></div>
                                                     </div></th>
                                                     <th colspan="2"><input class='ckBox' name='selectCk'
                                                                            type='checkbox'></th>
