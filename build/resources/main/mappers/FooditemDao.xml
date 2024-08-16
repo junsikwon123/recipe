@@ -87,13 +87,14 @@
         <result property="f_save" column="f_save"/>
         <result property="f_date" column="f_date"/>
         <result property="f_contents" column="f_contents"/>
+        <result property="f_count" column="f_count"/>
         <collection property="cList" javaType="java.util.ArrayList" resultMap="mapForFindAll"/>
         <collection property="iList" javaType="java.util.ArrayList" resultMap="mapImg"/>
     </resultMap>
     <select id="searchFoodDetail" resultMap="searchFoodDetailMap">
         select c1.c_name c1_name, f.f_volume, format(f.f_price,0) f_price, f.f_cal, f.f_save,
                i.i_path, i.i_sys_name, f.f_contents,f.f_title,f.f_date,
-               c1.c_num c1_num
+               c1.c_num c1_num, f.f_count
         from fooditem f
         left join img i
         on f.f_num = i.f_num

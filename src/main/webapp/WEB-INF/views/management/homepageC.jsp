@@ -39,6 +39,20 @@
             } else {
                 console.log("[삭제로직] 영역 재설정 요망")
             }
+            // switch (num.substring(0,1)) {
+            //     case "1":
+            //         break;
+            //     case "2":
+            //         let bigCgNum = document.querySelector('#selectedBigCgNum').value;
+            //         num = bigCgNum
+            //         break;
+            //     case "3":
+            //         break;
+            //     case "4":
+            //         break;
+            // }
+                    let bigCgNum = document.querySelector('#selectedBigCgNum').value;
+            console.log("현재 선택된 참조 코드: "+bigCgNum)
             console.log(num)
             console.log(cgName)
 
@@ -57,7 +71,8 @@
         }
         function makeBtn(cg, resp, grandParent, printInDiv) {
             console.log("버튼 만들기")
-            console.log(resp)
+            console.log(cg)
+            console.log(printInDiv)
             let i = 1; // div의 인덱스
             let j = 0; // 버튼의 인덱스
 
@@ -68,6 +83,7 @@
                 cgname='midCg';
             } else if (cg==='m') {
                 cgname='smCg'
+                printInDiv = $('#mDiv')
             }
             let str = "";
             for (const elem of resp) {
@@ -123,9 +139,9 @@
                 let cg = "";
                 let printInDiv;
                 let p = "";
-                console.log(item)
                 switch (item) {
                     case "big":
+                        console.log("대분류 추가")
                         cgName = bigCgName;
                         cgNum = cg1;
                         cg = 'b'
@@ -133,6 +149,7 @@
                         p = 'bDiv'
                         break;
                     case "mid":
+                        console.log("중분류 추가")
                         cgName = midCgName;
                         cgNum = bigCgNum;
                         cg = 'm'
@@ -140,6 +157,7 @@
                         p = 'mDiv'
                         break;
                     case "sm":
+                        console.log("소분류 추가")
                         cgName = smallCgName;
                         cgNum = midCgNum;
                         cg = 's'

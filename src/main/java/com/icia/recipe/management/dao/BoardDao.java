@@ -40,7 +40,7 @@ public interface BoardDao {
 
     List<FoodItemDto> getSortedFoodItemList(String param, String sort);
 
-    boolean addAllCg(String cgName, String cgNum);
+    boolean addBigCg(String cgName, String cgNum);
 
     boolean deleteFoodItemList(ArrayList deleteKey);
 
@@ -75,4 +75,6 @@ public interface BoardDao {
     boolean permanentDeleteFoodItem();
 
     List<FoodItemDto> deletedFoodItemList();
+
+    boolean getMidSmCg(String cgName, String cgNum);
 }

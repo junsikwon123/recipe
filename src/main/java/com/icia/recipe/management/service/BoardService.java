@@ -284,9 +284,14 @@ public class BoardService {
 
     public List<?> insertAllCg(String cgName, String cgNum) {
         log.info("[추가] 서비스 진입");
-        boolean result = bDao.addAllCg(cgName, cgNum);
-        log.info(cgName);
-        log.info(cgNum);
+        log.info("[추가할 이름] : {}", cgName);
+        log.info("[참조할 코드] : {}", cgNum);
+        boolean result;
+        if (cgNum.equals("fooditem")) {
+            result = bDao.addBigCg(cgName, cgNum);
+        } else {
+            result = bDao.getMidSmCg(cgName, cgNum);
+        }
         if (result) {
             switch (String.valueOf(cgNum.charAt(0))) {
                 case "1":
