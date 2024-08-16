@@ -222,7 +222,7 @@
                                     <a class="dropdown-item" href="chrome://history"><i
                                             class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i> 사용기록</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/member/logout">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> 로그아웃</a>
                                 </div>
                             </div>

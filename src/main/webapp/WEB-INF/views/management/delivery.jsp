@@ -27,13 +27,13 @@
             background-color: #4e73df;
             color: white;
         }
-        #progressBar {
+        .progressBar {
             width: 100%;
             background-color: #f3f3f3;
             border-radius: 20px;
             overflow: hidden;
         }
-        #progressBar div {
+        .progressBar div {
             height: 30px;
             width: 0;
             background-color: #4caf50;
@@ -151,7 +151,7 @@
     }
     function startProgress() {
         alert('진행률 운동 갱신!')
-        let progress = document.getElementById("progress");
+        let progress = document.getElementsByClassName("progress");
         let width = 0;
         let interval = setInterval(function () {
             if (width >= 100) {
@@ -398,7 +398,7 @@
                                     <a class="dropdown-item" href="#"><i
                                             class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i> 사용기록</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/member/logout">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> 로그아웃</a>
                                 </div>
                             </div>
@@ -414,8 +414,8 @@
                         class="fas fa-download fa-sm text-white-50"></i> 보고서 출력</a>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-xl-3 mb-4 draggable">
-                        <div class="card shadow border-start-primary py-2" style="height: 135px; width: 400px">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable" style="width: 24%; margin-left: 0.2%">
+                        <div class="card shadow border-start-primary py-2" style="height: 135px; width: 100%">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
@@ -445,8 +445,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4 draggable">
-                        <div class="card shadow border-start-success py-2" style="height: 135px; width: 400px">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable" style="width: 24%; margin-left: 0.2%">
+                        <div class="card shadow border-start-success py-2" style="height: 135px; width: 100%">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
@@ -476,8 +476,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4 draggable">
-                        <div class="card shadow border-start-info py-2" style="height: 135px; width: 400px">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable" style="width: 27%; margin-left: 0.2%">
+                        <div class="card shadow border-start-info py-2" style="height: 135px; width: 100%">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
@@ -507,8 +507,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4 draggable">
-                        <div class="card shadow border-start-warning py-2" style="height: 135px; width: 400px">
+                    <div class="col-md-6 col-xl-3 mb-4 draggable" style="width: 24%; margin-left: 0.2%;">
+                        <div class="card shadow border-start-warning py-2" style="height: 135px; width: 100%">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
@@ -664,8 +664,8 @@
                                                     <th colspan="1">${i.count}</th>
                                                     <th colspan="3">${item.o_date}</th>
                                                     <th colspan="3">${item.m_id}</th>
-                                                    <th colspan="6"><div id="progressBar">
-                                                        <div id="progress"></div>
+                                                    <th colspan="6"><div class="progressBar">
+                                                        <div class="progress"></div>
                                                     </div></th>
                                                     <th colspan="2"><input class='ckBox' name='selectCk'
                                                                            type='checkbox'></th>

@@ -356,7 +356,7 @@
                                     <a class="dropdown-item" href="chrome://history"><i
                                             class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i> 사용기록</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/member/logout">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> 로그아웃</a>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@
                 <div class="row">
                     <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-start-primary py-2">
-                            <div class="card-body">
+                            <div class="card-body" style="width: 300px; height: 100px">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>일간 매출</span>
@@ -389,7 +389,7 @@
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-start-success py-2">
-                            <div class="card-body">
+                            <div class="card-body" style="width: 300px; height: 100px">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>주간 매출</span>
@@ -403,7 +403,7 @@
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-start-info py-2">
-                            <div class="card-body">
+                            <div class="card-body" style="width: 300px; height: 100px">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>업무 진행률</span>
@@ -430,7 +430,7 @@
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-start-warning py-2">
-                            <div class="card-body">
+                            <div class="card-body" style="width: 300px; height: 100px">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col me-2">
                                         <div class="text-uppercase text-warning fw-bold text-xs mb-1">

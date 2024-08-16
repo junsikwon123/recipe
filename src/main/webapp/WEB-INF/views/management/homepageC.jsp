@@ -52,19 +52,21 @@
                 console.log("감히 날 삭제하겠다고?")
             })
         }
+        function confirm() {
+            console.log("온클릭 메소드 정상")
+        }
         function makeBtn(cg, resp, grandParent, printInDiv) {
             console.log("버튼 만들기")
             console.log(resp)
             let i = 1; // div의 인덱스
             let j = 0; // 버튼의 인덱스
+
             let k = 5
             let cgname = "";
             if (cg==='b') {
                 k=8
-                cgname='bigCg';
+                cgname='midCg';
             } else if (cg==='m') {
-                cgname='midCg'
-            } else if (cg==='s') {
                 cgname='smCg'
             }
             let str = "";
@@ -106,6 +108,7 @@
                     }
                 }
             }
+
 
             function categoryAdd(item) {
                 console.log("[추가] 함수 진입")
@@ -282,12 +285,10 @@
                                         class="dropdown-item" href="#"><i
                                         class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a
                                         class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a
-                                        class="dropdown-item" href="#"><i
-                                        class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    <a class="dropdown-item" href="/member/logout"><i
+                                            class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;로그아웃</a>
                                 </div>
                             </div>
                         </li>

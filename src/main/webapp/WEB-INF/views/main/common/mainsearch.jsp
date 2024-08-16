@@ -53,7 +53,7 @@
                 <c:choose>
                     <c:when test="${status.index == 0 and not empty mainSearchList[0]}">
                         <div style="width: 30%; text-align: center; margin: 0 auto 0">
-                            <h3 style="color: #77b347; text-align: center">< - - - - - 카테고리 - - - - - ></h3><br>
+                            <h3 style="color: #77b347; text-align: center">카테고리</h3><br>
                             <table class='table my-0' id='dataList'>
                                 <tr id='mInven'
                                     style='vertical-align: center;background-color: #77b347; color: white'>
@@ -78,7 +78,7 @@
                     </c:when>
                     <c:when test="${status.index == 1 and not empty mainSearchList[1]}">
                         <div style="width: 80%; text-align: center; margin-left: 10%">
-                            <h3 style="color: #77b347">< - - - - - 식자재 - - - - - ></h3><br>
+                            <h3 style="color: #77b347">식자재</h3><br>
                             <table class='table my-0'>
                                 <tr style='vertical-align: center; background-color: #77b347; color: white'>
                                     <td class='no-hover'>#</td>
@@ -122,7 +122,7 @@
                     </c:when>
                     <c:when test="${status.index == 2 and not empty mainSearchList[2]}">
                         <div style="width: 80%; text-align: center; margin-left: 10%">
-                            <h1 style="color: #77b347">< - - - - - 물물교환 작성자 - - - - - ></h1>
+                            <h1 style="color: #77b347">물물교환 작성자</h1>
                             <table class='table my-0'>
                                 <tr style='vertical-align: center; background-color: #77b347; color: white'>
                                     <th class="no-hover">#</th>
@@ -156,7 +156,7 @@
                     </c:when>
                     <c:when test="${status.index == 3 and not empty mainSearchList[3]}">
                         <div style="width: 50%; text-align: center; margin: 0 auto 0">
-                            <h1 style="color: #77b347">< - - - - - 교환 목록 - - - - - ></h1>
+                            <h1 style="color: #77b347">교환 목록</h1>
                             <table class='table my-0'>
                                 <tr style='vertical-align: center; background-color: #77b347; color: white'>
                                     <th class="no-hover">#</th>
