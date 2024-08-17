@@ -72,7 +72,7 @@ public interface BoardDao {
 
     List<FoodItemDto> getFoodItemList2();
 
-    boolean permanentDeleteFoodItem();
+    boolean permanentDeleteFoodItem(ArrayList deleteKey);
 
     List<FoodItemDto> deletedFoodItemList();
 

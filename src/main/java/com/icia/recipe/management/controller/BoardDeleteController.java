@@ -34,8 +34,8 @@ public class BoardDeleteController {
     }
     @Secured("ROLE_ADMIN")
     @GetMapping("/permanent/delete")
-    public List<FoodItemDto> perDelete() {
-        return bSer.permanentDelte();
+    public List<FoodItemDto> perDelete(@RequestParam("deleteKeySet") ArrayList deleteKey) {
+        return bSer.permanentDelte(deleteKey);
     }
 
 

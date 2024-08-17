@@ -60,6 +60,7 @@ public class DeliveryController {
         List<DeliveryDto> dList = dSer.getOrderList();
         List<DeliveryDto> aList = dSer.getOrderList2();
         model.addAttribute("orderList", dList);
+        model.addAttribute("orderList2", aList);
         model.addAttribute("deliveryList", aList);
         return "management/delivery";
     }

@@ -183,6 +183,9 @@
     </select>
     <update id="updateFoodItem">
         update fooditem set status = 0
-        where f_code = #{code} and c_num = #{bigCgNum}
+        where f_code IN
+        <foreach collection="list" item="deleteKey" open="(" close=")" separator=",">
+            #{deleteKey}
+        </foreach>
     </update>
 </mapper>

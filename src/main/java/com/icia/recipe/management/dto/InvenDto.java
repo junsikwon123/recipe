@@ -20,4 +20,5 @@ public class InvenDto {
     private String iv_total;
     private String iv_current;
     private String iv_priceSum;
+    private int iv_num;
 }

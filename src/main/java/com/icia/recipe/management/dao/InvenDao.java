@@ -39,5 +39,5 @@ public interface InvenDao {
 
     List<FoodItemDto> getDeleteFooditemList();
 
-    boolean updateFoodItem(String bigCgNum, String code, String cgName);
+    boolean updateFoodItem(ArrayList deleteKeySet);
 }

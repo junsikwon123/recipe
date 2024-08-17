@@ -23,33 +23,36 @@ import java.util.concurrent.TimeUnit;
 public class DeliveryRestController {
 
     @Autowired
-    DeliveryDao dDao;
+    private DeliveryService dSer;
 
     @Autowired
-    DeliveryService dSer;
+    private DeliveryDao dDao;
 
     @PostMapping("/order/delivery/start")
     @Secured("ROLE_ADMIN")
     public List<DeliveryDto> deliveryStart(@RequestParam("keySet") ArrayList keySet, Model model) {
         boolean result = dSer.deliveryStart(keySet);
         if (result) {
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            boolean update = dSer.deliveryEndUpdate(keySet);
-            if (update) {
-                return dDao.getOrderList();
-            } else {
-                log.info("[배송완료] 컨트롤러 에러");
-                return null;
-            }
+            return dDao.getOrderList();
         } else {
-            log.info("[배송시작] 컨트롤러 에러");
+            log.info("[배송완료] 컨트롤러 에러");
             return null;
         }
     }
+
+    @PostMapping("/order/auto/update")
+    @Secured("ROLE_ADMIN")
+    public List<DeliveryDto> deliveryAutoUpdate(@RequestParam("keySet") ArrayList keySet, Model model) {
+        boolean update = dSer.deliveryEndUpdate(keySet);
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return dDao.getOrderList();
+
+    }
+
     @PostMapping("/order/delivery/end")
     @Secured("ROLE_ADMIN")
     public List<DeliveryDto> deliveryEnd(@RequestParam("keySet") ArrayList keySet, Model model) {
@@ -61,3 +64,4 @@ public class DeliveryRestController {
         }
     }
 }
+

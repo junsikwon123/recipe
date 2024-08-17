@@ -64,9 +64,12 @@
         where c_name = #{name}
     </delete>
     <delete id="permanentDeleteFoodItem">
-        delete
-        from fooditem
+        update fooditem set status = 4
         where status = 0
+        and f_code IN
+        <foreach collection="list" item="deleteKey" open="(" close=")" separator=",">
+            #{deleteKey}
+        </foreach>
     </delete>
     <select id="deletedFoodItemList" resultType="com.icia.recipe.management.dto.FoodItemDto">
         select f_num,
@@ -84,10 +87,8 @@
         where status = 0
     </select>
     <update id="deleteFoodItemList">
-        UPDATE fooditem
-        SET status = 0
-        WHERE status = 1
-        AND f_num IN
+        delete from invenAdd
+        where iv_num IN
         <foreach collection="list" item="deleteKey" open="(" close=")" separator=",">
             #{deleteKey}
         </foreach>

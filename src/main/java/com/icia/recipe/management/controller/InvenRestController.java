@@ -62,6 +62,7 @@ public class InvenRestController {
     @Secured("ROLE_ADMIN")
     public List<?> invenSort(@RequestParam("id") String id, @RequestParam("pageNum") Integer pageNum,
                              @RequestParam("pageSize") Integer pageSize) {
+        log.info("인벤토리 솔트 : {}",String.valueOf(id.charAt(0)));
         switch (id.charAt(0)) {
             case 'f':
             case 'e':

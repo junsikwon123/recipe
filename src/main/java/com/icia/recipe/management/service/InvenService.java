@@ -64,6 +64,9 @@ public class InvenService {
                 case "fedate":
                     param = "oldest_edate";
                     break;
+                case "fcode":
+                    param = "f_code";
+                    break;
                 case "fcname":
                     param = "c_name";
                     break;
@@ -103,6 +106,11 @@ public class InvenService {
             }
         }
         List<FoodItemDto> iList = iDao.getSortedInvenList(param, sort);
+        for (FoodItemDto fi : iList) {
+            if (fi.getF_title().length() >= 6) {
+                fi.setF_title(fi.getF_title().substring(0, 5) + "...");
+            }
+        }
         int totalListCnt = iList.size();
         int fromIdx = (pageNum - 1) * pageSize;
         int toIdx = Math.min(fromIdx + pageSize, totalListCnt);
@@ -115,11 +123,7 @@ public class InvenService {
 
     @Transactional
     public List<?> deleteFromFooditem(ArrayList deleteKeySet, Integer pageNum, Integer pageSize) {
-        String bigCgNum = deleteKeySet.get(0).toString();
-        String code = deleteKeySet.get(1).toString();
-        String cgName = deleteKeySet.get(2).toString();
-        String title = deleteKeySet.get(3).toString();
-        boolean update = iDao.updateFoodItem(bigCgNum, code, cgName);
+        boolean update = iDao.updateFoodItem(deleteKeySet);
         if (update) {
             return getInvenList(pageNum, pageSize);
         } else {
@@ -267,7 +271,7 @@ public class InvenService {
         return iDao.emptyFoodItem();
     }
 
-    public List<?> getFoodItemList(Integer pageNum, Integer pageSize) {
+    public List<FoodItemDto> getFoodItemList(Integer pageNum, Integer pageSize) {
         List<FoodItemDto> fList = iDao.getDeleteFooditemList();
         int totalListCnt = fList.size();
         int fromIdx = (pageNum - 1) * pageSize;

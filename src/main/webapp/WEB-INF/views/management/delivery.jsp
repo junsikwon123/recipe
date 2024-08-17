@@ -27,13 +27,15 @@
             background-color: #4e73df;
             color: white;
         }
-        #progressBar {
+
+        .progressBar {
             width: 100%;
             background-color: #f3f3f3;
             border-radius: 20px;
             overflow: hidden;
         }
-        #progressBar div {
+
+        .progressBar div {
             height: 30px;
             width: 0;
             background-color: #4caf50;
@@ -142,6 +144,9 @@
             }
         })
     };
+    if ($('#tbody2') != null) {
+        startProgress()
+    }
 
     function allClickCk(selectAll) {
         const i = document.getElementsByName('selectCk')
@@ -149,32 +154,55 @@
             ck.checked = selectAll.checked;
         })
     }
+
     function startProgress() {
-        alert('진행률 운동 갱신!')
-        let progress = document.getElementById("progress");
+        let progress = document.querySelectorAll('.progress'); // 첫 번째 .progress 요소 선택
         let width = 0;
         let interval = setInterval(function () {
             if (width >= 100) {
                 clearInterval(interval); // 60초 후에 타이머 멈춤
             } else {
                 width += 100 / 60; // 60초 동안 100%로 채움
-                progress.style.width = width + '%';
-                progress.innerHTML = Math.round(width) + '%';
+                progress.style.width = width + '%'; // 스타일 설정
+                progress.innerHTML = Math.round(width) + '%'; // 텍스트 업데이트
             }
         }, 1000); // 1초마다 실행
     }
 
+
     function ckBoxDeliveryStart(elem) {
-        startProgress()
         console.log("배송시작 진입")
         $('#allClickCk').checked = false;
         let isChecked = document.querySelectorAll("th input[type='checkbox']:checked");
         let keySet = [];
+        let here2 = $('#tbody2');
+        let str2 = "";
+
         isChecked.forEach((item) => {
-            let selectTr = item.closest('tr')
-            let key = selectTr.getAttribute('data-num')
-            keySet.push(key)
-        })
+            let selectTr = item.closest('tr');
+            let key = selectTr.getAttribute('data-num');
+            keySet.push(key);
+
+            // let count = selectTr.querySelector('.count').textContent;
+            // let date = selectTr.querySelector('.date').textContent;
+            // let id = selectTr.querySelector('.id').textContent;
+            //
+            // str2 += "<tr data-num='" + key + "'>";
+            // str2 += "    <th colspan='1'>" + count + "</th>";
+            // str2 += "    <th colspan='3'>" + date + "</th>";
+            // str2 += "    <th colspan='3'>" + id + "</th>";
+            // str2 += "    <th colspan='6'>";
+            // str2 += "        <div class='progressBar'>";
+            // str2 += "            <div class='progress'></div>";
+            // str2 += "        </div>";
+            // str2 += "    </th>";
+            // str2 += "    <th colspan='2'>";
+            // str2 += "        <input class='ckBox' name='selectCk' type='checkbox'>";
+            // str2 += "    </th>";
+            // str2 += "</tr>";
+        });
+
+        // here2.append(str2);
         $.ajax({
             method: 'post',
             url: "/order/delivery/start",
@@ -220,6 +248,7 @@
                 console.log("리스트 셀렉터 에러 발생")
         }
     }
+
     function ckBoxDeliveryEnd(elem) {
         console.log("배송완료 진입")
         $('#allClickCk').checked = false;
@@ -620,12 +649,12 @@
                                             </tr>
                                             <tbody id="tbody">
                                             <c:forEach var="item" items="${orderList}" varStatus="i">
-                                                <tr data-num="${item.o_num}">
-                                                    <th colspan="1">${i.count}</th>
-                                                    <th colspan="3">${item.o_date}</th>
-                                                    <th colspan="3">${item.m_id}</th>
-                                                    <th colspan="3">${item.o_address}</th>
-                                                    <th colspan="3">${item.o_post}</th>
+                                                <tr class="data" data-num="${item.o_num}">
+                                                    <th class="count" colspan="1">${i.count}</th>
+                                                    <th class="date" colspan="3">${item.o_date}</th>
+                                                    <th class="id" colspan="3">${item.m_id}</th>
+                                                    <th class="address" colspan="3">${item.o_address}</th>
+                                                    <th class="post" colspan="3">${item.o_post}</th>
                                                     <th colspan="2"><input class='ckBox' name='selectCk'
                                                                            type='checkbox'></th>
                                                 </tr>
@@ -659,14 +688,16 @@
                                                 </th>
                                             </tr>
                                             <tbody id="tbody2">
-                                            <c:forEach var="item" items="${deliveryList}" varStatus="i">
-                                                <tr data-num="${item.o_num}">
-                                                    <th colspan="1">${i.count}</th>
-                                                    <th colspan="3">${item.o_date}</th>
-                                                    <th colspan="3">${item.m_id}</th>
-                                                    <th colspan="6"><div id="progressBar">
-                                                        <div id="progress"></div>
-                                                    </div></th>
+                                            <c:forEach var="item" items="${orderList2}" varStatus="i">
+                                                <tr class="data" data-num="${item.o_num}">
+                                                    <th class="count" colspan="1">${i.count}</th>
+                                                    <th class="date" colspan="3">${item.o_date}</th>
+                                                    <th class="id" colspan="3">${item.m_id}</th>
+                                                    <th class="address" colspan="6">
+                                                        <div class="progressBar">
+                                                            <div class="progress"></div>
+                                                        </div>
+                                                    </th>
                                                     <th colspan="2"><input class='ckBox' name='selectCk'
                                                                            type='checkbox'></th>
                                                 </tr>

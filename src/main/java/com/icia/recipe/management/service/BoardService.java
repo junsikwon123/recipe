@@ -31,6 +31,9 @@ public class BoardService {
     @Autowired
     private InvenDao iDao;
 
+    @Autowired
+    private InvenService iSer;
+
     public static final int PAGECOUNT = 2;
 
     // 식자재 대분류 값 가져오기
@@ -240,6 +243,9 @@ public class BoardService {
         for (FoodItemDto fi : fiList) {
             fi.setC_num(bDao.getFoodItemListNaming(fi.getC_num()));
             fi.setC_num2(bDao.getFoodItemListNaming2(fi.getC_num2()));
+            if (fi.getF_title().length() >=5) {
+                fi.setF_title(fi.getF_title().substring(0, 5) + "...");
+            }
         }
         int totalListCnt = fiList.size();
         Integer fromIdx = (pageNum - 1) * pageSize;
@@ -323,7 +329,7 @@ public class BoardService {
         log.info("[게시글 삭제] 서비스 진입");
         boolean result = bDao.deleteFoodItemList(deleteKey);
         if (result) {
-            return getFoodItemList(pageNum, pageSize);
+            return iDao.getInvenAddList();
         } else {
             log.info("[게시글 삭제] 에러 발생");
             return null;
@@ -427,10 +433,10 @@ public class BoardService {
         return cList;
     }
 
-    public List<FoodItemDto> permanentDelte() {
-        boolean result = bDao.permanentDeleteFoodItem();
+    public List<FoodItemDto> permanentDelte(ArrayList deleteKey) {
+        boolean result = bDao.permanentDeleteFoodItem(deleteKey);
         if (result) {
-            return bDao.deletedFoodItemList();
+            return iSer.getFoodItemList(1, 10);
         } else {
             log.info("[영구삭제] 서비스 에러");
             return null;
