@@ -12,6 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 </head>
 <body id="page-top">
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if ('${msg}' === 'zero') {
+            $("#ssibal").click()
+            setTimeout(() => {
+                $("#plusBtn").click()
+                $("#Inven-modal-name").val('${title}')
+            }, 200)
+        }
+    })
+</script>
 <!-- 게시글 등록 모달 -->
 <div class="modal fade" id="outerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -31,7 +42,8 @@
                                 <div class="file_input">
                                     <img id="preview" style="width: 300px; height: 300px; border: none"><br>
                                     <label>
-                                        <input type="file" id="attachment" name="attachment" onchange="selectFile(this);" multiple>
+                                        <input type="file" id="attachment" name="attachment"
+                                               onchange="selectFile(this);" multiple>
                                     </label>
 
                                 </div>
@@ -72,7 +84,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">발주</h5>
-                <button type="button" class="btn-close" id="orderModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="orderModalClose" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
             <div class="modal-body" id="orderModalInfo">
             </div>
@@ -102,14 +115,14 @@
                     <span> 홈페이지 관리</span></a></li>
                 <li class="nav-item"><a class="nav-link active" href="/inventory"><i class="far fa-user-circle"></i>
                     <span> 재고 관리</span></a></li>
-                    <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">재고량 확인</a></li>
-                    <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">발주하기</a></li>
-                    <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">유통기한 확인</a></li>
-                    <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">폐기함</a></li>
+                <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">재고량 확인</a></li>
+                <li><a id="ssibal"  class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">발주하기</a></li>
+                <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">유통기한 확인</a></li>
+                <li><a class="nav-sub-link" href="javascript:void(0)" onclick="IVselect(this)">폐기함</a></li>
                 <li class="nav-item"><a class="nav-link" href="/service"><i class="fas fa-user-circle"></i>
                     <span> 고객 센터</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">
-                        <span> 홈페이지로 </span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/">
+                    <span> 홈페이지로 </span></a></li>
             </ul>
             <div class="text-center d-none d-md-inline">
                 <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
@@ -123,28 +136,28 @@
                 <div class="container-fluid">
                     <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
                             class="fas fa-bars"></i></button>
-                        <div class="input-group" style="width: 500px;">
-                            <input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)">
-                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
-                        </div>
+                    <div class="input-group" style="width: 500px;">
+                        <input class="bg-light form-control border-0 small" type="text"
+                               placeholder="검색어를 입력하세요" onkeypress="commonSearch(this.value, event)">
+                        <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                    </div>
                     <ul class="navbar-nav flex-nowrap ms-auto">
 
                         <%--                        우측 상단 헤더 알림--%>
-                            <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow">
-                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
-                                       href="#">
-                                        <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
-                                        <i class="fas fa-bell fa-fw"></i></a>
-                                    <div id="managementAlert"
-                                         class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">알림</h6>
-                                        <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
-                                        <%--                                        모든 알림 보기</a>--%>
-                                    </div>
+                        <li id="noticelist" class="nav-item dropdown no-arrow mx-1">
+                            <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown"
+                                   href="#">
+                                    <span id="span-notice-count" class="badge bg-danger badge-counter"></span>
+                                    <i class="fas fa-bell fa-fw"></i></a>
+                                <div id="managementAlert"
+                                     class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">알림</h6>
+                                    <%--                                    <a class="dropdown-item text-center small text-gray-500" href="#">--%>
+                                    <%--                                        모든 알림 보기</a>--%>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                         <%--                        우측 상단 메세지 리스트--%>
                         <li id="messagelist" class="nav-item dropdown no-arrow mx-1">
                             <div class="nav-item dropdown no-arrow">
@@ -248,20 +261,22 @@
 
                                 <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                                     <label class="form-label">Show&nbsp;
-                                    <select class="d-inline-block form-select form-select-sm" onchange="savePageSize(this.value)">
-                                        <option value="10" selected="">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                    &nbsp</label>
+                                        <select class="d-inline-block form-select form-select-sm"
+                                                onchange="savePageSize(this.value)">
+                                            <option value="10" selected="">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        &nbsp</label>
                                     <input type="hidden" id="pageSizeSaveFile" style="display: none">
-                                    </div>
+                                </div>
 
                             </div>
 
                             <div class="col-md-6" style="">
                                 <div class="text-md-end dataTables_filter" id="dataTable_filter">
-                                    <button type="button" id="detailModal" class="btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" id="detailModal" class="btn btn-primary"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#detailsModal" style="display: none"></button>
                                     <label class="form-label">
                                         <input type="search" id="pageInSearchForm" class="form-control form-control-sm"
@@ -291,7 +306,7 @@
                                     <span id="startIdx"></span>
                                     to <span id="endIdx"></span>
                                     of List
-<%--                                    <span id="totalCnt"></span></p> 전체 글의 갯수. 근데 페이징하고 나서 어떻게 해야될지 모르겠다--%>
+                                    <%--                                    <span id="totalCnt"></span></p> 전체 글의 갯수. 근데 페이징하고 나서 어떻게 해야될지 모르겠다--%>
                             </div>
                             <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
@@ -302,9 +317,12 @@
                                         <li class="page-item disabled"><a class="page-link" aria-label="Previous"
                                                                           href="#"><span aria-hidden="true">«</span></a>
                                         </li>
-                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">1</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">2</a></li>
-                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)" href="javascript:void(0)">3</a></li>
+                                        <li class="page-item active"><a class="page-link" onclick="pageNumChange(this)"
+                                                                        href="javascript:void(0)">1</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)"
+                                                                 href="javascript:void(0)">2</a></li>
+                                        <li class="page-item"><a class="page-link" onclick="pageNumChange(this)"
+                                                                 href="javascript:void(0)">3</a></li>
                                         <li class="page-item"><a class="page-link" aria-label="Next" href="#">
                                             <span aria-hidden="true">»</span></a></li>
                                     </ul>

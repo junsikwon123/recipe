@@ -55,6 +55,9 @@
             on c.c_num = f.c_num
         where ca.m_id = #{name};
     </select>
+    <select id="selectCartCount" resultType="java.lang.String">
+        select count(*) from cart where m_id=#{m_id}
+    </select>
     <insert id="insertOrder" parameterType="com.icia.recipe.home.dto.InputListDto">
         insert into
             order1(o_num,m_id,o_total,o_date,o_name,o_address,o_phone,o_count,o_delivery,o_post)

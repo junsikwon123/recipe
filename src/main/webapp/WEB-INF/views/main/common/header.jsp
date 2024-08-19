@@ -61,6 +61,12 @@
             default:
                 document.getElementById('titleName1').classList.add("on")
         }
+        if("${cartCount}"!== null && "${cartCount}" !== ""){
+            const cartCount = document.getElementById("cartCnt")
+            cartCount.innerHTML = "${cartCount}";
+        }else{
+            cartCount.innerHTML = 0;
+        }
     })
     function saveTitleName(titleName) {
         console.log("현재 타이틀 이름은 ?")

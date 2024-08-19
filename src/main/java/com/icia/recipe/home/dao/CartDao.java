@@ -28,4 +28,6 @@ public interface CartDao {
     boolean insertOrder(InputListDto inputListDto);
 
     boolean updateFooditemCount(ItemListDto i);
+
+    String selectCartCount(String mId);
 }

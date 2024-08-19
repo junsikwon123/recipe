@@ -36,47 +36,52 @@ public class MgHomeController {
     @Secured("ROLE_ADMIN")
     @GetMapping("/main")
     public String Sales(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         // 일간 매출
         String dayProfit = mSer.getTodayProfitCount();
-        model.addAttribute("dayProfit",dayProfit);
+        model.addAttribute("dayProfit", dayProfit);
         // 주간 매출
         String weekProfit = mSer.getWeekProfitCount();
-        model.addAttribute("weekProfit",weekProfit);
+        model.addAttribute("weekProfit", weekProfit);
         // 월간 매출
         HashMap monthProfit = mSer.getMonthProfitCount();
         model.addAttribute("monthProfit", monthProfit);
         return "management/main";
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/inventory")
-    public String inven(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+    public String inven(HttpSession session, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         return "management/inventory";
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/service")
-    public String serviceCenter(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+    public String serviceCenter(HttpSession session, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         return "management/service";
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/homepageR")
-    public String homepageR(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+    public String homepageR(HttpSession session, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         return "management/homepageR";
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/homepageC")
-    public String homepageC(HttpSession session, Model model,@AuthenticationPrincipal UserDetails userDetails) {
-        String m_id=userDetails.getUsername();
-        model.addAttribute("m_id",m_id);
+    public String homepageC(HttpSession session, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String m_id = userDetails.getUsername();
+        model.addAttribute("m_id", m_id);
         return "management/homepageC";
     }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/homepageT")
     public String homepageT(HttpSession session, Model model) {
@@ -97,6 +102,12 @@ public class MgHomeController {
         return "management/search";
     }
 
+    @GetMapping("/inventory/alertOrder")
+    public String alertOrder(HttpSession session, Model model, @RequestParam("msg") String msg, @RequestParam("title") String title) {
+        model.addAttribute("msg", msg);
+        model.addAttribute("title", title);
+        return "management/inventory";
+    }
 
 
 }

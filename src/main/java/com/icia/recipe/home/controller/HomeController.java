@@ -26,12 +26,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(MemberDto mDto, HttpSession session, Model model, Principal principal, Authentication auth,
                         @AuthenticationPrincipal UserDetails userDetails) {
-        if(userDetails!=null) {
-            String m_id = userDetails.getUsername();
-            String m_name = mSer.findId(m_id);
-            session.setAttribute("m_name", m_name);
-            session.setAttribute("login", m_id);
-        }
+
         System.out.println("Principal:"+principal);
         if(session.getAttribute("msg")!=null) {
             model.addAttribute("msg", session.getAttribute("msg"));

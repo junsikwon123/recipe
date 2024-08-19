@@ -117,7 +117,7 @@ public class MemberService {
     public String getPaging(String id, SearchDto sDto){
         int totalNum = mDao.getorderCount(id);
         log.info("totalNum : {}", totalNum);
-        String listUrl = "/member/mypage?";
+        String listUrl = "javascript:paging(";
         Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),pageCount,listUrl);
         return paging.makeHtmlPaging();
     }
@@ -162,10 +162,11 @@ public class MemberService {
                     delivery = "배송 완료";
                     break;
             }
+            int count = Integer.parseInt(l.getO_count())-1;
             sb.append("<div class=\"planMeals box\" id=\"normal-item\">")
                     .append("<div class=\"box__list single\">")
                     .append("<strong class=\"title\">")
-                    .append("<a href=\"javascript:void(0)\" onclick=\"modalOpen("+l.getO_num()+")\">" + l.getFList().get(index).getF_title() +"...외"+  l.getO_count() + "개</a>")
+                    .append("<a href=\"javascript:void(0)\" onclick=\"modalOpen("+l.getO_num()+")\">" + l.getFList().get(index).getF_title() +"...외"+  count + "개</a>")
                     .append("</strong>")
                     .append("<div class=\"boxInner\">")
                     .append("<figure class=\"boxInner__thumb\">")

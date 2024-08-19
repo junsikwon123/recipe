@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -32,7 +33,7 @@ public class FooditemController {
         if (sDto.getStartIdx() == null)
             sDto.setStartIdx(0);
         sDto.setStartIdx((sDto.getPageNum()-1)*sDto.getListCnt());
-        String listUrl = "/fooditem/main?";
+        String listUrl = "javascript:paging(";
         String a ="salePriceAsc";
         String num = "no";
         String list = fSer.fooditemOrder(a,num,sDto);
@@ -72,4 +73,5 @@ public class FooditemController {
         model.addAttribute("list", fList);
         return "main/fooditem/ranking";
     }
+
 }

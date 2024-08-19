@@ -143,7 +143,7 @@ public class EchoHandler extends TextWebSocketHandler {
                     "<div id='socketAlert' class='alert alert-warning' role='alert'>" +
                     alertMessage.getF_title()+" 품절" +
                     "</div>" +
-                    "<button class='btn btn-outline-primary'>주문</button>" +
+                    "<button class='btn btn-outline-primary' onclick='inventoryGo(\""+alertMessage.getF_title()+"\")'>주문</button>" +
                     "<button class='btn btn-outline-danger'>닫기</button>" +
                     "</a>" +
                     "</div>");

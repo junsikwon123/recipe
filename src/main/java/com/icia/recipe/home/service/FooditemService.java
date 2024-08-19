@@ -229,6 +229,10 @@ public class FooditemService {
     }
 
     public String getPaging(String num, SearchDto sDto, String listUrl) {
+        log.info("여기가 아니야?{}",num);
+        if(num == null){
+            num ="no";
+        }
         int totalNum = fDao.getFooditemCount(num);
         log.info("totalNum : {}", totalNum);
         Paging paging = new Paging(totalNum, sDto.getPageNum(),sDto.getListCnt(),sDto.getListCnt(),listUrl);

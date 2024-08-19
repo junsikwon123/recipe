@@ -208,7 +208,7 @@
     <div style="margin-left: 30px; margin-top: 100px;">
         <c:forEach var="trades" items="${tDList}">
             <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <h4 style="margin-top: 15px">${m_name}님의 상품 : ${trades.t_item} <input style="width: 50px; text-align: center" value="${trades.t_itemcount}" type="number" max="${trades.t_itemcount}" min="1"> ${trades.t_unit}</h4>
+            <h4 style="margin-top: 15px">${m_name}님의 상품 : ${trades.t_item} <input class="itemcountVal" style="width: 50px; text-align: center" placeholder="${trades.t_itemcount}" type="number" max="${trades.t_itemcount}" min="1"> ${trades.t_unit}</h4>
             <h4>교환을 원하는 품목 : <input class="t_change" value="${trades.t_change}" style="width: 100px;text-align: center"> <input class="change_count" type="text" style="width: 50px; text-align: center" placeholder="수량">
                 <select class="change_unit">
                     <option value="kg">kg</option>
@@ -270,7 +270,11 @@
         let title = `${t_title}`;
         const regex = /t_item=([^,]+),\s*t_itemcount=([^,]+),\s*t_unit=([^,]+),\s*t_change=([^,]+)/g;
         const items = [];
-        const itemcounts=[];
+        const itemcount1=[];
+        const itemcounts=document.querySelectorAll(".itemcountVal")
+        itemcounts.forEach(el=>{
+            itemcount1.push(el.value)
+        })
         const units=[];
         const changes = document.querySelectorAll(".t_change");
         const changeCounts = document.querySelectorAll(".change_count");
@@ -283,7 +287,7 @@
         let match;
         while ((match = regex.exec(`${tDList}`)) !== null) {
             items.push(match[1].trim()); // match[1]은 t_item의 값을 포함
-            itemcounts.push(match[2].trim());
+            // itemcounts.push(match[2].trim());
             units.push(match[3].trim());
         }
         let length = items.length
@@ -294,7 +298,7 @@
                 alert("교환신청이 완료되었습니다.")
                 for (let i = 0; i < length; i++) {
                     let item = items[i]
-                    let itemcount = itemcounts[i]
+                    let itemcount = itemcount1[i]
                     console.log(itemcount)
                     let unit = units[i]
                     let change = t_change[i]

@@ -317,6 +317,9 @@
             modalBtn.click()
         }).fail(err=>{console.log(err)})
     }
+    function paging(num){
+        location.href = "/member/mypage?pageNum="+num;
+    }
 </script>
 </body>
 </html>

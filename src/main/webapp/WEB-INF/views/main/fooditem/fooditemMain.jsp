@@ -208,7 +208,6 @@
                 let [key, value] = part.split(':')
                 dataObj[key] = value;
             })
-
             console.log(dataObj);
             console.log(date);
             $.ajax({
@@ -258,7 +257,7 @@
             $("#productList").html(resp.list)
             $("#pageHtml").html(resp.pageHtml)
             updateURLParameter('pageNum', pageNum);
-
+            updateURLParameter("c_num",c_num);
         }).fail((err) => console.log(err))
     }
     function imgLink(c_num){
@@ -306,6 +305,26 @@
         var url = new URL(window.location.href);
         url.searchParams.set(param, value);
         window.history.pushState({}, '', url);
+    }
+    function  paging(pageNum){
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const urlCnum = urlParams.get("c_num")
+        let data = {
+            pageNum : pageNum,
+            c_num : urlCnum
+        }
+        $.ajax({
+            method: "get",
+            url: "/fooditem/paging",
+            data: data
+        }).done(resp =>{
+            console.log(resp)
+            $("#productList").html(resp.list)
+            $("#pageHtml").html(resp.pageHtml)
+            updateURLParameter('pageNum', pageNum);
+            updateURLParameter("c_num",urlCnum);
+        })
     }
 
 

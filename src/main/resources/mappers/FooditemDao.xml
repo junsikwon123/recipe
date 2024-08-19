@@ -107,8 +107,9 @@
     </select>
     <select id="getFooditemCount" resultType="java.lang.Integer">
         select count(*)from fooditem
-        <if test="num != no" >
-            where c_num = ${num}
+        where status = 1
+        <if test="num != 'no'">
+            and c_num = #{num};
         </if>
     </select>
 

@@ -51,7 +51,7 @@ public class Paging {
 				.append("<li class=\"page-item disabled\">");
 
 		if (start != 1) {
-			 sb.append("<a class=\"page-link\" href=\""+listUrl+"pageNum=" + (start -1)+"\" tabindex=\"-1\" aria-disabled=\"true\">이전</a>")
+			 sb.append("<a class=\"page-link\" href=\""+listUrl+ (start -1)+")"+"\" tabindex=\"-1\" aria-disabled=\"true\">이전</a>")
 					.append("</li>");
 		}
 		for (int i = start; i <= end; i++) {
@@ -61,7 +61,7 @@ public class Paging {
 				sb.append(i);
 				sb.append(" ] ");
 				sb.append("</a>");*/
-				sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+listUrl+"pageNum=" + i + "\">"+i+"</a></li>");
+				sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+listUrl+ i +")" + "\">"+i+"</a></li>");
 			/*} else { //현재 페이지인 경우 링크 해제
 				sb.append("<font style='color:red;'>");
 				sb.append(" [ ");
@@ -74,11 +74,11 @@ public class Paging {
 			/*sb.append("<a class='pno' href='"+listUrl+"pageNum=" + (end + 1) + "'>");
 			sb.append("[다음]");
 			sb.append("</a>");*/
-			 sb.append("<li class=\"page-item\">")
-					.append("<a class=\"page-link\" href=\""+listUrl+"pageNum=" + (end + 1)+"\">Next</a>")
+/*			 sb.append("<li class=\"page-item\">")
+					.append("<a class=\"page-link\" href=\""+listUrl+ (end -1)+")"+"\">Next</a>")
 					.append("</li>")
 					.append("</ul>")
-					.append("</nav>");
+					.append("</nav>");*/
 		}
 		return sb.toString();
 	}

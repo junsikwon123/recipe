@@ -148,7 +148,7 @@
     </div>
     <div style="margin-left: 400px; width: 1100px; margin-top: 100px">
         <h4 style="color: gray">건강은 밥상으로부터</h4>
-        <a href="#" style="color: black"><h2 id="bodyWasteTitle" style="font-weight: bold;">그리팅이 자신있게 추천드려요 <i
+        <a href="#" style="color: black"><h2 id="bodyWasteTitle" style="font-weight: bold;">푸드톡이 자신있게 추천드려요 <i
                 class="main__ico v2">SALE</i></h2></a>
         <div style="display: flex; flex-direction: row">
             <div id="rank1-in-glory" class="isHoverDiv" style="width: 500px; display: flex; flex-direction: column">

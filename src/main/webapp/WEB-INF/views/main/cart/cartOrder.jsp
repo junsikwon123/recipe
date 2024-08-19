@@ -493,7 +493,7 @@
         console.log("dk..",item)
         let value = price.replace(",", "");
         let itemName = item[0].innerHTML.replace("옵션 :","")
-        let dataItemCount = item.length-(item.length/2)
+        let dataItemCount = item.length/2
         console.log(itemName,dataItemCount)
         // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
         /*  let data = {
