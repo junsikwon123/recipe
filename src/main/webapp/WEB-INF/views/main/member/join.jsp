@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: larger; color: black">아이디</th>
-                    <th colspan="4"><input class="id" name="m_id" type="text" placeholder="  예) example@naver.com" title="아이디" style="height: 50px; width: 600px"></th>
+                    <th colspan="4"><input id="m_id" class="id" name="m_id" type="text" placeholder="  예) example@naver.com" title="아이디" style="height: 50px; width: 600px"></th>
                 </tr>
                 <tr>
                     <th></th>
@@ -117,6 +117,7 @@
             check1[0].innerHTML = nameRange.test(frm[0].value) ? "" : "한글 10자 이내, 영어 20자 이내로 입력해 주세요";
         }else if (index === 1) { // 아이디 입력
             check1[1].innerHTML = idRange.test(frm[1].value) ? "" : "이메일 형식으로 입력해 주세요";
+            check1[1].style.color='#858796'
         }else if(index===2) { //비밀번호 입력
             check1[2].innerHTML = pwRange.test(frm[2].value) ? "" : "영문 대소문자,숫자,특수문자를 조합하여 8자리이상 입력해 주세요"
         }else if(index===3){
@@ -136,9 +137,30 @@
                 return false;
             }
         }
+        for (let elem of check1) {
+            if(elem.innerHTML!==""){
+                alert("똑바로 입력해라")
+                return false;
+            }
+        }
         alert('서버로')
         return true;
     }
+    const checkId=document.getElementById("m_id")
+    checkId.addEventListener("blur",function (){
+        $.ajax({
+            method:'post',
+            url:'/member/checkId?m_id='+checkId.value,
+        }).done((resp)=>{
+            console.log(resp)
+            if(resp.length>0){
+                check1[1].innerHTML ="이미 사용중인 아이디 입니다.";
+                check1[1].style.color='red'
+            }
+        }).fail((err)=>{
+            console.log(err)
+        })
+    })
 </script>
 </body>
 </html>

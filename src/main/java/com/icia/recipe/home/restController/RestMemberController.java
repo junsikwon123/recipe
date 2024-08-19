@@ -102,4 +102,9 @@ public class RestMemberController {
         return mSer.selectOrderDetail(num);
     }
 
+    @PostMapping("/member/checkId")
+    public List<Member> checkId(@RequestParam("m_id") String m_id) {
+        return mSer.checkId(m_id);
+    }
+
 }

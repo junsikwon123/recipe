@@ -69,4 +69,6 @@ public interface MemberDao {
     boolean insertNotice(String title, String contents, String id);
 
     List<NoticeDto> getNoticeList();
+
+    List<Member> checkId(String m_id);
 }

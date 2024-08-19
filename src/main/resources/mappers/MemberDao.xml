@@ -115,4 +115,7 @@
     <select id="getNoticeList" resultType="com.icia.recipe.home.dto.NoticeDto">
         select * from notice
     </select>
+    <select id="checkId" resultType="com.icia.recipe.home.dto.Member">
+        select m_id from member where m_id=#{m_id}
+    </select>
 </mapper>

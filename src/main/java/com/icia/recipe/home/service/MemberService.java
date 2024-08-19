@@ -249,4 +249,9 @@ public class MemberService {
         }
         return nList;
     }
+
+    public List<Member> checkId(String m_id) {
+        log.info(">>>>>>>"+mDao.checkId(m_id));
+        return mDao.checkId(m_id);
+    }
 }
