@@ -1,3 +1,9 @@
+▶ 프로젝트 : 그리팅 [ https://www.greating.co.kr/careMain?gad_source=1&gclid=CjwKCAjwufq2BhAmEiwAnZqw8kneUbYpEXmNjgk4lyVmlpXaJVS4t1p5OQpPxSC4w8YW-C4abjfEaxoC3fIQAvD_BwE ]
+카피 및 변경
+▶ 개발기간 2024.07.01 ~ 2024.08.15
+▶ 참여인원 : 풀스택 및 DB 1명, 풀스택 1명, 백엔드 1명, 총 3명
+
+
 ## 기술 스택
 <table>
   <tr>
